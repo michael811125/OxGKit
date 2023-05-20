@@ -33,7 +33,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ### NoticeSystem (RedDotSystem)
 
-通知系統 (也稱紅點系統)，支援動態新增通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上持有其中有任一符合條件則顯示通知圖示 (紅點)。
+通知系統 (也稱紅點系統)，支援動態新增通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上其中持有任一符合條件則通知顯示圖示 (紅點)。
 - 將 NoticeItem prefab 拖曳至 UI 上，自行指定 ICON，再取得 NoticeItem 身上的組件進行條件註冊。
 - 當有數據狀態變更時，必須通知特定條件 ID 進行 Notify，將會透過條件 ID 進行查找持有的 NoticeItems，並且進行刷新顯示。
 
@@ -57,7 +57,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **如果沒有要使用 InputSystem，可以直接刪除整個 InputSystem。**
 
-※備註 : Right-Click Create/OxGKit/New Input System... (Template cs)
+※備註 : Right-Click Create/OxGKit/Input System... (Template cs)
 
 ---
 

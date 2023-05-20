@@ -1,7 +1,7 @@
 {
   "name": "com.michaelo.oxgkit.inputsystem",
   "displayName": "OxGkit",
-  "description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools)",
+  "description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
   "version": "0.0.1-preview",
   "unity": "2021.3",
   "license": "MIT",

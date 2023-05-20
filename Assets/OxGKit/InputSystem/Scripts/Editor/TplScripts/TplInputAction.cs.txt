@@ -1,0 +1,41 @@
+using System;
+using UnityEngine;
+using OxGKit.InputSystem;
+using UnityEngine.InputSystem;
+
+public class #SCRIPTNAME# : IInputAction
+{
+    /*
+	 * NOTE: You can implements input signals from Unity New Input System, also can implements from other plugins.
+	 *
+     * [Handle Input Action Example]
+     *  
+     * Inputs.IA.GetInputAction<TIInputActoin>().onAction += Somethings.Handler;
+     */
+
+    // public event Action<T> onAction;
+
+    public void OnInit()
+    {
+        /*
+         * Do Somethings OnInit
+         */
+    }
+
+    public void OnUpdate(float dt)
+    {
+        /*
+		 * Do Somethings OnUpdate
+         */
+    }
+	
+    public void RemoveAllListeners()
+    {
+        /*
+         * Do Remove All Listeners
+         */	
+    }
+	
+    // For Unity New Input System (CallbackContext)
+    // protected void OnAction(InputAction.CallbackContext context) {}
+}

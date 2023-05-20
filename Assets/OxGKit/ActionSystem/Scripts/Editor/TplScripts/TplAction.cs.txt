@@ -1,0 +1,60 @@
+﻿using OxGKit.ActionSystem;
+
+public class #SCRIPTNAME# : ActionBase
+{
+    #region Default Constructor
+    public #SCRIPTNAME#()
+    {
+        this.name = nameof(#SCRIPTNAME#);
+    }
+    
+    public #SCRIPTNAME#(int uid) : this()
+    {
+        this.uid = uid;
+    }
+    
+    public #SCRIPTNAME#(string name)
+    {
+        this.name = string.IsNullOrEmpty(name) ? nameof(#SCRIPTNAME#) : name;
+    }
+    
+    public #SCRIPTNAME#(string name, int uid) : this(name)
+    {
+        this.uid = uid;
+    }
+    #endregion
+
+    /**
+     * Declare your params
+     */
+
+    /// <summary>
+    /// [Factory Mode] You can create a static method to instance an action (depends on you or not)
+    /// </summary>
+    public static #SCRIPTNAME# Create#SCRIPTNAME#(/* Define something params */)
+    {
+        var action = new #SCRIPTNAME#();
+
+        /**
+         * Assign params...
+         */
+
+        return action;
+    }
+
+    protected override void OnStart()
+    {
+        // Set -1 is end by condition or duration time (-1 = have to MarkAsDone manually)
+        this.SetDuration(-1);
+
+        /**
+         * Example:
+         * Do Something by Condition (You can declare a method to define your program or just do in here)
+         * .
+         * .
+         * .
+         * And then if end run to MarkAsDone
+         * this._MarkAsDone();
+         */
+    }
+}

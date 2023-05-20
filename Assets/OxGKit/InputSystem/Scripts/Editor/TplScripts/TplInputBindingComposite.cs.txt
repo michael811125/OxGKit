@@ -1,0 +1,87 @@
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Layouts;
+using UnityEngine.InputSystem.Utilities;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+// Use InputBindingComposite<TValue> as a base class for a composite that returns
+// values of type TValue.
+// NOTE: It is possible to define a composite that returns different kinds of values
+//       but doing so requires deriving directly from InputBindingComposite.
+#if UNITY_EDITOR
+[InitializeOnLoad] // Automatically register in editor.
+#endif
+public class #SCRIPTNAME#Composite : InputBindingComposite<#SCRIPTNAME#Composite.#SCRIPTNAME#>
+{
+    public struct #SCRIPTNAME#
+    {
+	    // bool value example
+        public bool click;
+        // int value example
+        public int count;
+        // vector2 value example
+        public Vector2 position;
+        // float value example
+        public float twist;
+    }
+
+    // bool layout example
+    [InputControl(layout = "Button")]
+    public int click;
+
+    // int layout example
+    [InputControl(layout = "Integer")]
+    public int count;
+
+    // vector2 layout example
+    [InputControl(layout = "Vector2")]
+    public int position;
+    
+	// float layout example
+    [InputControl(layout = "Axis")]
+    public int twist;
+
+    // This method computes the resulting input value of the composite based
+    // on the input from its part bindings.
+    public override #SCRIPTNAME# ReadValue(ref InputBindingCompositeContext context)
+    {
+	    // bool read example
+        var click = context.ReadValueAsButton(this.click);
+        // int read example
+        var count = context.ReadValue<int>(this.count);
+		// vector2 read example
+        var position = context.ReadValue<Vector2, Vector2MagnitudeComparer>(this.position);
+		// float read example
+        var twist = context.ReadValue<float>(this.twist);
+
+        // do some processing and return value (example)
+        return new #SCRIPTNAME#
+        {
+            click = click,
+            count = count,
+            position = position,
+            twist = twist
+        };
+    }
+
+    static #SCRIPTNAME#Composite()
+    {
+        // Can give custom name or use default (type name with "Composite" clipped off).
+        // Same composite can be registered multiple times with different names to introduce
+        // aliases.
+        //
+        // NOTE: Registering from the static constructor using InitializeOnLoad and
+        //       RuntimeInitializeOnLoadMethod is only one way. You can register the
+        //       composite from wherever it works best for you. Note, however, that
+        //       the registration has to take place before the composite is first used
+        //       in a binding. Also, for the composite to show in the editor, it has
+        //       to be registered from code that runs in edit mode.
+        InputSystem.RegisterBindingComposite <#SCRIPTNAME#Composite>();
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init() { } // Trigger static constructor.
+}

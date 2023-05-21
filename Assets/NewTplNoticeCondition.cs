@@ -1,15 +1,15 @@
 using OxGKit.NoticeSystem;
 using UnityEngine;
 
-public class #SCRIPTNAME# : NoticeCondition
+public class NewTplNoticeCondition : NoticeCondition
 {
     #region Defualt
-    public static int id { get { return NoticeManager.GetConditionId<#SCRIPTNAME#>(); } }
+    public static int id { get { return NoticeManager.GetConditionId<NewTplNoticeCondition>(); } }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Register()
     {
-        NoticeManager.RegisterCondition<#SCRIPTNAME#>();
+        NoticeManager.RegisterCondition<NewTplNoticeCondition>();
     }
     #endregion
 

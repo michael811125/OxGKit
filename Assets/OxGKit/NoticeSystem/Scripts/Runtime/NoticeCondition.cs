@@ -14,6 +14,6 @@
             return this._id;
         }
 
-        public abstract bool ShowCondition(object data);
+        public abstract bool ShowCondition(object refData);
     }
 }

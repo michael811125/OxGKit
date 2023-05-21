@@ -13,11 +13,11 @@ public class CoinInWalletCond : NoticeCondition
     }
     #endregion
 
-    public override bool ShowCondition(object data)
+    public override bool ShowCondition(object refData)
     {
-        if (data != null)
+        if (refData != null)
         {
-            NoticeDemo.Wallet wallet = data as NoticeDemo.Wallet;
+            NoticeDemo.Wallet wallet = refData as NoticeDemo.Wallet;
 
             // balance > 0
             if (wallet.coin > 0) return true;

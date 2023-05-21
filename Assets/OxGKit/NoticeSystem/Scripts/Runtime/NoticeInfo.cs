@@ -3,12 +3,12 @@
     public struct NoticeInfo
     {
         public int conditionId;
-        public object refData;
+        public object data;
 
-        public NoticeInfo(int conditionId, object refData)
+        public NoticeInfo(int conditionId, object data)
         {
             this.conditionId = conditionId;
-            this.refData = refData;
+            this.data = data;
         }
     }
 }

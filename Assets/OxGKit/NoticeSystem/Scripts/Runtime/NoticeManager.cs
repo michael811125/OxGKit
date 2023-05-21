@@ -6,12 +6,14 @@ namespace OxGKit.NoticeSystem
     public static class NoticeManager
     {
         private static Dictionary<int, NoticeCondition> _dictNoticeConditions; // 針對 Cond Id 建立條件池緩存
-        private static Dictionary<int, List<NoticeItem>> _dictNoticeItems;     // 針對 Cond Id 註冊 NoticeItem 列表
+        private static Dictionary<int, ListSet<NoticeItem>> _dictNoticeItems;  // 針對 Cond Id 註冊 NoticeItem 列表
+        private static HashSet<int> _limiterConditionIds;                      // 緩存 Notify 限制唯一 Conod Id
 
         static NoticeManager()
         {
             _dictNoticeConditions = new Dictionary<int, NoticeCondition>();
-            _dictNoticeItems = new Dictionary<int, List<NoticeItem>>();
+            _dictNoticeItems = new Dictionary<int, ListSet<NoticeItem>>();
+            _limiterConditionIds = new HashSet<int>();
         }
 
         #region Public Methods
@@ -33,7 +35,6 @@ namespace OxGKit.NoticeSystem
 
             noticeCondition.SetId(hash);
             _dictNoticeConditions.Add(hash, noticeCondition);
-
             Debug.Log($"<color=#79ffe7>[{nameof(NoticeSystem)}] Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
         }
 
@@ -52,7 +53,7 @@ namespace OxGKit.NoticeSystem
         }
 
         /// <summary>
-        /// Notify by condition id, when ref data changes
+        /// Notify by condition id, when data changes
         /// </summary>
         /// <param name="conditionId"></param>
         public static void Notify(int conditionId)
@@ -63,8 +64,8 @@ namespace OxGKit.NoticeSystem
                 // 檢查是否有符合 condition id 的通知物件
                 if (_dictNoticeItems.ContainsKey(conditionId))
                 {
-                    List<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
-                    foreach (var noticeItem in noticeItems.ToArray())
+                    ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
+                    foreach (var noticeItem in noticeItems.GetList())
                     {
                         if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
                         {
@@ -77,7 +78,7 @@ namespace OxGKit.NoticeSystem
         }
 
         /// <summary>
-        /// Notify by condition id, when ref data changes
+        /// Notify by condition id, when data changes
         /// </summary>
         /// <param name="conditionIds"></param>
         public static void Notify(params int[] conditionIds)
@@ -87,20 +88,50 @@ namespace OxGKit.NoticeSystem
         }
         #endregion
 
+        #region Internal Methods
+        /// <summary>
+        /// Collect notify condition id
+        /// </summary>
+        /// <param name="conditionId"></param>
+        internal static void NotifyCollector(int conditionId)
+        {
+            if (!_limiterConditionIds.Contains(conditionId))
+            {
+                _limiterConditionIds.Add(conditionId);
+            }
+        }
+
+        /// <summary>
+        /// Notify all by condition id collector
+        /// </summary>
+        internal static void NotifyAll()
+        {
+            if (_limiterConditionIds.Count > 0)
+            {
+                foreach (int conditionId in _limiterConditionIds)
+                {
+                    Notify(conditionId);
+                }
+
+                // After notify all must clear limiter for next notify collection
+                _limiterConditionIds.Clear();
+            }
+        }
+
         /// <summary>
         /// Check notice condition
         /// </summary>
         /// <param name="conditionId"></param>
-        /// <param name="refData"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        internal static bool CheckCondition(int conditionId, object refData)
+        internal static bool CheckCondition(int conditionId, object data)
         {
             // 檢查是否有符合的 condition id 的條件池
             if (_dictNoticeConditions.ContainsKey(conditionId))
             {
                 // 進行條件過濾 (針對不同的數據進行判斷)
                 NoticeCondition noticeCondition = _dictNoticeConditions[conditionId];
-                return noticeCondition.ShowCondition(refData);
+                return noticeCondition.ShowCondition(data);
             }
             else Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
 
@@ -116,16 +147,26 @@ namespace OxGKit.NoticeSystem
         {
             if (_dictNoticeItems.ContainsKey(conditionId))
             {
-                // 有的話就直接新增
-                _dictNoticeItems[conditionId].Add(noticeItem);
+                // If condition id already has same noticeItem just assign directly (renew)
+                if (_dictNoticeItems[conditionId].Contains(noticeItem))
+                {
+                    _dictNoticeItems[conditionId].Assign(noticeItem);
+                    Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Renew Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                }
+                else
+                {
+                    // Add a noticeItem
+                    _dictNoticeItems[conditionId].Add(noticeItem);
+                    Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                }
             }
             else
             {
-                List<NoticeItem> noticeItems = new List<NoticeItem>() { noticeItem };
+                ListSet<NoticeItem> noticeItems = new ListSet<NoticeItem>();
+                noticeItems.Add(noticeItem);
                 _dictNoticeItems.Add(conditionId, noticeItems);
+                Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
             }
-
-            Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
         }
 
         /// <summary>
@@ -139,11 +180,11 @@ namespace OxGKit.NoticeSystem
                 if (_dictNoticeItems[conditionId].Contains(noticeItem))
                 {
                     _dictNoticeItems[conditionId].Remove(noticeItem);
+                    Debug.Log($"<color=#ff9b6f>[{nameof(NoticeSystem)}] Deregister Notice Item <color=#ff2cb4>{noticeItem.name}</color></color>");
                 }
             }
-
-            Debug.Log($"<color=#ff9b6f>[{nameof(NoticeSystem)}] Deregister Notice Item <color=#ff2cb4>{noticeItem.name}</color></color>");
         }
+        #endregion
     }
 
     internal static class GameObjectExtensions

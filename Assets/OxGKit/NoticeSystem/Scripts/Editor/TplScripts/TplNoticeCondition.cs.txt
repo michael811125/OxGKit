@@ -1,4 +1,4 @@
-using OxGKit.NoticeSystem;
+﻿using OxGKit.NoticeSystem;
 using UnityEngine;
 
 public class #SCRIPTNAME# : NoticeCondition
@@ -13,7 +13,7 @@ public class #SCRIPTNAME# : NoticeCondition
     }
     #endregion
 
-    public override bool ShowCondition(object refData)
+    public override bool ShowCondition(object data)
     {
         /*
          * Implement Notice Condition

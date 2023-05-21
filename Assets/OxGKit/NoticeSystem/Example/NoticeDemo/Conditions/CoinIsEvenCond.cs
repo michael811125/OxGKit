@@ -13,11 +13,11 @@ public class CoinIsEvenCond : NoticeCondition
     }
     #endregion
 
-    public override bool ShowCondition(object refData)
+    public override bool ShowCondition(object data)
     {
-        if (refData != null)
+        if (data != null)
         {
-            NoticeDemo.Wallet wallet = refData as NoticeDemo.Wallet;
+            NoticeDemo.Wallet wallet = data as NoticeDemo.Wallet;
 
             // deficit
             if (wallet.coin <= 0) return false;

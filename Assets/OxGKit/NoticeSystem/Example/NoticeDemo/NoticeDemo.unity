@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08780c606742a8148a32be34dc8c4eb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: {fileID: 1058774475}
+  coinTxt: {fileID: 1058774475}
   noticeItems:
   - {fileID: 351954322}
   - {fileID: 1769837221}
@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 1058774475}
   - component: {fileID: 1058774474}
   m_Layer: 5
-  m_Name: Coin
+  m_Name: CoinTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

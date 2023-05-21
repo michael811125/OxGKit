@@ -25,17 +25,20 @@ public class NoticeDemo : MonoBehaviour
         }
     }
 
-    public Text coin;
+    public Text coinTxt;
     public List<NoticeItem> noticeItems = new List<NoticeItem>();
 
+    // Reference type
     private Wallet _wallet;
+    // Value type
+    private int _coin;
 
     private void Awake()
     {
         this._wallet = new Wallet();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         this._InitNoticeItem();
     }
@@ -54,19 +57,23 @@ public class NoticeDemo : MonoBehaviour
         // Wallet Notice
         noticeItems[0].RegisterNotice
         (
-            new NoticeInfo(CoinInWalletCond.id, this._wallet),
+            // Value type data
+            new NoticeInfo(CoinInWalletCond.id, this._coin),
+            // Reference type data
             new NoticeInfo(CoinIsEvenCond.id, this._wallet)
         );
 
         // Wallet Condition One (coin > 0)
         noticeItems[1].RegisterNotice
         (
-            new NoticeInfo(CoinInWalletCond.id, this._wallet)
+            // Value type data
+            new NoticeInfo(CoinInWalletCond.id, this._coin)
         );
 
         // Wallet Condition Two (balance = even)
         noticeItems[2].RegisterNotice
         (
+            // Reference type data
             new NoticeInfo(CoinIsEvenCond.id, this._wallet)
         );
         #endregion
@@ -75,7 +82,7 @@ public class NoticeDemo : MonoBehaviour
     private void _UpdateCoin()
     {
         // Refresh coin display
-        if (this.coin != null) this.coin.text = $"${this._wallet.coin}";
+        if (this.coinTxt != null) this.coinTxt.text = $"${this._wallet.coin}";
     }
 
     public void ResetCoin()
@@ -83,12 +90,28 @@ public class NoticeDemo : MonoBehaviour
         // Reset Wallet 
         this._wallet.Reset();
 
+        #region Renew Value Type Data
+        // If use value type data must renew data
+        this._coin = 0;
+        // Wallet Notice
+        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
+
+        // Wallet Condition One (coin > 0)
+        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        #endregion
+
         // After change condition must notify to check condition and refresh notice display
         NoticeManager.Notify
         (
             CoinInWalletCond.id,
             CoinIsEvenCond.id
         );
+
+        // Also can call notify by noticeItem
+        //foreach (var noticeItem in this.noticeItems)
+        //{
+        //    noticeItem.Notify();
+        //}
     }
 
     public void IncreaseCoin()
@@ -96,12 +119,28 @@ public class NoticeDemo : MonoBehaviour
         // Increase Coin
         this._wallet.IncreaseCoin();
 
+        #region Renew Value Type Data
+        // If use value type data must renew data
+        this._coin++;
+        // Wallet Notice
+        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
+
+        // Wallet Condition One (coin > 0)
+        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        #endregion
+
         // After change condition must notify to check condition and refresh notice display
         NoticeManager.Notify
         (
             CoinInWalletCond.id,
             CoinIsEvenCond.id
         );
+
+        // Also can call notify by noticeItem
+        //foreach (var noticeItem in this.noticeItems)
+        //{
+        //    noticeItem.Notify();
+        //}
     }
 
     public void DecreaseCoin()
@@ -109,11 +148,27 @@ public class NoticeDemo : MonoBehaviour
         // Decrease Coin
         this._wallet.DecreaseCoin();
 
+        #region Renew Value Type Data
+        // If use value type data must renew data
+        this._coin--;
+        // Wallet Notice
+        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
+
+        // Wallet Condition One (coin > 0)
+        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        #endregion
+
         // After change condition must notify to check condition and refresh notice display
         NoticeManager.Notify
         (
             CoinInWalletCond.id,
             CoinIsEvenCond.id
         );
+
+        // Also can call notify by noticeItem
+        //foreach (var noticeItem in this.noticeItems)
+        //{
+        //    noticeItem.Notify();
+        //}
     }
 }

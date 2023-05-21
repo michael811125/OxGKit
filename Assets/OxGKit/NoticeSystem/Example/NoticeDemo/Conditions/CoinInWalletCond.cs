@@ -1,4 +1,5 @@
 ﻿using OxGKit.NoticeSystem;
+using System;
 using UnityEngine;
 
 public class CoinInWalletCond : NoticeCondition
@@ -13,14 +14,16 @@ public class CoinInWalletCond : NoticeCondition
     }
     #endregion
 
-    public override bool ShowCondition(object refData)
+    public override bool ShowCondition(object data)
     {
-        if (refData != null)
+        if (data != null)
         {
-            NoticeDemo.Wallet wallet = refData as NoticeDemo.Wallet;
+            //NoticeDemo.Wallet wallet = data as NoticeDemo.Wallet;
+            int coin = Convert.ToInt32(data);
 
             // balance > 0
-            if (wallet.coin > 0) return true;
+            //if (wallet.coin > 0) return true;
+            if (coin > 0) return true;
         }
 
         return false;

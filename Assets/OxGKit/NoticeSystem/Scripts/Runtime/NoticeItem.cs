@@ -1,52 +1,88 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 namespace OxGKit.NoticeSystem
 {
     public class NoticeItem : MonoBehaviour
     {
-        private HashSet<NoticeInfo> _dictNoticeInfos;
+        private NoticeInfo[] _noticeInfos;
 
-        public NoticeItem()
+        /// <summary>
+        /// When data changes must call notify to changes visible
+        /// </summary>
+        public void Notify()
         {
-            this._dictNoticeInfos = new HashSet<NoticeInfo>();
+            if (this._noticeInfos == null) return;
+
+            // Collect notify condition id and remove duplicates
+            for (int i = 0; i < this._noticeInfos.Length; i++)
+            {
+                NoticeManager.NotifyCollector(this._noticeInfos[i].conditionId);
+            }
+
+            // Notify all after collect 
+            NoticeManager.NotifyAll();
         }
 
         /// <summary>
-        /// Register Notice Infos (Auto Notify)
+        /// Renew data for value type
+        /// </summary>
+        /// <param name="conditionId"></param>
+        /// <param name="data"></param>
+        /// <param name="checkConditionAndVisible"></param>
+        public void RenewNotice(int conditionId, object data, bool checkConditionAndVisible = false)
+        {
+            bool isRenewed = false;
+            for (int i = 0; i < this._noticeInfos.Length; i++)
+            {
+                // Assign new noticeInfo by condition id
+                if (this._noticeInfos[i].conditionId == conditionId)
+                {
+                    this._noticeInfos[i].data = data;
+                    isRenewed = true;
+                    if (checkConditionAndVisible) this.CheckConditionAndVisible();
+                    break;
+                }
+            }
+
+            // If is not existing will auto register
+            if (!isRenewed) this.RegisterNotice(new NoticeInfo(conditionId, data));
+        }
+
+        /// <summary>
+        /// Register notice infos and auto check condition with visible (If register again will assign and renew)
         /// </summary>
         /// <param name="noticeInfos"></param>
         public void RegisterNotice(params NoticeInfo[] noticeInfos)
         {
-            foreach (var noticeInfo in noticeInfos)
+            if (noticeInfos == null) return;
+
+            // Assign noticeInfos directly (renew)
+            this._noticeInfos = noticeInfos;
+
+            for (int i = 0; i < this._noticeInfos.Length; i++)
             {
-                if (!this._dictNoticeInfos.Contains(noticeInfo))
-                {
-                    // 註冊持有條件訊息
-                    this._dictNoticeInfos.Add(noticeInfo);
-                    // 並且需要向 NoticeManager 註冊通知物件
-                    NoticeManager.RegisterNoticeItem(noticeInfo.conditionId, this);
-                }
+                // Register noticeItem by condition id
+                NoticeManager.RegisterNoticeItem(this._noticeInfos[i].conditionId, this);
             }
 
-            // 自動檢查條件是否顯示
+            // Auto check condition with visible
             this.CheckConditionAndVisible();
         }
 
         /// <summary>
-        /// Deregister Notice Infos
+        /// Deregister notice infos
         /// </summary>
         public void DeregisterNotice()
         {
             // 針對自身條件筆數進行註銷
-            foreach (var noticeInfo in this._dictNoticeInfos)
+            for (int i = 0; i < this._noticeInfos.Length; i++)
             {
                 // 註銷條件
-                NoticeManager.DeregisterNoticeItem(noticeInfo.conditionId, this);
+                NoticeManager.DeregisterNoticeItem(this._noticeInfos[i].conditionId, this);
             }
 
             // 全註銷後清除緩存
-            this._dictNoticeInfos.Clear();
+            this._noticeInfos = null;
 
             // 自動檢查條件是否顯示
             this.CheckConditionAndVisible();
@@ -57,20 +93,23 @@ namespace OxGKit.NoticeSystem
         /// </summary>
         internal void CheckConditionAndVisible()
         {
-            foreach (var noticeInfo in this._dictNoticeInfos)
+            if (this._noticeInfos != null)
             {
-                // 將 NoticeItem 的獨立數據交給 NoticeManager 進行條件判斷 (條件方法池)
-                bool active = NoticeManager.CheckCondition(noticeInfo.conditionId, noticeInfo.refData);
-
-                // 任一條件為激活狀態, 則開啟顯示
-                if (active)
+                for (int i = 0; i < this._noticeInfos.Length; i++)
                 {
-                    if (!this.gameObject.activeSelf)
+                    // 將 NoticeItem 的獨立數據交給 NoticeManager 進行條件判斷 (條件方法池)
+                    bool active = NoticeManager.CheckCondition(this._noticeInfos[i].conditionId, this._noticeInfos[i].data);
+
+                    // 任一條件為激活狀態, 則開啟顯示
+                    if (active)
                     {
-                        this.gameObject.SetActive(true);
-                        Debug.Log($"<color=#6dedff>[{nameof(NoticeSystem)}] <color=#94ff2c>(Match Condition)</color> Notify Notice Item <color=#94ff2c>{this.name}</color></color>");
+                        if (!this.gameObject.activeSelf)
+                        {
+                            this.gameObject.SetActive(true);
+                            Debug.Log($"<color=#6dedff>[{nameof(NoticeSystem)}] <color=#94ff2c>(Match Condition)</color> Notify Notice Item <color=#94ff2c>{this.name}</color></color>");
+                        }
+                        return;
                     }
-                    return;
                 }
             }
 
@@ -81,9 +120,7 @@ namespace OxGKit.NoticeSystem
         private void OnDestroy()
         {
             this.DeregisterNotice();
-
-            this._dictNoticeInfos.Clear();
-            this._dictNoticeInfos = null;
+            this._noticeInfos = null;
         }
     }
 }

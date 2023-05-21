@@ -1,24 +1,24 @@
 ﻿using OxGKit.ActionSystem;
 
-public class #SCRIPTNAME# : ActionBase
+public class NewTplAction : ActionBase
 {
     #region Default Constructor
-    public #SCRIPTNAME#()
+    public NewTplAction()
     {
-        this.name = nameof(#SCRIPTNAME#);
+        this.name = nameof(NewTplAction);
     }
     
-    public #SCRIPTNAME#(int uid) : this()
+    public NewTplAction(int uid) : this()
     {
         this.uid = uid;
     }
     
-    public #SCRIPTNAME#(string name)
+    public NewTplAction(string name)
     {
-        this.name = string.IsNullOrEmpty(name) ? nameof(#SCRIPTNAME#) : name;
+        this.name = string.IsNullOrEmpty(name) ? nameof(NewTplAction) : name;
     }
     
-    public #SCRIPTNAME#(string name, int uid) : this(name)
+    public NewTplAction(string name, int uid) : this(name)
     {
         this.uid = uid;
     }
@@ -31,9 +31,9 @@ public class #SCRIPTNAME# : ActionBase
     /// <summary>
     /// [Factory Mode] You can create a static method to instance an action (depends on you or not)
     /// </summary>
-    public static #SCRIPTNAME# Create#SCRIPTNAME#(/* Define params */)
+    public static NewTplAction CreateNewTplAction(/* Define params */)
     {
-        var action = new #SCRIPTNAME#();
+        var action = new NewTplAction();
 
         /**
          * Assign params...

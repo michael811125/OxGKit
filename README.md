@@ -62,7 +62,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 ### InputSystem (dependence Unity New Input System)
 
 輸入控制系統，支援 Unity New Input System，驅動區分為 Control Maps (Input Action Asset), Binding Composites, Input Actions，自行建立 Unity New Inpupt System 的控制表，並且提供使用於 Unity New Input System 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
-- 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 IInputAction。
+- 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 InputAction 介面。
 - 調用 Inputs API (using.OxGkit.InputSystem)
 
 *[參考 Example]*

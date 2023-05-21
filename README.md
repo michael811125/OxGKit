@@ -18,9 +18,16 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ### ActionSystem (dependence UniTask)
 
-序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，如果針對一些動畫需要進行拼湊處理，可以使用 ActionSystem 作為運行。
+序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
+- 透過 Right-Click Create/OxGKit/Action System/Template Action.cs 實作自定義 Action。
 
 *[參考 Example]*
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ActionSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
@@ -34,10 +41,17 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 ### NoticeSystem (RedDotSystem)
 
 通知系統 (也稱紅點系統)，支援動態新增通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上其中持有任一符合條件則通知顯示圖示 (紅點)。
+- 透過 Right-Click Create/OxGKit/Notice System/Template Notice Condition.cs 實作通知條件。
 - 將 NoticeItem prefab 拖曳至 UI 上，自行指定 ICON，再取得 NoticeItem 身上的組件進行條件註冊。
 - 當有數據狀態變更時，必須通知特定條件 ID 進行 Notify，將會透過條件 ID 進行查找持有的 NoticeItems，並且進行刷新顯示。
 
 *[參考 Example]*
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/NoticeSystem/Scripts to Package Manager |
 
 **如果沒有要使用 NoticeSystem，可以直接刪除整個 NoticeSystem。**
 
@@ -48,9 +62,16 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 ### InputSystem (dependence Unity New Input System)
 
 輸入控制系統，支援 Unity New Input System，驅動區分為 Control Maps (Input Action Asset), Binding Composites, Input Actions，自行建立 Unity New Inpupt System 的控制表，並且提供使用於 Unity New Input System 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
+- 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 IInputAction。
 - 調用 Inputs API (using.OxGkit.InputSystem)
 
 *[參考 Example]*
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InputSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
 - 使用 [Unity New Input System v1.5.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)

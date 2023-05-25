@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## [0.0.3-preview] - 2023-05-26
+- Added NoticeItem can deregister specific condition id.
+- Modified NoticeItem RenewNotice method params use NoticeInfo instead, also supports method chaining.
+- Extended Notify with NoticeItem (NoticeManager).
+- Optimized NoticeItem cache.
+
 ## [0.0.2-preview] - 2023-05-22
 - Added ListSet.
 - Added Notify for NoticeItem (can notify by notice item).

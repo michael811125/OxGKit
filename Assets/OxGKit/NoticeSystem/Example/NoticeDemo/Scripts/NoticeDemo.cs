@@ -35,12 +35,11 @@ public class NoticeDemo : MonoBehaviour
 
     private void Awake()
     {
+        // Reference Type
         this._wallet = new Wallet();
-    }
 
-    private void OnEnable()
-    {
-        this._InitNoticeItem();
+        // Register notice items (when register will auto notify)
+        this._NotifyAndRegisterNoticeItems();
     }
 
     private void Update()
@@ -48,33 +47,32 @@ public class NoticeDemo : MonoBehaviour
         this._UpdateCoin();
     }
 
-    private void _InitNoticeItem()
+    private void _NotifyAndRegisterNoticeItems()
     {
-        // Init Wallet
-        this._wallet.Reset();
+        // [If Invoke twice will renew data and notify again]
 
         #region Register NoticeItem Conditions
-        // Wallet Notice
+        // Wallet Notice (Including two conditions)
         noticeItems[0].RegisterNotice
         (
-            // Value type data
-            new NoticeInfo(CoinInWalletCond.id, this._coin),
-            // Reference type data
-            new NoticeInfo(CoinIsEvenCond.id, this._wallet)
+             // Value type data
+             new NoticeInfo(CoinInWalletCond.id, this._coin),
+             // Reference type data
+             new NoticeInfo(CoinIsEvenCond.id, this._wallet)
         );
 
         // Wallet Condition One (coin > 0)
         noticeItems[1].RegisterNotice
         (
-            // Value type data
-            new NoticeInfo(CoinInWalletCond.id, this._coin)
+             // Value type data
+             new NoticeInfo(CoinInWalletCond.id, this._coin)
         );
 
         // Wallet Condition Two (balance = even)
         noticeItems[2].RegisterNotice
         (
-            // Reference type data
-            new NoticeInfo(CoinIsEvenCond.id, this._wallet)
+             // Reference type data
+             new NoticeInfo(CoinIsEvenCond.id, this._wallet)
         );
         #endregion
     }
@@ -87,27 +85,37 @@ public class NoticeDemo : MonoBehaviour
 
     public void ResetCoin()
     {
-        // Reset Wallet 
+        // Reset Wallet (Reference Type)
         this._wallet.Reset();
 
         #region Renew Value Type Data
         // If use value type data must renew data
         this._coin = 0;
-        // Wallet Notice
-        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
 
-        // Wallet Condition One (coin > 0)
-        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
+        // [Note: If use Way 2 can don't need to do renew value type data]
+        //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
+        //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion
 
-        // After change condition must notify to check condition and refresh notice display
-        NoticeManager.Notify
-        (
-            CoinInWalletCond.id,
-            CoinIsEvenCond.id
-        );
+        // [After change condition must notify to check condition and refresh notice display]
+        // Efficiency => Way 1 > Way 2 > Way 3 > Way 4
+        // Convenient => Way 2 > Way 3 > Way 4 > Way 1
 
-        // Also can call notify by noticeItem
+        // Notify Way 1 (Use NoticeManager with condition ids to Notify)
+        //NoticeManager.Notify
+        //(
+        //    CoinInWalletCond.id,
+        //    CoinIsEvenCond.id
+        //);
+
+        // Notify Way 2 (Register with notify again)
+        this._NotifyAndRegisterNoticeItems();
+
+        // Notify Way 3 (Use NoticeManager with notice items to Notify)
+        //NoticeManager.Notify(this.noticeItems.ToArray());
+
+        // Notify Way 4 (Call notify by notice item directly)
         //foreach (var noticeItem in this.noticeItems)
         //{
         //    noticeItem.Notify();
@@ -116,27 +124,37 @@ public class NoticeDemo : MonoBehaviour
 
     public void IncreaseCoin()
     {
-        // Increase Coin
+        // Increase Coin (Reference Type)
         this._wallet.IncreaseCoin();
 
         #region Renew Value Type Data
         // If use value type data must renew data
         this._coin++;
-        // Wallet Notice
-        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
 
-        // Wallet Condition One (coin > 0)
-        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
+        // [Note: If use Way 2 can don't need to do renew value type data]
+        //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
+        //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion
 
-        // After change condition must notify to check condition and refresh notice display
-        NoticeManager.Notify
-        (
-            CoinInWalletCond.id,
-            CoinIsEvenCond.id
-        );
+        // [After change condition must notify to check condition and refresh notice display]
+        // Efficiency => Way 1 > Way 2 > Way 3 > Way 4
+        // Convenient => Way 2 > Way 3 > Way 4 > Way 1
 
-        // Also can call notify by noticeItem
+        // Notify Way 1 (Use NoticeManager with condition ids to Notify)
+        //NoticeManager.Notify
+        //(
+        //    CoinInWalletCond.id,
+        //    CoinIsEvenCond.id
+        //);
+
+        // Notify Way 2 (Register with notify again)
+        this._NotifyAndRegisterNoticeItems();
+
+        // Notify Way 3 (Use NoticeManager with notice items to Notify)
+        //NoticeManager.Notify(this.noticeItems.ToArray());
+
+        // Notify Way 4 (Call notify by notice item directly)
         //foreach (var noticeItem in this.noticeItems)
         //{
         //    noticeItem.Notify();
@@ -145,27 +163,37 @@ public class NoticeDemo : MonoBehaviour
 
     public void DecreaseCoin()
     {
-        // Decrease Coin
+        // Decrease Coin (Reference Type)
         this._wallet.DecreaseCoin();
 
         #region Renew Value Type Data
         // If use value type data must renew data
         this._coin--;
-        // Wallet Notice
-        noticeItems[0].RenewNotice(CoinInWalletCond.id, this._coin);
 
-        // Wallet Condition One (coin > 0)
-        noticeItems[1].RenewNotice(CoinInWalletCond.id, this._coin);
+        // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
+        // [Note: If use Way 2 can don't need to do renew value type data]
+        //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
+        //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion
 
-        // After change condition must notify to check condition and refresh notice display
-        NoticeManager.Notify
-        (
-            CoinInWalletCond.id,
-            CoinIsEvenCond.id
-        );
+        // [After change condition must notify to check condition and refresh notice display]
+        // Efficiency => Way 1 > Way 2 > Way 3 > Way 4
+        // Convenient => Way 2 > Way 3 > Way 4 > Way 1
 
-        // Also can call notify by noticeItem
+        // Notify Way 1 (Use NoticeManager with condition ids to Notify)
+        //NoticeManager.Notify
+        //(
+        //    CoinInWalletCond.id,
+        //    CoinIsEvenCond.id
+        //);
+
+        // Notify Way 2 (Register with notify again)
+        this._NotifyAndRegisterNoticeItems();
+
+        // Notify Way 3 (Use NoticeManager with notice items to Notify)
+        //NoticeManager.Notify(this.noticeItems.ToArray());
+
+        // Notify Way 4 (Call notify by notice item directly)
         //foreach (var noticeItem in this.noticeItems)
         //{
         //    noticeItem.Notify();

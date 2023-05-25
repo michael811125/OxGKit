@@ -53,38 +53,55 @@ namespace OxGKit.NoticeSystem
         }
 
         /// <summary>
-        /// Notify by condition id, when data changes
-        /// </summary>
-        /// <param name="conditionId"></param>
-        public static void Notify(int conditionId)
-        {
-            // 檢查是否有符合 condition id 的條件池
-            if (_dictNoticeConditions.ContainsKey(conditionId))
-            {
-                // 檢查是否有符合 condition id 的通知物件
-                if (_dictNoticeItems.ContainsKey(conditionId))
-                {
-                    ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
-                    foreach (var noticeItem in noticeItems.GetList())
-                    {
-                        if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
-                        {
-                            noticeItem.CheckConditionAndVisible();
-                        }
-                    }
-                }
-            }
-            else Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
-        }
-
-        /// <summary>
-        /// Notify by condition id, when data changes
+        /// Notify by condition ids, when data changes
         /// </summary>
         /// <param name="conditionIds"></param>
         public static void Notify(params int[] conditionIds)
         {
             if (conditionIds == null) return;
-            foreach (int id in conditionIds) Notify(id);
+
+            foreach (int conditionId in conditionIds)
+            {
+                // 檢查是否有符合 condition id 的條件池
+                if (_dictNoticeConditions.ContainsKey(conditionId))
+                {
+                    // 檢查是否有符合 condition id 的通知物件
+                    if (_dictNoticeItems.ContainsKey(conditionId))
+                    {
+                        ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
+                        foreach (var noticeItem in noticeItems.GetList())
+                        {
+                            if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
+                            {
+                                noticeItem.CheckConditionAndVisible();
+                            }
+                        }
+                    }
+                }
+                else Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+            }
+        }
+
+        /// <summary>
+        /// Notify by notie items, when data changes
+        /// </summary>
+        /// <param name="noticeItems"></param>
+        public static void Notify(params NoticeItem[] noticeItems)
+        {
+            if (noticeItems == null) return;
+
+            foreach (var noticeItem in noticeItems)
+            {
+                NoticeInfo[] noticeInfos = noticeItem.GetNoticeInfos();
+                // Collect notify condition id and remove duplicates
+                for (int i = 0; i < noticeInfos.Length; i++)
+                {
+                    NotifyCollector(noticeInfos[i].conditionId);
+                }
+            }
+
+            // Notify all after collect 
+            NotifyAll();
         }
         #endregion
 

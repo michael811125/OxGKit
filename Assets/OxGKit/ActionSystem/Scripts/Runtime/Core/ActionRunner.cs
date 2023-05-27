@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace OxGKit.ActionSystem
 {
@@ -40,7 +39,7 @@ namespace OxGKit.ActionSystem
 
                     action.RunUpdate(dt);
 
-                    if (action.IsDone()) this._listDoneActions.Add(action);
+                    if (action.IsAllDone()) this._listDoneActions.Add(action);
                 }
             }
 
@@ -127,7 +126,7 @@ namespace OxGKit.ActionSystem
             {
                 if (action.uid == uid)
                 {
-                    action.MarkAsAllDone();
+                    action.MarkAllDone();
                     this._queueRunningActions.Remove(action);
                     Logger.OnRemove(action.name, uid, this.name);
                     break;
@@ -138,7 +137,7 @@ namespace OxGKit.ActionSystem
             {
                 if (action.uid == uid)
                 {
-                    action.MarkAsAllDone();
+                    action.MarkAllDone();
                     this._queueQueuingActions.Remove(action);
                     Logger.OnRemove(action.name, uid, this.name);
                     break;

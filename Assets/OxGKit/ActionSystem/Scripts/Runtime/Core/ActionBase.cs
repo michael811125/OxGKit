@@ -39,7 +39,16 @@
         }
 
         protected virtual void OnStart() { }
+
+        /// <summary>
+        /// If action is done won't update
+        /// </summary>
+        /// <param name="dt"></param>
         protected virtual void OnUpdate(float dt) { }
+
+        /// <summary>
+        /// When call MarkAsDone will invoke
+        /// </summary>
         protected virtual void OnDone() { }
 
         public void RunUpdate(float dt)
@@ -49,7 +58,7 @@
             this._timeElapsed += dt;
 
             // If action is not keep run update
-            if (!this._isDone)
+            if (!this.IsDone())
             {
                 if (this.CheckAndReduceTime()) this.MarkAsDone();
                 else this.OnUpdate(dt);
@@ -61,9 +70,9 @@
                 this.UpdateSubActions(dt);
 
                 // If action is done, also sub actions are all done
-                if (this._isDone && this.IsSubActionAllDone())
+                if (this.IsDone() && this.IsSubActionAllDone())
                 {
-                    this.MarkAsAllDone();
+                    this.MarkAllDone();
                     this.ClearSubActions();
                 }
             }
@@ -74,24 +83,43 @@
             return this._isStarted;
         }
 
+        /// <summary>
+        /// Action is done
+        /// </summary>
+        /// <returns></returns>
         public bool IsDone()
+        {
+            return this._isDone;
+        }
+
+        /// <summary>
+        /// All actions are done flag (Including sub actions)
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAllDone()
         {
             return this._isAllDone;
         }
 
-        public void MarkAsAllDone()
+        /// <summary>
+        /// Mark all actions as done (Including sub actions)
+        /// </summary>
+        public void MarkAllDone()
         {
-            this.OnDone();
             this._isAllDone = true;
             this.MarkSubAllDone();
         }
 
-        protected void MarkAsDone()
+        /// <summary>
+        /// Mark action as done
+        /// </summary>
+        public void MarkAsDone()
         {
             if (this._isDone) return;
 
+            this.OnDone();
             this._isDone = true;
-            if (this.IsSubActionAllDone()) this.MarkAsAllDone();
+            if (this.IsSubActionAllDone()) this.MarkAllDone();
         }
 
         /// <summary>
@@ -160,7 +188,7 @@
         {
             foreach (var subAction in this._queueSubActions.ToArray())
             {
-                if (!subAction.IsDone()) subAction.MarkAsAllDone();
+                if (!subAction.IsAllDone()) subAction.MarkAllDone();
             }
         }
 
@@ -172,7 +200,7 @@
         {
             foreach (var subAction in this._queueSubActions.ToArray())
             {
-                if (!subAction.IsDone()) return false;
+                if (!subAction.IsAllDone()) return false;
             }
 
             return true;

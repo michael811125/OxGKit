@@ -54,7 +54,7 @@ namespace OxGKit.ActionSystem
             {
                 this._currentAction.RunUpdate(dt);
 
-                if (!this._currentAction.IsDone()) return;
+                if (!this._currentAction.IsAllDone()) return;
                 else this._currentAction = null;
             }
 
@@ -155,7 +155,7 @@ namespace OxGKit.ActionSystem
             if (this._currentAction != null && this._currentAction.uid == uid)
             {
                 string name = this._currentAction.name;
-                this._currentAction.MarkAsAllDone();
+                this._currentAction.MarkAllDone();
                 this._currentAction = null;
                 Logger.OnRemove(name, uid, this.name);
             }
@@ -166,7 +166,7 @@ namespace OxGKit.ActionSystem
                 {
                     if (action.uid == uid)
                     {
-                        action.MarkAsAllDone();
+                        action.MarkAllDone();
                         this._queuePendingActions.Remove(action);
                         Logger.OnRemove(action.name, uid, this.name);
                         break;
@@ -180,7 +180,7 @@ namespace OxGKit.ActionSystem
                 {
                     if (action.uid == uid)
                     {
-                        action.MarkAsAllDone();
+                        action.MarkAllDone();
                         this._queueQueuingActions.Remove(action);
                         Logger.OnRemove(action.name, uid, this.name);
                         break;

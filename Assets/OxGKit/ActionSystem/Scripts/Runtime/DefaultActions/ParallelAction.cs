@@ -43,7 +43,7 @@
         {
             this.UpdateParallelActions(dt);
 
-            if (this.IsAllDone())
+            if (this._IsAllDone())
             {
                 this.MarkAsDone();
                 this.ClearActions();
@@ -71,7 +71,7 @@
         {
             foreach (var action in this._queueRunningActions.ToArray())
             {
-                if (action.IsDone()) return;
+                if (action.IsAllDone()) return;
                 action.RunStart();
             }
         }
@@ -80,16 +80,16 @@
         {
             foreach (var action in this._queueRunningActions.ToArray())
             {
-                if (action.IsDone()) return;
+                if (action.IsAllDone()) return;
                 action.RunUpdate(dt);
             }
         }
 
-        protected bool IsAllDone()
+        private bool _IsAllDone()
         {
             foreach (var action in this._queueRunningActions.ToArray())
             {
-                if (!action.IsDone()) return false;
+                if (!action.IsAllDone()) return false;
             }
 
             return true;

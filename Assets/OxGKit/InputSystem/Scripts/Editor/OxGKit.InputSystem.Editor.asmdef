@@ -1,8 +1,8 @@
 {
-    "name": "NoticeSystem.Editor",
+    "name": "OxGKit.InputSystem.Editor",
     "rootNamespace": "",
     "references": [
-        "NoticeSystem.Runtime"
+        "OxGKit.InputSystem.Runtime"
     ],
     "includePlatforms": [
         "Editor"

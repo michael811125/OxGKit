@@ -1,12 +1,10 @@
 {
-    "name": "InputSystem.Editor",
+    "name": "OxGKit.ActionSystem.Runtime",
     "rootNamespace": "",
     "references": [
-        "InputSystem.Runtime"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -5,6 +5,13 @@
   "version": "0.0.2-preview",
   "unity": "2021.3",
   "license": "MIT",
+  "samples": [
+    {
+      "displayName": "ActionSystem Demo",
+      "description": "Sample to use ActionSystem",
+      "path": "Samples~/ActionDemo"
+    }
+  ],
   "dependencies": {},
   "author": {
     "name": "MichaelO"

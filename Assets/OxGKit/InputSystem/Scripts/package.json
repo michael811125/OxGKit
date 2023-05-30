@@ -5,7 +5,16 @@
   "version": "0.0.1-preview",
   "unity": "2021.3",
   "license": "MIT",
-  "dependencies": {},
+  "samples": [
+    {
+      "displayName": "InputSystem Demo",
+      "description": "Sample to use InputSystem",
+      "path": "Samples~/InputDemo"
+    }
+  ],
+  "dependencies": {
+	  "com.unity.inputsystem": "1.5.1"
+  },
   "author": {
     "name": "MichaelO"
   }

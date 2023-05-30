@@ -5,6 +5,18 @@
   "version": "0.0.3-preview",
   "unity": "2021.3",
   "license": "MIT",
+  "samples": [
+    {
+      "displayName": "NoticeItem Prefab",
+      "description": "",
+      "path": "Samples~/NoticeItem"
+    },
+    {
+      "displayName": "NoticeSystem Demo",
+      "description": "Sample to use NoticeSystem",
+      "path": "Samples~/NoticeDemo"
+    }
+  ],
   "dependencies": {},
   "author": {
     "name": "MichaelO"

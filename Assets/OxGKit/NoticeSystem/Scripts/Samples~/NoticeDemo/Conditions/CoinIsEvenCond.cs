@@ -1,16 +1,9 @@
 ﻿using OxGKit.NoticeSystem;
-using UnityEngine;
 
 public class CoinIsEvenCond : NoticeCondition
 {
     #region Defualt
     public static int id { get { return NoticeManager.GetConditionId<CoinIsEvenCond>(); } }
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register()
-    {
-        NoticeManager.RegisterCondition<CoinIsEvenCond>();
-    }
     #endregion
 
     public override bool ShowCondition(object data)

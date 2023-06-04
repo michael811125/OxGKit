@@ -1,9 +1,16 @@
 ﻿using OxGKit.NoticeSystem;
+using UnityEngine;
 
 public class #SCRIPTNAME# : NoticeCondition
 {
     #region Defualt
     public static int id { get { return NoticeManager.GetConditionId<#SCRIPTNAME#>(); } }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Register()
+    {
+        NoticeManager.RegisterCondition<#SCRIPTNAME#>();
+    }
     #endregion
 
     public override bool ShowCondition(object data)
@@ -11,7 +18,7 @@ public class #SCRIPTNAME# : NoticeCondition
         /*
          * Implement Notice Condition
          */
-
+		 
         return false;
     }
 }

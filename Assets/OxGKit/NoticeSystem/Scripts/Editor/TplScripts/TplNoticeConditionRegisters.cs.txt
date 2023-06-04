@@ -1,0 +1,16 @@
+﻿using OxGKit.NoticeSystem;
+
+public static class #SCRIPTNAME#
+{
+    static #SCRIPTNAME#()
+    {
+        /*
+         * Do Notice Registers
+         */
+    }
+
+    /// <summary>
+    /// Manually trigger static constructor
+    /// </summary>
+    public static void Init() { }
+}

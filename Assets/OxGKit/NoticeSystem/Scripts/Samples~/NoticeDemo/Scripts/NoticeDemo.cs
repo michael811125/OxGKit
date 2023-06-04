@@ -35,6 +35,9 @@ public class NoticeDemo : MonoBehaviour
 
     private void Awake()
     {
+        // Trigger static constructor to init first
+        NoticeConditionRegisters.Init();
+
         // Reference Type
         this._wallet = new Wallet();
 
@@ -44,7 +47,7 @@ public class NoticeDemo : MonoBehaviour
 
     private void Update()
     {
-        this._UpdateCoin();
+        this._RefreshCoinText();
     }
 
     private void _NotifyAndRegisterNoticeItems()
@@ -77,7 +80,7 @@ public class NoticeDemo : MonoBehaviour
         #endregion
     }
 
-    private void _UpdateCoin()
+    private void _RefreshCoinText()
     {
         // Refresh coin display
         if (this.coinTxt != null) this.coinTxt.text = $"${this._wallet.coin}";

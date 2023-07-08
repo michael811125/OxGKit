@@ -84,7 +84,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ---
 
-### TweenSystem (dependence DoTween Pro)
+### TweenSystem (dependence DoTween Pro, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
@@ -100,6 +100,9 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **第三方庫 (需自行購買安裝)**
 - 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
+
+**第三方庫 (需自行安裝)**
+- 使用 OxGKit.Utilities Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
 **如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 

@@ -104,6 +104,16 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 **第三方庫 (需自行安裝)**
 - 使用 OxGKit.Utilities Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
+### Create DoTween Assemblies
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_1.gif)
+
+### Reassign DOTween.Modules assembly GUID (Fix Error GUID)
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_2.png)
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_2.gif)
+
 **如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 
 ---

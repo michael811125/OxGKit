@@ -110,6 +110,19 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ### Reassign DOTween.Modules assembly GUID (Fix Error GUID)
 
+#### 手動修復 Fixed GUID
+
+如果遇到編譯失敗導致 Menuitem 尚未出現，可以直接使用 Notepad++ 開啟 Plugins/Demigiant/DoTween/Modules/DOTween.Modules.asmdef.meta，直接修改 GUID 為以下 Fixed GUID 即可。
+- 如果已經有其他 Assembly 引用原有 DoTween.Modules GUID，也要將原有 DoTween.Modules 的 GUID 取代成以下 Fixed GUID。
+
+**Fixed GUID**
+
+```
+fdf3e181e62e9d243a7fee5ce890ab71
+```
+
+#### 工具修復 Fixed GUID
+
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_2.png)
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_2.gif)

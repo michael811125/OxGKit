@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+    "com.domybest.mybox": "https://github.com/Deadcows/MyBox.git",
     "com.jeffjadulco.guidregenerator": "https://github.com/jeffjadulco/unity-guid-regenerator.git",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.ide.rider": "3.0.21",

@@ -84,6 +84,57 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ---
 
+### TweenSystem (dependence DoTween Pro)
+
+補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
+- Add Component/OxGKit/TweenSystem/DoTweenAnime
+- Add Component/OxGKit/TweenSystem/DoTweenAnimeEvent
+
+*[參考 Example]*
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystem/Scripts to Package Manager |
+
+**第三方庫 (需自行購買安裝)**
+- 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
+
+**如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
+
+---
+
+### Utilities
+
+各通用組件 (Essential)。
+- Utilities 
+  - Timer: DeltaTimer, RealTimer, DTUpdate, RTUpdate.
+  - Adapter: UISafeAreaAdapter.
+  - Pool: NodePool (GameObject Pool).
+  - ButtonPlus: Inherited by Unity Button. extend Long Click and Transition Scale.
+  - UMT: Unity Main Thread.
+  - Singleton: MonoSingleton (MonoBehaviour), NewSingleton (class).
+  - Requester: RequestAudio, RequestTexture2D, RequestSprite, RequestBytes, RequestText.
+  - Cacher: ARCCache<TKey, TValue>, LRUCache<TKey, TValue>, LRUKCache<TKey, TValue>.
+  - TextureAnimation.
+- Editor
+  - RectTransform: RectTransformAdjuster (Hotkey: Shift+R, R: RectTransform).
+  - MissingScriptsFinder.
+  - SymlinkUtility.
+
+*[參考 Example]*
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
+
+**如果沒有要使用 Utilities，可以直接刪除整個 Utilities。**
+
+---
+
 ### Unity 版本
 
 建議使用 Unity 2021.3.26f1(LTS) or higher 版本 - [Unity Download](https://unity3d.com/get-unity/download/archive)

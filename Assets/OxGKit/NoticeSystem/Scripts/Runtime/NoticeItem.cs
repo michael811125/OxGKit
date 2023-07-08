@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace OxGKit.NoticeSystem
 {
+    [DisallowMultipleComponent]
+    [AddComponentMenu("OxGkit/NoticeSystem/" + nameof(NoticeItem))]
     public class NoticeItem : MonoBehaviour
     {
         private Dictionary<int, NoticeInfo> _dictNoticeInfos = new Dictionary<int, NoticeInfo>();

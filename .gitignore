@@ -5,6 +5,8 @@
 /[Ee]xportBundles/
 /[Bb]undles/
 /[Ss]andbox/
+/Assets/Plugins/
+/Assets/Plugins.meta
 
 # =============== #
 # Unity generated #

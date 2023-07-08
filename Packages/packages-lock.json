@@ -7,6 +7,15 @@
       "dependencies": {},
       "hash": "50a67d8f419b6cea0398eff6c19cf0bbe11ed609"
     },
+    "com.domybest.mybox": {
+      "version": "https://github.com/Deadcows/MyBox.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "e250b932c64c9624f807ff2dad658da80dc09b8e"
+    },
     "com.jeffjadulco.guidregenerator": {
       "version": "https://github.com/jeffjadulco/unity-guid-regenerator.git",
       "depth": 0,

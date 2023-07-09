@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 
-namespace OxGKit.TweenSystem.Editor
+namespace OxGKit.TweenSystemFixer.Editor
 {
     public static class DoTweenAssemblyFixer
     {

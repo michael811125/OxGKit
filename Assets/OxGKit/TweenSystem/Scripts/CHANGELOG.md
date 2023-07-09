@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## [0.0.3-preview] - 2023-07-09
+- Added methods for DoTweenAnimeEvent, can dynamic add and remove DoTweenAnime.
+- Removed DoTweenAssemblyFixer use and install TweenSystemFixer instead.
+  - Extra install Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager
+
 ## [0.0.2-preview] - 2023-07-09
 - Added DoTweenAssemblyFixer to fix error GUID.
 

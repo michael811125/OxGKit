@@ -2,7 +2,7 @@
   "name": "com.michaelo.oxgkit.tweensystem",
   "displayName": "OxGkit.TweenSystem",
   "description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-  "version": "0.0.2-preview",
+  "version": "0.0.3-preview",
   "unity": "2021.3",
   "license": "MIT",
   "samples": [

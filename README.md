@@ -106,6 +106,10 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
 - Add Component/OxGKit/TweenSystem/DoTweenAnimeEvent
 
+**注意：建議先安裝 OxGKit.TweenSystemFixer，避免編譯失敗導致 Menuitem 無法顯示與啟用**
+
+- Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager
+
 *[參考 Example]*
 
 ### Installation
@@ -121,15 +125,31 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
 - 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
-### Create DoTween Assemblies
+### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID)
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_1.gif)
+
+**如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
+
+---
+
+### TweenSystemFixer (only for OxGkit.TweenSystem)
+
+用於修復 OxGKit.TweenSystem 查找 DOTween.Modules assembly GUID 失敗問題，主要是因為 DoTween Pro 插件每次生成的 Assembly GUID 都不一樣，所以需要固定設置 OxGKit.TweenSystem 原本引用的 GUID，才能正確引用到 DOTween.Modules 的庫。
+
+**僅用於修復 OxGKit.TweenSystem 已引用 DoTween.Modules 的固定 GUID**
+
+### Installation
+
+| Install vi git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager |
 
 ### Reassign DOTween.Modules assembly GUID (Fix Error GUID)
 
 #### 手動修復 Fixed GUID
 
-如果遇到編譯失敗導致 Menuitem 尚未出現，可以直接使用 Notepad++ 開啟 Plugins/Demigiant/DoTween/Modules/DOTween.Modules.asmdef.meta，直接修改 GUID 為以下 Fixed GUID 即可。
+如果未事先額外安裝 OxGKit.TweenSystemFixer 者，可以直接使用 Notepad++ 開啟 Plugins/Demigiant/DoTween/Modules/DOTween.Modules.asmdef.meta，直接修改 GUID 為以下 Fixed GUID 即可。
 - 如果已經有其他 Assembly 引用原有 DoTween.Modules GUID，也要將原有 DoTween.Modules 的 GUID 取代成以下 Fixed GUID。
 
 **Fixed GUID**
@@ -143,8 +163,6 @@ fdf3e181e62e9d243a7fee5ce890ab71
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_2.png)
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_2.gif)
-
-**如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 
 ---
 

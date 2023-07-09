@@ -1632,6 +1632,7 @@ namespace OxGKit.TweenSystem
         [SerializeField, ConditionalField(nameof(tSprColorOn))]
         private TweenSprColor _tSprColor = new TweenSprColor();
 
+        #region Editor
 #if UNITY_EDITOR
         [Header("Editor")]
         [SerializeField] private bool _isSyncBeginValue = false;
@@ -1792,6 +1793,7 @@ namespace OxGKit.TweenSystem
             }
         }
 #endif
+        #endregion
 
         private void Awake()
         {

@@ -20,6 +20,41 @@ namespace OxGKit.TweenSystem
 
         private bool _lastTrigger = false;
 
+        public void ResetTrigger()
+        {
+            this._lastTrigger = false;
+        }
+
+        public void SetPlayMode(PlayMode playMode)
+        {
+            this.playMode = playMode;
+        }
+
+        public DoTweenAnimeEvent AddDoTweenAnime(params DoTweenAnime[] doTweenAnimes)
+        {
+            if (doTweenAnimes != null && doTweenAnimes.Length > 0)
+            {
+                this.doTweenAnimes.AddRange(doTweenAnimes);
+            }
+
+            return this;
+        }
+
+        public void RemoveDoTweenAnime(DoTweenAnime doTweenAnime)
+        {
+            if (this.doTweenAnimes.Count == 0) return;
+
+            if (this.doTweenAnimes.Contains(doTweenAnime))
+            {
+                this.doTweenAnimes.Remove(doTweenAnime);
+            }
+        }
+
+        public void ClearDoTweenAnimes()
+        {
+            this.doTweenAnimes.Clear();
+        }
+
         public void PlayNormal()
         {
             this.PlayTweens(true, null);

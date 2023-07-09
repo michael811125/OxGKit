@@ -2508,7 +2508,6 @@ GameObject:
   - component: {fileID: 1149487504}
   - component: {fileID: 1149487503}
   - component: {fileID: 1149487502}
-  - component: {fileID: 1149487506}
   - component: {fileID: 1149487507}
   m_Layer: 0
   m_Name: Tween => Cube (Rotate Infinity)
@@ -2595,19 +2594,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
---- !u!114 &1149487506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1149487501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b7249e73cb91646a0650805c6f5211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tgls: []
 --- !u!114 &1149487507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3146,7 +3132,6 @@ GameObject:
   - component: {fileID: 1226374595}
   - component: {fileID: 1226374594}
   - component: {fileID: 1226374593}
-  - component: {fileID: 1226374592}
   - component: {fileID: 1226374591}
   m_Layer: 0
   m_Name: Tween => Cube (Rotate Clock)
@@ -3294,19 +3279,6 @@ MonoBehaviour:
     colorSeq:
       sequence: []
   _isSyncBeginValue: 0
---- !u!114 &1226374592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226374590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b7249e73cb91646a0650805c6f5211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tgls: []
 --- !u!65 &1226374593
 BoxCollider:
   m_ObjectHideFlags: 0

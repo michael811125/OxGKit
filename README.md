@@ -69,11 +69,19 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ---
 
-### InputSystem (dependence Unity New Input System)
+### InputSystem (dependence Unity New InputSystem)
 
-輸入控制系統，支援 Unity New Input System，驅動區分為 Control Maps (Input Action Asset), Binding Composites, Input Actions，自行建立 Unity New Inpupt System 的控制表，並且提供使用於 Unity New Input System 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
+輸入控制系統，支援 Unity New InputSystem，如果使用 Unity New InputSystem 需自行建立 Unity New InpuptSystem 的控制表 (Control Maps)，並且還有提供使用於 Unity New InputSystem 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
 - 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 InputAction 介面。
 - 調用 Inputs API (using.OxGkit.InputSystem)
+
+**主要層級驅動區分為以下**
+
+- For Unity New InputSystem
+  - Control Maps (Input Action Asset)
+  - Binding Composites
+- For Any Inputs
+  - Input Actions (此為獨立作為通用訊號派送者)
 
 *[參考 Example]*
 
@@ -84,7 +92,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InputSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
-- 使用 [Unity New Input System v1.5.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
+- 使用 [Unity New InputSystem v1.5.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
 
 **如果沒有要使用 InputSystem，可以直接刪除整個 InputSystem。**
 
@@ -92,7 +100,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ---
 
-### TweenSystem (dependence DoTween Pro, OxGKit.Utilities)
+### TweenSystem (dependence DoTween Pro, MyBox, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
@@ -110,7 +118,8 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
 
 **第三方庫 (需自行安裝)**
-- 使用 OxGKit.Utilities Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
+- 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
+- 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
 ### Create DoTween Assemblies
 

@@ -131,7 +131,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **TweenSystem Demo**
 
-https://github.com/michael811125/OxGKit/assets/30960759/08ddb00a-dd47-4b18-916f-955405d8a0e1
+https://github.com/michael811125/OxGKit/assets/30960759/6bf690b6-c4d0-40f6-b3c9-b50ab62562e8
 
 **如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 

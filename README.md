@@ -208,6 +208,14 @@ fdf3e181e62e9d243a7fee5ce890ab71
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
 
+**Utilities Demo (RectTransformAdjuster)**
+
+https://github.com/michael811125/OxGKit/assets/30960759/cd43fc8b-c6f7-4878-990b-99dcacb8ed1f
+
+**Utilities Demo (ButtonPlus)**
+
+https://github.com/michael811125/OxGKit/assets/30960759/ebeb57f8-6123-442f-ab45-ddae347cf354
+
 **如果沒有要使用 Utilities，可以直接刪除整個 Utilities。**
 
 ---

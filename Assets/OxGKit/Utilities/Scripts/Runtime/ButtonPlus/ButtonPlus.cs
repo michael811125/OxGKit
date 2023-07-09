@@ -44,7 +44,7 @@ namespace OxGKit.Utilities.Button
         [SerializeField, Tooltip("Long click mode")]
         public ExtdLongClick extdLongClick = ExtdLongClick.None;
         [Tooltip("Not affected by TimeScale")]
-        public bool ignoreTimeScale = false;
+        public bool ignoreTimeScale = true;
         [Tooltip("Long click trigger time")]
         public float triggerTime = 1f;
         [Tooltip("Long click interval time")]

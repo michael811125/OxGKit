@@ -7,8 +7,8 @@ namespace OxGKit.Utilities.Button.Editor
     [CustomEditor(typeof(ButtonPlus))]
     public class ButtonPlusEditor : ButtonEditor
     {
-        SerializedProperty _onLongClickPressedProperty;
-        SerializedProperty _onLongClickReleasedProperty;
+        private SerializedProperty _onLongClickPressedProperty;
+        private SerializedProperty _onLongClickReleasedProperty;
         private ButtonPlus _target = null;
 
         protected override void OnEnable()
@@ -36,6 +36,19 @@ namespace OxGKit.Utilities.Button.Editor
             if (this._target.extdLongClick != ButtonPlus.ExtdLongClick.None) this.ShowLongClickEvent(this._target, this._target.extdLongClick);
         }
 
+        protected void ShowIgnoreTimescale(ButtonPlus target)
+        {
+            EditorGUI.BeginChangeCheck();
+
+            target.ignoreTimeScale = EditorGUILayout.Toggle(new GUIContent("Ignore Time Scale", "Not affected by TimeScale"), target.ignoreTimeScale);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(target);
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+
         protected void ShowExtdLongClick(ButtonPlus target, ButtonPlus.ExtdLongClick option)
         {
             EditorGUI.BeginChangeCheck();
@@ -50,17 +63,23 @@ namespace OxGKit.Utilities.Button.Editor
 
                 case ButtonPlus.ExtdLongClick.Once:
                     EditorGUI.indentLevel++;
+                    // draw IgnoreTimescale
+                    this.ShowIgnoreTimescale(target);
                     target.triggerTime = EditorGUILayout.FloatField(new GUIContent("Trigger Time", "Set long click time to invoke event"), target.triggerTime);
                     EditorGUI.indentLevel--;
                     break;
                 case ButtonPlus.ExtdLongClick.Continuous:
                     EditorGUI.indentLevel++;
+                    // draw IgnoreTimescale
+                    this.ShowIgnoreTimescale(target);
                     target.triggerTime = EditorGUILayout.FloatField(new GUIContent("Trigger Time", "Set long click time to invoke event"), target.triggerTime);
                     target.intervalTime = EditorGUILayout.FloatField(new GUIContent("Interval Time", "Set hold continuous interval time"), target.intervalTime);
                     EditorGUI.indentLevel--;
                     break;
                 case ButtonPlus.ExtdLongClick.PressedAndReleased:
                     EditorGUI.indentLevel++;
+                    // draw IgnoreTimescale
+                    this.ShowIgnoreTimescale(target);
                     target.triggerTime = EditorGUILayout.FloatField(new GUIContent("Trigger Time", "Set long click time to invoke event"), target.triggerTime);
                     EditorGUI.indentLevel--;
                     break;

@@ -586,7 +586,7 @@ MonoBehaviour:
     originSize: 1
     size: 0.95
   extdLongClick: 0
-  ignoreTimeScale: 0
+  ignoreTimeScale: 1
   triggerTime: 1
   intervalTime: 0.1
   _onLongClickPressed:
@@ -734,7 +734,7 @@ MonoBehaviour:
     originSize: 1
     size: 0.95
   extdLongClick: 2
-  ignoreTimeScale: 0
+  ignoreTimeScale: 1
   triggerTime: 1
   intervalTime: 0.3
   _onLongClickPressed:
@@ -894,7 +894,7 @@ MonoBehaviour:
     originSize: 1
     size: 0.95
   extdLongClick: 3
-  ignoreTimeScale: 0
+  ignoreTimeScale: 1
   triggerTime: 1
   intervalTime: 0.1
   _onLongClickPressed:
@@ -1066,7 +1066,7 @@ MonoBehaviour:
     originSize: 1
     size: 0.95
   extdLongClick: 1
-  ignoreTimeScale: 0
+  ignoreTimeScale: 1
   triggerTime: 1
   intervalTime: 0.3
   _onLongClickPressed:

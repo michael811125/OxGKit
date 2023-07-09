@@ -8,7 +8,15 @@
 
 ## 基本介紹
 
-OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨立工具)，目前包含序列系統 (Action System)、通知系統 (Notice System)、輸入控制系統 (Input System)。
+OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨立工具)。
+
+**目前包含以下**
+
+- 動作序列系統 (Action System)
+- 通知系統 (Notice System)
+- 輸入控制系統 (Input System)
+- DoTween Pro 的補間動畫系統 (TweenSystem)
+- 各通用必備組件工具 (Utilities)。
 
 *[會持續擴充工具系統組]*
 
@@ -20,7 +28,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ### ActionSystem (dependence UniTask)
 
-序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
+動作序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
 - 透過 Right-Click Create/OxGKit/Action System/Template Action.cs 實作自定義 Action。
 
 *[參考 Example]*

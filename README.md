@@ -35,7 +35,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ActionSystem/Scripts to Package Manager |
 
@@ -63,7 +63,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/NoticeSystem/Scripts to Package Manager |
 
@@ -89,13 +89,13 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
   - Control Maps (Input Action Asset)
   - Binding Composites
 - For Any Inputs
-  - Input Actions (此為獨立作為通用訊號派送者)
+  - Input Actions (此為獨立作為通用訊號派送者，不依賴任何輸入控制插件，皆可自由實現)
 
 *[參考 Example]*
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InputSystem/Scripts to Package Manager |
 
@@ -118,7 +118,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
 - Add Component/OxGKit/TweenSystem/DoTweenAnimeEvent
 
-**注意：建議先安裝 OxGKit.TweenSystemFixer，避免編譯失敗導致 Menuitem 無法顯示與啟用**
+**注意：建議先安裝 OxGKit.TweenSystemFixer，避免編譯失敗導致 MenuItem 無法顯示與啟用**
 
 - Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager
 
@@ -126,7 +126,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystem/Scripts to Package Manager |
 
@@ -157,7 +157,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/6bf690b6-c4d0-40f6-b3c9-
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager |
 
@@ -204,7 +204,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 ### Installation
 
-| Install vi git URL |
+| Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
 
@@ -216,7 +216,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/cd43fc8b-c6f7-4878-990b-
 
 https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-a9877f4ca254
 
-**如果沒有要使用 Utilities，可以直接刪除整個 Utilities。**
+**如果沒有要使用 Utilities，可以直接刪除整個 Utilities，注意其他庫引用關係。**
 
 ---
 

@@ -42,6 +42,10 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 **第三方庫 (需自行安裝)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
 
+**ActionSystem Demo**
+
+https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-f50119e97d35
+
 **如果沒有要使用 ActionSystem，可以直接刪除整個 ActionSystem。**
 
 ※備註 : Right-Click Create/OxGKit/Action System... (Template cs)
@@ -62,6 +66,10 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 | Install vi git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/NoticeSystem/Scripts to Package Manager |
+
+**NoticeSystem Demo**
+
+https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-bee53f629f25
 
 **如果沒有要使用 NoticeSystem，可以直接刪除整個 NoticeSystem。**
 
@@ -93,6 +101,10 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **第三方庫 (需自行安裝)**
 - 使用 [Unity New InputSystem v1.5.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
+
+**InputSystem Demo**
+
+https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-c82b16deddb7
 
 **如果沒有要使用 InputSystem，可以直接刪除整個 InputSystem。**
 

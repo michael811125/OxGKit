@@ -23,13 +23,13 @@ public class InputDemo : MonoBehaviour
     private void OnEnable()
     {
         // Add handle event
-        Inputs.IA.GetInputAction<PlayerAction>().onMoveAction += this.OnMoveAction;
+        Inputs.IA.GetInputAction<PlayerAction>().onMoveAction += this._OnMoveAction;
     }
 
     private void OnDisable()
     {
         // Del handle event
-        Inputs.IA.GetInputAction<PlayerAction>().onMoveAction -= this.OnMoveAction;
+        Inputs.IA.GetInputAction<PlayerAction>().onMoveAction -= this._OnMoveAction;
     }
 
     private void Update()
@@ -41,10 +41,10 @@ public class InputDemo : MonoBehaviour
     private void FixedUpdate()
     {
         // Update player movement per frame
-        this.UpdateMovement(Time.fixedDeltaTime);
+        this._UpdateMovement(Time.fixedDeltaTime);
     }
 
-    private void OnMoveAction(MoveInputComposite.MoveInput moveInput)
+    private void _OnMoveAction(MoveInputComposite.MoveInput moveInput)
     {
         // Records move input signals and input data
         this._speedUp = moveInput.modifier;
@@ -53,7 +53,7 @@ public class InputDemo : MonoBehaviour
         Debug.Log($"<color=#ffcf59><color=#c2ff19>[InputSystem]</color> {nameof(PlayerAction)} Move <color=#ff59bc>SpeedUp: {moveInput.modifier}</color>, <color=#59d7ff>Direction: {moveInput.direction}</color></color>");
     }
 
-    private void UpdateMovement(float dt)
+    private void _UpdateMovement(float dt)
     {
         if (this._direction != Vector2.zero)
         {

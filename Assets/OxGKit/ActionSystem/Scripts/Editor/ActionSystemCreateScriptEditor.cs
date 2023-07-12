@@ -6,7 +6,7 @@ namespace OxGKit.ActionSystem.Editor
     {
         private const string TPL_ACTION_SCRIPT_PATH = "TplScripts/TplAction.cs.txt";
 
-        private static string pathFinder
+        private static string _pathFinder
         {
             get
             {
@@ -18,7 +18,7 @@ namespace OxGKit.ActionSystem.Editor
         [MenuItem(itemName: "Assets/Create/OxGKit/Action System/Template Action.cs", isValidateFunction: false, priority: 51)]
         public static void CreateScriptTplAction()
         {
-            string currentPath = pathFinder;
+            string currentPath = _pathFinder;
             string finalPath = currentPath.Replace("ActionSystemCreateScriptEditor.cs", "") + TPL_ACTION_SCRIPT_PATH;
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(finalPath, "NewTplAction.cs");

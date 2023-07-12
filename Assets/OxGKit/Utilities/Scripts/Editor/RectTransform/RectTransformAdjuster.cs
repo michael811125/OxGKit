@@ -6,17 +6,17 @@ namespace OxGKit.Utilities.RectTrans.Editor
     public class RectTransformAdjuster
     {
         [MenuItem("GameObject/Adjust RectTransform Anchors (Shift+R) #r")]
-        static void Adjust()
+        public static void AdjustAnchors()
         {
             foreach (GameObject gameObject in Selection.gameObjects)
             {
                 // Record RectTransform (allow undo)
                 Undo.RecordObject(gameObject.GetComponent<RectTransform>(), $"Custom Anchors {gameObject.name}");
-                AdjustRectTransform(gameObject);
+                _AdjustRectTransform(gameObject);
             }
         }
 
-        internal static void AdjustRectTransform(GameObject gameObject)
+        private static void _AdjustRectTransform(GameObject gameObject)
         {
             RectTransform transform = gameObject.GetComponent<RectTransform>();
             if (transform == null || transform.parent == null)

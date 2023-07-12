@@ -9,11 +9,11 @@ namespace OxGKit.TweenSystemFixer.Editor
 {
     public static class DoTweenAssemblyFixer
     {
-        private const string DOTweenModulesFileName = "DOTween.Modules.asmdef";
-        private const string DoTweenModulesFixedGUID = "fdf3e181e62e9d243a7fee5ce890ab71";
+        private const string _doTweenModulesFileName = "DOTween.Modules.asmdef";
+        private const string _doTweenModulesFixedGUID = "fdf3e181e62e9d243a7fee5ce890ab71";
 
         [MenuItem("Assets/OxGKit TweenSystem GUID Fixer/Search And Reassign DOTween.Modules GUID", false, -999)]
-        static void RepairDoTweenModulesGUID()
+        public static void RepairDoTweenModulesGUID()
         {
             _DoReassignFixedGUIDForDOTweenModulesAssembly();
         }
@@ -27,11 +27,11 @@ namespace OxGKit.TweenSystemFixer.Editor
             {
                 var assetPath = AssetDatabase.GUIDToAssetPath(guid);
                 string fileName = Path.GetFileName(assetPath);
-                if (assetPath.IndexOf(DOTweenModulesFileName) != -1 && fileName == DOTweenModulesFileName)
+                if (assetPath.IndexOf(_doTweenModulesFileName) != -1 && fileName == _doTweenModulesFileName)
                 {
                     found = true;
                     AssetDatabase.StartAssetEditing();
-                    AssetGUIDAssigner.ReassignGUID(new string[] { guid }, DoTweenModulesFixedGUID);
+                    AssetGUIDAssigner.ReassignGUID(new string[] { guid }, _doTweenModulesFixedGUID);
                     AssetDatabase.StopAssetEditing();
                     AssetDatabase.SaveAssets();
                     AssetDatabase.Refresh();
@@ -39,7 +39,7 @@ namespace OxGKit.TweenSystemFixer.Editor
                 }
             }
 
-            if (!found) Debug.Log($"<color=#ff3387>Cannot found <color=#afff33>{DOTweenModulesFileName}</color>, repair failed</color>");
+            if (!found) Debug.Log($"<color=#ff3387>Cannot found <color=#afff33>{_doTweenModulesFileName}</color>, repair failed</color>");
         }
 
         /// <summary>
@@ -219,10 +219,10 @@ namespace OxGKit.TweenSystemFixer.Editor
                     }
                 }
 
-                if (EditorUtility.DisplayDialog($"Fixed {DOTweenModulesFileName} GUID",
-                    $"Reassigned {DOTweenModulesFileName} GUID. \nSee console logs for detailed report.", "Done"))
+                if (EditorUtility.DisplayDialog($"Fixed {_doTweenModulesFileName} GUID",
+                    $"Reassigned {_doTweenModulesFileName} GUID. \nSee console logs for detailed report.", "Done"))
                 {
-                    var message = $"<color=#4effde>Reassigned <color=#afff33>{DOTweenModulesFileName}</color> GUID to fixed GUID: <color=#ffce33>{DoTweenModulesFixedGUID}</color></color>\n";
+                    var message = $"<color=#4effde>Reassigned <color=#afff33>{_doTweenModulesFileName}</color> GUID to fixed GUID: <color=#ffce33>{_doTweenModulesFixedGUID}</color></color>\n";
                     message = updatedAssets.Aggregate(message, (current, kvp) => current + $"{kvp.Value} references => {kvp.Key}\n");
                     Debug.Log($"{message}");
                 }

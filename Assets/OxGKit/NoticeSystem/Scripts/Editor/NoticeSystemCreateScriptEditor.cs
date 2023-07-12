@@ -9,7 +9,7 @@ namespace OxGKit.NoticeSystem.Editor
         private const string TPL_NOTICE_CONDITION_WITH_BEFORE_SCENE_LOAD_SCRIPT_PATH = "TplScripts/TplNoticeConditionWithBeforeSceneLoad.cs.txt";
 
         // find current file path
-        private static string pathFinder
+        private static string _pathFinder
         {
             get
             {
@@ -21,7 +21,7 @@ namespace OxGKit.NoticeSystem.Editor
         [MenuItem(itemName: "Assets/Create/OxGKit/Notice System/Template Notice Condition Registers.cs (Manually)", isValidateFunction: false, priority: 51)]
         public static void CreateScriptTplNoticeConditionRegisters()
         {
-            string currentPath = pathFinder;
+            string currentPath = _pathFinder;
             string finalPath = currentPath.Replace("NoticeSystemCreateScriptEditor.cs", "") + TPL_NOTICE_CONDITION_REGISTERS_SCRIPT_PATH;
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(finalPath, "NewTplNoticeConditionRegisters.cs");
@@ -30,7 +30,7 @@ namespace OxGKit.NoticeSystem.Editor
         [MenuItem(itemName: "Assets/Create/OxGKit/Notice System/Template Notice Condition.cs (Manually)", isValidateFunction: false, priority: 52)]
         public static void CreateScriptTplNoticeCondition()
         {
-            string currentPath = pathFinder;
+            string currentPath = _pathFinder;
             string finalPath = currentPath.Replace("NoticeSystemCreateScriptEditor.cs", "") + TPL_NOTICE_CONDITION_SCRIPT_PATH;
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(finalPath, "NewTplNoticeCondition.cs");
@@ -39,7 +39,7 @@ namespace OxGKit.NoticeSystem.Editor
         [MenuItem(itemName: "Assets/Create/OxGKit/Notice System/Template Notice Condition.cs (RuntimeInitializeLoadType.BeforeSceneLoad)", isValidateFunction: false, priority: 52)]
         public static void CreateScriptTplNoticeConditionWithBeforeSceneLoad()
         {
-            string currentPath = pathFinder;
+            string currentPath = _pathFinder;
             string finalPath = currentPath.Replace("NoticeSystemCreateScriptEditor.cs", "") + TPL_NOTICE_CONDITION_WITH_BEFORE_SCENE_LOAD_SCRIPT_PATH;
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(finalPath, "NewTplNoticeConditionWithBeforeSceneLoad.cs");

@@ -15,7 +15,6 @@ namespace OxGKit.Utilities.Button.Editor
             GameObject go = _CreateButtonPlusLegacy(_GetStandardResources());
 
             // Override font size
-            UnityEngine.UI.Button btn;
             Text textComponent = go.GetComponentInChildren<Text>();
             textComponent.fontSize = 14;
 

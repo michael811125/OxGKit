@@ -182,7 +182,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 ---
 
-### Utilities
+### Utilities (dependence UniTask)
 
 各通用組件 (Essential)。
 - Utilities 
@@ -207,6 +207,9 @@ fdf3e181e62e9d243a7fee5ce890ab71
 | Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
+
+**第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
+- 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
 
 **Utilities Demo (RectTransformAdjuster)**
 

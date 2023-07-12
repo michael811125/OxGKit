@@ -4,7 +4,7 @@ using MyBox;
 
 namespace OxGKit.Utilities.Pool
 {
-    [AddComponentMenu("OxGkit/Utilities/Pool/" + nameof(NodePool))]
+    [AddComponentMenu("OxGKit/Utilities/Pool/" + nameof(NodePool))]
     public class NodePool : MonoBehaviour
     {
         [SerializeField, Tooltip("Pool object")]

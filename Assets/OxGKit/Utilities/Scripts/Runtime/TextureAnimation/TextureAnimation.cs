@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace OxGKit.Utilities.TextureAnime
 {
-    [AddComponentMenu("OxGkit/Utilities/TextureAnime/" + nameof(TextureAnimation))]
+    [AddComponentMenu("OxGKit/Utilities/TextureAnime/" + nameof(TextureAnimation))]
     [ExecuteInEditMode]
     public class TextureAnimation : MonoBehaviour
     {

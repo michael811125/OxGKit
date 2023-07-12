@@ -3,7 +3,7 @@
 namespace OxGKit.Utilities.Adapter
 {
     [DisallowMultipleComponent]
-    [AddComponentMenu("OxGkit/Utilities/Adapter/" + nameof(UISafeAreaAdapter))]
+    [AddComponentMenu("OxGKit/Utilities/Adapter/" + nameof(UISafeAreaAdapter))]
     public class UISafeAreaAdapter : MonoBehaviour
     {
         public bool refreshAlways = false;

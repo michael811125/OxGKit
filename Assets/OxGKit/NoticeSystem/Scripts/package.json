@@ -1,6 +1,6 @@
 {
   "name": "com.michaelo.oxgkit.noticesystem",
-  "displayName": "OxGkit.NoticeSystem",
+  "displayName": "OxGKit.NoticeSystem",
   "description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
   "version": "0.0.3-preview",
   "unity": "2021.3",

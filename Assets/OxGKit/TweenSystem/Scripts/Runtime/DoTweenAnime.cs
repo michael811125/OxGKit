@@ -9,7 +9,7 @@ using OxGKit.Utilities.Timer;
 namespace OxGKit.TweenSystem
 {
     [DisallowMultipleComponent]
-    [AddComponentMenu("OxGkit/TweenSystem/" + nameof(DoTweenAnime))]
+    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnime))]
     public class DoTweenAnime : MonoBehaviour
     {
         public enum PlayMode

@@ -4,7 +4,7 @@ using System;
 
 namespace OxGKit.Utilities.Button
 {
-    [AddComponentMenu("OxGkit/Utilities/Button/" + nameof(ButtonPlus))]
+    [AddComponentMenu("OxGKit/Utilities/Button/" + nameof(ButtonPlus))]
     public class ButtonPlus : UnityEngine.UI.Button
     {
         #region Transition

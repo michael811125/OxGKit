@@ -4,7 +4,7 @@ using DG.Tweening;
 
 namespace OxGKit.TweenSystem
 {
-    [AddComponentMenu("OxGkit/TweenSystem/" + nameof(DoTweenAnimeEvent))]
+    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnimeEvent))]
     public class DoTweenAnimeEvent : MonoBehaviour
     {
         public enum PlayMode

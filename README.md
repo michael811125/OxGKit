@@ -147,6 +147,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/6bf690b6-c4d0-40f6-b3c9-
 
 **如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 
+<!---
 ---
 
 ### TweenSystemFixer (only for OxGkit.TweenSystem)
@@ -179,7 +180,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_2.png)
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_2.gif)
-
+--->
 ---
 
 ### Utilities (dependence UniTask)

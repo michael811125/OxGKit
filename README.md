@@ -118,6 +118,8 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
 - Add Component/OxGKit/TweenSystem/DoTweenAnimeEvent
 
+**Highly Recommended [brunomikoski - Animation Sequencer](https://github.com/brunomikoski/Animation-Sequencer)**
+
 <!---
 **注意：建議先安裝 OxGKit.TweenSystemFixer，避免編譯失敗導致 MenuItem 無法顯示與啟用**
 

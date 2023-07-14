@@ -143,7 +143,8 @@ TODO: Preview Mode
 - 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
 - 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
-### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID)
+<!--- ### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID) --->
+### Create DoTween Assemblies
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/gif_1.gif)
 

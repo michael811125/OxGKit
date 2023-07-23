@@ -668,8 +668,8 @@ MonoBehaviour:
     duration: 0.35
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 199787290}
+    originPosition: {x: -10, y: 0, z: 0}
     relative: 0
     from: {x: -10, y: 0, z: 0}
     to: {x: 145, y: 0, z: 0}
@@ -734,7 +734,7 @@ MonoBehaviour:
     duration: 0.25
     ignoreTimeScale: 1
     autoActive: 0
-    cg: {fileID: 0}
+    cg: {fileID: 199787293}
     originAlpha: 0
     beginAlpha: 0
     endAlpha: 1
@@ -1268,8 +1268,8 @@ MonoBehaviour:
     duration: 0.35
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 344864857}
+    originPosition: {x: -10, y: 0, z: 0}
     relative: 0
     from: {x: -10, y: 0, z: 0}
     to: {x: 505, y: 0, z: 0}
@@ -1334,7 +1334,7 @@ MonoBehaviour:
     duration: 0.25
     ignoreTimeScale: 1
     autoActive: 0
-    cg: {fileID: 0}
+    cg: {fileID: 344864858}
     originAlpha: 0
     beginAlpha: 0
     endAlpha: 1
@@ -2586,7 +2586,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149487501}
-  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
+  m_LocalRotation: {x: 0.3535534, y: 0.3535534, z: -0.14644668, w: 0.85355335}
   m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2626,8 +2626,8 @@ MonoBehaviour:
     duration: 3
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1149487505}
+    originPosition: {x: 0, y: 2.5, z: 0}
     relative: 1
     from: {x: 0, y: -0.5, z: 0}
     to: {x: 0, y: 0.5, z: 0}
@@ -2643,8 +2643,8 @@ MonoBehaviour:
     duration: 3
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originAngle: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1149487505}
+    originAngle: {x: 45, y: 0, z: 0}
     rotateMode: 1
     beginAngle: {x: 45, y: 0, z: 0}
     endAngle: {x: 45, y: -180, z: 0}
@@ -3172,8 +3172,8 @@ MonoBehaviour:
     duration: 3
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1226374596}
+    originPosition: {x: 0, y: 4.5, z: 0}
     relative: 1
     from: {x: -0.5, y: 0, z: 0}
     to: {x: 0.5, y: 0, z: 0}
@@ -3189,8 +3189,8 @@ MonoBehaviour:
     duration: 3
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originAngle: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1226374596}
+    originAngle: {x: 45, y: -90, z: 0}
     rotateMode: 1
     beginAngle: {x: 45, y: -90, z: 0}
     endAngle: {x: 45, y: 90, z: 0}
@@ -3349,7 +3349,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226374590}
-  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355344, z: -0.14644666, w: 0.85355335}
   m_LocalPosition: {x: 0, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4374,8 +4374,8 @@ MonoBehaviour:
     duration: 0.35
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1386873999}
+    originPosition: {x: -10, y: 0, z: 0}
     relative: 0
     from: {x: -10, y: 0, z: 0}
     to: {x: 625, y: 0, z: 0}
@@ -4440,7 +4440,7 @@ MonoBehaviour:
     duration: 0.25
     ignoreTimeScale: 1
     autoActive: 0
-    cg: {fileID: 0}
+    cg: {fileID: 1386874000}
     originAlpha: 0
     beginAlpha: 0
     endAlpha: 1
@@ -4986,7 +4986,7 @@ GameObject:
   - component: {fileID: 1488687465}
   - component: {fileID: 1488687468}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Tween => Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5392,8 +5392,8 @@ MonoBehaviour:
     duration: 0.35
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1513582812}
+    originPosition: {x: -10, y: 0, z: 0}
     relative: 0
     from: {x: -10, y: 0, z: 0}
     to: {x: 265, y: 0, z: 0}
@@ -5458,7 +5458,7 @@ MonoBehaviour:
     duration: 0.25
     ignoreTimeScale: 1
     autoActive: 0
-    cg: {fileID: 0}
+    cg: {fileID: 1513582813}
     originAlpha: 0
     beginAlpha: 0
     endAlpha: 1
@@ -5652,7 +5652,7 @@ GameObject:
   - component: {fileID: 1644943965}
   - component: {fileID: 1644943964}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Tween => Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5744,8 +5744,8 @@ MonoBehaviour:
     duration: 0.4
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originScale: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1644943963}
+    originScale: {x: 1, y: 1, z: 1}
     beginScale: {x: 1, y: 1, z: 1}
     endScale: {x: -1, y: 1, z: 1}
     scaleSeq:
@@ -7459,8 +7459,8 @@ MonoBehaviour:
     duration: 0.35
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originPosition: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1988143985}
+    originPosition: {x: -10, y: 0, z: 0}
     relative: 0
     from: {x: -10, y: 0, z: 0}
     to: {x: 385, y: 0, z: 0}
@@ -7525,7 +7525,7 @@ MonoBehaviour:
     duration: 0.25
     ignoreTimeScale: 1
     autoActive: 0
-    cg: {fileID: 0}
+    cg: {fileID: 1988143986}
     originAlpha: 0
     beginAlpha: 0
     endAlpha: 1

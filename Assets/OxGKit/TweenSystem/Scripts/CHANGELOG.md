@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.4-preivew] - 2023-07-23
+- Added preview feature for DoTweenAnime.
+
 ## [0.0.3-preview] - 2023-07-09
 - Added methods for DoTweenAnimeEvent, can dynamic add and remove DoTweenAnime.
 - Removed DoTweenAssemblyFixer use and install TweenSystemFixer instead.

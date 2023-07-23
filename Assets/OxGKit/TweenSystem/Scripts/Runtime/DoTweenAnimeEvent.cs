@@ -105,7 +105,7 @@ namespace OxGKit.TweenSystem
             {
                 case PlayMode.Parallel:
                     {
-                        Sequence seq = DOTween.Sequence();
+                        var seq = DOTween.Sequence();
                         for (int i = 0; i < this.doTweenAnimes.Count; i++)
                         {
                             int idx = i;
@@ -117,7 +117,7 @@ namespace OxGKit.TweenSystem
                     break;
                 case PlayMode.Sequence:
                     {
-                        Sequence seq = DOTween.Sequence();
+                        var seq = DOTween.Sequence();
                         for (int i = 0; i < this.doTweenAnimes.Count; i++)
                         {
                             int idx = i;

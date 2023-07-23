@@ -126,7 +126,11 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 - Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager
 --->
 
-TODO: Preview Mode
+Preview Mode (Only DoTweenAnime component is supported)
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_3.png)
+
+※Note: The DoTweenAnimeEvent only plays at runtime.
 
 *[參考 Example]*
 
@@ -218,6 +222,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
+- 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
 
 **Utilities Demo (RectTransformAdjuster)**
 

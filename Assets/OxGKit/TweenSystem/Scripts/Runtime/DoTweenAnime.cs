@@ -45,28 +45,24 @@ namespace OxGKit.TweenSystem
         #endregion
 
         #region tSize
-        private RectTransform _rectTransform;
         [Header("RectTransform")]
         [SerializeField, Tooltip("Enable tween Size (Auto find RectTransform Component)")]
         public bool tSizeOn = false;
         #endregion
 
         #region tAlpha
-        private CanvasGroup _cg;
         [Header("CanvasGroup")]
         [SerializeField, Tooltip("Enable tween CanvasGroup Alpha (Auto find CanvasGroup Component)")]
         public bool tAlphaOn = false;
         #endregion
 
         #region tImageColor
-        private Image _img;
         [Header("Image")]
         [SerializeField, Tooltip("Enable tween Image Color (Auto find Image Component)")]
         public bool tImgColorOn = false;
         #endregion
 
         #region tSpriteColor
-        private SpriteRenderer _spr;
         [Header("SpriteRenderer")]
         [SerializeField, Tooltip("Enable tween Sprite Color (Auto find SpriteRenderer Component)")]
         public bool tSprColorOn = false;
@@ -372,6 +368,7 @@ namespace OxGKit.TweenSystem
         [Header("TweenValues")]
         [SerializeField, ConditionalField(nameof(tPositionOn))]
         private TweenPosition _tPosition = new TweenPosition();
+        public TweenPosition tPosition => _tPosition;
 
         #region TweenRotation
         [Serializable]
@@ -580,6 +577,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tRotationOn))]
         private TweenRotation _tRotation = new TweenRotation();
+        public TweenRotation tRotation => _tRotation;
 
         #region TweenScale
         [Serializable]
@@ -782,6 +780,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tScaleOn))]
         private TweenScale _tScale = new TweenScale();
+        public TweenScale tScale => _tScale;
 
         #region TweenSize (RectTransform)
         [Serializable]
@@ -994,6 +993,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tSizeOn))]
         private TweenSize _tSize = new TweenSize();
+        public TweenSize tSize => _tSize;
 
         #region TweenAlpha (CanvasGroup)
         [Serializable]
@@ -1207,6 +1207,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tAlphaOn))]
         private TweenAlpha _tAlpha = new TweenAlpha();
+        public TweenAlpha tAlpha => _tAlpha;
 
         #region TweenImageColor (Image)
         [Serializable]
@@ -1419,6 +1420,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tImgColorOn))]
         private TweenImgColor _tImgColor = new TweenImgColor();
+        public TweenImgColor tImgColor => _tImgColor;
 
         #region TweenSprColor (Sprite)
         [Serializable]
@@ -1631,12 +1633,19 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tSprColorOn))]
         private TweenSprColor _tSprColor = new TweenSprColor();
+        public TweenSprColor tSprColor => _tSprColor;
 
         #region Editor
 #if UNITY_EDITOR
-        [Header("Editor")]
-        [SerializeField] private bool _isSyncBeginValue = false;
+        public static bool isPreviewMode = false;
+        [SerializeField, HideInInspector] private bool _isSyncBeginValue = false;
+
         private void OnValidate()
+        {
+            this._SyncBeginValues();
+        }
+
+        private void _SyncBeginValues()
         {
             if (this._isSyncBeginValue)
             {
@@ -1694,8 +1703,8 @@ namespace OxGKit.TweenSystem
                 // Tween Size (RectTransform)
                 if (this.tSizeOn)
                 {
-                    this._rectTransform = this.transform.GetComponent<RectTransform>();
-                    if (this._rectTransform != null)
+                    var rectTransform = this.transform.GetComponent<RectTransform>();
+                    if (rectTransform != null)
                     {
                         switch (this._tSize.playMode)
                         {
@@ -1704,7 +1713,7 @@ namespace OxGKit.TweenSystem
                                 {
                                     UnityEditor.EditorApplication.delayCall += () =>
                                     {
-                                        this._rectTransform.sizeDelta = this._tSize.sizeSeq.sequence[0];
+                                        rectTransform.sizeDelta = this._tSize.sizeSeq.sequence[0];
                                         UnityEditor.EditorApplication.delayCall = null;
                                     };
                                 }
@@ -1712,7 +1721,7 @@ namespace OxGKit.TweenSystem
                             default:
                                 UnityEditor.EditorApplication.delayCall += () =>
                                 {
-                                    this._rectTransform.sizeDelta = this._tSize.beginSize;
+                                    rectTransform.sizeDelta = this._tSize.beginSize;
                                     UnityEditor.EditorApplication.delayCall = null;
                                 };
                                 break;
@@ -1723,8 +1732,8 @@ namespace OxGKit.TweenSystem
                 // Tween Alpha (CanvasGroup)
                 if (this.tAlphaOn)
                 {
-                    this._cg = this.transform.GetComponent<CanvasGroup>();
-                    if (this._cg != null)
+                    var cg = this.transform.GetComponent<CanvasGroup>();
+                    if (cg != null)
                     {
                         switch (this._tAlpha.playMode)
                         {
@@ -1733,7 +1742,7 @@ namespace OxGKit.TweenSystem
                                 {
                                     UnityEditor.EditorApplication.delayCall += () =>
                                     {
-                                        this._cg.alpha = this._tAlpha.alphaSeq.sequence[0];
+                                        cg.alpha = this._tAlpha.alphaSeq.sequence[0];
                                         UnityEditor.EditorApplication.delayCall = null;
                                     };
                                 }
@@ -1741,7 +1750,7 @@ namespace OxGKit.TweenSystem
                             default:
                                 UnityEditor.EditorApplication.delayCall += () =>
                                 {
-                                    this._cg.alpha = this._tAlpha.beginAlpha;
+                                    cg.alpha = this._tAlpha.beginAlpha;
                                     UnityEditor.EditorApplication.delayCall = null;
                                 };
                                 break;
@@ -1752,19 +1761,19 @@ namespace OxGKit.TweenSystem
                 // Tween Image Color (Image)
                 if (this.tImgColorOn)
                 {
-                    this._img = this.transform.GetComponent<Image>();
-                    if (this._img != null)
+                    var img = this.transform.GetComponent<Image>();
+                    if (img != null)
                     {
                         switch (this._tImgColor.playMode)
                         {
                             case PlayMode.Sequence:
                                 if (this._tImgColor.colorSeq.sequence.Count > 0)
                                 {
-                                    this._img.color = this._tImgColor.colorSeq.sequence[0];
+                                    img.color = this._tImgColor.colorSeq.sequence[0];
                                 }
                                 break;
                             default:
-                                this._img.color = this._tImgColor.beginColor;
+                                img.color = this._tImgColor.beginColor;
                                 break;
                         }
                     }
@@ -1773,19 +1782,19 @@ namespace OxGKit.TweenSystem
                 // Tween Sprite Color (Sprite)
                 if (this.tSprColorOn)
                 {
-                    this._spr = this.transform.GetComponent<SpriteRenderer>();
-                    if (this._spr != null)
+                    var spr = this.transform.GetComponent<SpriteRenderer>();
+                    if (spr != null)
                     {
                         switch (this._tSprColor.playMode)
                         {
                             case PlayMode.Sequence:
                                 if (this._tSprColor.colorSeq.sequence.Count > 0)
                                 {
-                                    this._spr.color = this._tSprColor.colorSeq.sequence[0];
+                                    spr.color = this._tSprColor.colorSeq.sequence[0];
                                 }
                                 break;
                             default:
-                                this._spr.color = this._tSprColor.beginColor;
+                                spr.color = this._tSprColor.beginColor;
                                 break;
                         }
                     }
@@ -1797,77 +1806,8 @@ namespace OxGKit.TweenSystem
 
         private void Awake()
         {
-            // Init Tween Postion
-            if (this.tPositionOn)
-            {
-                this._tPosition.transform = this.transform;
-                if (this._tPosition.relative) this._tPosition.Init(this.transform.localPosition);
-                else this._tPosition.Init();
-            }
-
-            // Init Tween Rotation
-            if (this.tRotationOn)
-            {
-                this._tRotation.transform = this.transform;
-                //this._tRotation.Init(this.transform.localRotation.eulerAngles);
-                this._tRotation.Init();
-            }
-
-            // Init Tween Scale
-            if (this.tScaleOn)
-            {
-                this._tScale.transform = this.transform;
-                //this._tScale.Init(this.transform.localScale);
-                this._tScale.Init();
-            }
-
-            // Init Tween Size (RectTransform)
-            if (this.tSizeOn)
-            {
-                this._rectTransform = this.transform.GetComponent<RectTransform>();
-                if (this._rectTransform != null)
-                {
-                    this._tSize.rectTransform = this._rectTransform;
-                    //this._tSize.Init(this._rectTransform.sizeDelta);
-                    this._tSize.Init();
-                }
-            }
-
-            // Init Tween Alpha (CanvasGroup)
-            if (this.tAlphaOn)
-            {
-                this._cg = this.transform.GetComponent<CanvasGroup>();
-                if (this._cg != null)
-                {
-                    this._tAlpha.cg = this._cg;
-                    //this._tAlpha.Init(this._cg.alpha);
-                    this._tAlpha.Init();
-                }
-            }
-
-            // Init Tween Image Color (Image)
-            if (this.tImgColorOn)
-            {
-                this._img = this.transform.GetComponent<Image>();
-                if (this._img != null)
-                {
-                    this._tImgColor.img = this._img;
-                    //this._tImgColor.Init(this._img.color);
-                    this._tImgColor.Init();
-                }
-            }
-
-            // Init Tween Sprite Color (Sprite)
-            if (this.tSprColorOn)
-            {
-                this._spr = this.transform.GetComponent<SpriteRenderer>();
-                if (this._spr != null)
-                {
-                    this._tSprColor.spr = this._spr;
-                    //this._tSprColor.Init(this._spr.color);
-                    this._tSprColor.Init();
-                }
-            }
+            // Init values
+            this.InitTweens();
 
             // Init ignoreTimeScales
             this._tPosition.ignoreTimeScale = this._ignoreTimeScale;
@@ -1974,7 +1914,82 @@ namespace OxGKit.TweenSystem
             #endregion
         }
 
-        protected void ResetTweens()
+        public void InitTweens()
+        {
+            // Init Tween Postion
+            if (this.tPositionOn)
+            {
+                this._tPosition.transform = this.transform;
+                if (this._tPosition.relative) this._tPosition.Init(this.transform.localPosition);
+                else this._tPosition.Init();
+            }
+
+            // Init Tween Rotation
+            if (this.tRotationOn)
+            {
+                this._tRotation.transform = this.transform;
+                //this._tRotation.Init(this.transform.localRotation.eulerAngles);
+                this._tRotation.Init();
+            }
+
+            // Init Tween Scale
+            if (this.tScaleOn)
+            {
+                this._tScale.transform = this.transform;
+                //this._tScale.Init(this.transform.localScale);
+                this._tScale.Init();
+            }
+
+            // Init Tween Size (RectTransform)
+            if (this.tSizeOn)
+            {
+                var rectTransform = this.transform.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    this._tSize.rectTransform = rectTransform;
+                    //this._tSize.Init(rectTransform.sizeDelta);
+                    this._tSize.Init();
+                }
+            }
+
+            // Init Tween Alpha (CanvasGroup)
+            if (this.tAlphaOn)
+            {
+                var cg = this.transform.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    this._tAlpha.cg = cg;
+                    //this._tAlpha.Init(cg.alpha);
+                    this._tAlpha.Init();
+                }
+            }
+
+            // Init Tween Image Color (Image)
+            if (this.tImgColorOn)
+            {
+                var img = this.transform.GetComponent<Image>();
+                if (img != null)
+                {
+                    this._tImgColor.img = img;
+                    //this._tImgColor.Init(img.color);
+                    this._tImgColor.Init();
+                }
+            }
+
+            // Init Tween Sprite Color (Sprite)
+            if (this.tSprColorOn)
+            {
+                var spr = this.transform.GetComponent<SpriteRenderer>();
+                if (spr != null)
+                {
+                    this._tSprColor.spr = spr;
+                    //this._tSprColor.Init(spr.color);
+                    this._tSprColor.Init();
+                }
+            }
+        }
+
+        public void ResetTweens()
         {
             if (this.tPositionOn) this._tPosition.Reset();
             if (this.tRotationOn) this._tRotation.Reset();
@@ -2036,7 +2051,11 @@ namespace OxGKit.TweenSystem
         {
             this.gameObject.SetActive(true);
             this.ResetTweens();
-            this.SetMainEndCallbackByDuration(this._autoActive, endCallback);
+            bool autoActive = this._autoActive;
+#if UNITY_EDITOR
+            if (isPreviewMode) autoActive = false;
+#endif
+            this.SetMainEndCallbackByDuration(autoActive, endCallback);
             this.DoTweenAnimes(trigger);
         }
 
@@ -2048,6 +2067,8 @@ namespace OxGKit.TweenSystem
 
         protected void DoTweenAnimes(bool trigger)
         {
+            int loopTimes;
+
             #region Tween Postion On
             if (this.tPositionOn)
             {
@@ -2067,7 +2088,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tPosition.DoTweenNormal(this._tPosition.loopTimes);
+                            loopTimes = this._tPosition.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tPosition.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2084,7 +2109,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tPosition.DoTweenReverse(this._tPosition.loopTimes);
+                            loopTimes = this._tPosition.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tPosition.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2101,7 +2130,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tPosition.DoTweenPingPong(this._tPosition.loopTimes);
+                            loopTimes = this._tPosition.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tPosition.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2118,7 +2151,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tPosition.DoTweenSequence(this._tPosition.loopTimes);
+                            loopTimes = this._tPosition.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tPosition.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2144,7 +2181,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tRotation.DoTweenNormal(this._tRotation.loopTimes);
+                            loopTimes = this._tRotation.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tRotation.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2161,7 +2202,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tRotation.DoTweenReverse(this._tRotation.loopTimes);
+                            loopTimes = this._tRotation.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tRotation.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2178,7 +2223,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tRotation.DoTweenPingPong(this._tRotation.loopTimes);
+                            loopTimes = this._tRotation.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tRotation.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2195,7 +2244,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tRotation.DoTweenSequence(this._tRotation.loopTimes);
+                            loopTimes = this._tRotation.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tRotation.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2221,7 +2274,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tScale.DoTweenNormal(this._tScale.loopTimes);
+                            loopTimes = this._tScale.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tScale.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2238,7 +2295,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tScale.DoTweenReverse(this._tScale.loopTimes);
+                            loopTimes = this._tScale.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tScale.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2255,7 +2316,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tScale.DoTweenPingPong(this._tScale.loopTimes);
+                            loopTimes = this._tScale.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tScale.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2272,7 +2337,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tScale.DoTweenSequence(this._tScale.loopTimes);
+                            loopTimes = this._tScale.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tScale.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2298,7 +2367,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSize.DoTweenNormal(this._tSize.loopTimes);
+                            loopTimes = this._tSize.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSize.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2315,7 +2388,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSize.DoTweenReverse(this._tSize.loopTimes);
+                            loopTimes = this._tSize.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSize.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2332,7 +2409,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSize.DoTweenPingPong(this._tSize.loopTimes);
+                            loopTimes = this._tSize.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSize.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2349,7 +2430,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSize.DoTweenSequence(this._tSize.loopTimes);
+                            loopTimes = this._tSize.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSize.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2375,7 +2460,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tAlpha.DoTweenNormal(this._tAlpha.loopTimes);
+                            loopTimes = this._tAlpha.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tAlpha.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2392,7 +2481,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tAlpha.DoTweenReverse(this._tAlpha.loopTimes);
+                            loopTimes = this._tAlpha.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tAlpha.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2409,7 +2502,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tAlpha.DoTweenPingPong(this._tAlpha.loopTimes);
+                            loopTimes = this._tAlpha.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tAlpha.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2426,7 +2523,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tAlpha.DoTweenSequence(this._tAlpha.loopTimes);
+                            loopTimes = this._tAlpha.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tAlpha.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2452,7 +2553,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tImgColor.DoTweenNormal(this._tImgColor.loopTimes);
+                            loopTimes = this._tImgColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tImgColor.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2469,7 +2574,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tImgColor.DoTweenReverse(this._tImgColor.loopTimes);
+                            loopTimes = this._tImgColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tImgColor.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2486,7 +2595,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tImgColor.DoTweenPingPong(this._tImgColor.loopTimes);
+                            loopTimes = this._tImgColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tImgColor.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2503,7 +2616,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tImgColor.DoTweenSequence(this._tImgColor.loopTimes);
+                            loopTimes = this._tImgColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tImgColor.DoTweenSequence(loopTimes);
                         }
                         break;
                 }
@@ -2529,7 +2646,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSprColor.DoTweenNormal(this._tSprColor.loopTimes);
+                            loopTimes = this._tSprColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSprColor.DoTweenNormal(loopTimes);
                         }
                         break;
                     case PlayMode.Reverse:
@@ -2546,7 +2667,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSprColor.DoTweenReverse(this._tSprColor.loopTimes);
+                            loopTimes = this._tSprColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSprColor.DoTweenReverse(loopTimes);
                         }
                         break;
                     case PlayMode.PingPong:
@@ -2563,7 +2688,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSprColor.DoTweenPingPong(this._tSprColor.loopTimes);
+                            loopTimes = this._tSprColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSprColor.DoTweenPingPong(loopTimes);
                         }
                         break;
                     case PlayMode.Sequence:
@@ -2580,7 +2709,11 @@ namespace OxGKit.TweenSystem
                         }
                         else
                         {
-                            this._tSprColor.DoTweenSequence(this._tSprColor.loopTimes);
+                            loopTimes = this._tSprColor.loopTimes;
+#if UNITY_EDITOR
+                            if (isPreviewMode) loopTimes = 0;
+#endif
+                            this._tSprColor.DoTweenSequence(loopTimes);
                         }
                         break;
                 }

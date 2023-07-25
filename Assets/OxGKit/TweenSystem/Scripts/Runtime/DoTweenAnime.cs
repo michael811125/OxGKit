@@ -1713,7 +1713,7 @@ namespace OxGKit.TweenSystem
                                 {
                                     UnityEditor.EditorApplication.delayCall += () =>
                                     {
-                                        rectTransform.sizeDelta = this._tSize.sizeSeq.sequence[0];
+                                        if (rectTransform != null) rectTransform.sizeDelta = this._tSize.sizeSeq.sequence[0];
                                         UnityEditor.EditorApplication.delayCall = null;
                                     };
                                 }
@@ -1721,7 +1721,7 @@ namespace OxGKit.TweenSystem
                             default:
                                 UnityEditor.EditorApplication.delayCall += () =>
                                 {
-                                    rectTransform.sizeDelta = this._tSize.beginSize;
+                                    if (rectTransform != null) rectTransform.sizeDelta = this._tSize.beginSize;
                                     UnityEditor.EditorApplication.delayCall = null;
                                 };
                                 break;
@@ -1742,7 +1742,7 @@ namespace OxGKit.TweenSystem
                                 {
                                     UnityEditor.EditorApplication.delayCall += () =>
                                     {
-                                        cg.alpha = this._tAlpha.alphaSeq.sequence[0];
+                                        if (cg != null) cg.alpha = this._tAlpha.alphaSeq.sequence[0];
                                         UnityEditor.EditorApplication.delayCall = null;
                                     };
                                 }
@@ -1750,7 +1750,7 @@ namespace OxGKit.TweenSystem
                             default:
                                 UnityEditor.EditorApplication.delayCall += () =>
                                 {
-                                    cg.alpha = this._tAlpha.beginAlpha;
+                                    if (cg != null) cg.alpha = this._tAlpha.beginAlpha;
                                     UnityEditor.EditorApplication.delayCall = null;
                                 };
                                 break;

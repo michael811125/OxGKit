@@ -5,6 +5,7 @@ using MyBox;
 using DG.Tweening;
 using UnityEngine.UI;
 using OxGKit.Utilities.Timer;
+using System.Linq;
 
 namespace OxGKit.TweenSystem
 {
@@ -2036,7 +2037,7 @@ namespace OxGKit.TweenSystem
             if (tweens.Count == 0) return null;
 
             // Get max of duration time
-            TweenBase maxDurationTween = tweens.MaxBy((tween) => tween.duration);
+            TweenBase maxDurationTween = tweens.Aggregate((e, n) => e.duration > n.duration ? e : n);
             return maxDurationTween;
         }
         #endregion

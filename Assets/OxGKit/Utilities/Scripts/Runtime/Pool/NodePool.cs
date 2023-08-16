@@ -59,7 +59,7 @@ namespace OxGKit.Utilities.Pool
         /// </summary>
         public void Clear()
         {
-            this._pool.ForEach(go => Destroy(go));
+            foreach (var go in this._pool) Destroy(go);
             this._pool.Clear();
         }
 

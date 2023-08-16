@@ -112,7 +112,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ---
 
-### TweenSystem (dependence DoTween Pro, MyBox, OxGKit.Utilities)
+### TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
 - Add Component/OxGKit/TweenSystem/DoTweenAnime
@@ -144,7 +144,7 @@ Preview Mode (Only DoTweenAnime component is supported)
 - 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
 
 **第三方庫 (需自行安裝)**
-- 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
+- 使用 [LWMyBox v1.0.0](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
 <!--- ### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID) --->
@@ -222,7 +222,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
-- 使用 [MyBox v1.7.0 or higher](https://github.com/Deadcows/MyBox), Add https://github.com/Deadcows/MyBox.git to Package Manager
+- 使用 [LWMyBox v1.0.0](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 
 **Utilities Demo (RectTransformAdjuster)**
 

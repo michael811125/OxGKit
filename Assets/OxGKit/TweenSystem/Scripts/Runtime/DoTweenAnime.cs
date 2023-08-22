@@ -27,7 +27,7 @@ namespace OxGKit.TweenSystem
             Event
         }
 
-        [Header("Options")]
+        [Separator("Options")]
         [SerializeField, Tooltip("Ignore time scale")]
         private bool _ignoreTimeScale = true;
         [SerializeField]
@@ -36,7 +36,7 @@ namespace OxGKit.TweenSystem
         private bool _autoActive = false;
 
         #region tPosition, tRotation, tScale
-        [Header("Transform")]
+        [Separator("Transform")]
         [SerializeField, Tooltip("Enable tween Position")]
         public bool tPositionOn = false;
         [SerializeField, Tooltip("Enable tween Rotation")]
@@ -46,25 +46,25 @@ namespace OxGKit.TweenSystem
         #endregion
 
         #region tSize
-        [Header("RectTransform")]
+        [Separator("RectTransform")]
         [SerializeField, Tooltip("Enable tween Size (Auto find RectTransform Component)")]
         public bool tSizeOn = false;
         #endregion
 
         #region tAlpha
-        [Header("CanvasGroup")]
+        [Separator("CanvasGroup")]
         [SerializeField, Tooltip("Enable tween CanvasGroup Alpha (Auto find CanvasGroup Component)")]
         public bool tAlphaOn = false;
         #endregion
 
         #region tImageColor
-        [Header("Image")]
+        [Separator("Image")]
         [SerializeField, Tooltip("Enable tween Image Color (Auto find Image Component)")]
         public bool tImgColorOn = false;
         #endregion
 
         #region tSpriteColor
-        [Header("SpriteRenderer")]
+        [Separator("SpriteRenderer")]
         [SerializeField, Tooltip("Enable tween Sprite Color (Auto find SpriteRenderer Component)")]
         public bool tSprColorOn = false;
         #endregion
@@ -366,7 +366,7 @@ namespace OxGKit.TweenSystem
             }
         }
         #endregion
-        [Header("TweenValues")]
+        [Separator("TweenValues")]
         [SerializeField, ConditionalField(nameof(tPositionOn))]
         private TweenPosition _tPosition = new TweenPosition();
         public TweenPosition tPosition => _tPosition;

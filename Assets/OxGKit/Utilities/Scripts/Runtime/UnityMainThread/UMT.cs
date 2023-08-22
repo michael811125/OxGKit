@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OxGKit.Utilities.UMT
+namespace OxGKit.Utilities.UnityMainThread
 {
     [DisallowMultipleComponent]
-    internal class UnityMainThread : MonoBehaviour
+    public class UMT : MonoBehaviour
     {
-        internal static UnityMainThread worker;
+        public static UMT worker;
         internal static readonly object threadLocker = new object();
         private Queue<Action> _jobs = new Queue<Action>();
 
@@ -15,7 +15,7 @@ namespace OxGKit.Utilities.UMT
         {
             worker = this;
 
-            string newName = $"[{nameof(UnityMainThread)}]";
+            string newName = $"[{nameof(UMT)}]";
             this.gameObject.name = newName;
             if (this.gameObject.transform.root.name == newName)
             {
@@ -38,12 +38,27 @@ namespace OxGKit.Utilities.UMT
             }
         }
 
-        internal void AddJob(Action newJob)
+        public void AddJob(Action newJob)
         {
             lock (threadLocker)
             {
                 this._jobs.Enqueue(newJob);
             }
+        }
+
+        public void RunCoroutine(string methodName)
+        {
+            this.StartCoroutine(methodName);
+        }
+
+        public void CancelCoroutine(string methodName)
+        {
+            this.StopCoroutine(methodName);
+        }
+
+        public void CancelAllCoroutine()
+        {
+            this.StopAllCoroutines();
         }
 
         public void Clear()

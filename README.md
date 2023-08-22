@@ -144,7 +144,7 @@ Preview Mode (Only DoTweenAnime component is supported)
 - 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
 
 **第三方庫 (需自行安裝)**
-- 使用 [LWMyBox v1.0.0](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
+- 使用 [LWMyBox v1.1.3 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
 <!--- ### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID) --->
@@ -202,7 +202,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
   - Adapter: UISafeAreaAdapter.
   - Pool: NodePool (GameObject Pool).
   - ButtonPlus: Inherited by Unity Button. extend Long Click and Transition Scale.
-  - UMT: Unity Main Thread.
+  - Unity Main Thread: UMT.
   - Singleton: MonoSingleton (MonoBehaviour), NewSingleton (class).
   - Requester: RequestAudio, RequestTexture2D, RequestSprite, RequestBytes, RequestText.
   - Cacher: ARCCache<TKey, TValue>, LRUCache<TKey, TValue>, LRUKCache<TKey, TValue>.
@@ -222,7 +222,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
-- 使用 [LWMyBox v1.0.0](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
+- 使用 [LWMyBox v1.1.3 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 
 **Utilities Demo (RectTransformAdjuster)**
 

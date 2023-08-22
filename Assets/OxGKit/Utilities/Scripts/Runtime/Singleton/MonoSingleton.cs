@@ -13,14 +13,12 @@ namespace OxGKit.Utilities.Singleton
             {
                 lock (_locker)
                 {
-                    _instance = FindObjectOfType(typeof(T)) as T;
-                    if (_instance == null)
+                    if (Application.isPlaying)
                     {
-                        var go = new GameObject(typeof(T).Name);
-                        _instance = go.AddComponent<T>();
+                        _instance = FindObjectOfType(typeof(T)) as T;
+                        if (_instance == null) _instance = new GameObject(typeof(T).Name).AddComponent<T>();
+                        DontDestroyOnLoad(_instance);
                     }
-
-                    if (Application.isPlaying) DontDestroyOnLoad(_instance);
                 }
             }
             return _instance;

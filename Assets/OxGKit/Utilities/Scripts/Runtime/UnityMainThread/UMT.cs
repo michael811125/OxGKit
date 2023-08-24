@@ -7,14 +7,27 @@ namespace OxGKit.Utilities.UnityMainThread
     [DisallowMultipleComponent]
     public class UMT : MonoBehaviour
     {
-        public static UMT worker;
+        public static UMT worker => GetInstance();
         internal static readonly object threadLocker = new object();
         private Queue<Action> _jobs = new Queue<Action>();
 
+        private static readonly object _locker = new object();
+        private static UMT _instance = null;
+        internal static UMT GetInstance()
+        {
+            if (_instance == null)
+            {
+                lock (_locker)
+                {
+                    _instance = FindObjectOfType<UMT>();
+                    if (_instance == null) _instance = new GameObject(nameof(UMT)).AddComponent<UMT>();
+                }
+            }
+            return _instance;
+        }
+
         private void Awake()
         {
-            worker = this;
-
             string newName = $"[{nameof(UMT)}]";
             this.gameObject.name = newName;
             if (this.gameObject.transform.root.name == newName)

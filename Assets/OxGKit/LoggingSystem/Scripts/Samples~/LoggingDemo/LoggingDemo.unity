@@ -640,7 +640,7 @@ PrefabInstance:
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggerSetting
       value: 
-      objectReference: {fileID: 11400000, guid: 9bd91fd095cfb0f44b53c8aa9ba55369, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365950, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: m_RootOrder
       value: 4

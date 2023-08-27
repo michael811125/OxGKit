@@ -129,11 +129,14 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_4.png)
 
+新增 Logger 或移除 Logger 皆需手動執行 Refresh and Load Loggers 重載。
 ```C#
 using OxGKit.LoggingSystem;
 
 [LoggerName("YourLoggerName")]
 public class YourLogger : Logging {}
+
+// After add must execute [Refresh and Load Loggers] in LoggerSetting or open LoggerSetting Editor Window
 ```
 
 *[參考 Example]*
@@ -149,7 +152,7 @@ public class YourLogger : Logging {}
 
 **LoggingSystem Demo**
 
-https://github.com/michael811125/OxGKit/assets/30960759/07144dad-060f-4278-a75a-3ff56407ba20
+https://github.com/michael811125/OxGKit/assets/30960759/1eb672cc-0d34-4e90-9b7c-d35a23c99af9
 
 **LoggingSystem Build Test**
 

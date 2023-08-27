@@ -62,8 +62,8 @@ namespace OxGKit.LoggingSystem
             }
             else
             {
-                // Remove not exisit implements
-                for (int i = 0; i < this.loggerConfigs.Count; i++)
+                // Remove not exisit implements (backward)
+                for (int i = this.loggerConfigs.Count - 1; i >= 0; i--)
                 {
                     if (!Logging.HasLogger(this.loggerConfigs[i].loggerName))
                     {
@@ -85,6 +85,7 @@ namespace OxGKit.LoggingSystem
                         }
                     }
 
+                    // If not found represents the new logger
                     if (!found) this.loggerConfigs.Add(new LoggerConfig(logger.Key, logger.Value.logActive));
                 }
             }

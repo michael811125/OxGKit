@@ -27,10 +27,16 @@ namespace OxGKit.LoggingSystem
         [SerializeField]
         public List<LoggerConfig> loggerConfigs = new List<LoggerConfig>();
 
+        [ButtonClicker(nameof(RefreshAndLoadLoggers), "Refresh and Load Loggers")]
+        public bool loadLoggers;
+        [Space(2.5f)]
         [ButtonClicker(nameof(ResetSettingData), "Reset Loggers")]
         public bool resetLoggers;
 
-        private void OnEnable()
+        /// <summary>
+        /// If add new logger or remove logger must call refresh and load
+        /// </summary>
+        public void RefreshAndLoadLoggers()
         {
             Logging.InitLoggers();
             this.CheckAnSetSettingData();

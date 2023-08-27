@@ -62,7 +62,7 @@ namespace OxGKit.InputSystem
             /// Call by Main Monobehaviour
             /// </summary>
             /// <param name="dt"></param>
-            public static void OnUpdateInputActions(float dt)
+            public static void UpdateInputActions(float dt)
             {
                 InputCenter.GetInstance().OnUpdateInputActions(dt);
             }

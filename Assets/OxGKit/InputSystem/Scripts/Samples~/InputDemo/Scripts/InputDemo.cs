@@ -16,7 +16,7 @@ public class InputDemo : MonoBehaviour
         // If use Unity New Input System must register control maps
         Inputs.CM.RegisterControlMap<PlayerControls>();
 
-        // Register an input action (after register control maps)
+        // Register an input action (after control maps registered)
         Inputs.IA.RegisterInputAction<PlayerAction>();
     }
 
@@ -35,7 +35,7 @@ public class InputDemo : MonoBehaviour
     private void Update()
     {
         // Call by Main MonoBehaviour (Main Program)
-        Inputs.IA.OnUpdateInputActions(Time.unscaledDeltaTime);
+        Inputs.IA.UpdateInputActions(Time.unscaledDeltaTime);
     }
 
     private void FixedUpdate()

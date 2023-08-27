@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logMainActive: 1
   loggerConfigs:
-  - loggerName: OxGkit.InputSystem.Logger
-    logActive: 1
   - loggerName: OxGKit.ActionSystem.Logger
     logActive: 1
   - loggerName: OxGKit.NoticeSystem.Logger
+    logActive: 1
+  - loggerName: OxGKit.InputSystem.Logger
     logActive: 1
   loadLoggers: 0
   resetLoggers: 0

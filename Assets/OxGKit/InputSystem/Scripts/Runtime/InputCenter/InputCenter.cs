@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OxGKit.LoggingSystem;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -143,7 +144,7 @@ namespace OxGKit.InputSystem
         {
             if (this.HasControlMap(id))
             {
-                Debug.Log($"<color=#ff4cc6>[ControlMap] <{inputActionCollection.GetType().Name}> already exist.</color>");
+                Logging.Print<Logger>($"<color=#ff4cc6>[ControlMap] <{inputActionCollection.GetType().Name}> already exist.</color>");
                 return;
             }
             var @new = new ControlMap(inputActionCollection);
@@ -179,7 +180,7 @@ namespace OxGKit.InputSystem
             var id = type.GetHashCode();
             if (!this.HasControlMap(id))
             {
-                Debug.Log($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
+                Logging.Print<Logger>($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
                 return;
             }
 
@@ -207,7 +208,7 @@ namespace OxGKit.InputSystem
             var id = type.GetHashCode();
             if (!this.HasControlMap(id))
             {
-                Debug.Log($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
+                Logging.Print<Logger>($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
                 return false;
             }
 
@@ -238,7 +239,7 @@ namespace OxGKit.InputSystem
         {
             if (this.HasInputAction(id))
             {
-                Debug.Log($"<color=#ff604c>[InputAction] <{inputAction.GetType().Name} already exist.></color>");
+                Logging.Print<Logger>($"<color=#ff604c>[InputAction] <{inputAction.GetType().Name} already exist.></color>");
                 return;
             }
             inputAction.OnInit();

@@ -15,8 +15,9 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - 動作序列系統 (Action System)
 - 通知系統 (Notice System)
 - 輸入控制系統 (Input System)
+- 日誌系統 (Logging System)
 - DoTween Pro 的補間動畫系統 (TweenSystem)
-- 各通用必備組件工具 (Utilities)。
+- 各通用必備組件工具 (Utilities)
 
 *[會持續擴充工具系統組]*
 
@@ -26,7 +27,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ## 工具系統介紹
 
-### ActionSystem (dependence UniTask)
+### ActionSystem (dependence UniTask, OxGKit.LoggingSystem)
 
 動作序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
 - 透過 Right-Click Create/OxGKit/Action System/Template Action.cs 實作自定義 Action。
@@ -41,6 +42,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **第三方庫 (需自行安裝)**
 - 使用 [UnitTask v2.3.3](https://github.com/Cysharp/UniTask)
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **ActionSystem Demo**
 
@@ -52,7 +54,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 
 ---
 
-### NoticeSystem (RedDotSystem)
+### NoticeSystem or RedDotSystem (dependence OxGKit.LoggingSystem)
 
 通知系統 (也稱紅點系統)，支援動態新增刪除通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上其中持有任一符合條件則通知顯示圖示 (紅點)。
 - 透過 Right-Click Create/OxGKit/Notice System/Template Notice Condition.cs 實作通知條件。
@@ -67,6 +69,9 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/NoticeSystem/Scripts to Package Manager |
 
+**第三方庫 (需自行安裝)**
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
+
 **NoticeSystem Demo**
 
 https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-bee53f629f25
@@ -77,7 +82,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 ---
 
-### InputSystem (dependence Unity New InputSystem)
+### InputSystem (dependence Unity New InputSystem, OxGKit.LoggingSystem)
 
 輸入控制系統，支援 Unity New InputSystem，如果使用 Unity New InputSystem 需自行建立 Unity New InpuptSystem 的控制表 (Control Maps)，並且還有提供使用於 Unity New InputSystem 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
 - 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 InputAction 介面。
@@ -101,6 +106,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 **第三方庫 (需自行安裝)**
 - 使用 [Unity New InputSystem v1.5.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **InputSystem Demo**
 
@@ -109,6 +115,40 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 **如果沒有要使用 InputSystem，可以直接刪除整個 InputSystem。**
 
 ※備註 : Right-Click Create/OxGKit/Input System... (Template cs)
+
+---
+
+### LoggingSystem (dependence LWMyBox)
+
+日誌系統，透過拖曳 LoggingLauncher 至場景上激活環境配置 (僅需激活一次)，並且需加載 LoggerSetting 進行日誌開關控制。 
+- 透過 Right-Click Create/OxGKit/Logging System/Create Logger Setting 建立配置檔。
+- 透過菜單選項 OxGKit/Logging System/Logger Setting 開啟將會自動生成配置檔。
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_4.png)
+
+```C#
+using OxGKit.LoggingSystem;
+
+[LoggerName("YourLoggerName")]
+public class YourLogger : Logging {}
+```
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager |
+
+**第三方庫 (需自行安裝)**
+- 使用 [LWMyBox v1.1.3 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
+
+**LoggingSystem Demo**
+
+**LoggingSystem Build Test**
+
+**如果沒有要使用 LoggingSystem，可以直接刪除整個 LoggingSystem，注意其他庫引用關係。**
 
 ---
 

@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.4-preview] - 2023-08-27
+- Added Logger by LoggingSystem.
+
 ## [0.0.3-preview] - 2023-05-26
 - Added NoticeItem can deregister specific condition id.
 - Modified NoticeItem RenewNotice method params use NoticeInfo instead, also supports method chaining.

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/OxGKit/LoggingSystem/Scripts/Samples/LoggingDemo/LoggingDemo.unity
+    guid: 1459cbba1177ec44da61ce9e3dffd7a8
   m_configObjects: {}

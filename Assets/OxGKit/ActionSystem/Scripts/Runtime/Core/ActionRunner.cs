@@ -49,7 +49,7 @@ namespace OxGKit.ActionSystem
                 foreach (var action in this._listDoneActions)
                 {
                     this._queueRunningActions.Remove(action);
-                    Logger.OnDone(action.name, this.name);
+                    Reporter.OnDone(action.name, this.name);
                 }
             }
 
@@ -128,7 +128,7 @@ namespace OxGKit.ActionSystem
                 {
                     action.MarkAllDone();
                     this._queueRunningActions.Remove(action);
-                    Logger.OnRemove(action.name, uid, this.name);
+                    Reporter.OnRemove(action.name, uid, this.name);
                     break;
                 }
             }
@@ -139,7 +139,7 @@ namespace OxGKit.ActionSystem
                 {
                     action.MarkAllDone();
                     this._queueQueuingActions.Remove(action);
-                    Logger.OnRemove(action.name, uid, this.name);
+                    Reporter.OnRemove(action.name, uid, this.name);
                     break;
                 }
             }

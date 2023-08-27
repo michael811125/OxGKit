@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OxGKit.LoggingSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OxGKit.NoticeSystem
@@ -29,13 +30,13 @@ namespace OxGKit.NoticeSystem
 
             if (_dictNoticeConditions.ContainsKey(hash))
             {
-                Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Repeat Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
+                Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Repeat Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
                 return;
             }
 
             noticeCondition.SetId(hash);
             _dictNoticeConditions.Add(hash, noticeCondition);
-            Debug.Log($"<color=#79ffe7>[{nameof(NoticeSystem)}] Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
+            Logging.Print<Logger>($"<color=#79ffe7>[{nameof(NoticeSystem)}] Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace OxGKit.NoticeSystem
                         }
                     }
                 }
-                else Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+                else Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
             }
         }
 
@@ -150,7 +151,7 @@ namespace OxGKit.NoticeSystem
                 NoticeCondition noticeCondition = _dictNoticeConditions[conditionId];
                 return noticeCondition.ShowCondition(data);
             }
-            else Debug.Log($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+            else Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
 
             return false;
         }
@@ -168,13 +169,13 @@ namespace OxGKit.NoticeSystem
                 if (_dictNoticeItems[conditionId].Contains(noticeItem))
                 {
                     _dictNoticeItems[conditionId].Assign(noticeItem);
-                    Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Renew Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Renew Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
                 }
                 else
                 {
                     // Add a noticeItem
                     _dictNoticeItems[conditionId].Add(noticeItem);
-                    Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
                 }
             }
             else
@@ -182,7 +183,7 @@ namespace OxGKit.NoticeSystem
                 ListSet<NoticeItem> noticeItems = new ListSet<NoticeItem>();
                 noticeItems.Add(noticeItem);
                 _dictNoticeItems.Add(conditionId, noticeItems);
-                Debug.Log($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
             }
         }
 
@@ -197,7 +198,7 @@ namespace OxGKit.NoticeSystem
                 if (_dictNoticeItems[conditionId].Contains(noticeItem))
                 {
                     _dictNoticeItems[conditionId].Remove(noticeItem);
-                    Debug.Log($"<color=#ff9b6f>[{nameof(NoticeSystem)}] Deregister Notice Item <color=#ff2cb4>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"<color=#ff9b6f>[{nameof(NoticeSystem)}] Deregister Notice Item <color=#ff2cb4>{noticeItem.name}</color></color>");
                 }
             }
         }

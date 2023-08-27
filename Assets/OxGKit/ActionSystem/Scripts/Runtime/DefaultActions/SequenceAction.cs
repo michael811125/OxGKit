@@ -157,7 +157,7 @@ namespace OxGKit.ActionSystem
                 string name = this._currentAction.name;
                 this._currentAction.MarkAllDone();
                 this._currentAction = null;
-                Logger.OnRemove(name, uid, this.name);
+                Reporter.OnRemove(name, uid, this.name);
             }
 
             if (this.HasPendingAction())
@@ -168,7 +168,7 @@ namespace OxGKit.ActionSystem
                     {
                         action.MarkAllDone();
                         this._queuePendingActions.Remove(action);
-                        Logger.OnRemove(action.name, uid, this.name);
+                        Reporter.OnRemove(action.name, uid, this.name);
                         break;
                     }
                 }
@@ -182,7 +182,7 @@ namespace OxGKit.ActionSystem
                     {
                         action.MarkAllDone();
                         this._queueQueuingActions.Remove(action);
-                        Logger.OnRemove(action.name, uid, this.name);
+                        Reporter.OnRemove(action.name, uid, this.name);
                         break;
                     }
                 }

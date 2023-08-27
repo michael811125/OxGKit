@@ -21,9 +21,9 @@ namespace OxGKit.LoggingSystem
             return loggerName;
         }
 
-        internal static string GetLoggerName<TILogging>() where TILogging : ILogging
+        internal static string GetLoggerName<TLogging>() where TLogging : Logging
         {
-            var type = typeof(TILogging);
+            var type = typeof(TLogging);
 
             string typeName = type.Name;
             string loggerName = typeName;
@@ -88,11 +88,11 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void Print<TILogging>(string message) where TILogging : ILogging
+        public static void Print<TLogging>(string message) where TLogging : Logging
         {
             if (!CheckIsInitialized()) return;
 
-            string key = GetLoggerName<TILogging>();
+            string key = GetLoggerName<TLogging>();
 
             if (_cacheLoggers.ContainsKey(key))
             {
@@ -100,11 +100,11 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void PrintWarning<TILogging>(string message) where TILogging : ILogging
+        public static void PrintWarning<TLogging>(string message) where TLogging : Logging
         {
             if (!CheckIsInitialized()) return;
 
-            string key = GetLoggerName<TILogging>();
+            string key = GetLoggerName<TLogging>();
 
             if (_cacheLoggers.ContainsKey(key))
             {
@@ -112,11 +112,11 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void PrintError<TILogging>(string message) where TILogging : ILogging
+        public static void PrintError<TLogging>(string message) where TLogging : Logging
         {
             if (!CheckIsInitialized()) return;
 
-            string key = GetLoggerName<TILogging>();
+            string key = GetLoggerName<TLogging>();
 
             if (_cacheLoggers.ContainsKey(key))
             {
@@ -124,11 +124,11 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void PrintException<TILogging>(Exception exception) where TILogging : ILogging
+        public static void PrintException<TLogging>(Exception exception) where TLogging : Logging
         {
             if (!CheckIsInitialized()) return;
 
-            string key = GetLoggerName<TILogging>();
+            string key = GetLoggerName<TLogging>();
 
             if (_cacheLoggers.ContainsKey(key))
             {

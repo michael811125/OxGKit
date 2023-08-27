@@ -13,7 +13,7 @@ namespace OxGKit.LoggingSystem
         }
     }
 
-    public interface ILogging
+    internal interface ILogging
     {
         void Log(string message);
 

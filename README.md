@@ -146,7 +146,11 @@ public class YourLogger : Logging {}
 
 **LoggingSystem Demo**
 
+https://github.com/michael811125/OxGKit/assets/30960759/07144dad-060f-4278-a75a-3ff56407ba20
+
 **LoggingSystem Build Test**
+
+https://github.com/michael811125/OxGKit/assets/30960759/cef1a484-d617-466d-bf3e-6104032d7c3f
 
 **如果沒有要使用 LoggingSystem，可以直接刪除整個 LoggingSystem，注意其他庫引用關係。**
 

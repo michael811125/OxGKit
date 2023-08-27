@@ -23,6 +23,7 @@ namespace OxGKit.LoggingSystem
 
             if (this.loggerSetting != null)
             {
+#if UNITY_EDITOR || OXGKIT_LOGGER_ON
                 Logging.InitLoggers();
 
                 // Set loggers active from setting
@@ -39,6 +40,7 @@ namespace OxGKit.LoggingSystem
                 Logging.isLauncherInitialized = true;
 
                 Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
+#endif
             }
             else
             {

@@ -124,6 +124,9 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 - 透過 Right-Click Create/OxGKit/Logging System/Create Logger Setting 建立配置檔。
 - 透過菜單選項 OxGKit/Logging System/Logger Setting 開啟將會自動生成配置檔。
 
+**Build 激活標籤**
+- OXGKIT_LOGGER_ON
+
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_4.png)
 
 ```C#

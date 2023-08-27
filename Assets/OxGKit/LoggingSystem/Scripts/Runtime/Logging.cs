@@ -58,6 +58,11 @@ namespace OxGKit.LoggingSystem
         #endregion
 
         #region Global Methods
+        public static bool IsLauncherInitialized()
+        {
+            return isLauncherInitialized;
+        }
+
         public static void ClearLoggers()
         {
             _cacheLoggers.Clear();

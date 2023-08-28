@@ -72,7 +72,7 @@ namespace OxGKit.LoggingSystem.Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             EditorGUI.BeginChangeCheck();
-            this.logMainActive = GUILayout.Toggle(this.logMainActive, new GUIContent("Enabled All Loggers", "If checked will disabled all loggers."));
+            this.logMainActive = GUILayout.Toggle(this.logMainActive, new GUIContent("Enabled All Loggers"));
             if (EditorGUI.EndChangeCheck())
             {
                 this._setting.logMainActive = this.logMainActive;

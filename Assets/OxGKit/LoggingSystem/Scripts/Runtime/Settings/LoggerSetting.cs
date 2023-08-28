@@ -23,6 +23,7 @@ namespace OxGKit.LoggingSystem
         }
 
         [SerializeField]
+        [OverrideLabel("Enabled All Loggers")]
         public bool logMainActive = true;
         [SerializeField]
         public List<LoggerConfig> loggerConfigs = new List<LoggerConfig>();

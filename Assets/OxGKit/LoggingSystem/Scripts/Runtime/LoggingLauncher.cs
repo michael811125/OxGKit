@@ -25,13 +25,42 @@ namespace OxGKit.LoggingSystem
 
         public void InitLoggers()
         {
-            Logging.isLauncherInitialized = false;
-
-            if (this.loggerSetting != null)
+            if (this.loggerSetting != null && !Logging.isLauncherInitialized)
             {
 #if UNITY_EDITOR || OXGKIT_LOGGER_ON
+                // Init loggers
                 Logging.InitLoggers();
+                // Load activity state from setting after init
+                if (this._LoadLoggerSetting())
+                {
+                    // Mark flag
+                    Logging.isLauncherInitialized = true;
 
+                    Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
+                }
+#endif
+            }
+            else
+            {
+                Logging.ClearLoggers();
+#if UNITY_EDITOR || OXGKIT_LOGGER_ON
+                Debug.Log($"<color=#ff2763>{nameof(LoggerSetting)} is null, please create a {nameof(LoggerSetting)}. [{nameof(LoggingSystem)}] launch failed!!!</color>");
+#endif
+            }
+        }
+
+        public void ReloadLoggerSetting()
+        {
+            if (this._LoadLoggerSetting())
+            {
+                Debug.Log($"<color=#00ffe5>[{nameof(LoggingSystem)}] is reloaded setting in runtime.</color>");
+            }
+        }
+
+        private bool _LoadLoggerSetting()
+        {
+            if (this.loggerSetting != null)
+            {
                 // Set loggers active from setting
                 foreach (var loggerData in this.loggerSetting.loggerConfigs)
                 {
@@ -42,17 +71,10 @@ namespace OxGKit.LoggingSystem
                 // Set main active from setting
                 Logging.logMainActive = this.loggerSetting.logMainActive;
 
-                // Mark flag
-                Logging.isLauncherInitialized = true;
+                return true;
+            }
 
-                Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
-#endif
-            }
-            else
-            {
-                Logging.ClearLoggers();
-                Debug.Log($"<color=#ff2763>{nameof(LoggerSetting)} is null, please create a {nameof(LoggerSetting)}. [{nameof(LoggingSystem)}] launch failed!!!</color>");
-            }
+            return false;
         }
     }
 }

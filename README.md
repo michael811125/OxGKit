@@ -152,7 +152,7 @@ public class YourLogger : Logging {}
 
 **LoggingSystem Demo**
 
-https://github.com/michael811125/OxGKit/assets/30960759/1eb672cc-0d34-4e90-9b7c-d35a23c99af9
+https://github.com/michael811125/OxGKit/assets/30960759/51ecddd7-5241-43e9-9104-de45cbc5f68d
 
 **LoggingSystem Build Test**
 

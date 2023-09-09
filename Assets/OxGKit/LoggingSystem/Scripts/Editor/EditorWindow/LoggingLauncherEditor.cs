@@ -1,6 +1,4 @@
-﻿using Unity.Plastic.Newtonsoft.Json;
-using UnityEditor;
-using UnityEditor.Overlays;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace OxGKit.LoggingSystem.Editor

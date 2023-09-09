@@ -54,6 +54,12 @@ namespace OxGKit.Utilities.Cacher
             }
         }
 
+        public void Clear()
+        {
+            this._lruList.Clear();
+            this._cache.Clear();
+        }
+
         public bool Contains(TKey key)
         {
             return this._cache.ContainsKey(key);

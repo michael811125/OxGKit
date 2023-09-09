@@ -19,43 +19,107 @@ namespace OxGKit.Utilities.Request
         public static void InitARCCacheCapacityForAudio(int capacity = 20)
         {
             if (_arcAudios == null) _arcAudios = new ARCCache<string, AudioClip>(capacity);
-            // Only allow one cache type
-            _lruAudios = null;
+            if (_lruAudios != null)
+            {
+                _lruAudios.Clear();
+                // Only allow one cache type
+                _lruAudios = null;
+            }
+        }
+
+        public static void ClearARCCacheCapacityForAudio()
+        {
+            if (_arcAudios != null) _arcAudios.Clear();
         }
 
         public static void InitARCCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_arcTexture2ds == null) _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
-            // Only allow one cache type
-            _lruTexture2ds = null;
+            if (_lruTexture2ds != null)
+            {
+                _lruTexture2ds.Clear();
+                // Only allow one cache type
+                _lruTexture2ds = null;
+            }
+        }
+
+        public static void ClearARCCacheCapacityForTexture2d()
+        {
+            if (_arcTexture2ds != null) _arcTexture2ds.Clear();
         }
 
         public static void InitARCCacheCapacityForText(int capacity = 100)
         {
             if (_arcTexts == null) _arcTexts = new ARCCache<string, string>(capacity);
-            // Only allow one cache type
-            _lruTexts = null;
+            if (_lruTexts != null)
+            {
+                _lruTexts.Clear();
+                // Only allow one cache type
+                _lruTexts = null;
+            }
+        }
+
+        public static void ClearARCCacheCapacityForText()
+        {
+            if (_arcTexts != null) _arcTexts.Clear();
         }
 
         public static void InitLRUCacheCapacityForAudio(int capacity = 20)
         {
             if (_lruAudios == null) _lruAudios = new LRUCache<string, AudioClip>(capacity);
-            // Only allow one cache type
-            _arcAudios = null;
+            if (_arcAudios != null)
+            {
+                _arcAudios.Clear();
+                // Only allow one cache type
+                _arcAudios = null;
+            }
+        }
+
+        public static void ClearLRUCacheCapacityForAudio()
+        {
+            if (_lruAudios != null) _lruAudios.Clear();
         }
 
         public static void InitLRUCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_lruTexture2ds == null) _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
-            // Only allow one cache type
-            _arcTexture2ds = null;
+            if (_arcTexture2ds != null)
+            {
+                _arcTexture2ds.Clear();
+                // Only allow one cache type
+                _arcTexture2ds = null;
+            }
+        }
+
+        public static void ClearLRUCacheCapacityForTexture2d()
+        {
+            if (_lruTexture2ds != null) _lruTexture2ds.Clear();
         }
 
         public static void InitLRUCacheCapacityForText(int capacity = 80)
         {
             if (_lruTexts == null) _lruTexts = new LRUCache<string, string>(capacity);
-            // Only allow one cache type
-            _arcTexts = null;
+            if (_arcTexts != null)
+            {
+                _arcTexts.Clear();
+                // Only allow one cache type
+                _arcTexts = null;
+            }
+        }
+
+        public static void ClearLRUCacheCapacityForText()
+        {
+            if (_lruTexts != null) _lruTexts.Clear();
+        }
+
+        public static void ClearAllCaches()
+        {
+            ClearARCCacheCapacityForAudio();
+            ClearARCCacheCapacityForText();
+            ClearARCCacheCapacityForTexture2d();
+            ClearLRUCacheCapacityForAudio();
+            ClearLRUCacheCapacityForText();
+            ClearLRUCacheCapacityForTexture2d();
         }
 
         /// <summary>

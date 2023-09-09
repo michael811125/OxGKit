@@ -27,9 +27,8 @@ namespace OxGKit.Utilities.Timer
             this.Reset();
         }
 
-        public DeltaTimer(bool autoPlay)
+        public DeltaTimer(bool autoPlay) : this()
         {
-            this.Reset();
             if (autoPlay) this.Play();
         }
 

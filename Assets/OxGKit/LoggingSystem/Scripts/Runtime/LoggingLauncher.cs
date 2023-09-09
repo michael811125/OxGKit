@@ -19,6 +19,12 @@ namespace OxGKit.LoggingSystem
             }
             else DontDestroyOnLoad(this.gameObject.transform.root);
 
+            // Init and read values from setting
+            this.InitLoggers();
+        }
+
+        public void InitLoggers()
+        {
             Logging.isLauncherInitialized = false;
 
             if (this.loggerSetting != null)

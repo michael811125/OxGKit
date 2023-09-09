@@ -58,6 +58,14 @@ namespace OxGKit.Utilities.Cacher
             }
         }
 
+        public void Clear()
+        {
+            this._cache.Clear();
+            this._t1.Clear();
+            this._t2.Clear();
+            this._b1b2.Clear();
+        }
+
         protected void PerformEviction()
         {
             if (this._t1.Count > 0 && (this._t1.Count > this._capacity || this._b1b2.Count > 0))

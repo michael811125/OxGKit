@@ -52,6 +52,12 @@ namespace OxGKit.Utilities.Cacher
             this._cache.TryAdd(key, newNode);
         }
 
+        public void Clear()
+        {
+            this._lruList.Clear();
+            this._cache.Clear();
+        }
+
         protected void RemoveLRUItem()
         {
             var lastNode = this._lruList.Last;

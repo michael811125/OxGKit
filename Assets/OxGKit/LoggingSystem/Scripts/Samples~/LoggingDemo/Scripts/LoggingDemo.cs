@@ -1,5 +1,6 @@
 ﻿using OxGKit.LoggingSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [LoggerName("LoggingDemo.Logger1")]
 public class LoggingDemoLogger1 : Logging { }
@@ -15,5 +16,16 @@ public class LoggingDemo : MonoBehaviour
         Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger1!!!");
         // Use Logger2 to print
         Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger2!!!");
+    }
+
+    private void Update()
+    {
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            // Use logger1 to print
+            Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger1!!!");
+            // Use Logger2 to print
+            Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger2!!!");
+        }
     }
 }

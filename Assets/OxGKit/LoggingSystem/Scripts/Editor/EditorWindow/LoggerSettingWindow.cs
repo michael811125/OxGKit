@@ -103,8 +103,8 @@ namespace OxGKit.LoggingSystem.Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             Color bc = GUI.backgroundColor;
-            GUI.backgroundColor = new Color32(31, 255, 102, 255);
-            if (GUILayout.Button("Refresh and Load Loggers", GUILayout.MaxWidth(250f)))
+            GUI.backgroundColor = new Color32(0, 255, 209, 255);
+            if (GUILayout.Button("Reload Loggers", GUILayout.MaxWidth(250f)))
             {
                 this._setting.RefreshAndLoadLoggers();
             }
@@ -118,7 +118,7 @@ namespace OxGKit.LoggingSystem.Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             bc = GUI.backgroundColor;
-            GUI.backgroundColor = new Color32(255, 151, 240, 255);
+            GUI.backgroundColor = new Color32(255, 87, 134, 255);
             if (GUILayout.Button("Reset Loggers", GUILayout.MaxWidth(250f)))
             {
                 this._setting.ResetSettingData();

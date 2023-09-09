@@ -6,6 +6,7 @@ namespace OxGKit.Utilities.Timer
 {
     public class RealTimer
     {
+        private DateTime _createTime;
         private bool _playing;
         private float _intervalTime;
         private float _pauseTime;
@@ -21,12 +22,12 @@ namespace OxGKit.Utilities.Timer
 
         public RealTimer()
         {
+            this._createTime = DateTime.Now;
             this.Reset();
         }
 
-        public RealTimer(bool autoPlay)
+        public RealTimer(bool autoPlay) : this()
         {
-            this.Reset();
             if (autoPlay) this.Play();
         }
 
@@ -58,9 +59,7 @@ namespace OxGKit.Utilities.Timer
 
         public float GetRealTime()
         {
-            if (!RealTime.IsInitStartupTime()) return 0f;
-
-            var timeSpan = DateTime.Now.Subtract((DateTime)RealTime.startupTime);
+            var timeSpan = DateTime.Now.Subtract(this._createTime);
             return (float)timeSpan.TotalSeconds;
         }
 

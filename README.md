@@ -282,6 +282,10 @@ https://github.com/michael811125/OxGKit/assets/30960759/cd43fc8b-c6f7-4878-990b-
 
 https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-a9877f4ca254
 
+**Utilities Demo (Timer)**
+
+https://github.com/michael811125/OxGKit/assets/30960759/3f76aab1-6d26-47a7-a9fd-ee6be8058cf8
+
 **如果沒有要使用 Utilities，可以直接刪除整個 Utilities，注意其他庫引用關係。**
 
 ---

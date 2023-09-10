@@ -65,32 +65,38 @@ namespace OxGKit.Utilities.Timer
 
         protected async UniTask SetInterval(CancellationTokenSource cts)
         {
-            if (Time.timeScale > 0 && this.targetFrameRate > 0 && this.timeScale > 0)
+            try
             {
-                // 幀數率
-                float multiTimeScale = Time.timeScale * this.timeScale;
-                float frameRate = this.targetFrameRate * multiTimeScale;
-                // 計算 fixedDeltaTime
-                this.fixedDeltaTime = 1f / frameRate;
+                if (Time.timeScale > 0 && this.targetFrameRate > 0 && this.timeScale > 0)
+                {
+                    // 幀數率
+                    float multiTimeScale = Time.timeScale * this.timeScale;
+                    float frameRate = this.targetFrameRate * multiTimeScale;
+                    // 計算 fixedDeltaTime
+                    this.fixedDeltaTime = 1f / frameRate;
 
-                // 使用 PlayerLoopTiming.Update 確保刷新率
-                await UniTask.Delay(TimeSpan.FromSeconds(this.fixedDeltaTime), true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
+                    // 使用 PlayerLoopTiming.Update 確保刷新率
+                    await UniTask.Delay(TimeSpan.FromSeconds(this.fixedDeltaTime), true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
 
-                this.onFixedUpdate?.Invoke(this.fixedDeltaTime);
+                    this.onFixedUpdate?.Invoke(this.fixedDeltaTime);
 
-                // 計算 deltaTime
-                this.deltaTime = this.timeSinceStartup - this.timeAtLastFrame;
-                this.timeAtLastFrame = this.timeSinceStartup;
+                    // 計算 deltaTime
+                    this.deltaTime = this.timeSinceStartup - this.timeAtLastFrame;
+                    this.timeAtLastFrame = this.timeSinceStartup;
 
-                // 計算經過的時間, 當前時間 - 最一開始的時間 = 啟動到現在的經過時間 (秒)
-                var timeSpan = DateTime.Now.Subtract(this._createTime);
-                this.timeSinceStartup = (float)timeSpan.TotalSeconds;
+                    // 計算經過的時間, 當前時間 - 最一開始的時間 = 啟動到現在的經過時間 (秒)
+                    var timeSpan = DateTime.Now.Subtract(this._createTime);
+                    this.timeSinceStartup = (float)timeSpan.TotalSeconds;
 
-                this.onUpdate?.Invoke(this.deltaTime);
+                    this.onUpdate?.Invoke(this.deltaTime);
+                }
+                else await UniTask.Yield(cts.Token);
+
+                SetInterval(cts).Forget();
             }
-            else await UniTask.Yield(cts.Token);
-
-            SetInterval(cts).Forget();
+            catch
+            {
+            }
         }
     }
 }

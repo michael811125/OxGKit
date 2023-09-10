@@ -248,7 +248,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 各通用組件 (Essential)。
 - Utilities 
-  - Timer: DeltaTimer, RealTimer, DTUpdate, RTUpdate.
+  - Timer: DeltaTimer, RealTimer, DTUpdater, RTUpdater, IntervalTimer, IntervalSetter.
   - Adapter: UISafeAreaAdapter.
   - Pool: NodePool (GameObject Pool).
   - ButtonPlus: Inherited by Unity Button. extend Long Click and Transition Scale.

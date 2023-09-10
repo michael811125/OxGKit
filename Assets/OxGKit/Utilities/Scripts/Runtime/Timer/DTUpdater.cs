@@ -14,9 +14,9 @@ namespace OxGKit.Utilities.Timer
         public DeltaTimeFixedUpdate onFixedUpdate = null;
 
         private DateTime _createTime;
-        public float timeSinceStartup { get; protected set; }       // 自啟動以來的時間
-        public float timeAtLastFrame { get; protected set; }        // 記錄最後一幀的時間
-        protected float _timeScale = 1f;                            // 時間尺度, 預設 = 1
+        public float timeSinceStartup { get; private set; }       // 自啟動以來的時間
+        public float timeAtLastFrame { get; private set; }        // 記錄最後一幀的時間
+        private float _timeScale = 1f;                            // 時間尺度, 預設 = 1
         public float timeScale
         {
             get { return this._timeScale; }
@@ -27,7 +27,7 @@ namespace OxGKit.Utilities.Timer
                 else this._timeScale = value;
             }
         }
-        protected float _targetFrameRate = FIXED_FRAME;
+        private float _targetFrameRate = FIXED_FRAME;
         public float targetFrameRate
         {
             get { return this._targetFrameRate; }
@@ -37,13 +37,13 @@ namespace OxGKit.Utilities.Timer
                 else this._targetFrameRate = value;
             }
         }
-        public float deltaTime { get; protected set; }
-        public float fixedDeltaTime { get; protected set; }
-        protected CancellationTokenSource _cts = null;
-        protected bool _isRuning = false;
+        public float deltaTime { get; private set; }
+        public float fixedDeltaTime { get; private set; }
+        private CancellationTokenSource _cts = null;
+        private bool _isRuning = false;
 
-        protected const float FIXED_FRAME = 60;                     // 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
-        protected const float MAX_TIMESCALE = 1 << 6;
+        private const float FIXED_FRAME = 60;                     // 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
+        private const float MAX_TIMESCALE = 1 << 6;
 
         public DTUpdater()
         {
@@ -52,9 +52,10 @@ namespace OxGKit.Utilities.Timer
 
         public void Start()
         {
+            if (this._isRuning) return;
             this._isRuning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
-            this.SetInterval(this._cts).Forget();
+            this._SetInterval(this._cts).Forget();
         }
 
         public void Stop()
@@ -66,7 +67,7 @@ namespace OxGKit.Utilities.Timer
             this._cts = null;
         }
 
-        protected async UniTask SetInterval(CancellationTokenSource cts)
+        private async UniTaskVoid _SetInterval(CancellationTokenSource cts)
         {
             try
             {
@@ -98,9 +99,7 @@ namespace OxGKit.Utilities.Timer
                     else await UniTask.Yield(cts.Token);
                 } while (this._isRuning);
             }
-            catch
-            {
-            }
+            catch { }
         }
     }
 }

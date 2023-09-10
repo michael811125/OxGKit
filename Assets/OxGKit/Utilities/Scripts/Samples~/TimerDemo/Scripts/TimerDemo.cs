@@ -7,6 +7,7 @@ public class TimerDemo : MonoBehaviour
 {
     public float waitTime = 3f;
     public float tickTime = 2f;
+    public int intervalTime = 1;
     public Slider timeScaleSlider = null;
     public Text timeScaleText = null;
 
@@ -23,6 +24,11 @@ public class TimerDemo : MonoBehaviour
     private bool _isUpdaterRuning = false;
     private RTUpdater _rtUpdater;
     private DTUpdater _dtUpdater;
+
+    // IntervalTimer
+    private bool _isIntervalTimerRuning = false;
+    private const int _intervalTimerId = 1;
+    private IntervalTimer _intervalTimer;
 
     private void Start()
     {
@@ -42,6 +48,7 @@ public class TimerDemo : MonoBehaviour
 
         // Slider event for Updater
         this.timeScaleSlider.value = 1f;
+        this.timeScaleSlider.maxValue = 10f;
         this.timeScaleText.text = $"TimeScale: 1.0";
         this.timeScaleSlider.onValueChanged.RemoveAllListeners();
         this.timeScaleSlider.onValueChanged.AddListener((val) =>
@@ -57,6 +64,8 @@ public class TimerDemo : MonoBehaviour
             this.timeScaleText.text = $"TimeScale: {val.ToString("f1")}";
         });
 
+        // IntervalTimer
+        this._intervalTimer = new IntervalTimer();
     }
 
     private void Update()
@@ -133,7 +142,7 @@ public class TimerDemo : MonoBehaviour
         {
             if (this._realTicker.IsTickTimeout())
             {
-                Debug.Log($"<color=#a1ff00>[RealTicker] Tick point!!!</color>");
+                Debug.Log($"<color=#a1ff00>[RealTicker] Tick check point!!!</color>");
             }
         }
 
@@ -142,7 +151,7 @@ public class TimerDemo : MonoBehaviour
         {
             if (this._deltaTicker.IsTickTimeout())
             {
-                Debug.Log($"<color=#00e3ff>[DeltaTicker] Tick point!!!</color>");
+                Debug.Log($"<color=#00e3ff>[DeltaTicker] Tick check point!!!</color>");
             }
         }
         #endregion
@@ -166,6 +175,33 @@ public class TimerDemo : MonoBehaviour
                 this._dtUpdater.Stop();
 
                 Debug.Log($"<color=#ffe400>Updater stop!</color>");
+            }
+        }
+        #endregion
+
+        #region IntervalTimer
+        if (Keyboard.current.vKey.wasReleasedThisFrame)
+        {
+            this._isIntervalTimerRuning = !this._isIntervalTimerRuning;
+            if (this._isIntervalTimerRuning)
+            {
+                // New intervalTimer
+                this._intervalTimer.SetInterval(() => { Debug.Log($"<color=#a1ff00>[IntervalTimer] called!!!</color>"); }, this.intervalTime * 1000);
+
+                // Created by IntervalSetter
+                IntervalSetter.SetInterval(_intervalTimerId, () => { Debug.Log($"<color=#00e3ff>[IntervalTimer] Id: <{_intervalTimerId}> called!!! Created by IntervalSetter.</color>"); }, this.intervalTime * 1000);
+
+                Debug.Log($"<color=#ffe400>IntervalTimer start! Current intervalTime is <color=#ff5aaf>{this.intervalTime} seconds</color>.</color>");
+            }
+            else
+            {
+                // New intervalTimer
+                this._intervalTimer.StopInterval();
+
+                // Created by IntervalSetter
+                IntervalSetter.TryClearInterval(_intervalTimerId);
+
+                Debug.Log($"<color=#ffe400>IntervalTimer stop!</color>");
             }
         }
         #endregion

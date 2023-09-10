@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## [0.0.7-preview] - 2023-09-11
+- Added InterTimer.
+- Added IntervalSetter (global factory).
+- Removed SetInterval from Timer.
+- Adjusted Timer and Updater.
+
 ## [0.0.6-preview] - 2023-09-10
 - Added TimerDemo in Samples.
 - Fixed Timer play bug issue.

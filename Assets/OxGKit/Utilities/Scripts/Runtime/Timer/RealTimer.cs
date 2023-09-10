@@ -1,6 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
+﻿using System;
 
 namespace OxGKit.Utilities.Timer
 {
@@ -33,15 +31,6 @@ namespace OxGKit.Utilities.Timer
 
         ~RealTimer()
         {
-        }
-
-        public static async UniTask SetInterval(Action action, int milliseconds, CancellationTokenSource cts = null)
-        {
-            await UniTask.Delay(milliseconds, true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
-
-            action?.Invoke();
-
-            SetInterval(action, milliseconds, cts).Forget();
         }
 
         public void Reset()

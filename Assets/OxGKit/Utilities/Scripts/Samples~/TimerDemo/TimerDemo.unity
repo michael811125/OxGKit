@@ -157,10 +157,10 @@ RectTransform:
   m_Father: {fileID: 2033775613}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07777778, y: 0.35260418}
-  m_AnchorMax: {x: 0.9222222, y: 0.64739585}
+  m_AnchorMin: {x: 0.106018506, y: 0.32421875}
+  m_AnchorMax: {x: 0.89398146, y: 0.67578125}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.000030219555, y: -0.0000038146973}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &176739790
 MonoBehaviour:
@@ -198,11 +198,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 55
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 5
-    m_MaxSize: 55
+    m_MinSize: 0
+    m_MaxSize: 45
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -220,7 +220,12 @@ MonoBehaviour:
 
 
     Pressed
-    [C] to start and stop Updater'
+    [C] to start and stop Updater
+
+
+
+
+    Pressed [V] to start and stop IntervalTimer'
 --- !u!222 &176739792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -525,8 +530,8 @@ RectTransform:
   m_Father: {fileID: 2033775613}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1712963, y: 0.29270834}
-  m_AnchorMax: {x: 0.8287037, y: 0.34479168}
+  m_AnchorMin: {x: 0.13564815, y: 0.3828125}
+  m_AnchorMax: {x: 0.86435187, y: 0.43489584}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -601,6 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitTime: 3
   tickTime: 2
+  intervalTime: 1
   timeScaleSlider: {fileID: 953031879}
   timeScaleText: {fileID: 1845021623}
 --- !u!4 &855164672

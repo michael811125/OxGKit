@@ -1,5 +1,14 @@
 ## CHANGELOG
 
+## [0.0.6-preview] - 2023-09-10
+- Added TimerDemo in Samples.
+- Fixed Timer play bug issue.
+- Fixed Updater cancel bug issue.
+- Modifier Timer name of methods SetSpeed to SetTimeSpeed and GetSpeed to GetTimeSpeed.
+- Modifier Updater name of methods StartUpdate to Start and StopUpdate to Stop.
+- Renamed RTUpdate to RTUpdater.
+- Renamed DTUpdate to DTUpdater.
+
 ## [0.0.5-preview] - 2023-09-09
 - Added Requester has clear LRU and ARC methods.
 - Added Cacher has clear methods.

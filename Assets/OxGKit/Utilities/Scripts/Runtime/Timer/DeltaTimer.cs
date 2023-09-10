@@ -20,7 +20,7 @@ namespace OxGKit.Utilities.Timer
         private float _lastTickTime;
 
         private float _mark;
-        private float _speed;
+        private float _timeSpeed;
 
         public DeltaTimer()
         {
@@ -46,7 +46,7 @@ namespace OxGKit.Utilities.Timer
         }
 
         /// <summary>
-        /// 需要透過 MonoBehaviour 的 Update 呼叫驅動 Timer
+        /// 需要透過 MonoBehaviour 的 Update 驅動 Timer
         /// </summary>
         /// <param name="dt"></param>
         public void UpdateTimer(float dt)
@@ -67,13 +67,13 @@ namespace OxGKit.Utilities.Timer
             this._tickTime = 0.0f;
             this._lastTickTime = 0.0f;
             this._mark = 0.0f;
-            this._speed = 1.0f;
+            this._timeSpeed = 1.0f;
         }
 
         public float GetTime()
         {
             if (!this._playing) return this._pauseTime - this._intervalTime;
-            return (this._accTime - this._intervalTime) * this._speed;
+            return (this._accTime - this._intervalTime) * this._timeSpeed;
         }
 
         public void Pause()
@@ -99,6 +99,7 @@ namespace OxGKit.Utilities.Timer
 
         public void Play()
         {
+            if (this._playing) return;
             this._intervalTime += this._accTime - this._pauseTime;
             this._playing = true;
         }
@@ -117,10 +118,10 @@ namespace OxGKit.Utilities.Timer
         /// <summary>
         /// 設置要計時的秒數
         /// </summary>
-        /// <param name="time"></param>
-        public void SetTimer(float time)
+        /// <param name="timeSeconds"></param>
+        public void SetTimer(float timeSeconds)
         {
-            this._timerTime = time;
+            this._timerTime = timeSeconds;
             this._triggerTime = this.GetTime() + this._timerTime;
         }
 
@@ -141,8 +142,8 @@ namespace OxGKit.Utilities.Timer
         /// <returns></returns>
         public bool IsTimerTimeout()
         {
-            if (this.GetTime() < this._triggerTime) return false;
-            return true;
+            if (this.GetTime() > this._triggerTime) return true;
+            return false;
         }
 
         /// <summary>
@@ -162,10 +163,10 @@ namespace OxGKit.Utilities.Timer
         /// <summary>
         /// 設置 Tick 時間, 當 TickTimeout 時還會持續循環 Tick
         /// </summary>
-        /// <param name="tick"></param>
-        public void SetTick(float tick)
+        /// <param name="tickSeconds"></param>
+        public void SetTick(float tickSeconds)
         {
-            this._tickTime = tick;
+            this._tickTime = tickSeconds;
             this._lastTickTime = this.GetTime() + this._tickTime;
         }
 
@@ -196,9 +197,12 @@ namespace OxGKit.Utilities.Timer
         public bool IsTickTimeout()
         {
             float time = this.GetTime();
-            if (time < this._lastTickTime) return false;
-            this._lastTickTime = time + this._tickTime;
-            return true;
+            if (time > this._lastTickTime)
+            {
+                this._lastTickTime = time + this._tickTime;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -240,22 +244,22 @@ namespace OxGKit.Utilities.Timer
         {
             float time = this.GetTime();
             if (time == this._mark || time < this._mark) return 0.0f;
-            return (time - this._mark);
+            return time - this._mark;
         }
         #endregion
 
         /// <summary>
         /// 設置時間運轉速度
         /// </summary>
-        /// <param name="speed"></param>
-        public void SetSpeed(float speed)
+        /// <param name="timeSpeed"></param>
+        public void SetTimeSpeed(float timeSpeed)
         {
-            this._speed = speed;
+            this._timeSpeed = timeSpeed;
         }
 
-        public float GetSpeed()
+        public float GetTimeSpeed()
         {
-            return this._speed;
+            return this._timeSpeed;
         }
     }
 }

@@ -4,10 +4,10 @@ using System.Threading;
 
 namespace OxGKit.Utilities.Timer
 {
-    public class RTUpdate
+    public class RTUpdater
     {
-        public delegate void RealTimeUpdate(float dt);
-        public delegate void RealTimeFixedUpdate(float dt);
+        public delegate void RealTimeUpdate(float deltaTime);
+        public delegate void RealTimeFixedUpdate(float fixedDeltaTime);
 
         public RealTimeUpdate onUpdate = null;
         public RealTimeFixedUpdate onFixedUpdate = null;
@@ -38,41 +38,40 @@ namespace OxGKit.Utilities.Timer
         }
         public float deltaTime { get; protected set; }
         public float fixedDeltaTime { get; protected set; }
-        protected CancellationTokenSource _updateCts = null;
+        protected CancellationTokenSource _cts = null;
 
         protected const float FIXED_FRAME = 60;                   // 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
         protected const float MAX_TIMESCALE = 1 << 6;
 
-        public RTUpdate()
+        public RTUpdater()
         {
             this._createTime = DateTime.Now;
         }
 
-        public void StartUpdate()
+        public void Start()
         {
-            this._updateCts = new CancellationTokenSource();
-            SetInterval(this._updateCts).Forget();
+            if (this._cts == null) this._cts = new CancellationTokenSource();
+            SetInterval(this._cts).Forget();
         }
 
-        public void StopUpdate()
+        public void Stop()
         {
-            if (this._updateCts == null) return;
-            this._updateCts.Cancel();
-            this._updateCts.Dispose();
-            this._updateCts = null;
+            if (this._cts == null) return;
+            this._cts.Cancel();
+            this._cts.Dispose();
+            this._cts = null;
         }
 
         protected async UniTask SetInterval(CancellationTokenSource cts)
         {
             if (this.targetFrameRate > 0 && this.timeScale > 0)
             {
-                await UniTask.WaitUntil(() => { return this.timeScale > 0f; }, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
-
                 // 幀數率
                 float frameRate = this.targetFrameRate * this.timeScale;
                 // 計算 fixedDeltaTime
-                this.fixedDeltaTime = 1 / frameRate;
+                this.fixedDeltaTime = 1f / frameRate;
 
+                // 使用 PlayerLoopTiming.Update 確保刷新率
                 await UniTask.Delay(TimeSpan.FromSeconds(this.fixedDeltaTime), true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
 
                 this.onFixedUpdate?.Invoke(this.fixedDeltaTime);
@@ -87,7 +86,7 @@ namespace OxGKit.Utilities.Timer
 
                 this.onUpdate?.Invoke(this.deltaTime);
             }
-            else await UniTask.Yield();
+            else await UniTask.Yield(cts.Token);
 
             SetInterval(cts).Forget();
         }

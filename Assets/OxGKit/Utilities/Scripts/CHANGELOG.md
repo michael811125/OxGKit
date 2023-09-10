@@ -8,6 +8,7 @@
 - Modifier Updater name of methods StartUpdate to Start and StopUpdate to Stop.
 - Renamed RTUpdate to RTUpdater.
 - Renamed DTUpdate to DTUpdater.
+- Optmized Updater.
 
 ## [0.0.5-preview] - 2023-09-09
 - Added Requester has clear LRU and ARC methods.

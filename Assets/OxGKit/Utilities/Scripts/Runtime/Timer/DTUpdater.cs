@@ -40,6 +40,7 @@ namespace OxGKit.Utilities.Timer
         public float deltaTime { get; protected set; }
         public float fixedDeltaTime { get; protected set; }
         protected CancellationTokenSource _cts = null;
+        protected bool _isRuning = false;
 
         protected const float FIXED_FRAME = 60;                     // 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
         protected const float MAX_TIMESCALE = 1 << 6;
@@ -51,12 +52,14 @@ namespace OxGKit.Utilities.Timer
 
         public void Start()
         {
+            this._isRuning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
-            SetInterval(this._cts).Forget();
+            this.SetInterval(this._cts).Forget();
         }
 
         public void Stop()
         {
+            this._isRuning = false;
             if (this._cts == null) return;
             this._cts.Cancel();
             this._cts.Dispose();
@@ -67,32 +70,33 @@ namespace OxGKit.Utilities.Timer
         {
             try
             {
-                if (Time.timeScale > 0 && this.targetFrameRate > 0 && this.timeScale > 0)
+                do
                 {
-                    // 幀數率
-                    float multiTimeScale = Time.timeScale * this.timeScale;
-                    float frameRate = this.targetFrameRate * multiTimeScale;
-                    // 計算 fixedDeltaTime
-                    this.fixedDeltaTime = 1f / frameRate;
+                    if (Time.timeScale > 0 && this.targetFrameRate > 0 && this.timeScale > 0)
+                    {
+                        // 幀數率
+                        float multiTimeScale = Time.timeScale * this.timeScale;
+                        float frameRate = this.targetFrameRate * multiTimeScale;
+                        // 計算 fixedDeltaTime
+                        this.fixedDeltaTime = 1f / frameRate;
 
-                    // 使用 PlayerLoopTiming.Update 確保刷新率
-                    await UniTask.Delay(TimeSpan.FromSeconds(this.fixedDeltaTime), true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
+                        // 使用 PlayerLoopTiming.Update 確保刷新率
+                        await UniTask.Delay(TimeSpan.FromSeconds(this.fixedDeltaTime), true, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
 
-                    this.onFixedUpdate?.Invoke(this.fixedDeltaTime);
+                        this.onFixedUpdate?.Invoke(this.fixedDeltaTime);
 
-                    // 計算 deltaTime
-                    this.deltaTime = this.timeSinceStartup - this.timeAtLastFrame;
-                    this.timeAtLastFrame = this.timeSinceStartup;
+                        // 計算 deltaTime
+                        this.deltaTime = this.timeSinceStartup - this.timeAtLastFrame;
+                        this.timeAtLastFrame = this.timeSinceStartup;
 
-                    // 計算經過的時間, 當前時間 - 最一開始的時間 = 啟動到現在的經過時間 (秒)
-                    var timeSpan = DateTime.Now.Subtract(this._createTime);
-                    this.timeSinceStartup = (float)timeSpan.TotalSeconds;
+                        // 計算經過的時間, 當前時間 - 最一開始的時間 = 啟動到現在的經過時間 (秒)
+                        var timeSpan = DateTime.Now.Subtract(this._createTime);
+                        this.timeSinceStartup = (float)timeSpan.TotalSeconds;
 
-                    this.onUpdate?.Invoke(this.deltaTime);
-                }
-                else await UniTask.Yield(cts.Token);
-
-                SetInterval(cts).Forget();
+                        this.onUpdate?.Invoke(this.deltaTime);
+                    }
+                    else await UniTask.Yield(cts.Token);
+                } while (this._isRuning);
             }
             catch
             {

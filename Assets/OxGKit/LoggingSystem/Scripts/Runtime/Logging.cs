@@ -96,7 +96,7 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].Log(message);
+                _cacheLoggers[key].Print(message);
             }
         }
 
@@ -108,7 +108,7 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].LogWarning(message);
+                _cacheLoggers[key].PrintWarning(message);
             }
         }
 
@@ -120,7 +120,7 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].LogError(message);
+                _cacheLoggers[key].PrintError(message);
             }
         }
 
@@ -132,7 +132,7 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].LogException(exception);
+                _cacheLoggers[key].PrintException(exception);
             }
         }
         #endregion
@@ -144,27 +144,47 @@ namespace OxGKit.LoggingSystem
             return logMainActive && this.logActive;
         }
 
-        public virtual void Log(string message)
+        internal void Print(string message)
         {
             if (!this.LogActive()) return;
+            this.Log(message);
+        }
+
+        internal void PrintWarning(string message)
+        {
+            if (!this.LogActive()) return;
+            this.LogWarning(message);
+        }
+
+        internal void PrintError(string message)
+        {
+            if (!this.LogActive()) return;
+            this.LogError(message);
+        }
+
+        internal void PrintException(Exception exception)
+        {
+            if (!this.LogActive()) return;
+            this.LogException(exception);
+        }
+
+        public virtual void Log(string message)
+        {
             UnityEngine.Debug.Log(message);
         }
 
         public virtual void LogWarning(string message)
         {
-            if (!this.LogActive()) return;
             UnityEngine.Debug.LogWarning(message);
         }
 
         public virtual void LogError(string message)
         {
-            if (!this.LogActive()) return;
             UnityEngine.Debug.LogError(message);
         }
 
         public virtual void LogException(Exception exception)
         {
-            if (!this.LogActive()) return;
             UnityEngine.Debug.LogException(exception);
         }
     }

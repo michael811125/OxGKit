@@ -30,7 +30,7 @@ namespace OxGKit.LoggingSystem
 
         [ButtonClicker(nameof(RefreshAndLoadLoggers), "Reload Loggers", "#00ffd1")]
         public bool loadLoggers;
-        [Space(2.5f)]
+        [Space(5f)]
         [ButtonClicker(nameof(ResetSettingData), "Reset Loggers", "#ff5786")]
         public bool resetLoggers;
 

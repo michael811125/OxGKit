@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.5-preview] - 2023-09-21
+- Modified can directly override the interface method without check LogActive.
+
 ## [0.0.4-preview] - 2023-09-21
 - Modified buttons color (must upgrade LWMyBox to v1.1.4).
 

@@ -112,7 +112,7 @@ namespace OxGKit.LoggingSystem.Editor
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space(10f);
+            EditorGUILayout.Space(2.5f);
 
             // Reset button
             EditorGUILayout.BeginHorizontal();

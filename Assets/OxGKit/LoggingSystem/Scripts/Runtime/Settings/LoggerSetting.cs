@@ -28,10 +28,10 @@ namespace OxGKit.LoggingSystem
         [SerializeField]
         public List<LoggerConfig> loggerConfigs = new List<LoggerConfig>();
 
-        [ButtonClicker(nameof(RefreshAndLoadLoggers), "Reload Loggers")]
+        [ButtonClicker(nameof(RefreshAndLoadLoggers), "Reload Loggers", "#00ffd1")]
         public bool loadLoggers;
         [Space(2.5f)]
-        [ButtonClicker(nameof(ResetSettingData), "Reset Loggers")]
+        [ButtonClicker(nameof(ResetSettingData), "Reset Loggers", "#ff5786")]
         public bool resetLoggers;
 
         /// <summary>

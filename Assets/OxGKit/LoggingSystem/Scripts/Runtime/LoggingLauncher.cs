@@ -2,6 +2,7 @@
 
 namespace OxGKit.LoggingSystem
 {
+    [DisallowMultipleComponent]
     public class LoggingLauncher : MonoBehaviour
     {
         public LoggerSetting loggerSetting;

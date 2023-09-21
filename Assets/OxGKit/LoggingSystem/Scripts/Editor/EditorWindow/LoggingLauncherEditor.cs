@@ -34,7 +34,7 @@ namespace OxGKit.LoggingSystem.Editor
                 GUILayout.FlexibleSpace();
                 // Reload button
                 Color bc = GUI.backgroundColor;
-                GUI.backgroundColor = new Color32(0, 255, 168, 255);
+                GUI.backgroundColor = new Color32(102, 255, 153, 255);
                 EditorGUI.BeginDisabledGroup(!this._isDirty);
                 if (GUILayout.Button("Runtime Reload Setting", GUILayout.MaxWidth(225f)))
                 {

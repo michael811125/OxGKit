@@ -9,6 +9,8 @@ namespace OxGKit.LoggingSystem
         internal static bool logMainActive = true;
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
+        public Logging() { }
+
         #region Internal Methods
         internal static string GetLoggerName(Type type)
         {

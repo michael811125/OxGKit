@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.6-preview] - 2023-09-22
+- Added default constructor.
+
 ## [0.0.5-preview] - 2023-09-21
 - Modified can directly override the interface method without check LogActive.
 

@@ -129,12 +129,15 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_4.png)
 
-新增 Logger 或移除 Logger 皆需手動執行 Refresh and Load Loggers 重載。
+新增 Logger 或移除 Logger 皆需手動執行 Reload Loggers 重載 (建議定義一個 default constructor，避免搭配 HybridCLR + Activator.CreateInstance(type) 出現錯誤)。
 ```C#
 using OxGKit.LoggingSystem;
 
 [LoggerName("YourLoggerName")]
-public class YourLogger : Logging {}
+public class YourLogger : Logging 
+{ 
+    public YourLogger() {}
+}
 
 // After add must execute [Refresh and Load Loggers] in LoggerSetting or open LoggerSetting Editor Window
 ```

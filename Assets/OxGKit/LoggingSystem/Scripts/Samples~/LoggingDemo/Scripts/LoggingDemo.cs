@@ -3,10 +3,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [LoggerName("LoggingDemo.Logger1")]
-public class LoggingDemoLogger1 : Logging { }
+public class LoggingDemoLogger1 : Logging
+{
+    public LoggingDemoLogger1() { }
+}
 
 [LoggerName("LoggingDemo.Logger2")]
-public class LoggingDemoLogger2 : Logging { }
+public class LoggingDemoLogger2 : Logging
+{
+    public LoggingDemoLogger2() { }
+}
 
 public class LoggingDemo : MonoBehaviour
 {

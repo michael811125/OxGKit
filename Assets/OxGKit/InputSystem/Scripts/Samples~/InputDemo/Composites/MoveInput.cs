@@ -141,7 +141,7 @@ public class MoveInputComposite : InputBindingComposite<MoveInputComposite.MoveI
             target.mode = (Mode)EditorGUILayout.EnumPopup(m_ModeLabel, target.mode);
         }
 
-#if UNITY_2022_1_OR_NEWER
+#if UNITY_INPUT_SYSTEM_PROJECT_WIDE_ACTIONS
         public override void OnDrawVisualElements(VisualElement root, Action onChangedCallback)
         {
             var modeField = new EnumField("Mode", target.mode)

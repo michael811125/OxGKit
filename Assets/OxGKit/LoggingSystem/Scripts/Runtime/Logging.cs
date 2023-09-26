@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace OxGKit.LoggingSystem
 {
@@ -82,8 +83,15 @@ namespace OxGKit.LoggingSystem
 
                 if (!_cacheLoggers.ContainsKey(key))
                 {
-                    var instance = Activator.CreateInstance(type, null) as Logging;
-                    _cacheLoggers.Add(key, instance);
+                    try
+                    {
+                        var instance = Activator.CreateInstance(type, null) as Logging;
+                        _cacheLoggers.Add(key, instance);
+                    }
+                    catch
+                    {
+                        Debug.LogWarning("Create logger instance error!!!");
+                    }
                 }
             }
         }

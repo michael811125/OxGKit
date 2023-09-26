@@ -5,6 +5,23 @@ namespace OxGKit.LoggingSystem
     [DisallowMultipleComponent]
     public class LoggingLauncher : MonoBehaviour
     {
+        private static readonly object _locker = new object();
+        private static LoggingLauncher _instance;
+
+        public static LoggingLauncher GetInstance()
+        {
+            if (_instance == null)
+            {
+                lock (_locker)
+                {
+                    _instance = FindObjectOfType(typeof(LoggingLauncher)) as LoggingLauncher;
+                    if (_instance == null) _instance = new GameObject(typeof(LoggingLauncher).Name).AddComponent<LoggingLauncher>();
+                }
+            }
+            return _instance;
+        }
+
+        public bool initLoggersOnAwake = true;
         public LoggerSetting loggerSetting;
 
         public void Awake()
@@ -21,7 +38,7 @@ namespace OxGKit.LoggingSystem
             else DontDestroyOnLoad(this.gameObject.transform.root);
 
             // Init and read values from setting
-            this.InitLoggers();
+            if (this.initLoggersOnAwake) this.InitLoggers();
         }
 
         public void InitLoggers()

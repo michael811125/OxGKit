@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.8-preview] - 2023-09-26
+- Added InitLoggersOnAwake trigger and create a singleton in LoggingLauncher.
+
 ## [0.0.7-preview] - 2023-09-26
 - Adjusted Activator.CreateInstance params.
 

@@ -5,6 +5,6 @@ namespace OxGKit.InputSystem
     [LoggerName("OxGKit.InputSystem.Logger")]
     public class Logger : Logging
     {
-        public Logger() : base() { }
+        public Logger() { }
     }
 }

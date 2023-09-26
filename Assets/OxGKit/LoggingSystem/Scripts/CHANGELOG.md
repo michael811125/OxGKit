@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.7-preview] - 2023-09-26
+- Adjusted Activator.CreateInstance params.
+
 ## [0.0.6-preview] - 2023-09-22
 - Added default constructor.
 

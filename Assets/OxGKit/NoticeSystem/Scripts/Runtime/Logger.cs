@@ -5,6 +5,6 @@ namespace OxGKit.NoticeSystem
     [LoggerName("OxGKit.NoticeSystem.Logger")]
     public class Logger : Logging
     {
-        public Logger() : base() { }
+        public Logger() { }
     }
 }

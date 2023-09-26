@@ -136,8 +136,8 @@ using OxGKit.LoggingSystem;
 [LoggerName("YourLoggerName")]
 public class YourLogger : Logging 
 {
-    // If use HybridCLR must create a constructor and base superclass
-    public YourLogger() : base() { }
+    // If use HybridCLR must create a default constructor
+    public YourLogger() { }
 }
 
 // After add must execute [Refresh and Load Loggers] in LoggerSetting or open LoggerSetting Editor Window

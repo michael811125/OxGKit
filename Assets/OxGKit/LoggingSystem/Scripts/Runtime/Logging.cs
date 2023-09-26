@@ -90,7 +90,7 @@ namespace OxGKit.LoggingSystem
                     }
                     catch
                     {
-                        Debug.LogWarning("Create logger instance error!!!");
+                        Debug.LogWarning($"Create logger: {typeName} instance error!!!");
                     }
                 }
             }

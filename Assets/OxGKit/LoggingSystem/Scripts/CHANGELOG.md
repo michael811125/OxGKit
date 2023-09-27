@@ -1,5 +1,14 @@
 ## CHANGELOG
 
+## [0.0.9-preview] - 2023-09-27
+- Added CreateLogger<TLogging> method in Logging (can create logger and reload logger setting by yourself).
+- Added GetSetting static method in LoggingLauncher.
+```C#
+// Init by yourself
+Logging.CreateLogger<YourLogger>();
+LoggingLauncher.ReloadLoggerSetting();
+```
+
 ## [0.0.8-preview] - 2023-09-26
 - Added InitLoggersOnAwake trigger and create a singleton in LoggingLauncher.
 

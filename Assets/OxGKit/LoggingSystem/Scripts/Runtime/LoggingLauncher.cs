@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyBox;
+using UnityEngine;
 
 namespace OxGKit.LoggingSystem
 {
@@ -8,7 +9,7 @@ namespace OxGKit.LoggingSystem
         private static readonly object _locker = new object();
         private static LoggingLauncher _instance;
 
-        public static LoggingLauncher GetInstance()
+        internal static LoggingLauncher GetInstance()
         {
             if (_instance == null)
             {
@@ -21,7 +22,25 @@ namespace OxGKit.LoggingSystem
             return _instance;
         }
 
+        public static LoggerSetting GetSetting()
+        {
+            if (GetInstance().loggerSetting == null) _LoadSettingData();
+            return GetInstance().loggerSetting;
+        }
+
+        private static void _LoadSettingData()
+        {
+            GetInstance().loggerSetting = Resources.Load<LoggerSetting>(nameof(LoggerSetting));
+            if (GetInstance().loggerSetting == null)
+            {
+                GetInstance().loggerSetting = ScriptableObject.CreateInstance<LoggerSetting>();
+            }
+        }
+
+        [Separator("Options")]
+        [Tooltip("If checked will auto find all loggers in domain and load logger setting.")]
         public bool initLoggersOnAwake = true;
+        [Separator("Setting Data")]
         public LoggerSetting loggerSetting;
 
         public void Awake()
@@ -38,59 +57,57 @@ namespace OxGKit.LoggingSystem
             else DontDestroyOnLoad(this.gameObject.transform.root);
 
             // Init and read values from setting
-            if (this.initLoggersOnAwake) this.InitLoggers();
+            if (this.initLoggersOnAwake) InitLoggers();
         }
 
-        public void InitLoggers()
+        /// <summary>
+        /// Find all loggers and load logger setting
+        /// </summary>
+        public static void InitLoggers()
         {
-            if (this.loggerSetting != null && !Logging.isLauncherInitialized)
+            if (GetSetting() != null)
             {
-#if UNITY_EDITOR || OXGKIT_LOGGER_ON
                 // Init loggers
                 Logging.InitLoggers();
                 // Load activity state from setting after init
-                if (this._LoadLoggerSetting())
+                if (_LoadLoggerSetting())
                 {
-                    // Mark flag
-                    Logging.isLauncherInitialized = true;
-
                     Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
                 }
-#endif
-            }
-            else
-            {
-                Logging.ClearLoggers();
-#if UNITY_EDITOR || OXGKIT_LOGGER_ON
-                Debug.Log($"<color=#ff2763>{nameof(LoggerSetting)} is null, please create a {nameof(LoggerSetting)}. [{nameof(LoggingSystem)}] launch failed!!!</color>");
-#endif
             }
         }
 
-        public void ReloadLoggerSetting()
+        /// <summary>
+        ///  Reload logger setting
+        /// </summary>
+        public static void ReloadLoggerSetting()
         {
-            if (this._LoadLoggerSetting())
+            if (_LoadLoggerSetting())
             {
                 Debug.Log($"<color=#00ffe5>[{nameof(LoggingSystem)}] is reloaded setting in runtime.</color>");
             }
         }
 
-        private bool _LoadLoggerSetting()
+        private static bool _LoadLoggerSetting()
         {
-            if (this.loggerSetting != null)
+#if UNITY_EDITOR || OXGKIT_LOGGER_ON
+            if (GetSetting() != null)
             {
                 // Set loggers active from setting
-                foreach (var loggerData in this.loggerSetting.loggerConfigs)
+                foreach (var loggerData in GetSetting().loggerConfigs)
                 {
                     var logger = Logging.GetLogger(loggerData.loggerName);
                     if (logger != null) logger.logActive = loggerData.logActive;
                 }
 
                 // Set main active from setting
-                Logging.logMainActive = this.loggerSetting.logMainActive;
+                Logging.logMainActive = GetSetting().logMainActive;
 
                 return true;
             }
+#else
+            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+#endif
 
             return false;
         }

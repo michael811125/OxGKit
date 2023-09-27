@@ -7,15 +7,13 @@ namespace OxGKit.LoggingSystem.Editor
     public class LoggingLauncherEditor : UnityEditor.Editor
     {
         private UnityEditor.Editor _editor;
-        private LoggingLauncher _target = null;
         private bool _isDirty = false;
 
         public override void OnInspectorGUI()
         {
-            this._target = (LoggingLauncher)target;
-
             base.OnInspectorGUI();
 
+            // Draw logging setting view
             this.DrawLoggingSettingView();
         }
 
@@ -23,7 +21,7 @@ namespace OxGKit.LoggingSystem.Editor
         {
             serializedObject.Update();
 
-            var setting = this._target.loggerSetting;
+            var setting = LoggingLauncher.GetSetting();
 
             if (setting != null)
             {
@@ -38,7 +36,7 @@ namespace OxGKit.LoggingSystem.Editor
                 EditorGUI.BeginDisabledGroup(!this._isDirty);
                 if (GUILayout.Button("Runtime Reload Setting", GUILayout.MaxWidth(225f)))
                 {
-                    this._target.ReloadLoggerSetting();
+                    LoggingLauncher.ReloadLoggerSetting();
                     this._isDirty = false;
                 }
                 GUI.backgroundColor = bc;

@@ -6,7 +6,6 @@ namespace OxGKit.LoggingSystem
 {
     public abstract class Logging : ILogging
     {
-        internal static bool isLauncherInitialized = false;
         internal static bool logMainActive = true;
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
@@ -51,19 +50,14 @@ namespace OxGKit.LoggingSystem
             return logger;
         }
 
-        internal static bool CheckIsInitialized()
+        internal static bool CheckHasAnyLoggers()
         {
-            if (!isLauncherInitialized || _cacheLoggers.Count == 0) return false;
+            if (_cacheLoggers.Count == 0) return false;
             return true;
         }
         #endregion
 
         #region Global Methods
-        public static bool IsLauncherInitialized()
-        {
-            return isLauncherInitialized;
-        }
-
         public static void ClearLoggers()
         {
             _cacheLoggers.Clear();
@@ -73,6 +67,7 @@ namespace OxGKit.LoggingSystem
         {
             _cacheLoggers.Clear();
 
+#if UNITY_EDITOR || OXGKIT_LOGGER_ON
             var types = AssemblyFinder.GetAssignableTypes(typeof(Logging));
             foreach (var type in types)
             {
@@ -94,11 +89,39 @@ namespace OxGKit.LoggingSystem
                     }
                 }
             }
+#else
+            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+#endif
+        }
+
+        public static void CreateLogger<TLogging>() where TLogging : Logging, new()
+        {
+#if UNITY_EDITOR || OXGKIT_LOGGER_ON
+            string typeName = typeof(TLogging).Name;
+            string key = GetLoggerName(typeof(TLogging));
+
+            if (typeName == nameof(Logging)) return;
+
+            if (!_cacheLoggers.ContainsKey(key))
+            {
+                try
+                {
+                    var instance = new TLogging();
+                    _cacheLoggers.Add(key, instance);
+                }
+                catch
+                {
+                    Debug.LogWarning($"Create logger: {typeName} instance error!!!");
+                }
+            }
+#else
+            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+#endif
         }
 
         public static void Print<TLogging>(string message) where TLogging : Logging
         {
-            if (!CheckIsInitialized()) return;
+            if (!CheckHasAnyLoggers()) return;
 
             string key = GetLoggerName<TLogging>();
 
@@ -110,7 +133,7 @@ namespace OxGKit.LoggingSystem
 
         public static void PrintWarning<TLogging>(string message) where TLogging : Logging
         {
-            if (!CheckIsInitialized()) return;
+            if (!CheckHasAnyLoggers()) return;
 
             string key = GetLoggerName<TLogging>();
 
@@ -122,7 +145,7 @@ namespace OxGKit.LoggingSystem
 
         public static void PrintError<TLogging>(string message) where TLogging : Logging
         {
-            if (!CheckIsInitialized()) return;
+            if (!CheckHasAnyLoggers()) return;
 
             string key = GetLoggerName<TLogging>();
 
@@ -134,7 +157,7 @@ namespace OxGKit.LoggingSystem
 
         public static void PrintException<TLogging>(Exception exception) where TLogging : Logging
         {
-            if (!CheckIsInitialized()) return;
+            if (!CheckHasAnyLoggers()) return;
 
             string key = GetLoggerName<TLogging>();
 

@@ -222,6 +222,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75659405}
   m_CullTransparentMesh: 1
+--- !u!114 &431469072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db32b67c3968d44c892c0d4cff28f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logMainActive: 1
+  loggerConfigs: []
+  loadLoggers: 0
+  resetLoggers: 0
 --- !u!1 &532214617
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +656,10 @@ PrefabInstance:
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggerSetting
       value: 
+      objectReference: {fileID: 431469072}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: initLoggersOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365950, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: m_RootOrder

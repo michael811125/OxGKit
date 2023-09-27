@@ -6,11 +6,14 @@ namespace OxGKit.LoggingSystem.Editor
     [CustomEditor(typeof(LoggingLauncher))]
     public class LoggingLauncherEditor : UnityEditor.Editor
     {
+        private LoggingLauncher _target = null;
         private UnityEditor.Editor _editor;
         private bool _isDirty = false;
 
         public override void OnInspectorGUI()
         {
+            this._target = (LoggingLauncher)target;
+
             base.OnInspectorGUI();
 
             // Draw logging setting view
@@ -21,7 +24,7 @@ namespace OxGKit.LoggingSystem.Editor
         {
             serializedObject.Update();
 
-            var setting = LoggingLauncher.GetSetting();
+            var setting = this._target.loggerSetting;
 
             if (setting != null)
             {

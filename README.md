@@ -150,6 +150,10 @@ Logging.CreateLogger<YourLogger>();
 LoggingLauncher.ReloadLoggerSetting();
 ```
 
+以下是在 AOT 工程中初始 AOT 工程的 Loggers (如果 Hotfix 工程的 Loggers 需要再 Hotfix 工程中初始)。
+
+![](https://github.com/michael811125/OxGKit/blob/master/Docs/img_5.png)
+
 *[參考 Example]*
 
 ### Installation

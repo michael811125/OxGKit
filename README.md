@@ -139,8 +139,6 @@ public class YourLogger : Logging
     // If use HybridCLR must create a default constructor
     public YourLogger() { }
 }
-
-// After add must execute [Refresh and Load Loggers] in LoggerSetting or open LoggerSetting Editor Window
 ```
 
 如果搭配 HybridCLR 有主工程跟熱更工程的區分，建議自行手動拆分調用 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下。

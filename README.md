@@ -12,12 +12,12 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **目前包含以下**
 
-- 動作序列系統 (Action System)
-- 通知系統 (Notice System)
-- 輸入控制系統 (Input System)
-- 日誌系統 (Logging System)
-- DoTween Pro 的補間動畫系統 (TweenSystem)
-- 各通用必備組件工具 (Utilities)
+- [動作序列系統 (Action System)](https://github.com/michael811125/OxGKit#actionsystem-dependence-unitask-oxgkitloggingsystem)
+- [通知系統 (Notice System)](https://github.com/michael811125/OxGKit#noticesystem-or-reddotsystem-dependence-oxgkitloggingsystem)
+- [輸入控制系統 (Input System)](https://github.com/michael811125/OxGKit#inputsystem-dependence-unity-new-inputsystem-oxgkitloggingsystem)
+- [日誌系統 (Logging System)](https://github.com/michael811125/OxGKit#loggingsystem-dependence-lwmybox)
+- [DoTween Pro 的補間動畫系統 (TweenSystem)](https://github.com/michael811125/OxGKit#tweensystem-dependence-dotween-pro-lwmybox-oxgkitutilities)
+- [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask)
 
 *[會持續擴充工具系統組]*
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OxGKit.Utilities.Cacher
 {
@@ -17,6 +18,11 @@ namespace OxGKit.Utilities.Cacher
             this._k = k;
             this._cache = new Dictionary<TKey, LinkedListNode<CacheItem>>(capacity);
             this._lruList = new LinkedList<CacheItem>();
+        }
+
+        public TKey[] GetKeys()
+        {
+            return this._cache.Keys.ToArray();
         }
 
         public bool Contains(TKey key)
@@ -63,6 +69,7 @@ namespace OxGKit.Utilities.Cacher
         {
             if (this._cache.TryGetValue(key, out var node))
             {
+                node.Value.Value = default;
                 this._lruList.Remove(node);
                 this._cache.Remove(key);
                 return true;

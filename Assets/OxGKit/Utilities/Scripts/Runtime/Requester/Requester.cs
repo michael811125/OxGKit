@@ -20,12 +20,10 @@ namespace OxGKit.Utilities.Request
         public static void InitARCCacheCapacityForAudio(int capacity = 20)
         {
             if (_arcAudios == null) _arcAudios = new ARCCache<string, AudioClip>(capacity);
-            if (_lruAudios != null)
-            {
-                _lruAudios.Clear();
-                // Only allow one cache type
-                _lruAudios = null;
-            }
+
+            // Only allow one cache type (Clear LRU)
+            ClearLRUCacheCapacityForAudio();
+            _lruAudios = null;
         }
 
         public static bool RemoveFromARCCacheForAudio(string url)
@@ -44,23 +42,34 @@ namespace OxGKit.Utilities.Request
         public static void InitARCCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_arcTexture2ds == null) _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
-            if (_lruTexture2ds != null)
-            {
-                _lruTexture2ds.Clear();
-                // Only allow one cache type
-                _lruTexture2ds = null;
-            }
+
+            // Only allow one cache type (Clear LRU)
+            ClearLRUCacheCapacityForTexture2d();
+            _lruTexture2ds = null;
         }
 
         public static bool RemoveFromARCCacheForTexture2d(string url)
         {
-            if (_arcTexture2ds != null) return _arcTexture2ds.Remove(url);
+            if (_arcTexture2ds != null)
+            {
+                Texture2D t2d = _arcTexture2ds.Get(url);
+                if (t2d != null) UnityEngine.Object.Destroy(t2d);
+                return _arcTexture2ds.Remove(url);
+            }
             return false;
         }
 
         public static void ClearARCCacheCapacityForTexture2d()
         {
-            if (_arcTexture2ds != null) _arcTexture2ds.Clear();
+            if (_arcTexture2ds != null)
+            {
+                string[] urls = _arcTexture2ds.GetKeys();
+                foreach (var url in urls)
+                {
+                    RemoveFromARCCacheForTexture2d(url);
+                }
+                _arcTexture2ds.Clear();
+            }
         }
         #endregion
 
@@ -68,12 +77,10 @@ namespace OxGKit.Utilities.Request
         public static void InitARCCacheCapacityForText(int capacity = 100)
         {
             if (_arcTexts == null) _arcTexts = new ARCCache<string, string>(capacity);
-            if (_lruTexts != null)
-            {
-                _lruTexts.Clear();
-                // Only allow one cache type
-                _lruTexts = null;
-            }
+
+            // Only allow one cache type (Clear LRU)
+            ClearLRUCacheCapacityForText();
+            _lruTexts = null;
         }
 
         public static bool RemoveFromARCCacheForText(string url)
@@ -92,12 +99,10 @@ namespace OxGKit.Utilities.Request
         public static void InitLRUCacheCapacityForAudio(int capacity = 20)
         {
             if (_lruAudios == null) _lruAudios = new LRUCache<string, AudioClip>(capacity);
-            if (_arcAudios != null)
-            {
-                _arcAudios.Clear();
-                // Only allow one cache type
-                _arcAudios = null;
-            }
+
+            // Only allow one cache type (Clear ARC)
+            ClearARCCacheCapacityForAudio();
+            _arcAudios = null;
         }
 
         public static bool RemoveFromLRUCacheForAudio(string url)
@@ -116,23 +121,34 @@ namespace OxGKit.Utilities.Request
         public static void InitLRUCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_lruTexture2ds == null) _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
-            if (_arcTexture2ds != null)
-            {
-                _arcTexture2ds.Clear();
-                // Only allow one cache type
-                _arcTexture2ds = null;
-            }
+
+            // Only allow one cache type (Clear ARC)
+            ClearARCCacheCapacityForTexture2d();
+            _arcTexture2ds = null;
         }
 
         public static bool RemoveFromLRUCacheForTexture2d(string url)
         {
-            if (_lruTexture2ds != null) return _lruTexture2ds.Remove(url);
+            if (_lruTexture2ds != null)
+            {
+                Texture2D t2d = _lruTexture2ds.Get(url);
+                if (t2d != null) UnityEngine.Object.Destroy(t2d);
+                return _lruTexture2ds.Remove(url);
+            }
             return false;
         }
 
         public static void ClearLRUCacheCapacityForTexture2d()
         {
-            if (_lruTexture2ds != null) _lruTexture2ds.Clear();
+            if (_lruTexture2ds != null)
+            {
+                string[] urls = _lruTexture2ds.GetKeys();
+                foreach (var url in urls)
+                {
+                    RemoveFromLRUCacheForTexture2d(url);
+                }
+                _lruTexture2ds.Clear();
+            }
         }
         #endregion
 
@@ -140,12 +156,10 @@ namespace OxGKit.Utilities.Request
         public static void InitLRUCacheCapacityForText(int capacity = 80)
         {
             if (_lruTexts == null) _lruTexts = new LRUCache<string, string>(capacity);
-            if (_arcTexts != null)
-            {
-                _arcTexts.Clear();
-                // Only allow one cache type
-                _arcTexts = null;
-            }
+
+            // Only allow one cache type (Clear ARC)
+            ClearARCCacheCapacityForText();
+            _arcTexts = null;
         }
 
         public static bool RemoveFromLRUCacheForText(string url)

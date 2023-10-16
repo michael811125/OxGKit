@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OxGKit.Utilities.Cacher
 {
@@ -20,6 +21,11 @@ namespace OxGKit.Utilities.Cacher
             this._capacity = capacity;
             this._cache = new ConcurrentDictionary<TKey, LinkedListNode<CacheItem>>();
             this._lruList = new LinkedList<CacheItem>();
+        }
+
+        public TKey[] GetKeys()
+        {
+            return this._cache.Keys.ToArray();
         }
 
         public bool Contains(TKey key)
@@ -56,6 +62,7 @@ namespace OxGKit.Utilities.Cacher
         {
             if (this._cache.TryGetValue(key, out var node))
             {
+                node.Value.Value = default;
                 this._lruList.Remove(node);
                 this._cache.Remove(key, out _);
                 return true;
@@ -79,7 +86,7 @@ namespace OxGKit.Utilities.Cacher
         private class CacheItem
         {
             public TKey Key { get; }
-            public TValue Value { get; }
+            public TValue Value { get; set; }
 
             public CacheItem(TKey key, TValue value)
             {

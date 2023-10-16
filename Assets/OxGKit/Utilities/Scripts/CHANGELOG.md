@@ -3,6 +3,7 @@
 ## [0.0.8-preview] - 2023-10-16
 - Added Remove method for Cacher.
 - Added Remove method for Requester (can remove specific url from cache).
+- Optmized RemoveFromCacheForTexture2d method in Requester (make sure to destory t2d).
 
 ## [0.0.7-preview] - 2023-09-11
 - Added InterTimer.

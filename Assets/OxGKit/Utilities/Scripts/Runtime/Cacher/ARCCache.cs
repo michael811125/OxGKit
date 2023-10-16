@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OxGKit.Utilities.Cacher
 {
@@ -23,6 +24,11 @@ namespace OxGKit.Utilities.Cacher
             this._t1 = new LinkedList<TKey>();
             this._t2 = new LinkedList<TKey>();
             this._b1b2 = new HashSet<TKey>();
+        }
+
+        public TKey[] GetKeys()
+        {
+            return this._cache.Keys.ToArray();
         }
 
         public bool Contains(TKey key)
@@ -65,6 +71,7 @@ namespace OxGKit.Utilities.Cacher
                 this._t1.Remove(key);
                 this._t2.Remove(key);
                 this._b1b2.Remove(key);
+                this._cache[key] = default;
                 this._cache.Remove(key);
                 return true;
             }
@@ -73,10 +80,10 @@ namespace OxGKit.Utilities.Cacher
 
         public void Clear()
         {
-            this._cache.Clear();
             this._t1.Clear();
             this._t2.Clear();
             this._b1b2.Clear();
+            this._cache.Clear();
         }
 
         protected void PerformEviction()

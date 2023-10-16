@@ -58,6 +58,19 @@ namespace OxGKit.Utilities.Cacher
             }
         }
 
+        public bool Remove(TKey key)
+        {
+            if (this._cache.ContainsKey(key))
+            {
+                this._t1.Remove(key);
+                this._t2.Remove(key);
+                this._b1b2.Remove(key);
+                this._cache.Remove(key);
+                return true;
+            }
+            return false;
+        }
+
         public void Clear()
         {
             this._cache.Clear();

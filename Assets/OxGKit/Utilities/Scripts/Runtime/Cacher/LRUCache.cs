@@ -52,6 +52,17 @@ namespace OxGKit.Utilities.Cacher
             this._cache.TryAdd(key, newNode);
         }
 
+        public bool Remove(TKey key)
+        {
+            if (this._cache.TryGetValue(key, out var node))
+            {
+                this._lruList.Remove(node);
+                this._cache.Remove(key, out _);
+                return true;
+            }
+            return false;
+        }
+
         public void Clear()
         {
             this._lruList.Clear();

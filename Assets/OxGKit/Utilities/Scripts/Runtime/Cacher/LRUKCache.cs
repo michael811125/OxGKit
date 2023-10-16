@@ -19,6 +19,11 @@ namespace OxGKit.Utilities.Cacher
             this._lruList = new LinkedList<CacheItem>();
         }
 
+        public bool Contains(TKey key)
+        {
+            return this._cache.ContainsKey(key);
+        }
+
         public TValue Get(TKey key)
         {
             if (this._cache.TryGetValue(key, out var node))
@@ -54,15 +59,21 @@ namespace OxGKit.Utilities.Cacher
             }
         }
 
+        public bool Remove(TKey key)
+        {
+            if (this._cache.TryGetValue(key, out var node))
+            {
+                this._lruList.Remove(node);
+                this._cache.Remove(key);
+                return true;
+            }
+            return false;
+        }
+
         public void Clear()
         {
             this._lruList.Clear();
             this._cache.Clear();
-        }
-
-        public bool Contains(TKey key)
-        {
-            return this._cache.ContainsKey(key);
         }
 
         protected void IncrementCounter(int counter)

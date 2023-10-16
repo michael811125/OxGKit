@@ -16,6 +16,7 @@ namespace OxGKit.Utilities.Request
         private static LRUCache<string, Texture2D> _lruTexture2ds = null;
         private static LRUCache<string, string> _lruTexts = null;
 
+        #region ARC Audio
         public static void InitARCCacheCapacityForAudio(int capacity = 20)
         {
             if (_arcAudios == null) _arcAudios = new ARCCache<string, AudioClip>(capacity);
@@ -27,11 +28,19 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromARCCacheForAudio(string url)
+        {
+            if (_arcAudios != null) return _arcAudios.Remove(url);
+            return false;
+        }
+
         public static void ClearARCCacheCapacityForAudio()
         {
             if (_arcAudios != null) _arcAudios.Clear();
         }
+        #endregion
 
+        #region ARC Texture2d
         public static void InitARCCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_arcTexture2ds == null) _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
@@ -43,11 +52,19 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromARCCacheForTexture2d(string url)
+        {
+            if (_arcTexture2ds != null) return _arcTexture2ds.Remove(url);
+            return false;
+        }
+
         public static void ClearARCCacheCapacityForTexture2d()
         {
             if (_arcTexture2ds != null) _arcTexture2ds.Clear();
         }
+        #endregion
 
+        #region ARC Text
         public static void InitARCCacheCapacityForText(int capacity = 100)
         {
             if (_arcTexts == null) _arcTexts = new ARCCache<string, string>(capacity);
@@ -59,11 +76,19 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromARCCacheForText(string url)
+        {
+            if (_arcTexts != null) return _arcTexts.Remove(url);
+            return false;
+        }
+
         public static void ClearARCCacheCapacityForText()
         {
             if (_arcTexts != null) _arcTexts.Clear();
         }
+        #endregion
 
+        #region LRU Audio
         public static void InitLRUCacheCapacityForAudio(int capacity = 20)
         {
             if (_lruAudios == null) _lruAudios = new LRUCache<string, AudioClip>(capacity);
@@ -75,11 +100,19 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromLRUCacheForAudio(string url)
+        {
+            if (_lruAudios != null) return _lruAudios.Remove(url);
+            return false;
+        }
+
         public static void ClearLRUCacheCapacityForAudio()
         {
             if (_lruAudios != null) _lruAudios.Clear();
         }
+        #endregion
 
+        #region LRU Texture2d
         public static void InitLRUCacheCapacityForTexture2d(int capacity = 60)
         {
             if (_lruTexture2ds == null) _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
@@ -91,11 +124,19 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromLRUCacheForTexture2d(string url)
+        {
+            if (_lruTexture2ds != null) return _lruTexture2ds.Remove(url);
+            return false;
+        }
+
         public static void ClearLRUCacheCapacityForTexture2d()
         {
             if (_lruTexture2ds != null) _lruTexture2ds.Clear();
         }
+        #endregion
 
+        #region LRU Text
         public static void InitLRUCacheCapacityForText(int capacity = 80)
         {
             if (_lruTexts == null) _lruTexts = new LRUCache<string, string>(capacity);
@@ -107,9 +148,41 @@ namespace OxGKit.Utilities.Request
             }
         }
 
+        public static bool RemoveFromLRUCacheForText(string url)
+        {
+            if (_lruTexts != null) return _lruTexts.Remove(url);
+            return false;
+        }
+
         public static void ClearLRUCacheCapacityForText()
         {
             if (_lruTexts != null) _lruTexts.Clear();
+        }
+        #endregion
+
+        /// <summary>
+        /// Searching all caches and remove it
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static bool AutoRemoveFromCaches(string url)
+        {
+            do
+            {
+                bool finished = RemoveFromARCCacheForAudio(url);
+                if (finished) return true;
+                finished = RemoveFromARCCacheForTexture2d(url);
+                if (finished) return true;
+                finished = RemoveFromARCCacheForText(url);
+                if (finished) return true;
+                finished = RemoveFromLRUCacheForAudio(url);
+                if (finished) return true;
+                finished = RemoveFromLRUCacheForTexture2d(url);
+                if (finished) return true;
+                finished = RemoveFromLRUCacheForText(url);
+                if (finished) return true;
+                return false;
+            } while (true);
         }
 
         public static void ClearAllCaches()

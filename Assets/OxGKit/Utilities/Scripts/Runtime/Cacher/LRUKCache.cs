@@ -69,6 +69,12 @@ namespace OxGKit.Utilities.Cacher
         {
             if (this._cache.TryGetValue(key, out var node))
             {
+                // For Unity
+                var item = node.Value.Value;
+                if (item != null &&
+                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
+                else if (item != null &&
+                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
                 node.Value.Value = default;
                 this._lruList.Remove(node);
                 this._cache.Remove(key);
@@ -79,6 +85,11 @@ namespace OxGKit.Utilities.Cacher
 
         public void Clear()
         {
+            var keys = this.GetKeys();
+            foreach (var key in keys)
+            {
+                this.Remove(key);
+            }
             this._lruList.Clear();
             this._cache.Clear();
         }
@@ -126,6 +137,13 @@ namespace OxGKit.Utilities.Cacher
             {
                 if (node.Value.Counter <= this._k && node.Value.Counter == minCounter)
                 {
+                    // For Unity
+                    var item = node.Value.Value;
+                    if (item != null &&
+                        item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
+                    else if (item != null &&
+                        item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                    node.Value.Value = default;
                     this._cache.Remove(node.Value.Key);
                     this.DecrementCounters();
                     this._lruList.Remove(node);

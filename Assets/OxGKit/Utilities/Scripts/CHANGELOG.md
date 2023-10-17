@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.9-preview] - 2023-10-17
+- Optmized Cacher (LRU, ARC) can handle Unity.Object to make sure release Unity.Object from memory.
+
 ## [0.0.8-preview] - 2023-10-16
 - Added Remove method for Cacher.
 - Added Remove method for Requester (can remove specific url from cache).

@@ -50,12 +50,7 @@ namespace OxGKit.Utilities.Request
 
         public static bool RemoveFromARCCacheForTexture2d(string url)
         {
-            if (_arcTexture2ds != null)
-            {
-                Texture2D t2d = _arcTexture2ds.Get(url);
-                if (t2d != null) UnityEngine.Object.Destroy(t2d);
-                return _arcTexture2ds.Remove(url);
-            }
+            if (_arcTexture2ds != null) return _arcTexture2ds.Remove(url);
             return false;
         }
 
@@ -129,12 +124,7 @@ namespace OxGKit.Utilities.Request
 
         public static bool RemoveFromLRUCacheForTexture2d(string url)
         {
-            if (_lruTexture2ds != null)
-            {
-                Texture2D t2d = _lruTexture2ds.Get(url);
-                if (t2d != null) UnityEngine.Object.Destroy(t2d);
-                return _lruTexture2ds.Remove(url);
-            }
+            if (_lruTexture2ds != null) return _lruTexture2ds.Remove(url);
             return false;
         }
 

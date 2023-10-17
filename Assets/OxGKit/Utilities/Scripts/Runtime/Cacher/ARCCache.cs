@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using static DG.DemiEditor.DeGUIKey;
 
 namespace OxGKit.Utilities.Cacher
 {
@@ -71,6 +72,12 @@ namespace OxGKit.Utilities.Cacher
                 this._t1.Remove(key);
                 this._t2.Remove(key);
                 this._b1b2.Remove(key);
+                // For Unity
+                var item = this._cache[key];
+                if (item != null &&
+                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
+                else if (item != null &&
+                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
                 this._cache[key] = default;
                 this._cache.Remove(key);
                 return true;
@@ -80,6 +87,11 @@ namespace OxGKit.Utilities.Cacher
 
         public void Clear()
         {
+            var keys = this.GetKeys();
+            foreach (var key in keys)
+            {
+                this.Remove(key);
+            }
             this._t1.Clear();
             this._t2.Clear();
             this._b1b2.Clear();
@@ -93,6 +105,13 @@ namespace OxGKit.Utilities.Cacher
                 var keyToRemove = this._t1.Last.Value;
                 this._t1.RemoveLast();
                 this._b1b2.Remove(keyToRemove);
+                // For Unity
+                var item = this._cache[keyToRemove];
+                if (item != null &&
+                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
+                else if (item != null &&
+                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                this._cache[keyToRemove] = default;
                 this._cache.Remove(keyToRemove);
             }
             else
@@ -100,6 +119,13 @@ namespace OxGKit.Utilities.Cacher
                 var keyToRemove = this._t2.Last.Value;
                 this._t2.RemoveLast();
                 this._b1b2.Remove(keyToRemove);
+                // For Unity
+                var item = this._cache[keyToRemove];
+                if (item != null &&
+                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
+                else if (item != null &&
+                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                this._cache[keyToRemove] = default;
                 this._cache.Remove(keyToRemove);
             }
         }

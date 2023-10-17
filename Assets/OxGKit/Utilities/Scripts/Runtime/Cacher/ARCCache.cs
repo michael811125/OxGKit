@@ -74,10 +74,7 @@ namespace OxGKit.Utilities.Cacher
                 this._b1b2.Remove(key);
                 // For Unity
                 var item = this._cache[key];
-                if (item != null &&
-                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
-                else if (item != null &&
-                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                if (item is UnityEngine.Object) UnityEngine.Object.Destroy(item as UnityEngine.Object);
                 this._cache[key] = default;
                 this._cache.Remove(key);
                 return true;
@@ -107,10 +104,7 @@ namespace OxGKit.Utilities.Cacher
                 this._b1b2.Remove(keyToRemove);
                 // For Unity
                 var item = this._cache[keyToRemove];
-                if (item != null &&
-                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
-                else if (item != null &&
-                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                if (item is UnityEngine.Object) UnityEngine.Object.Destroy(item as UnityEngine.Object);
                 this._cache[keyToRemove] = default;
                 this._cache.Remove(keyToRemove);
             }
@@ -121,10 +115,7 @@ namespace OxGKit.Utilities.Cacher
                 this._b1b2.Remove(keyToRemove);
                 // For Unity
                 var item = this._cache[keyToRemove];
-                if (item != null &&
-                    item is UnityEngine.AudioClip) UnityEngine.Object.Destroy(item as UnityEngine.AudioClip);
-                else if (item != null &&
-                    item is UnityEngine.Texture2D) UnityEngine.Object.Destroy(item as UnityEngine.Texture2D);
+                if (item is UnityEngine.Object) UnityEngine.Object.Destroy(item as UnityEngine.Object);
                 this._cache[keyToRemove] = default;
                 this._cache.Remove(keyToRemove);
             }

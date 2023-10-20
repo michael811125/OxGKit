@@ -7,6 +7,7 @@ namespace OxGKit.Utilities.Singleton
         public bool dontDestoryOnLoad = false;
 
         public static bool isCreated { get; private set; }
+        public static bool isStarted { get; private set; }
         public static bool isReleased { get; private set; }
 
         private static readonly object _locker = new object();
@@ -50,20 +51,28 @@ namespace OxGKit.Utilities.Singleton
         }
 
         /// <summary>
-        /// Call by Awake
+        /// Call by Unity.Awake
         /// <para>
-        /// Note: Except Awake() and OnDestroy(), other Unity methods can be override.
+        /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
         /// </para>
         /// </summary>
-        protected abstract void OnCreate();
+        protected virtual void OnCreate() { }
 
         /// <summary>
-        /// Call by OnDestroy
+        /// Call by Unity.Start
         /// <para>
-        /// Note: Except Awake() and OnDestroy(), other Unity methods can be override.
+        /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
         /// </para>
         /// </summary>
-        protected abstract void OnRelease();
+        protected virtual void OnStart() { }
+
+        /// <summary>
+        /// Call by Unity.OnDestroy
+        /// <para>
+        /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
+        /// </para>
+        /// </summary>
+        protected virtual void OnRelease() { }
 
         /// <summary>
         /// Destroy singleton instance
@@ -80,7 +89,7 @@ namespace OxGKit.Utilities.Singleton
 
         #region Unity Methods
         /// <summary>
-        /// Don't override (Except Awake() and OnDestroy(), other Unity methods can be override.)
+        /// Don't override (Except Awake(), Start() and OnDestroy(), other Unity methods can be override.)
         /// </summary>
         private void Awake()
         {
@@ -102,11 +111,24 @@ namespace OxGKit.Utilities.Singleton
         }
 
         /// <summary>
-        /// Don't override (Except Awake() and OnDestroy(), other Unity methods can be override.)
+        /// Don't override (Except Awake(), Start() and OnDestroy(), other Unity methods can be override.)
+        /// </summary>
+        private void Start()
+        {
+            if (!isStarted)
+            {
+                isStarted = true;
+                this.OnStart();
+            }
+        }
+
+        /// <summary>
+        /// Don't override (Except Awake(), Start() and OnDestroy(), other Unity methods can be override.)
         /// </summary>
         private void OnDestroy()
         {
             isCreated = false;
+            isStarted = false;
             isReleased = true;
             this.OnRelease();
         }

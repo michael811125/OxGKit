@@ -2,21 +2,28 @@
 
 public class #SCRIPTNAME# : MonoSingleton<#SCRIPTNAME#>
 {
-    // |----------------------------------------------------------------------------|
-    // | Note: Except Awake() and OnDestroy(), other Unity methods can be override. |
-    // |----------------------------------------------------------------------------|
+    // |-------------------------------------------------------------------------------------|
+    // | Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override. |
+    // |-------------------------------------------------------------------------------------|
     
     protected override void OnCreate()
     {
         /**
-         * Do Somethings OnCreate In Here (Call by Awake)
+         * Do Somethings OnCreate In Here (Call by Unity.Awake)
          */
     }
     
+    protected override void OnStart()
+    {
+        /**
+         * Do Somethings OnStart In Here (Call by Unity.Start)
+         */
+    }
+	
     protected override void OnRelease()
     {
         /**
-         * Do Somethings OnRelease In Here (Call by OnDestroy)
+         * Do Somethings OnRelease In Here (Call by Unity.OnDestroy)
          */
     }
 }

@@ -56,7 +56,7 @@ namespace OxGKit.Utilities.Singleton
         /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
         /// </para>
         /// </summary>
-        protected virtual void OnCreate() { }
+        protected abstract void OnCreate();
 
         /// <summary>
         /// Call by Unity.Start
@@ -64,7 +64,7 @@ namespace OxGKit.Utilities.Singleton
         /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
         /// </para>
         /// </summary>
-        protected virtual void OnStart() { }
+        protected abstract void OnStart();
 
         /// <summary>
         /// Call by Unity.OnDestroy
@@ -72,7 +72,7 @@ namespace OxGKit.Utilities.Singleton
         /// Note: Except Awake(), Start() and OnDestroy(), other Unity methods can be override.
         /// </para>
         /// </summary>
-        protected virtual void OnRelease() { }
+        protected abstract void OnRelease();
 
         /// <summary>
         /// Destroy singleton instance

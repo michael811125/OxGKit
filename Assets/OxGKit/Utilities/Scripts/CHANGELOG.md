@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [0.0.10-preview] - 2023-10-20
+- Added MonoSingleton demo.
+- Redesigned MonoSingleton.
+
 ## [0.0.9-preview] - 2023-10-17
 - Optmized Cacher (LRU, ARC) can handle Unity.Object to make sure release Unity.Object from memory.
 

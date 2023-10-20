@@ -1,0 +1,22 @@
+﻿using OxGKit.Utilities.Singleton;
+
+public class #SCRIPTNAME# : MonoSingleton<#SCRIPTNAME#>
+{
+    // |----------------------------------------------------------------------------|
+    // | Note: Except Awake() and OnDestroy(), other Unity methods can be override. |
+    // |----------------------------------------------------------------------------|
+    
+    protected override void OnCreate()
+    {
+        /**
+         * Do Somethings OnCreate In Here (Call by Awake)
+         */
+    }
+    
+    protected override void OnRelease()
+    {
+        /**
+         * Do Somethings OnRelease In Here (Call by OnDestroy)
+         */
+    }
+}

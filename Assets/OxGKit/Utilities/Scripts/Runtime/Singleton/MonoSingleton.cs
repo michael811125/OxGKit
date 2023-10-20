@@ -14,11 +14,11 @@ namespace OxGKit.Utilities.Singleton
         private static T _instance;
 
         /// <summary>
-        /// If need a DontDestroyOnLoad MonoSingleton set true once.
+        /// If Not in the scene also don't need a DontDestroyOnLoad MonoSingleton set false once.
         /// </summary>
         /// <param name="dontDestroyOnLoad"></param>
         /// <returns></returns>
-        public static T GetInstance(bool dontDestroyOnLoad = false)
+        public static T GetInstance(bool dontDestroyOnLoad = true)
         {
             if (_instance == null)
             {
@@ -131,6 +131,7 @@ namespace OxGKit.Utilities.Singleton
             isStarted = false;
             isReleased = true;
             this.OnRelease();
+            _instance = null;
         }
         #endregion
     }

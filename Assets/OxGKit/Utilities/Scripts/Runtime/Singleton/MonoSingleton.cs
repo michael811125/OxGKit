@@ -83,7 +83,6 @@ namespace OxGKit.Utilities.Singleton
             GameObject go = null;
             if (gameObjectIncluded) go = _instance?.gameObject;
             Component.Destroy(_instance);
-            _instance = null;
             GameObject.Destroy(go);
         }
 

@@ -276,12 +276,13 @@ namespace OxGKit.Utilities.Request
                 request.Dispose();
                 return audioClip;
             }
-            catch
+            catch (Exception ex)
             {
-                request.Dispose();
+                request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
                 return null;
+                throw ex;
             }
         }
 
@@ -361,12 +362,13 @@ namespace OxGKit.Utilities.Request
                 request.Dispose();
                 return t2d;
             }
-            catch
+            catch (Exception ex)
             {
-                request.Dispose();
+                request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
                 return null;
+                throw ex;
             }
         }
 
@@ -438,12 +440,13 @@ namespace OxGKit.Utilities.Request
                 request.Dispose();
                 return bytes;
             }
-            catch
+            catch (Exception ex)
             {
-                request.Dispose();
+                request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
-                return new byte[] { };
+                return null;
+                throw ex;
             }
         }
 
@@ -522,12 +525,13 @@ namespace OxGKit.Utilities.Request
                 request.Dispose();
                 return text;
             }
-            catch
+            catch (Exception ex)
             {
                 request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
                 return null;
+                throw ex;
             }
         }
 

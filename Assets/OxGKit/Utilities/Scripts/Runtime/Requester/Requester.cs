@@ -281,8 +281,8 @@ namespace OxGKit.Utilities.Request
                 request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Debug.LogException(ex);
                 return null;
-                throw ex;
             }
         }
 
@@ -367,8 +367,8 @@ namespace OxGKit.Utilities.Request
                 request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Debug.LogException(ex);
                 return null;
-                throw ex;
             }
         }
 
@@ -445,8 +445,8 @@ namespace OxGKit.Utilities.Request
                 request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Debug.LogException(ex);
                 return null;
-                throw ex;
             }
         }
 
@@ -530,8 +530,8 @@ namespace OxGKit.Utilities.Request
                 request?.Dispose();
                 errorAction?.Invoke();
                 Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Debug.LogException(ex);
                 return null;
-                throw ex;
             }
         }
 

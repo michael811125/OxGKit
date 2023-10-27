@@ -15,11 +15,11 @@ namespace OxGKit.LoggingSystem
 
     internal interface ILogging
     {
-        void Log(string message);
+        void Log(object message);
 
-        void LogWarning(string message);
+        void LogWarning(object message);
 
-        void LogError(string message);
+        void LogError(object message);
 
         void LogException(Exception exception);
     }

@@ -119,7 +119,7 @@ namespace OxGKit.LoggingSystem
 #endif
         }
 
-        public static void Print<TLogging>(string message) where TLogging : Logging
+        public static void Print<TLogging>(object message) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers()) return;
 
@@ -131,7 +131,7 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void PrintWarning<TLogging>(string message) where TLogging : Logging
+        public static void PrintWarning<TLogging>(object message) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers()) return;
 
@@ -143,7 +143,7 @@ namespace OxGKit.LoggingSystem
             }
         }
 
-        public static void PrintError<TLogging>(string message) where TLogging : Logging
+        public static void PrintError<TLogging>(object message) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers()) return;
 
@@ -175,19 +175,19 @@ namespace OxGKit.LoggingSystem
             return logMainActive && this.logActive;
         }
 
-        internal void Print(string message)
+        internal void Print(object message)
         {
             if (!this.LogActive()) return;
             this.Log(message);
         }
 
-        internal void PrintWarning(string message)
+        internal void PrintWarning(object message)
         {
             if (!this.LogActive()) return;
             this.LogWarning(message);
         }
 
-        internal void PrintError(string message)
+        internal void PrintError(object message)
         {
             if (!this.LogActive()) return;
             this.LogError(message);
@@ -199,17 +199,18 @@ namespace OxGKit.LoggingSystem
             this.LogException(exception);
         }
 
-        public virtual void Log(string message)
+        #region Interface
+        public virtual void Log(object message)
         {
             UnityEngine.Debug.Log(message);
         }
 
-        public virtual void LogWarning(string message)
+        public virtual void LogWarning(object message)
         {
             UnityEngine.Debug.LogWarning(message);
         }
 
-        public virtual void LogError(string message)
+        public virtual void LogError(object message)
         {
             UnityEngine.Debug.LogError(message);
         }
@@ -218,5 +219,6 @@ namespace OxGKit.LoggingSystem
         {
             UnityEngine.Debug.LogException(exception);
         }
+        #endregion
     }
 }

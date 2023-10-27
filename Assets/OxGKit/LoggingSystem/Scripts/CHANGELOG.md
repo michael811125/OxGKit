@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.10-preview] - 2023-10-27
+- Modified log message type (string change to object).
+
 ## [0.0.9-preview] - 2023-09-27
 - Added CreateLogger<TLogging> method in Logging (can create logger and reload logger setting by yourself).
 - Added GetSetting static method in LoggingLauncher.

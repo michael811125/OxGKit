@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using OxGKit.LoggingSystem;
+using UnityEngine;
 
 namespace OxGKit.Utilities.Adapter
 {
@@ -40,8 +41,8 @@ namespace OxGKit.Utilities.Adapter
         {
             if (this.panel == null) return;
 
-            Debug.Log($"<color=#FFFF00>Current Safe Area w: {Screen.safeArea.width}, h: {Screen.safeArea.height}, x: {Screen.safeArea.position.x}, y: {Screen.safeArea.position.y}</color>");
-            Debug.Log($"<color=#32CD32>Current Resolution w: {Screen.currentResolution.width}, h: {Screen.currentResolution.height}, dpi: {Screen.dpi}</color>");
+            Logging.Print<Logger>($"<color=#FFFF00>Current Safe Area w: {Screen.safeArea.width}, h: {Screen.safeArea.height}, x: {Screen.safeArea.position.x}, y: {Screen.safeArea.position.y}</color>");
+            Logging.Print<Logger>($"<color=#32CD32>Current Resolution w: {Screen.currentResolution.width}, h: {Screen.currentResolution.height}, dpi: {Screen.dpi}</color>");
 
             Vector2 anchorMin = Screen.safeArea.position;
             Vector2 anchorMax = Screen.safeArea.position + Screen.safeArea.size;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxGKit.LoggingSystem;
+using System;
 using UnityEngine;
 
 namespace OxGKit.Utilities.Timer
@@ -25,7 +26,7 @@ namespace OxGKit.Utilities.Timer
         {
             if (!_firstInitStartupTime)
             {
-                Debug.Log("<color=#FF0000>Please call <color=#FFB800>RealTime.InitStartupTime()</color> in main program first</color>");
+                Logging.Print<Logger>("<color=#FF0000>Please call <color=#FFB800>RealTime.InitStartupTime()</color> in main program first</color>");
                 return false;
             }
 

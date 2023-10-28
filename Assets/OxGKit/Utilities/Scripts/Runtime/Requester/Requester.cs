@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using OxGKit.LoggingSystem;
 using OxGKit.Utilities.Cacher;
 using System;
 using System.Threading;
@@ -212,7 +213,7 @@ namespace OxGKit.Utilities.Request
         {
             if (string.IsNullOrEmpty(url))
             {
-                Debug.Log($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
                 return null;
             }
 
@@ -246,7 +247,7 @@ namespace OxGKit.Utilities.Request
                 {
                     request.Dispose();
                     errorAction?.Invoke();
-                    Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
                     return null;
                 }
 
@@ -270,7 +271,7 @@ namespace OxGKit.Utilities.Request
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Debug.Log($"<color=#90ff67>Request Audio => Channel: {audioClip.channels}, Frequency: {audioClip.frequency}, Sample: {audioClip.samples}, Length: {audioClip.length}, State: {audioClip.loadState}, Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"<color=#90ff67>Request Audio => Channel: {audioClip.channels}, Frequency: {audioClip.frequency}, Sample: {audioClip.samples}, Length: {audioClip.length}, State: {audioClip.loadState}, Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
                 request.Dispose();
@@ -280,8 +281,8 @@ namespace OxGKit.Utilities.Request
             {
                 request?.Dispose();
                 errorAction?.Invoke();
-                Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Debug.LogException(ex);
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Logging.PrintException<Logger>(ex);
                 return null;
             }
         }
@@ -298,7 +299,7 @@ namespace OxGKit.Utilities.Request
         {
             if (string.IsNullOrEmpty(url))
             {
-                Debug.Log($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
                 return null;
             }
 
@@ -332,7 +333,7 @@ namespace OxGKit.Utilities.Request
                 {
                     request.Dispose();
                     errorAction?.Invoke();
-                    Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
                     return null;
                 }
 
@@ -356,7 +357,7 @@ namespace OxGKit.Utilities.Request
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Debug.Log($"<color=#90ff67>Request Texture2D => Width: {t2d.width}, Height: {t2d.height}, Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"<color=#90ff67>Request Texture2D => Width: {t2d.width}, Height: {t2d.height}, Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
                 request.Dispose();
@@ -366,8 +367,8 @@ namespace OxGKit.Utilities.Request
             {
                 request?.Dispose();
                 errorAction?.Invoke();
-                Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Debug.LogException(ex);
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Logging.PrintException<Logger>(ex);
                 return null;
             }
         }
@@ -408,7 +409,7 @@ namespace OxGKit.Utilities.Request
         {
             if (string.IsNullOrEmpty(url))
             {
-                Debug.Log($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
                 return new byte[] { };
             }
 
@@ -425,7 +426,7 @@ namespace OxGKit.Utilities.Request
                 {
                     request.Dispose();
                     errorAction?.Invoke();
-                    Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
                     return new byte[] { };
                 }
 
@@ -434,7 +435,7 @@ namespace OxGKit.Utilities.Request
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)bytes.Length;
-                Debug.Log($"<color=#90ff67>Request Bytes => Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"<color=#90ff67>Request Bytes => Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
                 request.Dispose();
@@ -444,8 +445,8 @@ namespace OxGKit.Utilities.Request
             {
                 request?.Dispose();
                 errorAction?.Invoke();
-                Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Debug.LogException(ex);
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Logging.PrintException<Logger>(ex);
                 return null;
             }
         }
@@ -462,7 +463,7 @@ namespace OxGKit.Utilities.Request
         {
             if (string.IsNullOrEmpty(url))
             {
-                Debug.Log($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
                 return null;
             }
 
@@ -495,7 +496,7 @@ namespace OxGKit.Utilities.Request
                 {
                     request.Dispose();
                     errorAction?.Invoke();
-                    Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
                     return null;
                 }
 
@@ -519,7 +520,7 @@ namespace OxGKit.Utilities.Request
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Debug.Log($"<color=#90ff67>Request Text => Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"<color=#90ff67>Request Text => Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
                 request.Dispose();
@@ -529,8 +530,8 @@ namespace OxGKit.Utilities.Request
             {
                 request?.Dispose();
                 errorAction?.Invoke();
-                Debug.Log($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Debug.LogException(ex);
+                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                Logging.PrintException<Logger>(ex);
                 return null;
             }
         }

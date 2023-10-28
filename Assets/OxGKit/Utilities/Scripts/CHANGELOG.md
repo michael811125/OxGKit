@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.11-preview] - 2023-10-28
+- Added Logger (dependency LoggingSystem). 
+
 ## [0.0.10-preview] - 2023-10-20
 - Added MonoSingleton demo.
 - Redesigned MonoSingleton.

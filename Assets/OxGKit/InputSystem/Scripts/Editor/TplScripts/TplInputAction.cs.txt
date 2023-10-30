@@ -15,10 +15,10 @@ public class #SCRIPTNAME# : IInputAction
 
     // public event Action<T> onAction;
 
-    public void OnInit()
+    public void OnCreate()
     {
         /*
-         * Do Somethings OnInit
+         * Do Somethings OnCreate
          */
     }
 

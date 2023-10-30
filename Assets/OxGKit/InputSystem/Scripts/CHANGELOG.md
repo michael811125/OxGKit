@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## [0.0.4-preview] - 2023-10-30
+- Renamed OnInit to OnCreate (interface IInputAction).
+```C#
+    void OnCreate();
+```
+
 ## [0.0.3-preview] - 2023-09-22
 - Added default constructor for Logger.
 

@@ -242,7 +242,7 @@ namespace OxGKit.InputSystem
                 Logging.Print<Logger>($"<color=#ff604c>[InputAction] <{inputAction.GetType().Name} already exist.></color>");
                 return;
             }
-            inputAction.OnInit();
+            inputAction.OnCreate();
             this._dictInputActions.Add(id, inputAction);
         }
 

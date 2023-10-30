@@ -2,7 +2,7 @@
 {
     public interface IInputAction
     {
-        void OnInit();
+        void OnCreate();
 
         void OnUpdate(float dt);
 

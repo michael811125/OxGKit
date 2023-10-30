@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using OxGKit.InputSystem;
 using UnityEngine.InputSystem;
 using OxGKit.InputSystem.Example;
@@ -16,7 +15,7 @@ public class PlayerAction : IInputAction
 
     public event Action<MoveInputComposite.MoveInput> onMoveAction;
 
-    public void OnInit()
+    public void OnCreate()
     {
         var ctrls = Inputs.CM.GetControlMap<PlayerControls>();
         if (ctrls != null)

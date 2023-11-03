@@ -10,8 +10,10 @@ namespace OxGKit.Utilities.RectTrans.Editor
         {
             foreach (GameObject gameObject in Selection.gameObjects)
             {
+                var rectTransform = gameObject.GetComponent<RectTransform>();
+                if (rectTransform == null) continue;
                 // Record RectTransform (allow undo)
-                Undo.RecordObject(gameObject.GetComponent<RectTransform>(), $"Custom Anchors {gameObject.name}");
+                Undo.RecordObject(rectTransform, $"Custom Anchors {gameObject.name}");
                 _AdjustRectTransform(gameObject);
             }
         }

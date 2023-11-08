@@ -59,7 +59,7 @@ namespace OxGKit.InputSystem
         public static class IA
         {
             /// <summary>
-            /// Call by Main Monobehaviour
+            /// Call by Monobehaviour (Update)
             /// </summary>
             /// <param name="dt"></param>
             public static void UpdateInputActions(float dt)

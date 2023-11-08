@@ -22,7 +22,7 @@ namespace OxGKit.ActionSystem
         }
 
         /// <summary>
-        /// Call by Main MonoBehaviour (Main Program)
+        /// Call by Monobehaviour (Update)
         /// </summary>
         /// <param name="dt"></param>
         public void OnUpdate(float dt)

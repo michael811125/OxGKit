@@ -225,7 +225,7 @@ namespace OxGKit.TweenSystem.Editor
 
         private void _PreparePreviewTweens()
         {
-            // Tween Postion
+            // Tween Position
             if (this._target.tPositionOn)
             {
                 DOTweenEditorPreview.PrepareTweenForPreview(this._target.tPosition.seq);
@@ -270,7 +270,7 @@ namespace OxGKit.TweenSystem.Editor
 
         private void _PlayProgressPreviewTweens(float progress)
         {
-            // Tween Postion
+            // Tween Position
             if (this._target.tPositionOn)
             {
                 this._target.tPosition.seq.Goto(progress * this._target.tPosition.seq.Duration());
@@ -325,7 +325,7 @@ namespace OxGKit.TweenSystem.Editor
 
         private void _InitOriginTweens()
         {
-            // Init Tween Postion
+            // Init Tween Position
             if (this._target.tPositionOn)
             {
                 this._tPosition.transform = this._target.transform;

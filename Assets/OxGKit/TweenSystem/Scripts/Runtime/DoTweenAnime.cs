@@ -369,7 +369,7 @@ namespace OxGKit.TweenSystem
         [Separator("TweenValues")]
         [SerializeField, ConditionalField(nameof(tPositionOn))]
         private TweenPosition _tPosition = new TweenPosition();
-        public TweenPosition tPosition => _tPosition;
+        public TweenPosition tPosition => this._tPosition;
 
         #region TweenRotation
         [Serializable]
@@ -578,7 +578,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tRotationOn))]
         private TweenRotation _tRotation = new TweenRotation();
-        public TweenRotation tRotation => _tRotation;
+        public TweenRotation tRotation => this._tRotation;
 
         #region TweenScale
         [Serializable]
@@ -781,7 +781,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tScaleOn))]
         private TweenScale _tScale = new TweenScale();
-        public TweenScale tScale => _tScale;
+        public TweenScale tScale => this._tScale;
 
         #region TweenSize (RectTransform)
         [Serializable]
@@ -994,7 +994,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tSizeOn))]
         private TweenSize _tSize = new TweenSize();
-        public TweenSize tSize => _tSize;
+        public TweenSize tSize => this._tSize;
 
         #region TweenAlpha (CanvasGroup)
         [Serializable]
@@ -1208,7 +1208,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tAlphaOn))]
         private TweenAlpha _tAlpha = new TweenAlpha();
-        public TweenAlpha tAlpha => _tAlpha;
+        public TweenAlpha tAlpha => this._tAlpha;
 
         #region TweenImageColor (Image)
         [Serializable]
@@ -1421,7 +1421,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tImgColorOn))]
         private TweenImgColor _tImgColor = new TweenImgColor();
-        public TweenImgColor tImgColor => _tImgColor;
+        public TweenImgColor tImgColor => this._tImgColor;
 
         #region TweenSprColor (Sprite)
         [Serializable]
@@ -1634,7 +1634,7 @@ namespace OxGKit.TweenSystem
         #endregion
         [SerializeField, ConditionalField(nameof(tSprColorOn))]
         private TweenSprColor _tSprColor = new TweenSprColor();
-        public TweenSprColor tSprColor => _tSprColor;
+        public TweenSprColor tSprColor => this._tSprColor;
 
         #region Editor
 #if UNITY_EDITOR
@@ -1650,7 +1650,7 @@ namespace OxGKit.TweenSystem
         {
             if (this._isSyncBeginValue)
             {
-                // Tween Postion
+                // Tween Position
                 if (this.tPositionOn)
                 {
                     switch (this._tPosition.playMode)
@@ -1837,7 +1837,7 @@ namespace OxGKit.TweenSystem
 
             float dt = this._ignoreTimeScale ? Time.unscaledDeltaTime : Time.deltaTime;
 
-            #region tPostion TickPlay
+            #region tPosition TickPlay
             if (this.tPositionOn && this._tPosition.isInterval)
             {
                 this._tPosition.intervalTimer.UpdateTimer(dt);
@@ -1917,7 +1917,7 @@ namespace OxGKit.TweenSystem
 
         public void InitTweens()
         {
-            // Init Tween Postion
+            // Init Tween Position
             if (this.tPositionOn)
             {
                 this._tPosition.transform = this.transform;
@@ -2070,7 +2070,7 @@ namespace OxGKit.TweenSystem
         {
             int loopTimes;
 
-            #region Tween Postion On
+            #region Tween Position On
             if (this.tPositionOn)
             {
                 switch (this._tPosition.playMode)

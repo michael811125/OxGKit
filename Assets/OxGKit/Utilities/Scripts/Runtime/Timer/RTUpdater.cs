@@ -49,12 +49,25 @@ namespace OxGKit.Utilities.Timer
             this._createTime = DateTime.Now;
         }
 
+        ~RTUpdater()
+        {
+            this.Stop();
+        }
+
         public void Start()
         {
             if (this._isRuning) return;
             this._isRuning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
-            this._SetInterval(this._cts).Forget();
+            this._SetInterval(false, this._cts).Forget();
+        }
+
+        public void StartOnThread()
+        {
+            if (this._isRuning) return;
+            this._isRuning = true;
+            if (this._cts == null) this._cts = new CancellationTokenSource();
+            this._SetInterval(true, this._cts).Forget();
         }
 
         public void Stop()
@@ -66,10 +79,11 @@ namespace OxGKit.Utilities.Timer
             this._cts = null;
         }
 
-        private async UniTaskVoid _SetInterval(CancellationTokenSource cts)
+        private async UniTaskVoid _SetInterval(bool switchToThread, CancellationTokenSource cts)
         {
             try
             {
+                if (switchToThread) await UniTask.SwitchToThreadPool();
                 do
                 {
                     if (this.targetFrameRate > 0 && this.timeScale > 0)

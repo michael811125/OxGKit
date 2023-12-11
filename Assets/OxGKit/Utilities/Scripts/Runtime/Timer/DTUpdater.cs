@@ -50,6 +50,11 @@ namespace OxGKit.Utilities.Timer
             this._createTime = DateTime.Now;
         }
 
+        ~DTUpdater()
+        {
+            this.Stop();
+        }
+
         public void Start()
         {
             if (this._isRuning) return;

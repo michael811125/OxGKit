@@ -1,6 +1,5 @@
 ﻿using OxGKit.LoggingSystem;
 using System;
-using UnityEngine;
 
 namespace OxGKit.Utilities.Timer
 {
@@ -10,7 +9,7 @@ namespace OxGKit.Utilities.Timer
         public static DateTime timeSinceStartup { get; private set; } // 啟動時間, 建議由主程序調用初始 (將會是遊戲啟動時間)
 
         /// <summary>
-        /// Call by Main Monobehaviour Awake
+        /// Call by Main MonoBehaviour Awake
         /// </summary>
         /// <returns></returns>
         public static void InitStartupTime()

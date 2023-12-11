@@ -1,5 +1,15 @@
 ## CHANGELOG
 
+## [0.0.12-preview] - 2023-12-11
+- Modified Timer.RTUpdater, Timer.IntervalTimer supported switch to thread (based on UniTask).
+```C#
+    // RTUpdater
+    public void StartOnThread()
+    
+    // IntervalTimer
+    public void SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
+```
+
 ## [0.0.11-preview] - 2023-10-28
 - Added Logger (dependency LoggingSystem). 
 

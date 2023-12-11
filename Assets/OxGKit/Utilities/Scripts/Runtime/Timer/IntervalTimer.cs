@@ -9,10 +9,20 @@ namespace OxGKit.Utilities.Timer
         private bool _isRuning = false;
         private CancellationTokenSource _cts = null;
 
-        private async UniTaskVoid _SetInterval(Action action, int milliseconds, bool ignoreTimeScale, CancellationTokenSource cts)
+        public IntervalTimer()
+        {
+        }
+
+        ~IntervalTimer()
+        {
+            this.StopInterval();
+        }
+
+        private async UniTaskVoid _SetInterval(bool switchToThread, Action action, int milliseconds, bool ignoreTimeScale, CancellationTokenSource cts)
         {
             try
             {
+                if (switchToThread) await UniTask.SwitchToThreadPool();
                 do
                 {
                     await UniTask.Delay(milliseconds, ignoreTimeScale, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
@@ -27,7 +37,15 @@ namespace OxGKit.Utilities.Timer
             if (this._isRuning) return;
             this._isRuning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
-            this._SetInterval(action, milliseconds, ignoreTimeScale, this._cts).Forget();
+            this._SetInterval(false, action, milliseconds, ignoreTimeScale, this._cts).Forget();
+        }
+
+        public void SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
+        {
+            if (this._isRuning) return;
+            this._isRuning = true;
+            if (this._cts == null) this._cts = new CancellationTokenSource();
+            this._SetInterval(true, action, milliseconds, ignoreTimeScale, this._cts).Forget();
         }
 
         public void StopInterval()
@@ -36,11 +54,6 @@ namespace OxGKit.Utilities.Timer
             if (this._cts == null) return;
             this._cts.Cancel();
             this._cts.Dispose();
-            this._cts = null;
-        }
-
-        ~IntervalTimer()
-        {
             this._cts = null;
         }
     }

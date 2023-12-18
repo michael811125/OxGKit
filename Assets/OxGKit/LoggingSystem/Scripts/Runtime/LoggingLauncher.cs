@@ -38,7 +38,7 @@ namespace OxGKit.LoggingSystem
         }
 
         [Separator("Options")]
-        [Tooltip("If checked will auto find all loggers in domain and load logger setting.")]
+        [Tooltip("If checked, all loggers in the application domain will be automatically found and loaded. (HybridCLR is not supported, if clr is used it must be initialized manually)")]
         public bool initLoggersOnAwake = true;
         [Separator("Setting Data")]
         public LoggerSetting loggerSetting;

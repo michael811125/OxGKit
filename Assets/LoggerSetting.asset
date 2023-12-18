@@ -20,5 +20,7 @@ MonoBehaviour:
     logActive: 1
   - loggerName: OxGKit.NoticeSystem.Logger
     logActive: 1
+  - loggerName: OxGKit.Utilities.Logger
+    logActive: 1
   loadLoggers: 0
   resetLoggers: 0

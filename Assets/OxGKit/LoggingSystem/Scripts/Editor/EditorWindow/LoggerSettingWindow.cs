@@ -76,7 +76,7 @@ namespace OxGKit.LoggingSystem.Editor
             if (EditorGUI.EndChangeCheck())
             {
                 this._setting.logMainActive = this.logMainActive;
-                EditorUtility.SetDirty(this);
+                EditorUtility.SetDirty(this._setting);
                 AssetDatabase.SaveAssets();
             }
             GUILayout.FlexibleSpace();
@@ -92,17 +92,50 @@ namespace OxGKit.LoggingSystem.Editor
             if (EditorGUI.EndChangeCheck())
             {
                 this._serObj.ApplyModifiedProperties();
-                EditorUtility.SetDirty(this);
+                EditorUtility.SetDirty(this._setting);
                 AssetDatabase.SaveAssets();
             }
             EditorGUILayout.EndScrollView();
 
             EditorGUILayout.Space(10f);
 
-            // Refresh and Load button
+            // Select all button
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             Color bc = GUI.backgroundColor;
+            GUI.backgroundColor = new Color32(164, 227, 255, 255);
+            if (GUILayout.Button("Select All", GUILayout.MaxWidth(150f)))
+            {
+                foreach (var logger in this.loggers)
+                {
+                    logger.logActive = true;
+                }
+                EditorUtility.SetDirty(this._setting);
+                AssetDatabase.SaveAssets();
+            }
+            GUI.backgroundColor = bc;
+            // Deselect all button
+            bc = GUI.backgroundColor;
+            GUI.backgroundColor = new Color32(164, 227, 255, 255);
+            if (GUILayout.Button("Deselect All", GUILayout.MaxWidth(150f)))
+            {
+                foreach (var logger in this.loggers)
+                {
+                    logger.logActive = false;
+                }
+                EditorUtility.SetDirty(this._setting);
+                AssetDatabase.SaveAssets();
+            }
+            GUI.backgroundColor = bc;
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(2.5f);
+
+            // Refresh and Load button
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            bc = GUI.backgroundColor;
             GUI.backgroundColor = new Color32(0, 255, 209, 255);
             if (GUILayout.Button("Reload Loggers", GUILayout.MaxWidth(250f)))
             {
@@ -112,7 +145,7 @@ namespace OxGKit.LoggingSystem.Editor
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space(2.5f);
+            EditorGUILayout.Space(2f);
 
             // Reset button
             EditorGUILayout.BeginHorizontal();

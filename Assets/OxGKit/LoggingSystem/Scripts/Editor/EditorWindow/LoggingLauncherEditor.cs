@@ -26,6 +26,7 @@ namespace OxGKit.LoggingSystem.Editor
 
             var setting = this._target.loggerSetting;
 
+            // Draw Runtime reload setting button
             if (setting != null)
             {
                 EditorGUILayout.Space(20);
@@ -51,6 +52,7 @@ namespace OxGKit.LoggingSystem.Editor
                 EditorGUILayout.Space(20);
             }
 
+            // Draw setting on inspector
             EditorGUI.BeginChangeCheck();
             if (setting != null)
             {
@@ -63,6 +65,46 @@ namespace OxGKit.LoggingSystem.Editor
             {
                 if (Application.isPlaying) this._isDirty = true;
                 serializedObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(setting);
+                AssetDatabase.SaveAssets();
+            }
+
+            // Draw select all and deselect all buttons
+            {
+                EditorGUILayout.Space(2.5f);
+
+                // Select all button
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                Color bc = GUI.backgroundColor;
+                GUI.backgroundColor = new Color32(164, 227, 255, 255);
+                if (GUILayout.Button("Select All", GUILayout.MaxWidth(150f)))
+                {
+                    foreach (var logger in this._target.loggerSetting.loggerConfigs)
+                    {
+                        logger.logActive = true;
+                    }
+                    if (Application.isPlaying) this._isDirty = true;
+                    EditorUtility.SetDirty(setting);
+                    AssetDatabase.SaveAssets();
+                }
+                GUI.backgroundColor = bc;
+                // Deselect all button
+                bc = GUI.backgroundColor;
+                GUI.backgroundColor = new Color32(164, 227, 255, 255);
+                if (GUILayout.Button("Deselect All", GUILayout.MaxWidth(150f)))
+                {
+                    foreach (var logger in this._target.loggerSetting.loggerConfigs)
+                    {
+                        logger.logActive = false;
+                    }
+                    if (Application.isPlaying) this._isDirty = true;
+                    EditorUtility.SetDirty(setting);
+                    AssetDatabase.SaveAssets();
+                }
+                GUI.backgroundColor = bc;
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.EndHorizontal();
             }
         }
 

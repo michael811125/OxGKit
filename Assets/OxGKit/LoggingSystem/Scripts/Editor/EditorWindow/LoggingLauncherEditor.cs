@@ -70,6 +70,7 @@ namespace OxGKit.LoggingSystem.Editor
             }
 
             // Draw select all and deselect all buttons
+            if (setting != null)
             {
                 EditorGUILayout.Space(2.5f);
 

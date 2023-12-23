@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,9 +60,19 @@ namespace OxGKit.Utilities.UnityMainThread
             }
         }
 
+        public void RunCoroutine(IEnumerator routine)
+        {
+            this.StartCoroutine(routine);
+        }
+
         public void RunCoroutine(string methodName)
         {
             this.StartCoroutine(methodName);
+        }
+
+        public void CancelCoroutine(IEnumerator routine)
+        {
+            this.StopCoroutine(routine);
         }
 
         public void CancelCoroutine(string methodName)

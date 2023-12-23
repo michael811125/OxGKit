@@ -1,5 +1,16 @@
 ## CHANGELOG
 
+## [0.0.13-preview] - 2023-12-23
+- Added methods in IntervalSetter.
+```C#
+    public static IntervalTimer SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
+    
+    public static bool TryClearInterval(IntervalTimer intervalTimer)
+    
+    public static void ClearAllIntervalTimers()
+```
+- Modified TryClear moethods in IntervalSetter, will return value is bool.
+
 ## [0.0.12-preview] - 2023-12-11
 - Modified Timer.RTUpdater, Timer.IntervalTimer supported switch to thread (based on UniTask).
 ```C#

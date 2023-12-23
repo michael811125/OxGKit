@@ -69,24 +69,87 @@ namespace OxGKit.Utilities.Timer
             }
         }
 
-        public static void TryClearInterval(int id)
+        public static IntervalTimer SetInterval(Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.ContainsKey(id))
+            if (_intervalTimers.Count >= _maxCount)
             {
-                _intervalTimers[id].StopInterval();
-                _intervalTimers[id] = null;
-                _intervalTimers.Remove(id);
+                throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
+
+            var intervalTimer = new IntervalTimer();
+            var id = intervalTimer.GetHashCode();
+            if (!_intervalTimers.ContainsKey(id))
+            {
+                _intervalTimers.Add(id, intervalTimer);
+                intervalTimer.SetInterval(action, milliseconds, ignoreTimeScale);
+            }
+            return intervalTimer;
         }
 
-        public static void TryClearInterval(string id)
+        public static IntervalTimer SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
+        {
+            if (_intervalTimers.Count >= _maxCount)
+            {
+                throw new InvalidOperationException("Interval timer capacity limit exceeded.");
+            }
+
+            var intervalTimer = new IntervalTimer();
+            var id = intervalTimer.GetHashCode();
+            if (!_intervalTimers.ContainsKey(id))
+            {
+                _intervalTimers.Add(id, intervalTimer);
+                intervalTimer.SetIntervalOnThread(action, milliseconds, ignoreTimeScale);
+            }
+            return intervalTimer;
+        }
+
+        public static bool TryClearInterval(int id)
         {
             if (_intervalTimers.ContainsKey(id))
             {
                 _intervalTimers[id].StopInterval();
                 _intervalTimers[id] = null;
                 _intervalTimers.Remove(id);
+                return true;
             }
+            return false;
+        }
+
+        public static bool TryClearInterval(string id)
+        {
+            if (_intervalTimers.ContainsKey(id))
+            {
+                _intervalTimers[id].StopInterval();
+                _intervalTimers[id] = null;
+                _intervalTimers.Remove(id);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool TryClearInterval(IntervalTimer intervalTimer)
+        {
+            if (intervalTimer != null)
+            {
+                var id = intervalTimer.GetHashCode();
+                bool isCleared = TryClearInterval(id);
+                if (!isCleared)
+                {
+                    intervalTimer.StopInterval();
+                    isCleared = true;
+                }
+                return isCleared;
+            }
+            return false;
+        }
+
+        public static void ClearAllIntervalTimers()
+        {
+            foreach (var intervalTimer in _intervalTimers.Values)
+            {
+                intervalTimer.StopInterval();
+            }
+            _intervalTimers.Clear();
         }
         #endregion
     }

@@ -41,7 +41,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ActionSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
-- 使用 [UnitTask v2.4.1 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **ActionSystem Demo**
@@ -284,7 +284,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
-- 使用 [UnitTask v2.4.1 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 

@@ -5,13 +5,13 @@ namespace OxGKit.Utilities.Timer
 {
     public static class IntervalSetter
     {
-        private const int _maxCount = 1 << 15;
-        private static Dictionary<object, IntervalTimer> _intervalTimers = new Dictionary<object, IntervalTimer>(_maxCount);
+        private const int _MAX_COUNT = 1 << 15;
+        private static Dictionary<object, IntervalTimer> _intervalTimers = new Dictionary<object, IntervalTimer>(_MAX_COUNT);
 
         #region SetInterval
         public static void SetInterval(int id, Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
@@ -26,7 +26,7 @@ namespace OxGKit.Utilities.Timer
 
         public static void SetIntervalOnThread(int id, Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
@@ -41,7 +41,7 @@ namespace OxGKit.Utilities.Timer
 
         public static void SetInterval(string id, Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
@@ -56,7 +56,7 @@ namespace OxGKit.Utilities.Timer
 
         public static void SetIntervalOnThread(string id, Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
@@ -71,7 +71,7 @@ namespace OxGKit.Utilities.Timer
 
         public static IntervalTimer SetInterval(Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }
@@ -88,7 +88,7 @@ namespace OxGKit.Utilities.Timer
 
         public static IntervalTimer SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (_intervalTimers.Count >= _maxCount)
+            if (_intervalTimers.Count >= _MAX_COUNT)
             {
                 throw new InvalidOperationException("Interval timer capacity limit exceeded.");
             }

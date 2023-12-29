@@ -14,6 +14,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 **目前包含以下**
 
+- [無限列表 (Infinite ScrollView)](https://github.com/michael811125/OxGKit#infinitescrollview-dependence-unitask-oxgkitloggingsystem)
 - [動作序列系統 (Action System)](https://github.com/michael811125/OxGKit#actionsystem-dependence-unitask-oxgkitloggingsystem)
 - [通知系統 (Notice System)](https://github.com/michael811125/OxGKit#noticesystem-or-reddotsystem-dependence-oxgkitloggingsystem)
 - [輸入控制系統 (Input System)](https://github.com/michael811125/OxGKit#inputsystem-dependence-unity-new-inputsystem-oxgkitloggingsystem)
@@ -28,6 +29,30 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 ---
 
 ## 工具系統介紹
+
+### InfiniteScrollView (dependence UniTask, OxGKit.LoggingSystem)
+
+無限列表 (魔改版)，基於原生 UGUI 能夠簡單的繼承或使用現有的 Infinite ScrollView，以物件池的概念進行物件有效循環利用。
+
+Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/InfiniteScrollView)
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InfiniteScrollView/Scripts to Package Manager |
+
+**第三方庫 (需自行安裝)**
+- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
+
+**如果沒有要使用 InfiniteScrollView，可以直接刪除整個 InfiniteScrollView。**
+
+※備註 : Right-Click Create/OxGKit/Infinite ScrollView... (Template cs)
+
+---
 
 ### ActionSystem (dependence UniTask, OxGKit.LoggingSystem)
 

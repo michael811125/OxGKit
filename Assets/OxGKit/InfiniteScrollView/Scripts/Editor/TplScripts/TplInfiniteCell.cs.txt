@@ -1,0 +1,49 @@
+﻿using OxGKit.InfiniteScrollView;
+using System;
+using Cysharp.Threading.Tasks;
+
+/// <summary>
+/// Cell Data
+/// </summary>
+public class #SCRIPTNAME#Data
+{
+    public #SCRIPTNAME#Data() { }
+
+    // Set callback of parsing method
+    public Action<#SCRIPTNAME#> parsing;
+}
+
+/// <summary>
+/// Cell View
+/// </summary>
+public class #SCRIPTNAME# : InfiniteCell
+{
+    public override async UniTask OnCreate(object args = null)
+    {
+        /**
+         * Do Somethings Init Once Components In Here
+         */
+    }
+
+    public override void OnRefresh()
+    {
+        // Get data
+        #SCRIPTNAME#Data cellData = this.CellData.data as #SCRIPTNAME#Data;
+        // Invoke parsing callback
+        cellData.parsing.Invoke(this);
+    }
+    
+    public override void OnRecycle()
+    {
+        /**
+         * Do Somethings On Cell Recycle In Here
+         */
+    }
+    
+    public override void OnSnap() 
+    {
+        /**
+         * Do Somethings On Cell Snap In Here
+         */
+    }
+}

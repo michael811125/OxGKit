@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace HowTungTung.Editor
+namespace OxGKit.Utilities.Editor
 {
     public static class SingletonCreateScriptEditor
     {

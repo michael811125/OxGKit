@@ -22,5 +22,7 @@ MonoBehaviour:
     logActive: 1
   - loggerName: OxGKit.Utilities.Logger
     logActive: 1
+  - loggerName: OxGKit.InfiniteScrollViews.Logger
+    logActive: 1
   loadLoggers: 0
   resetLoggers: 0

@@ -1,0 +1,37 @@
+{
+  "name": "com.michaelo.oxgkit.infinitescrollview",
+  "displayName": "OxGKit.InfiniteScrollView",
+  "description": "InfiniteScrollView is made for Unity extension, that support use as less as possible gameObject count to achieve large infinite scrolling content. Developed by native UGUI system, no any magical code inside, so you can easily modify and extend by yourself.",
+  "version": "1.6.0",
+  "unity": "2021.3",
+  "license": "MIT",
+  "samples": [
+     {
+       "displayName": "Infinite Vertical Demo",
+       "path": "Samples~/01_Vertical"
+     },
+     {
+       "displayName": "Infinite Horizontal Demo",
+       "path": "Samples~/02_Horizontal"
+     },
+     {
+       "displayName": "Infinite Grid Demo",
+       "path": "Samples~/03_Grid"
+     },
+     {    
+       "displayName": "Infinite TabPage Demo",
+       "path": "Samples~/04_TabPage"
+     },
+     {    
+       "displayName": "Infinite ChatRoom Demo",
+       "path": "Samples~/05_ChatRoom"
+     }
+  ],
+  "dependencies": {},
+  "author": {
+    "name": "MichaelO"
+  },
+  "contributors": [{
+    "name":"howtungtung (original author)"
+  }]
+}

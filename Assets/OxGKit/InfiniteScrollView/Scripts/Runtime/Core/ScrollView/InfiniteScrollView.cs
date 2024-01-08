@@ -485,10 +485,13 @@ namespace OxGKit.InfiniteScrollView
                  */
             }
 
+            if (index >= this._dataList.Count) index = this._dataList.Count - 1;
             if (index < 0) index = 0;
-            else if (index >= this._dataList.Count) index = this._dataList.Count - 1;
-            var cell = this._cellList[index];
-            if (cell != null) cell.OnSnap();
+            if (this._dataList.Count == this._cellList.Count)
+            {
+                var cell = this._cellList[index];
+                if (cell != null) cell.OnSnap();
+            }
 
             // After snap end to release cts
             this._cts.Cancel();

@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.1] - 2024-01-08
+- Fixed ProcessSnapping occured index out of range bug issue.
+
 ## [1.6.0] - 2023-12-29
 - Organized code.
 - Organized plugin.

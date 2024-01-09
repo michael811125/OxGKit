@@ -1,6 +1,5 @@
 ﻿using OxGKit.LoggingSystem;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace OxGKit.InputSystem
@@ -59,7 +58,7 @@ namespace OxGKit.InputSystem
         public static class IA
         {
             /// <summary>
-            /// Call by Monobehaviour (Update)
+            /// Call by MonoBehaviour (Update)
             /// </summary>
             /// <param name="dt"></param>
             public static void UpdateInputActions(float dt)

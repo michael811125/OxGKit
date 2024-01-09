@@ -89,6 +89,9 @@ namespace OxGKit.InfiniteScrollView
         // Task cancellation
         private CancellationTokenSource _cts;
 
+        // Snapping
+        private DateTime _lastSnappingDurationTime;
+
         public bool isInitialized
         {
             get;
@@ -399,6 +402,8 @@ namespace OxGKit.InfiniteScrollView
         #region Snapping
         /// <summary>
         /// Move to specific cell by index
+        /// <para> duration &lt;= 0 is sync </para>
+        /// <para> duration &gt; 0 is async </para>
         /// </summary>
         /// <param name="index"></param>
         /// <param name="duration"></param>
@@ -406,6 +411,8 @@ namespace OxGKit.InfiniteScrollView
 
         /// <summary>
         /// Move to first cell
+        /// <para> duration &lt;= 0 is sync </para>
+        /// <para> duration &gt; 0 is async </para>
         /// </summary>
         /// <param name="duration"></param>
         public void SnapFirst(float duration)
@@ -416,6 +423,8 @@ namespace OxGKit.InfiniteScrollView
 
         /// <summary>
         /// Move to middle cell
+        /// <para> duration &lt;= 0 is sync </para>
+        /// <para> duration &gt; 0 is async </para>
         /// </summary>
         /// <param name="duration"></param>
         public void SnapMiddle(float duration)
@@ -425,6 +434,8 @@ namespace OxGKit.InfiniteScrollView
 
         /// <summary>
         /// Move to last cell
+        /// <para> duration &lt;= 0 is sync </para>
+        /// <para> duration &gt; 0 is async </para>
         /// </summary>
         /// <param name="duration"></param>
         public void SnapLast(float duration)
@@ -467,16 +478,15 @@ namespace OxGKit.InfiniteScrollView
             else
             {
                 Vector2 startPos = this.scrollRect.content.anchoredPosition;
-                float t = 0;
+                this._lastSnappingDurationTime = DateTime.Now;
+                float t = 0f;
                 while (t < 1f)
                 {
-                    t += Time.deltaTime / duration;
+                    double currentElapsedTime = DateTime.Now.Subtract(this._lastSnappingDurationTime).TotalSeconds;
+                    t = (float)currentElapsedTime / duration;
                     this.scrollRect.content.anchoredPosition = Vector2.Lerp(startPos, target, t);
                     var normalizedPos = this.scrollRect.normalizedPosition;
-                    if (normalizedPos.y < 0 || normalizedPos.x > 1)
-                    {
-                        break;
-                    }
+                    if (normalizedPos.y < 0 || normalizedPos.x > 1) break;
                     await UniTask.Yield(PlayerLoopTiming.Update, this._cts.Token);
                 }
 
@@ -485,12 +495,15 @@ namespace OxGKit.InfiniteScrollView
                  */
             }
 
-            if (index >= this._dataList.Count) index = this._dataList.Count - 1;
-            if (index < 0) index = 0;
-            if (this._dataList.Count == this._cellList.Count)
+            if (this._dataList.Count > 0)
             {
-                var cell = this._cellList[index];
-                if (cell != null) cell.OnSnap();
+                if (index >= this._dataList.Count) index = this._dataList.Count - 1;
+                if (index < 0) index = 0;
+                if (this._dataList.Count == this._cellList.Count)
+                {
+                    var cell = this._cellList[index];
+                    if (cell != null) cell.OnSnap();
+                }
             }
 
             // After snap end to release cts

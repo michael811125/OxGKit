@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.2] - 2024-01-09
+- Optimized snapping process use DateTime instead.
+
 ## [1.6.1] - 2024-01-08
 - Fixed ProcessSnapping occured index out of range bug issue.
 

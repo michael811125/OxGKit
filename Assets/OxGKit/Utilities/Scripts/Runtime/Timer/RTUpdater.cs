@@ -111,7 +111,11 @@ namespace OxGKit.Utilities.Timer
                     else await UniTask.Yield(cts.Token);
                 } while (this._isRuning);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                this.Stop();
+                throw ex;
+            }
         }
     }
 }

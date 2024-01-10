@@ -59,22 +59,22 @@ namespace OxGKit.Utilities.TextureAnime
             this._UpdateTextureAnimation(this._ignoreTimeScale ? Time.unscaledDeltaTime : Time.deltaTime);
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-#if UNITY_EDITOR
             // Ensure continuous Update calls.
             if (!Application.isPlaying)
             {
                 UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
                 UnityEditor.SceneView.RepaintAll();
             }
-#endif
         }
 
         private void OnValidate()
         {
             this.ResetAnime();
         }
+#endif
 
         private void OnEnable()
         {

@@ -29,7 +29,11 @@ namespace OxGKit.Utilities.Timer
                     action?.Invoke();
                 } while (this._isRuning);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                this.StopInterval();
+                throw ex;
+            }
         }
 
         public void SetInterval(Action action, int milliseconds, bool ignoreTimeScale = false)

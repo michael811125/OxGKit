@@ -91,4 +91,3 @@ namespace OxGKit.Utilities.UnityMainThread
         }
     }
 }
-

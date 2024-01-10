@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [0.0.14-preivew] - 2024-01-10
+- Modified Utilities.Timer try safety.
+
 ## [0.0.13-preview] - 2023-12-23
 - Added methods in IntervalSetter.
 ```C#

@@ -46,7 +46,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 物件池大小
+        /// Pool size
         /// </summary>
         /// <returns></returns>
         public int Size()
@@ -55,7 +55,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 清空物件池
+        /// Clear pool
         /// </summary>
         public void Clear()
         {
@@ -64,7 +64,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 回收物件
+        /// Recycle GameObject
         /// </summary>
         /// <param name="go"></param>
         public void Put(GameObject go)
@@ -78,7 +78,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 取出物件
+        /// Get GameObject from pool
         /// </summary>
         /// <returns></returns>
         public GameObject Get()
@@ -97,7 +97,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 取出物件
+        /// Get GameObject from pool
         /// </summary>
         /// <returns></returns>
         public GameObject Get(Transform parent)
@@ -116,7 +116,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 取出物件
+        /// Get GameObject from pool
         /// </summary>
         /// <returns></returns>
         public GameObject Get(Transform parent, Vector3 position)
@@ -136,7 +136,7 @@ namespace OxGKit.Utilities.Pool
         }
 
         /// <summary>
-        /// 取出物件
+        /// Get GameObject from pool
         /// </summary>
         /// <returns></returns>
         public GameObject Get(Transform parent, Vector3 position, Quaternion rotation)

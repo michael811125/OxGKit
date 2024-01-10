@@ -538,7 +538,7 @@ namespace OxGKit.InfiniteScrollView
                     break;
             }
 
-            // Cannot scoll, if Content size < Viewport size return 0 directly
+            // Cannot scroll, if Content size < Viewport size return 0 directly
             if (contentRectSizeValue < viewPortRectSizeValue) return 0;
 
             switch (snapPosType)

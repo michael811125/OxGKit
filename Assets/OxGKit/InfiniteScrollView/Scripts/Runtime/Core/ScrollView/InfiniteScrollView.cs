@@ -417,7 +417,7 @@ namespace OxGKit.InfiniteScrollView
         /// <param name="duration"></param>
         public void SnapFirst(float duration)
         {
-            int index = this.dataOrder == DataOrder.Normal ? 0 : this._dataList.Count - 1;
+            int index = 0;
             this.Snap(index, duration);
         }
 
@@ -440,7 +440,7 @@ namespace OxGKit.InfiniteScrollView
         /// <param name="duration"></param>
         public void SnapLast(float duration)
         {
-            int index = this.dataOrder == DataOrder.Normal ? this._dataList.Count - 1 : 0;
+            int index = this._dataList.Count - 1;
             this.Snap(index, duration);
         }
 
@@ -522,19 +522,15 @@ namespace OxGKit.InfiniteScrollView
             switch (scrollType)
             {
                 case ScrollType.Horizontal:
-
                     viewPortRectSizeValue = this.scrollRect.viewport.rect.width;
                     contentRectSizeValue = this.scrollRect.content.rect.width;
                     cellSizeValue = cellData.cellSize.x;
-
                     break;
 
                 case ScrollType.Vertical:
-
                     viewPortRectSizeValue = this.scrollRect.viewport.rect.height;
                     contentRectSizeValue = this.scrollRect.content.rect.height;
                     cellSizeValue = cellData.cellSize.y;
-
                     break;
             }
 

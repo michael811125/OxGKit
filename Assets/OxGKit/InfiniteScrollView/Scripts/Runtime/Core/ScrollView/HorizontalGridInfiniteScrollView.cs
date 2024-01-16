@@ -180,11 +180,35 @@ namespace OxGKit.InfiniteScrollView
             if (index >= this._dataList.Count ||
                 index < 0)
                 return;
+
+            // Adjust snap index
+            switch (this.dataOrder)
+            {
+                case DataOrder.Reverse:
+                    index = this._dataList.Count - 1 - index;
+                    break;
+            }
+
             var columeNumber = index / this.rowCount;
             float width = this.padding.left;
-            for (int i = 0; i < columeNumber; i++)
+            switch (this.dataOrder)
             {
-                width += this._dataList[i * this.rowCount].cellSize.x + this.spacing.x;
+                case DataOrder.Normal:
+                    for (int i = 0; i < columeNumber; i++)
+                    {
+                        // Normal index
+                        int tempIndex = i * this.rowCount;
+                        width += this._dataList[tempIndex].cellSize.x + this.spacing.x;
+                    }
+                    break;
+                case DataOrder.Reverse:
+                    for (int i = 0; i < columeNumber; i++)
+                    {
+                        // Reverse index
+                        int tempIndex = this._dataList.Count - 1 - (i * this.rowCount);
+                        width += this._dataList[tempIndex].cellSize.x + this.spacing.x;
+                    }
+                    break;
             }
 
             var cellData = this._dataList[index];

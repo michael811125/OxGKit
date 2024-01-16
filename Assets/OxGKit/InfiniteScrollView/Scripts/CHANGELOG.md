@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.3] - 2024-01-09
+- Fixed snap index bug issue (adjusted by DataOrder).
+
 ## [1.6.2] - 2024-01-09
 - Optimized snapping process use DateTime instead.
 

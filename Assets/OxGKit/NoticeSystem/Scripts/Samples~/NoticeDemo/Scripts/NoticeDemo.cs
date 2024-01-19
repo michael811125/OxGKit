@@ -96,7 +96,7 @@ public class NoticeDemo : MonoBehaviour
         this._coin = 0;
 
         // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
-        // [Note: If use Way 2 can don't need to do renew value type data]
+        // [Note: If use Way 2, don't need to renew value type data]
         //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion
@@ -135,7 +135,7 @@ public class NoticeDemo : MonoBehaviour
         this._coin++;
 
         // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
-        // [Note: If use Way 2 can don't need to do renew value type data]
+        // [Note: If use Way 2, don't need to renew value type data]
         //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion
@@ -174,7 +174,7 @@ public class NoticeDemo : MonoBehaviour
         this._coin--;
 
         // Assign value type data again, because NoticeItems[0] and [1] contains CoinInWalletCond.id condition
-        // [Note: If use Way 2 can don't need to do renew value type data]
+        // [Note: If use Way 2, don't need to renew value type data]
         //noticeItems[0].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         //noticeItems[1].RenewNotice(new NoticeInfo(CoinInWalletCond.id, this._coin));
         #endregion

@@ -205,8 +205,8 @@ https://github.com/michael811125/OxGKit/assets/30960759/cef1a484-d617-466d-bf3e-
 ### TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
-- Add Component/OxGKit/TweenSystem/DoTweenAnime
-- Add Component/OxGKit/TweenSystem/DoTweenAnimeEvent
+- Add Component/OxGKit/TweenSystem/DoTweenAnim
+- Add Component/OxGKit/TweenSystem/DoTweenAnimEvent
 
 **Highly Recommended [brunomikoski - Animation Sequencer](https://github.com/brunomikoski/Animation-Sequencer)**
 
@@ -216,11 +216,11 @@ https://github.com/michael811125/OxGKit/assets/30960759/cef1a484-d617-466d-bf3e-
 - Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystemFixer/Scripts to Package Manager
 --->
 
-Preview Mode (Only DoTweenAnime component is supported)
+Preview Mode (Only DoTweenAnim component is supported)
 
 ![](Docs/img_3.png)
 
-※Note: The DoTweenAnimeEvent only plays at runtime.
+※Note: The DoTweenAnimEvent only plays at runtime.
 
 *[參考 Example]*
 

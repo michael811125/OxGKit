@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.0] - 2024-02-02
+- Stabled
+
 ## [0.0.4-preview] - 2023-09-22
 - Added default constructor for Logger.
 

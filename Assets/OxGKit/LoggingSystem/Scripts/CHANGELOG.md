@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.0] - 2024-02-02
+- Stabled
+
 ## [0.0.11-preview] - 2023-12-18
 - Added Select all and Deselect all buttons on editor inspector.
 - Fixed Logging editor dirty bug issue.

@@ -50,7 +50,7 @@ public class TweenDemo : MonoBehaviour
 
     private void _RefreshToggleTweenAnime(bool isOn, int idx)
     {
-        this.tgls[idx].GetComponent<DoTweenAnimeEvent>().PlayTriggerOnce
+        this.tgls[idx].GetComponent<DoTweenAnimEvent>().PlayTriggerOnce
          (
              isOn,
              () => Debug.Log("<color=#a1ff30>Toggle Tween Trigger Once</color>")

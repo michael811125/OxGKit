@@ -4,8 +4,8 @@ using DG.Tweening;
 
 namespace OxGKit.TweenSystem
 {
-    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnimeEvent))]
-    public class DoTweenAnimeEvent : MonoBehaviour
+    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnimEvent))]
+    public class DoTweenAnimEvent : MonoBehaviour
     {
         public enum PlayMode
         {
@@ -15,8 +15,8 @@ namespace OxGKit.TweenSystem
 
         [SerializeField, Tooltip("Play Mode")]
         public PlayMode playMode = PlayMode.Parallel;
-        [SerializeField, Tooltip("Set DoTweenAnimes")]
-        public List<DoTweenAnime> doTweenAnimes = new List<DoTweenAnime>();
+        [SerializeField, Tooltip("Set DoTweenAnims")]
+        public List<DoTweenAnim> doTweenAnims = new List<DoTweenAnim>();
 
         private bool _lastTrigger = false;
 
@@ -30,29 +30,29 @@ namespace OxGKit.TweenSystem
             this.playMode = playMode;
         }
 
-        public DoTweenAnimeEvent AddDoTweenAnime(params DoTweenAnime[] doTweenAnimes)
+        public DoTweenAnimEvent AddDoTweenAnim(params DoTweenAnim[] doTweenAnims)
         {
-            if (doTweenAnimes != null && doTweenAnimes.Length > 0)
+            if (doTweenAnims != null && doTweenAnims.Length > 0)
             {
-                this.doTweenAnimes.AddRange(doTweenAnimes);
+                this.doTweenAnims.AddRange(doTweenAnims);
             }
 
             return this;
         }
 
-        public void RemoveDoTweenAnime(DoTweenAnime doTweenAnime)
+        public void RemoveDoTweenAnim(DoTweenAnim doTweenAnim)
         {
-            if (this.doTweenAnimes.Count == 0) return;
+            if (this.doTweenAnims.Count == 0) return;
 
-            if (this.doTweenAnimes.Contains(doTweenAnime))
+            if (this.doTweenAnims.Contains(doTweenAnim))
             {
-                this.doTweenAnimes.Remove(doTweenAnime);
+                this.doTweenAnims.Remove(doTweenAnim);
             }
         }
 
-        public void ClearDoTweenAnimes()
+        public void ClearDoTweenAnims()
         {
-            this.doTweenAnimes.Clear();
+            this.doTweenAnims.Clear();
         }
 
         public void PlayNormal()
@@ -99,17 +99,17 @@ namespace OxGKit.TweenSystem
 
         protected void PlayTweens(bool trigger, TweenCallback endCallback)
         {
-            if (this.doTweenAnimes.Count == 0) return;
+            if (this.doTweenAnims.Count == 0) return;
 
             switch (this.playMode)
             {
                 case PlayMode.Parallel:
                     {
                         var seq = DOTween.Sequence();
-                        for (int i = 0; i < this.doTweenAnimes.Count; i++)
+                        for (int i = 0; i < this.doTweenAnims.Count; i++)
                         {
                             int idx = i;
-                            seq.AppendCallback(() => this.doTweenAnimes[idx]?.PlayTween(trigger));
+                            seq.AppendCallback(() => this.doTweenAnims[idx]?.PlayTween(trigger));
                         }
                         if (endCallback != null) seq.AppendCallback(endCallback);
                         seq.AppendCallback(() => seq.Kill());
@@ -118,11 +118,11 @@ namespace OxGKit.TweenSystem
                 case PlayMode.Sequence:
                     {
                         var seq = DOTween.Sequence();
-                        for (int i = 0; i < this.doTweenAnimes.Count; i++)
+                        for (int i = 0; i < this.doTweenAnims.Count; i++)
                         {
                             int idx = i;
-                            float duration = (this.doTweenAnimes[i] == null) ? 0f : this.doTweenAnimes[i].GetMaxDurationTween().duration;
-                            seq.AppendCallback(() => this.doTweenAnimes[idx]?.PlayTween(trigger));
+                            float duration = (this.doTweenAnims[i] == null) ? 0f : this.doTweenAnims[i].GetMaxDurationTween().duration;
+                            seq.AppendCallback(() => this.doTweenAnims[idx]?.PlayTween(trigger));
                             seq.AppendInterval(duration);
                         }
                         if (endCallback != null) seq.AppendCallback(endCallback);

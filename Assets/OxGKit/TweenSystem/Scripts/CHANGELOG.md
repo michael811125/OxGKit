@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.0] - 2024-02-02
+- Stabled
+
 ## [0.0.4-preivew] - 2023-07-23
 - Added preview feature for DoTweenAnime.
 

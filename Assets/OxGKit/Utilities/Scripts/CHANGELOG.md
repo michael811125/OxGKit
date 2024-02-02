@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.0] - 2024-02-02
+- Stabled
+
 ## [0.0.14-preivew] - 2024-01-10
 - Modified Utilities.Timer try safety.
 

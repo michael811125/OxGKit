@@ -4,14 +4,14 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static OxGKit.TweenSystem.DoTweenAnime;
+using static OxGKit.TweenSystem.DoTweenAnim;
 
 namespace OxGKit.TweenSystem.Editor
 {
-    [CustomEditor(typeof(DoTweenAnime), true)]
-    internal class DoTweenAnimeEditor : UnityEditor.Editor
+    [CustomEditor(typeof(DoTweenAnim), true)]
+    internal class DoTweenAnimEditor : UnityEditor.Editor
     {
-        protected DoTweenAnime _target;
+        protected DoTweenAnim _target;
 
         // Properties
         protected SerializedProperty _isSyncBeginValues;
@@ -32,7 +32,7 @@ namespace OxGKit.TweenSystem.Editor
 
         private void OnEnable()
         {
-            this._target = (DoTweenAnime)target;
+            this._target = (DoTweenAnim)target;
 
             // Init Properties
             this._isSyncBeginValues = serializedObject.FindProperty("_isSyncBeginValue");

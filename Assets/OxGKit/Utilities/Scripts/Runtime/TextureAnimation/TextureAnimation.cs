@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OxGKit.Utilities.TextureAnime
+namespace OxGKit.Utilities.TextureAnim
 {
-    [AddComponentMenu("OxGKit/Utilities/TextureAnime/" + nameof(TextureAnimation))]
+    [AddComponentMenu("OxGKit/Utilities/TextureAnim/" + nameof(TextureAnimation))]
     [ExecuteInEditMode]
     public class TextureAnimation : MonoBehaviour
     {
@@ -49,7 +49,7 @@ namespace OxGKit.Utilities.TextureAnime
 
         private void Start()
         {
-            this.ResetAnime();
+            this.ResetAnim();
         }
 
         private void Update()
@@ -72,13 +72,13 @@ namespace OxGKit.Utilities.TextureAnime
 
         private void OnValidate()
         {
-            this.ResetAnime();
+            this.ResetAnim();
         }
 #endif
 
         private void OnEnable()
         {
-            this.ResetAnime();
+            this.ResetAnim();
         }
 
         #region Public Methods
@@ -92,7 +92,7 @@ namespace OxGKit.Utilities.TextureAnime
             this._frameRate = frameRate;
         }
 
-        public void ResetAnime()
+        public void ResetAnim()
         {
             this._dt = 0;
             this._pingPongCount = 0;

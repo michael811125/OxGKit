@@ -903,8 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 1330829392}
+  doTweenAnims: []
 --- !u!114 &236349457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,13 +1006,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 1
-  doTweenAnimes:
+  doTweenAnims:
   - {fileID: 1836630663}
   - {fileID: 185724798}
   - {fileID: 1377621238}
   - {fileID: 1861814907}
   - {fileID: 1427534651}
-  - {fileID: 1644943964}
 --- !u!114 &301536689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,8 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 1849922804}
+  doTweenAnims: []
 --- !u!1 &545438306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,8 +2039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 414475152}
+  doTweenAnims: []
 --- !u!1 &695659681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,13 +2343,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
+  doTweenAnims:
   - {fileID: 199787294}
   - {fileID: 1513582814}
   - {fileID: 1988143987}
   - {fileID: 344864859}
   - {fileID: 1386874001}
-  - {fileID: 1488687468}
 --- !u!114 &1024605907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5258,8 +5253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 1708028970}
+  doTweenAnims: []
 --- !u!114 &1504413802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5588,8 +5582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 2024278746}
+  doTweenAnims: []
 --- !u!114 &1560828830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7332,8 +7325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playMode: 0
-  doTweenAnimes:
-  - {fileID: 1182662103}
+  doTweenAnims: []
 --- !u!1 &1945730495
 GameObject:
   m_ObjectHideFlags: 0

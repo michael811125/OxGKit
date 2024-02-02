@@ -10,8 +10,8 @@ using System.Linq;
 namespace OxGKit.TweenSystem
 {
     [DisallowMultipleComponent]
-    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnime))]
-    public class DoTweenAnime : MonoBehaviour
+    [AddComponentMenu("OxGKit/TweenSystem/" + nameof(DoTweenAnim))]
+    public class DoTweenAnim : MonoBehaviour
     {
         public enum PlayMode
         {
@@ -2057,16 +2057,16 @@ namespace OxGKit.TweenSystem
             if (isPreviewMode) autoActive = false;
 #endif
             this.SetMainEndCallbackByDuration(autoActive, endCallback);
-            this.DoTweenAnimes(trigger);
+            this.DoTweenAnims(trigger);
         }
 
         protected void PlayTween()
         {
             this.gameObject.SetActive(true);
-            this.DoTweenAnimes(false);
+            this.DoTweenAnims(false);
         }
 
-        protected void DoTweenAnimes(bool trigger)
+        protected void DoTweenAnims(bool trigger)
         {
             int loopTimes;
 

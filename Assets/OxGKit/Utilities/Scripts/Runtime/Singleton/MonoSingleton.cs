@@ -14,7 +14,8 @@ namespace OxGKit.Utilities.Singleton
         private static T _instance;
 
         /// <summary>
-        /// If Not in the scene also don't need a DontDestroyOnLoad MonoSingleton set false once.
+        /// <para> If not in the scene beforehand also don't need a DontDestroyOnLoad MonoSingleton, can set param dontDestroyOnLoad = false once. </para>
+        /// <para> If not in the scene beforehand also need a DontDestroyOnLoad MonoSingleton, can set param dontDestroyOnLoad = true once. </para>
         /// </summary>
         /// <param name="dontDestroyOnLoad"></param>
         /// <returns></returns>

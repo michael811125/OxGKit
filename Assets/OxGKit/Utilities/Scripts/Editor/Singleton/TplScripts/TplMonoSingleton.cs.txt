@@ -1,5 +1,6 @@
 ﻿using OxGKit.Utilities.Singleton;
 
+    #ROOTNAMESPACEBEGIN#
 public class #SCRIPTNAME# : MonoSingleton<#SCRIPTNAME#>
 {
     // |-------------------------------------------------------------------------------------|
@@ -27,3 +28,4 @@ public class #SCRIPTNAME# : MonoSingleton<#SCRIPTNAME#>
          */
     }
 }
+#ROOTNAMESPACEEND#

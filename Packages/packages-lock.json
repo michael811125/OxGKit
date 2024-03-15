@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5cc97c7f0085624b6ef57853d70b404440060cef"
+      "hash": "809d23edae0df58fd0f61b4b6f67855c59d1b2fb"
     },
     "com.domybest.lwmybox": {
       "version": "https://github.com/michael811125/LWMyBox.git",
@@ -14,7 +14,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "hash": "382a0675d4cb7019b563d90bd10b93f53d9b9a53"
+      "hash": "9816f6cb6b3475b762488ba716d6953caab611d5"
     },
     "com.jeffjadulco.guidregenerator": {
       "version": "https://github.com/jeffjadulco/unity-guid-regenerator.git",
@@ -71,6 +71,22 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.sysroot": {
+      "version": "2.0.7",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.sysroot.linux-x86_64": {
+      "version": "2.0.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.7"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
@@ -100,6 +116,16 @@
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.toolchain.win-x86_64-linux-x86_64": {
+      "version": "2.0.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.7",
+        "com.unity.sysroot.linux-x86_64": "2.0.6"
       },
       "url": "https://packages.unity.com"
     },

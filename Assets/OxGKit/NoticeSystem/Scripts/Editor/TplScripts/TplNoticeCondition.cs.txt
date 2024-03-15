@@ -1,5 +1,6 @@
 ﻿using OxGKit.NoticeSystem;
 
+    #ROOTNAMESPACEBEGIN#
 public class #SCRIPTNAME# : NoticeCondition
 {
     #region Defualt
@@ -15,3 +16,4 @@ public class #SCRIPTNAME# : NoticeCondition
         return false;
     }
 }
+#ROOTNAMESPACEEND#

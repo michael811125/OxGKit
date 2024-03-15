@@ -1,5 +1,6 @@
 ﻿using OxGKit.ActionSystem;
 
+    #ROOTNAMESPACEBEGIN#
 public class #SCRIPTNAME# : ActionBase
 {
     #region Default Constructor
@@ -58,3 +59,4 @@ public class #SCRIPTNAME# : ActionBase
          */
     }
 }
+#ROOTNAMESPACEEND#

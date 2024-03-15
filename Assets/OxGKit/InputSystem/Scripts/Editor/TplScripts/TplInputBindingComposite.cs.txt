@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Utilities;
 using UnityEditor;
 #endif
 
+    #ROOTNAMESPACEBEGIN#
 // Use InputBindingComposite<TValue> as a base class for a composite that returns
 // values of type TValue.
 // NOTE: It is possible to define a composite that returns different kinds of values
@@ -85,3 +86,4 @@ public class #SCRIPTNAME#Composite : InputBindingComposite<#SCRIPTNAME#Composite
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init() { } // Trigger static constructor.
 }
+#ROOTNAMESPACEEND#

@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.6.4] - 2024-03-15
+- Fixed tpl script ref error issue.
+- Modified set #ROOTNAMESPACE# symbol in script templates.
+
 ## [1.6.3] - 2024-01-09
 - Fixed snap index bug issue (adjusted by DataOrder).
 

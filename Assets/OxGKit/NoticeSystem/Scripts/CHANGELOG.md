@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.1] - 2024-03-15
+- Modified set #ROOTNAMESPACE# symbol in script templates.
+
 ## [1.0.0] - 2024-02-02
 - Stabled
 

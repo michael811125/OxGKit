@@ -1,5 +1,6 @@
 ﻿using OxGKit.NoticeSystem;
 
+    #ROOTNAMESPACEBEGIN#
 public static class #SCRIPTNAME#
 {
     static #SCRIPTNAME#()
@@ -14,3 +15,4 @@ public static class #SCRIPTNAME#
     /// </summary>
     public static void Init() { }
 }
+#ROOTNAMESPACEEND#

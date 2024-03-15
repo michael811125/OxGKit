@@ -2,6 +2,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 
+    #ROOTNAMESPACEBEGIN#
 /// <summary>
 /// Cell Data
 /// </summary>
@@ -28,7 +29,7 @@ public class #SCRIPTNAME# : InfiniteCell
     public override void OnRefresh()
     {
         // Get data
-        #SCRIPTNAME#Data cellData = this.CellData.data as #SCRIPTNAME#Data;
+        #SCRIPTNAME#Data cellData = this.cellData.data as #SCRIPTNAME#Data;
         // Invoke parsing callback
         cellData.parsing.Invoke(this);
     }
@@ -47,3 +48,4 @@ public class #SCRIPTNAME# : InfiniteCell
          */
     }
 }
+#ROOTNAMESPACEEND#

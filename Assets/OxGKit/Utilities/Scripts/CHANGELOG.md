@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.2] - 2024-03-18
+- Added NtpTime (Network Time Protocol) to Utilities.Timer.
+- Updated TimerDemo.
+
 ## [1.0.1] - 2024-03-15
 - Modified set #ROOTNAMESPACE# symbol in script templates.
 

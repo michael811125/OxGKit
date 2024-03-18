@@ -30,8 +30,14 @@ public class TimerDemo : MonoBehaviour
     private const int _intervalTimerId = 1;
     private IntervalTimer _intervalTimer;
 
+    // NTP
+    private bool _ntpTimePrint = false;
+
     private void Start()
     {
+        // NTP Sync
+        NtpTime.Synchronize();
+
         // Timer
         this._realTimer = new RealTimer();
         this._deltaTimer = new DeltaTimer();
@@ -70,6 +76,18 @@ public class TimerDemo : MonoBehaviour
 
     private void Update()
     {
+        #region NTP Time
+        if (Keyboard.current.bKey.wasReleasedThisFrame)
+            this._ntpTimePrint = !this._ntpTimePrint;
+
+        if (this._ntpTimePrint &&
+            NtpTime.IsSynchronized())
+        {
+            Debug.Log($"<color=#fff929>NtpTime Now: {NtpTime.GetNow()}</color>");
+            Debug.Log($"<color=#fff929>NtpTime UTC Now: {NtpTime.GetUtcNow()}</color>");
+        }
+        #endregion
+
         #region Timer
         // Drive deltaTimer
         this._deltaTimer.UpdateTimer(Time.deltaTime);

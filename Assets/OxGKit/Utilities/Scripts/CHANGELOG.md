@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.3] - 2024-03-20
+- Fixed NtpTime switch back to main thread.
+
 ## [1.0.2] - 2024-03-18
 - Added NtpTime (Network Time Protocol) to Utilities.Timer.
 - Updated TimerDemo.

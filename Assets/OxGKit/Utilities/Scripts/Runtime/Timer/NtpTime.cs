@@ -84,6 +84,8 @@ namespace OxGKit.Utilities.Timer
 
             await UniTask.SwitchToThreadPool();
             _BeginRequest(ntpServer, requestTimeout);
+            // Must switch back to main thread
+            await UniTask.SwitchToMainThread();
         }
 
         private static void _BeginRequest(string ntpServer, int requestTimeout)

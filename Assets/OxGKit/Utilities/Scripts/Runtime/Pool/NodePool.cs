@@ -11,7 +11,7 @@ namespace OxGKit.Utilities.Pool
         public GameObject go = null;
         [SerializeField, Tooltip("Pool initial size")]
         public int initSize = 0;
-        [SerializeField, Tooltip("if checked when pool not enough will auto create")]
+        [SerializeField, Tooltip("If checked, when pool not enough will auto create")]
         public bool autoPut = false;
         [SerializeField, ConditionalField(nameof(autoPut)), Tooltip("Each increment count when auto create")]
         public int autoPutSize = 0;

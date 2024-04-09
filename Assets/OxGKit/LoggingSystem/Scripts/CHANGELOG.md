@@ -1,5 +1,22 @@
 ## CHANGELOG
 
+## [1.1.0] - 2024-04-09
+- Added override feature, can override an existing Logger.
+```C#
+// Already existing Logger
+[LoggerName("LoggingDemo.Logger3")]
+public class LoggingDemoLogger3 : Logging
+
+
+// Override Logger 3
+[LoggerName("LoggingDemo.Logger3", true)]
+public class LoggingDemoLogger4 : Logging
+```
+- Added LoggingLauncher.ClearLoggers() method.
+- Updated LoggingDemo.
+- Obsoleted LoggingLauncher.InitLoggers() is obsolete. Use LoggingLauncher.TryInitLoggers().
+- Obsoleted LoggingLauncher.ReloadLoggerSetting() is obsolete. Use LoggingLauncher.TryLoadLoggerSetting().
+
 ## [1.0.0] - 2024-02-02
 - Stabled
 

@@ -1,29 +1,30 @@
 {
-  "name": "com.michaelo.oxgkit.utilities",
-  "displayName": "OxGKit.Utilities",
-  "description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-  "version": "1.0.3",
-  "unity": "2021.3",
-  "license": "MIT",
-  "samples": [
-    {
-      "displayName": "ButtonPlus Demo",
-      "description": "Sample to use ButtonPlus",
-      "path": "Samples~/ButtonPlusDemo"
-    },
-    {
-      "displayName": "Timer Demo",
-      "description": "Sample to use Timer",
-      "path": "Samples~/TimerDemo"
-    },
-    {
-      "displayName": "MonoSingleton Demo",
-      "description": "Sample to use MonoSingleton",
-      "path": "Samples~/MonoSingletonDemo"
-    }
-  ],
-  "dependencies": {},
-  "author": {
-    "name": "MichaelO"
-  }
+	"name": "com.michaelo.oxgkit.utilities",
+	"displayName": "OxGKit.Utilities",
+	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
+	"version": "1.0.3",
+	"unity": "2021.3",
+	"license": "MIT",
+	"samples": [
+		{
+			"displayName": "ButtonPlus Demo",
+			"description": "Sample to use ButtonPlus",
+			"path": "Samples~/ButtonPlusDemo"
+		},
+		{
+			"displayName": "Timer Demo",
+			"description": "Sample to use Timer",
+			"path": "Samples~/TimerDemo"
+		},
+		{
+			"displayName": "MonoSingleton Demo",
+			"description": "Sample to use MonoSingleton",
+			"path": "Samples~/MonoSingletonDemo"
+		}
+	],
+	"dependencies": {},
+	"author": {
+		"name": "MichaelO",
+		"url": "https://github.com/michael811125"
+	}
 }

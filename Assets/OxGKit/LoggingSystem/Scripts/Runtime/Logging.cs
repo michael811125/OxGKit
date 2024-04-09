@@ -10,17 +10,6 @@ namespace OxGKit.LoggingSystem
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
         #region Internal Methods
-        internal static string GetLoggerName(Type type)
-        {
-            string typeName = type.Name;
-            string loggerName = typeName;
-
-            var attr = AssemblyFinder.GetAttribute<LoggerNameAttribute>(type);
-            if (attr != null) loggerName = attr.loggerName;
-
-            return loggerName;
-        }
-
         internal static string GetLoggerName<TLogging>() where TLogging : Logging
         {
             var type = typeof(TLogging);
@@ -72,7 +61,14 @@ namespace OxGKit.LoggingSystem
             foreach (var type in types)
             {
                 string typeName = type.Name;
-                string key = GetLoggerName(type);
+                string key = typeName;
+                bool isOverride = false;
+                var attr = AssemblyFinder.GetAttribute<LoggerNameAttribute>(type);
+                if (attr != null)
+                {
+                    key = attr.loggerName;
+                    isOverride = attr.isOverride;
+                }
 
                 if (typeName == nameof(Logging)) continue;
 
@@ -85,7 +81,22 @@ namespace OxGKit.LoggingSystem
                     }
                     catch
                     {
-                        Debug.LogWarning($"Create logger: {typeName} instance error!!!");
+                        Debug.LogWarning($"Create a logger: {typeName} instance error!!!");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (isOverride)
+                        {
+                            var instance = Activator.CreateInstance(type, null) as Logging;
+                            _cacheLoggers[key] = instance;
+                        }
+                    }
+                    catch
+                    {
+                        Debug.LogWarning($"Create a logger: {typeName} instance error!!!");
                     }
                 }
             }
@@ -97,8 +108,16 @@ namespace OxGKit.LoggingSystem
         public static void CreateLogger<TLogging>() where TLogging : Logging, new()
         {
 #if UNITY_EDITOR || OXGKIT_LOGGER_ON
-            string typeName = typeof(TLogging).Name;
-            string key = GetLoggerName(typeof(TLogging));
+            var type = typeof(TLogging);
+            string typeName = type.Name;
+            string key = typeName;
+            bool isOverride = false;
+            var attr = AssemblyFinder.GetAttribute<LoggerNameAttribute>(type);
+            if (attr != null)
+            {
+                key = attr.loggerName;
+                isOverride = attr.isOverride;
+            }
 
             if (typeName == nameof(Logging)) return;
 
@@ -111,7 +130,22 @@ namespace OxGKit.LoggingSystem
                 }
                 catch
                 {
-                    Debug.LogWarning($"Create logger: {typeName} instance error!!!");
+                    Debug.LogWarning($"Create a logger: {typeName} instance error!!!");
+                }
+            }
+            else
+            {
+                try
+                {
+                    if (isOverride)
+                    {
+                        var instance = new TLogging();
+                        _cacheLoggers[key] = instance;
+                    }
+                }
+                catch
+                {
+                    Debug.LogWarning($"Create a logger: {typeName} instance error!!!");
                 }
             }
 #else

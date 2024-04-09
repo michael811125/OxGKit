@@ -1,4 +1,5 @@
 ﻿using MyBox;
+using System;
 using UnityEngine;
 
 namespace OxGKit.LoggingSystem
@@ -22,25 +23,13 @@ namespace OxGKit.LoggingSystem
             return _instance;
         }
 
-        public static LoggerSetting GetSetting()
-        {
-            if (GetInstance().loggerSetting == null) _LoadSettingData();
-            return GetInstance().loggerSetting;
-        }
-
-        private static void _LoadSettingData()
-        {
-            GetInstance().loggerSetting = Resources.Load<LoggerSetting>(nameof(LoggerSetting));
-            if (GetInstance().loggerSetting == null)
-            {
-                GetInstance().loggerSetting = ScriptableObject.CreateInstance<LoggerSetting>();
-            }
-        }
-
         [Separator("Options")]
-        [Tooltip("If checked, all loggers in the application domain will be automatically found and loaded. (HybridCLR is not supported, if clr is used it must be initialized manually)")]
+        [Tooltip("If checked, all loggers in the application domain will be automatically found and loaded. (HybridCLR is not supported. Must be initialized manually.)")]
+        [InfoBox("HybridCLR is not supported. Must be initialized manually.", EInfoBoxType.Warning)]
+        [OverrideLabel("Initialized On Awake")]
         public bool initLoggersOnAwake = true;
         [Separator("Setting Data")]
+        [InfoBox("If not assigned, it will be automatically generated.", EInfoBoxType.Normal)]
         public LoggerSetting loggerSetting;
 
         public void Awake()
@@ -57,13 +46,37 @@ namespace OxGKit.LoggingSystem
             else DontDestroyOnLoad(this.gameObject.transform.root);
 
             // Init and read values from setting
-            if (this.initLoggersOnAwake) InitLoggers();
+            if (this.initLoggersOnAwake)
+                TryInitLoggers();
+        }
+
+        public static LoggerSetting GetSetting()
+        {
+            if (GetInstance().loggerSetting == null) _LoadSettingData();
+            return GetInstance().loggerSetting;
+        }
+
+        private static void _LoadSettingData()
+        {
+            GetInstance().loggerSetting = Resources.Load<LoggerSetting>(nameof(LoggerSetting));
+            if (GetInstance().loggerSetting == null)
+            {
+                GetInstance().loggerSetting = ScriptableObject.CreateInstance<LoggerSetting>();
+            }
         }
 
         /// <summary>
-        /// Find all loggers and load logger setting
+        /// Clear all loggers
         /// </summary>
-        public static void InitLoggers()
+        public static void ClearLoggers()
+        {
+            Logging.ClearLoggers();
+        }
+
+        /// <summary>
+        /// Try to find all loggers and load logger setting
+        /// </summary>
+        public static void TryInitLoggers()
         {
             if (GetSetting() != null)
             {
@@ -78,9 +91,9 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        ///  Reload logger setting
+        ///  Try to reload logger setting
         /// </summary>
-        public static void ReloadLoggerSetting()
+        public static void TryLoadLoggerSetting()
         {
             if (_LoadLoggerSetting())
             {
@@ -111,5 +124,31 @@ namespace OxGKit.LoggingSystem
 
             return false;
         }
+
+        #region Obsolete
+        [Obsolete("LoggingLauncher.InitLoggers() is obsolete. Use LoggingLauncher.TryInitLoggers()")]
+        public static void InitLoggers()
+        {
+            if (GetSetting() != null)
+            {
+                // Init loggers
+                Logging.InitLoggers();
+                // Load activity state from setting after init
+                if (_LoadLoggerSetting())
+                {
+                    Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
+                }
+            }
+        }
+
+        [Obsolete("LoggingLauncher.ReloadLoggerSetting() is obsolete. Use LoggingLauncher.TryLoadLoggerSetting()")]
+        public static void ReloadLoggerSetting()
+        {
+            if (_LoadLoggerSetting())
+            {
+                Debug.Log($"<color=#00ffe5>[{nameof(LoggingSystem)}] is reloaded setting in runtime.</color>");
+            }
+        }
+        #endregion
     }
 }

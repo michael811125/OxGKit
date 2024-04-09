@@ -160,11 +160,39 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 ```C#
 using OxGKit.LoggingSystem;
 
-[LoggerName("YourLoggerName")]
-public class YourLogger : Logging 
+[LoggerName("MyLogger")]
+public class MyLogger1 : Logging 
 {
     // If use HybridCLR must create a default constructor
-    public YourLogger() { }
+    public MyLogger1() { }
+}
+
+// Use same name to override MyLogger1
+[LoggerName("MyLogger", true)]
+public class MyLogger2 : Logging 
+{
+    // If use HybridCLR must create a default constructor
+    public MyLogger2() { }
+	
+    public override void Log(object message)
+    {
+        UnityEngine.Debug.Log("[Override]" + message);
+    }
+    
+    public override void LogWarning(object message)
+    {
+        UnityEngine.Debug.LogWarning("[Override]" + message);
+    }
+    
+    public override void LogError(object message)
+    {
+        UnityEngine.Debug.LogError("[Override]" + message);
+    }
+    
+    public override void LogException(Exception exception)
+    {
+        UnityEngine.Debug.LogException(exception);
+    }
 }
 ```
 
@@ -172,7 +200,7 @@ public class YourLogger : Logging
 ```C#
 // Init by yourself
 Logging.CreateLogger<YourLogger>();
-LoggingLauncher.ReloadLoggerSetting();
+LoggingLauncher.TryLoadLoggerSetting();
 ```
 
 以下是在 AOT 工程中初始 AOT 工程的 Loggers (如果 Hotfix 工程的 Loggers 需要再 Hotfix 工程中初始)。

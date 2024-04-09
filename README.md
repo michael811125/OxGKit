@@ -10,6 +10,8 @@
 
 OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨立工具)。
 
+**TODO 未來會補充 OxGKit 的文檔**
+
 [Coding Style wiki](https://github.com/michael811125/OxGFrame/wiki/Coding-Style)
 
 **目前包含以下**
@@ -48,8 +50,6 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 - 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
-**如果沒有要使用 InfiniteScrollView，可以直接刪除整個 InfiniteScrollView。**
-
 ※備註 : Right-Click Create/OxGKit/Infinite ScrollView... (Template cs)
 
 ---
@@ -74,8 +74,6 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 **ActionSystem Demo**
 
 https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-f50119e97d35
-
-**如果沒有要使用 ActionSystem，可以直接刪除整個 ActionSystem。**
 
 ※備註 : Right-Click Create/OxGKit/Action System... (Template cs)
 
@@ -102,8 +100,6 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 **NoticeSystem Demo**
 
 https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-bee53f629f25
-
-**如果沒有要使用 NoticeSystem，可以直接刪除整個 NoticeSystem。**
 
 ※備註 : Right-Click Create/OxGKit/Notice System... (Template cs)
 
@@ -139,8 +135,6 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-c82b16deddb7
 
-**如果沒有要使用 InputSystem，可以直接刪除整個 InputSystem。**
-
 ※備註 : Right-Click Create/OxGKit/Input System... (Template cs)
 
 ---
@@ -151,7 +145,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 - 透過 Right-Click Create/OxGKit/Logging System/Create Logger Setting 建立配置檔。
 - 透過菜單選項 OxGKit/Logging System/Logger Setting 開啟將會自動生成配置檔。
 
-**Build 激活標籤**
+**Build 激活宏**
 - OXGKIT_LOGGER_ON
 
 ![](Docs/img_4.png)
@@ -226,8 +220,6 @@ https://github.com/michael811125/OxGKit/assets/30960759/51ecddd7-5241-43e9-9104-
 
 https://github.com/michael811125/OxGKit/assets/30960759/cef1a484-d617-466d-bf3e-6104032d7c3f
 
-**如果沒有要使用 LoggingSystem，可以直接刪除整個 LoggingSystem，注意其他庫引用關係。**
-
 ---
 
 ### TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
@@ -273,8 +265,6 @@ Preview Mode (Only DoTweenAnim component is supported)
 **TweenSystem Demo**
 
 https://github.com/michael811125/OxGKit/assets/30960759/6bf690b6-c4d0-40f6-b3c9-b50ab62562e8
-
-**如果沒有要使用 TweenSystem，可以直接刪除整個 TweenSystem。**
 
 <!---
 ---
@@ -354,8 +344,6 @@ https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-
 **Utilities Demo (Timer)**
 
 https://github.com/michael811125/OxGKit/assets/30960759/ee085eb4-f803-45e5-9593-b481a4b5a821
-
-**如果沒有要使用 Utilities，可以直接刪除整個 Utilities，注意其他庫引用關係。**
 
 ---
 

@@ -83,7 +83,9 @@ namespace OxGKit.Utilities.Timer
         {
             try
             {
+#if !UNITY_WEBGL
                 if (switchToThread) await UniTask.SwitchToThreadPool();
+#endif
                 do
                 {
                     if (this.targetFrameRate > 0 && this.timeScale > 0)

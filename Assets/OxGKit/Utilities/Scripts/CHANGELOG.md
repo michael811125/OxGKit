@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.4] - 2024-05-12
+- Fixed UniTask.SwitchToThreadPool() not supported on WebGL issue.
+- Modified NtpTime so that when performing a sync it will wait to ensure the sync has occurred..
+
 ## [1.0.3] - 2024-03-20
 - Fixed NtpTime switch back to main thread.
 

@@ -22,7 +22,9 @@ namespace OxGKit.Utilities.Timer
         {
             try
             {
+#if !UNITY_WEBGL
                 if (switchToThread) await UniTask.SwitchToThreadPool();
+#endif
                 do
                 {
                     await UniTask.Delay(milliseconds, ignoreTimeScale, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);

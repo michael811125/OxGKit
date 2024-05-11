@@ -1,8 +1,9 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using OxGKit.LoggingSystem;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace OxGKit.Utilities.Timer
 {
@@ -82,10 +83,30 @@ namespace OxGKit.Utilities.Timer
                 return;
             }
 
+            var cts = new CancellationTokenSource();
+            cts.CancelAfterSlim(TimeSpan.FromSeconds(requestTimeout));
+
+#if !UNITY_WEBGL
             await UniTask.SwitchToThreadPool();
+#endif
+            // Request ntp server
             _BeginRequest(ntpServer, requestTimeout);
+            // Wait until is synchronized with timeout handling
+            try
+            {
+                await UniTask.WaitUntil(IsSynchronized, PlayerLoopTiming.FixedUpdate, cts.Token);
+            }
+            catch (OperationCanceledException ex)
+            {
+                if (ex.CancellationToken == cts.Token)
+                {
+                    Logging.Print<Logger>("<color=#ff8887>[NTP] Sync failed due to timeout.</color>");
+                }
+            }
+#if !UNITY_WEBGL
             // Must switch back to main thread
             await UniTask.SwitchToMainThread();
+#endif
         }
 
         private static void _BeginRequest(string ntpServer, int requestTimeout)

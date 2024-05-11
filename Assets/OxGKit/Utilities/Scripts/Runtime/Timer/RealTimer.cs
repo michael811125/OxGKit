@@ -217,7 +217,7 @@ namespace OxGKit.Utilities.Timer
         }
 
         /// <summary>
-        /// 取得上次標記時的經過時間
+        /// 取得上次標記時的經過時間 (s)
         /// </summary>
         /// <returns></returns>
         public float GetElapsedMarkTime()

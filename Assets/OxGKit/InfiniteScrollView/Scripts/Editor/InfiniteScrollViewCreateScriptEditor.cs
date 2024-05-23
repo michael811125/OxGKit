@@ -16,7 +16,7 @@ namespace OxGKit.InfiniteScrollView.Editor
             }
         }
 
-        [MenuItem(itemName: "Assets/Create/OxGKit/Infinite ScrollView/Template Infinite Cell.cs", isValidateFunction: false, priority: 51)]
+        [MenuItem(itemName: "Assets/Create/OxGKit/Infinite ScrollView/Template Infinite Cell.cs (Script)", isValidateFunction: false, priority: 51)]
         public static void CreateScriptTplInfiniteCell()
         {
             string currentPath = _pathFinder;

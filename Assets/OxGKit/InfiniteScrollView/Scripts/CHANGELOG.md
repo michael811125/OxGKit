@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.5] - 2024-05-24
+- Added InfiniteCell tpl prefab (right-click to create).
+
 ## [1.6.4] - 2024-03-15
 - Fixed tpl script ref error issue.
 - Modified set #ROOTNAMESPACE# symbol in script templates.

@@ -23,7 +23,7 @@ public class TweenDemo : MonoBehaviour
         {
             int idx = i;
             this.tgls[i].onValueChanged.RemoveAllListeners();
-            this.tgls[i].onValueChanged.AddListener((isOn) => this._RefreshToggleTweenAnime(isOn, idx));
+            this.tgls[i].onValueChanged.AddListener((isOn) => this._RefreshToggleTweenAnim(isOn, idx));
             this.tgls[i].onValueChanged.AddListener((isOn) => this._OnToggleEvent(isOn, idx));
         }
     }
@@ -41,14 +41,14 @@ public class TweenDemo : MonoBehaviour
             int idx = i;
             if (this.tgls[i].isOn)
             {
-                this._RefreshToggleTweenAnime(this.tgls[i].isOn, idx);
+                this._RefreshToggleTweenAnim(this.tgls[i].isOn, idx);
                 this._OnToggleEvent(!this.tgls[i].isOn, idx);
                 return;
             }
         }
     }
 
-    private void _RefreshToggleTweenAnime(bool isOn, int idx)
+    private void _RefreshToggleTweenAnim(bool isOn, int idx)
     {
         this.tgls[idx].GetComponent<DoTweenAnimEvent>().PlayTriggerOnce
          (

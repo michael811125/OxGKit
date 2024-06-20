@@ -28,12 +28,23 @@ namespace OxGKit.Utilities.Singleton
                     if (Application.isPlaying)
                     {
                         _instance = _FindExistingInstance();
-                        if (_instance == null) _instance = _CreateNewInstance();
-                        if (dontDestroyOnLoad) DontDestroyOnLoad(_instance);
+                        if (_instance == null)
+                            _instance = _CreateNewInstance();
+                        if (dontDestroyOnLoad)
+                            DontDestroyOnLoad(_instance);
                     }
                 }
             }
             return _instance;
+        }
+
+        /// <summary>
+        /// Check if an instance exists
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckInstanceExists()
+        {
+            return _instance != null;
         }
 
         private static T _FindExistingInstance()
@@ -82,7 +93,8 @@ namespace OxGKit.Utilities.Singleton
         public static void DestroyInstance(bool gameObjectIncluded = false)
         {
             GameObject go = null;
-            if (gameObjectIncluded) go = _instance?.gameObject;
+            if (gameObjectIncluded)
+                go = _instance?.gameObject;
             Component.Destroy(_instance);
             GameObject.Destroy(go);
         }

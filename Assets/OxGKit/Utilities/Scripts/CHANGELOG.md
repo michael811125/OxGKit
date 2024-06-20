@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.5] - 2024-06-20
+- Modified NewSingleton.
+- Modified MonoSingleton.
+
 ## [1.0.4] - 2024-05-12
 - Fixed UniTask.SwitchToThreadPool() not supported on WebGL issue.
 - Modified NtpTime so that when performing a sync it will wait to ensure the sync has occurred..

@@ -16,5 +16,22 @@
             }
             return _instance;
         }
+
+        /// <summary>
+        /// Check if an instance exists
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckInstanceExists()
+        {
+            return _instance != null;
+        }
+
+        /// <summary>
+        /// Destroy singleton instance
+        /// </summary>
+        public static void DestroyInstance()
+        {
+            _instance = null;
+        }
     }
 }

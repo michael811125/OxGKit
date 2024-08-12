@@ -266,11 +266,11 @@ namespace OxGKit.InfiniteScrollView
                 index < 0)
                 return false;
 
+            this.RecycleCell(index);
+            this._cellList.RemoveAt(index);
             this._dataList[index].Dispose();
             this._dataList.RemoveAt(index);
             this._RefreshCellDataIndex(index);
-            this.RecycleCell(index);
-            this._cellList.RemoveAt(index);
             if (autoRefresh) this.Refresh();
             return true;
         }
@@ -285,16 +285,16 @@ namespace OxGKit.InfiniteScrollView
 
             this.scrollRect.velocity = Vector2.zero;
             this.scrollRect.content.anchoredPosition = Vector2.zero;
-            for (int i = 0; i < this._dataList.Count; i++)
-            {
-                this._dataList[i].Dispose();
-            }
-            this._dataList.Clear();
             for (int i = 0; i < this._cellList.Count; i++)
             {
                 this.RecycleCell(i);
             }
             this._cellList.Clear();
+            for (int i = 0; i < this._dataList.Count; i++)
+            {
+                this._dataList[i].Dispose();
+            }
+            this._dataList.Clear();
             this.Refresh();
         }
         #endregion

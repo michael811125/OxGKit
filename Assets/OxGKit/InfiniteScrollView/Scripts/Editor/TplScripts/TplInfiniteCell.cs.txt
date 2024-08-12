@@ -31,7 +31,7 @@ public class #SCRIPTNAME# : InfiniteCell
         // Get data
         #SCRIPTNAME#Data cellData = this.cellData.data as #SCRIPTNAME#Data;
         // Invoke parsing callback
-        cellData.parsing.Invoke(this);
+        cellData.parsing?.Invoke(this);
     }
     
     public override void OnRecycle()

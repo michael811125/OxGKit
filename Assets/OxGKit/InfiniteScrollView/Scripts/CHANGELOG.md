@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.6] - 2024-08-12
+- Fixed OnRecycle procedure (Invoke OnRecycle first and then delete the data).
+
 ## [1.6.5] - 2024-05-24
 - Added InfiniteCell tpl prefab (right-click to create).
 

@@ -50,6 +50,11 @@ namespace OxGKit.LoggingSystem
                 TryInitLoggers();
         }
 
+        public static void SetSetting(LoggerSetting loggerSetting)
+        {
+            GetInstance().loggerSetting = loggerSetting;
+        }
+
         public static LoggerSetting GetSetting()
         {
             if (GetInstance().loggerSetting == null) _LoadSettingData();

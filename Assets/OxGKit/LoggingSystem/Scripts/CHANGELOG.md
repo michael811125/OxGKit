@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.1.1] - 2024-10-08
+- Added SetSetting method.
+
 ## [1.1.0] - 2024-04-09
 - Added override feature, can override an existing Logger.
 ```C#

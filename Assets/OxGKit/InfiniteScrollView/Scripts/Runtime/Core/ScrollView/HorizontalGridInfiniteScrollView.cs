@@ -28,7 +28,7 @@ namespace OxGKit.InfiniteScrollView
 
             // Set content direction
             float minViewport = this.scrollRect.content.anchoredPosition.x * this._contentDirCoeff;
-            Vector2 viewportRange = new Vector2(minViewport - extendVisibleRange, minViewport + viewportInterval + extendVisibleRange);
+            Vector2 viewportRange = new Vector2(minViewport - this.extendVisibleRange, minViewport + viewportInterval + this.extendVisibleRange);
 
             // Hide
             float contentWidth = this.padding.left;
@@ -161,8 +161,8 @@ namespace OxGKit.InfiniteScrollView
             // Check scroll position
             if (this.scrollRect.content.sizeDelta.x > viewportInterval)
             {
-                this._isAtLeft = viewportRange.x + extendVisibleRange + this._dataList[0].cellSize.x <= this._dataList[0].cellSize.x;
-                this._isAtRight = this.scrollRect.content.sizeDelta.x - viewportRange.y + extendVisibleRange + this._dataList[this._dataList.Count - 1].cellSize.x <= this._dataList[this._dataList.Count - 1].cellSize.x;
+                this._isAtLeft = viewportRange.x + this.extendVisibleRange + this._dataList[0].cellSize.x <= this._dataList[0].cellSize.x;
+                this._isAtRight = this.scrollRect.content.sizeDelta.x - viewportRange.y + this.extendVisibleRange + this._dataList[this._dataList.Count - 1].cellSize.x <= this._dataList[this._dataList.Count - 1].cellSize.x;
             }
             else
             {

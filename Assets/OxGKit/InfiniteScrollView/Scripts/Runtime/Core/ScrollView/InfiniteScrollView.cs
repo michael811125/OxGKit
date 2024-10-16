@@ -482,6 +482,9 @@ namespace OxGKit.InfiniteScrollView
                 float t = 0f;
                 while (t < 1f)
                 {
+                    if (this.scrollRect == null ||
+                        this.scrollRect.IsDestroyed())
+                        break;
                     double currentElapsedTime = DateTime.Now.Subtract(this._lastSnappingDurationTime).TotalSeconds;
                     t = (float)currentElapsedTime / duration;
                     this.scrollRect.content.anchoredPosition = Vector2.Lerp(startPos, target, t);

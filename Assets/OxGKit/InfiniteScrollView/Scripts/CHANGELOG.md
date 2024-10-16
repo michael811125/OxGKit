@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.7] - 2024-10-16
+- Fixed the issue where the ProcessSnapping method occasionally encounters a 'MissingReferenceException' problem.
+
 ## [1.6.6] - 2024-08-12
 - Fixed OnRecycle procedure (Invoke OnRecycle first and then delete the data).
 

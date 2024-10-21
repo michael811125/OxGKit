@@ -2,10 +2,15 @@
 	"name": "com.michaelo.oxgkit.utilities",
 	"displayName": "OxGKit.Utilities",
 	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-	"version": "1.0.5",
+	"version": "1.1.0",
 	"unity": "2021.3",
 	"license": "MIT",
 	"samples": [
+		{
+			"displayName": "CursorManager Prefab",
+			"description": "",
+			"path": "Samples~/CursorManagerPrefab"
+		},
 		{
 			"displayName": "ButtonPlus Demo",
 			"description": "Sample to use ButtonPlus",
@@ -20,6 +25,11 @@
 			"displayName": "MonoSingleton Demo",
 			"description": "Sample to use MonoSingleton",
 			"path": "Samples~/MonoSingletonDemo"
+		},
+		{
+			"displayName": "CursorManager Demo",
+			"description": "Sample to use CursorManager",
+			"path": "Samples~/CursorManagerDemo"
 		}
 	],
 	"dependencies": {},

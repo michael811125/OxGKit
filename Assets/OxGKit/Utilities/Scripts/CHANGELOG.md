@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.1.2] - 2024-10-22
+- Added ScalingEnabled trigger in CursorManager.
+- Optimized memory allocation and reuse in CursorManager t2d.
+
 ## [1.1.1] - 2024-10-22
 - Modified CursorManager can set lock mode and visible, also can set cursor mode.
 - Modified CursorManager demo in Samples.

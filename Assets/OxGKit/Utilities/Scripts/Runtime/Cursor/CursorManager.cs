@@ -39,6 +39,8 @@ namespace OxGKit.Utilities.CursorAnim
             public RenderType renderType = RenderType.Static;                     // 設定靜態或動態游標
             public CursorMode cursorMode = CursorMode.Auto;                       // Cursor 渲染模式
             [Tooltip("Cursor scale is only supported in ForceSoftware rendering mode.")]
+            public bool scalingEnabled = false;
+            [Tooltip("You need to enable scalingEnabled for the scale adjustment to take effect.")]
             public Vector2 scale = new Vector2(1f, 1f);                           // 設置縮放比例
             public Vector2 hotspot = Vector2.zero;                                // 設定游標的熱點位置
 
@@ -56,6 +58,8 @@ namespace OxGKit.Utilities.CursorAnim
 
             private bool _pingPongStart = false;
             private int _pingPongCount = 0;
+
+            private Texture2D _scaledTexture;                                     // 儲存已縮放的貼圖
 
             #region Public Methods
             public void DriveUpdate(float dt)
@@ -131,9 +135,11 @@ namespace OxGKit.Utilities.CursorAnim
                             Cursor.SetCursor(this.staticCursorTexture, this.hotspot, this.cursorMode);
                             break;
                         case CursorMode.ForceSoftware:
-                            // 將光標的 Texture2D 按比例縮放
-                            Texture2D scaledCursor = this._ScaleTexture(this.staticCursorTexture, this.scale);
-                            Cursor.SetCursor(scaledCursor, this.hotspot, this.cursorMode);
+                            if (this.scalingEnabled)
+                                t2d = this._ScaleTexture(this.staticCursorTexture, this.scale);
+                            else
+                                t2d = this.staticCursorTexture;
+                            Cursor.SetCursor(t2d, this.hotspot, this.cursorMode);
                             break;
                     }
                 }
@@ -206,27 +212,40 @@ namespace OxGKit.Utilities.CursorAnim
             /// <returns></returns>
             private Texture2D _ScaleTexture(Texture2D source, Vector2 scale)
             {
-                // 計算目標寬度和高度, 並確保最小值為 1
                 int targetWidth = Mathf.Max(1, Mathf.RoundToInt(source.width * scale.x));
                 int targetHeight = Mathf.Max(1, Mathf.RoundToInt(source.height * scale.y));
 
-                // 創建一個 RenderTexture 來處理縮放
+                // 檢查是否需要創建新的 Texture2D
+                if (this._scaledTexture == null ||
+                    this._scaledTexture.width != targetWidth ||
+                    this._scaledTexture.height != targetHeight)
+                {
+                    // 銷毀之前的 Texture2D (如果存在)
+                    if (this._scaledTexture != null)
+                    {
+                        Destroy(this._scaledTexture);
+                    }
+
+                    // 創建或重新分配 Texture2D
+                    this._scaledTexture = new Texture2D(targetWidth, targetHeight, source.format, false);
+                }
+
+                // 創建 RenderTexture 來處理縮放
                 RenderTexture rt = RenderTexture.GetTemporary(targetWidth, targetHeight);
                 RenderTexture.active = rt;
 
                 // 渲染 source 到 rt 並縮放
                 Graphics.Blit(source, rt);
 
-                // 創建一個新的 Texture2D 來接收縮放結果
-                Texture2D result = new Texture2D(targetWidth, targetHeight, source.format, false);
-                result.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
-                result.Apply();
+                // 將縮放結果讀取到 scaledTexture
+                this._scaledTexture.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
+                this._scaledTexture.Apply();
 
                 // 清理 RenderTexture
                 RenderTexture.active = null;
                 RenderTexture.ReleaseTemporary(rt);
 
-                return result;
+                return this._scaledTexture;
             }
 
             /// <summary>
@@ -254,9 +273,9 @@ namespace OxGKit.Utilities.CursorAnim
                             Cursor.SetCursor(t2d, this.hotspot, this.cursorMode);
                             break;
                         case CursorMode.ForceSoftware:
-                            // 將光標的 Texture2D 按比例縮放
-                            Texture2D scaledCursor = this._ScaleTexture(t2d, this.scale);
-                            Cursor.SetCursor(scaledCursor, this.hotspot, this.cursorMode);
+                            if (this.scalingEnabled)
+                                t2d = this._ScaleTexture(t2d, this.scale);
+                            Cursor.SetCursor(t2d, this.hotspot, this.cursorMode);
                             break;
                     }
                 }

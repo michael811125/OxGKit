@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static OxGKit.Utilities.CursorAnim.CursorManager;
 
 namespace OxGKit.Utilities.CursorAnim
 {
@@ -31,16 +32,24 @@ namespace OxGKit.Utilities.CursorAnim
                 PingPongReverse
             }
 
+            [Header("Cursor State")]
             public string stateName;
 
+            [Header("Cursor Options")]
             public RenderType renderType = RenderType.Static;                     // 設定靜態或動態游標
-            public Texture2D staticCursorTexture;                                 // 靜態游標貼圖
-            public List<Texture2D> dynamicCursorTextures = new List<Texture2D>(); // 動態游標序列幀
+            public CursorMode cursorMode = CursorMode.Auto;                       // Cursor 渲染模式
+            [Tooltip("Cursor scale is only supported in ForceSoftware rendering mode.")]
+            public Vector2 scale = new Vector2(1f, 1f);                           // 設置縮放比例
+            public Vector2 hotspot = Vector2.zero;                                // 設定游標的熱點位置
 
+            [Header("Static Cursor")]
+            public Texture2D staticCursorTexture;                                 // 靜態游標貼圖
+
+            [Header("Dynamic Cursor")]
+            public List<Texture2D> dynamicCursorTextures = new List<Texture2D>(); // 動態游標序列幀
             public bool isLoop = false;                                           // 是否循環
             public PlayMode playMode = PlayMode.Normal;                           // 播放模式
             public int frameRate = 0;                                             // 播放速率
-            public Vector2 offset = Vector2.zero;                                 // 設定游標的熱點位置
 
             private float _dt = 0;
             private int _frameIndex = 0;
@@ -80,6 +89,24 @@ namespace OxGKit.Utilities.CursorAnim
             }
 
             /// <summary>
+            /// 設定 cursor mode
+            /// </summary>
+            /// <param name="cursorMode"></param>
+            public void SetCursorMode(CursorMode cursorMode)
+            {
+                this.cursorMode = cursorMode;
+            }
+
+            /// <summary>
+            /// 設定 cursor scale
+            /// </summary>
+            /// <param name="scale"></param>
+            public void SetCursorScale(Vector2 scale)
+            {
+                this.scale = scale;
+            }
+
+            /// <summary>
             /// 設定 render type
             /// </summary>
             /// <param name="renderType"></param>
@@ -98,7 +125,17 @@ namespace OxGKit.Utilities.CursorAnim
 
                 if (this.staticCursorTexture != null)
                 {
-                    Cursor.SetCursor(this.staticCursorTexture, this.offset, CursorMode.Auto);
+                    switch (this.cursorMode)
+                    {
+                        case CursorMode.Auto:
+                            Cursor.SetCursor(this.staticCursorTexture, this.hotspot, this.cursorMode);
+                            break;
+                        case CursorMode.ForceSoftware:
+                            // 將光標的 Texture2D 按比例縮放
+                            Texture2D scaledCursor = this._ScaleTexture(this.staticCursorTexture, this.scale);
+                            Cursor.SetCursor(scaledCursor, this.hotspot, this.cursorMode);
+                            break;
+                    }
                 }
             }
 
@@ -120,7 +157,7 @@ namespace OxGKit.Utilities.CursorAnim
             /// <param name="offset"></param>
             public void SetCursorOffset(Vector2 offset)
             {
-                this.offset = offset;
+                this.hotspot = offset;
             }
 
             /// <summary>
@@ -162,6 +199,37 @@ namespace OxGKit.Utilities.CursorAnim
             #endregion
 
             /// <summary>
+            /// 根據 scale Vector2 進行縮放
+            /// </summary>
+            /// <param name="source"></param>
+            /// <param name="scale"></param>
+            /// <returns></returns>
+            private Texture2D _ScaleTexture(Texture2D source, Vector2 scale)
+            {
+                // 計算目標寬度和高度, 並確保最小值為 1
+                int targetWidth = Mathf.Max(1, Mathf.RoundToInt(source.width * scale.x));
+                int targetHeight = Mathf.Max(1, Mathf.RoundToInt(source.height * scale.y));
+
+                // 創建一個 RenderTexture 來處理縮放
+                RenderTexture rt = RenderTexture.GetTemporary(targetWidth, targetHeight);
+                RenderTexture.active = rt;
+
+                // 渲染 source 到 rt 並縮放
+                Graphics.Blit(source, rt);
+
+                // 創建一個新的 Texture2D 來接收縮放結果
+                Texture2D result = new Texture2D(targetWidth, targetHeight, source.format, false);
+                result.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
+                result.Apply();
+
+                // 清理 RenderTexture
+                RenderTexture.active = null;
+                RenderTexture.ReleaseTemporary(rt);
+
+                return result;
+            }
+
+            /// <summary>
             /// 重置動畫參數
             /// </summary>
             private void _ResetAnim()
@@ -180,7 +248,17 @@ namespace OxGKit.Utilities.CursorAnim
             {
                 if (t2d != null)
                 {
-                    Cursor.SetCursor(t2d, this.offset, CursorMode.Auto);
+                    switch (this.cursorMode)
+                    {
+                        case CursorMode.Auto:
+                            Cursor.SetCursor(t2d, this.hotspot, this.cursorMode);
+                            break;
+                        case CursorMode.ForceSoftware:
+                            // 將光標的 Texture2D 按比例縮放
+                            Texture2D scaledCursor = this._ScaleTexture(t2d, this.scale);
+                            Cursor.SetCursor(scaledCursor, this.hotspot, this.cursorMode);
+                            break;
+                    }
                 }
             }
 
@@ -295,11 +373,15 @@ namespace OxGKit.Utilities.CursorAnim
         private bool _ignoreTimeScale = true;
 
         [SerializeField]
+        private CursorMode _cursorMode = CursorMode.Auto;
+
+        [SerializeField]
         private List<CursorState> _listCursorStates = new List<CursorState>()
         {
             new CursorState()
             {
                 stateName = "Default",
+                scale = new Vector2(1f, 1f),
                 frameRate = 30
             }
         };
@@ -356,7 +438,7 @@ namespace OxGKit.Utilities.CursorAnim
 
         private void OnEnable()
         {
-            this.ResetRender();
+            this.ResetCursorState();
         }
 
         private void _Initialize()
@@ -371,6 +453,42 @@ namespace OxGKit.Utilities.CursorAnim
         public void SetIgnoreScale(bool ignore)
         {
             this._ignoreTimeScale = ignore;
+        }
+
+        /// <summary>
+        /// 取得 cursor lock state
+        /// </summary>
+        /// <returns></returns>
+        public CursorLockMode GetCurrentCursorLockState()
+        {
+            return Cursor.lockState;
+        }
+
+        /// <summary>
+        /// 設定 cursor lock state
+        /// </summary>
+        /// <param name="cursorLockMode"></param>
+        public void SetCursorLockState(CursorLockMode cursorLockMode)
+        {
+            Cursor.lockState = cursorLockMode;
+        }
+
+        /// <summary>
+        /// 檢查返回 cursor visible
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCursorVisible()
+        {
+            return Cursor.visible;
+        }
+
+        /// <summary>
+        /// 設定 cursor visible
+        /// </summary>
+        /// <param name="visible"></param>
+        public void SetCursorVisible(bool visible)
+        {
+            Cursor.visible = visible;
         }
 
         /// <summary>
@@ -436,9 +554,11 @@ namespace OxGKit.Utilities.CursorAnim
 
         /// <summary>
         /// 移除 Cursor 渲染
+        /// <para>If you want to restore visibility, you can use ResetCursorState method to initialize and reset the rendering.</para>
         /// </summary>
         public void RemoveCursorRender()
         {
+            this._currentCursorState = null;
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }

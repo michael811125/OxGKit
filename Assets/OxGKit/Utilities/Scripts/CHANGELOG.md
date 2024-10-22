@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.1.1] - 2024-10-22
+- Modified CursorManager can set lock mode and visible, also can set cursor mode.
+- Modified CursorManager demo in Samples.
+
 ## [1.1.0] - 2024-10-21
 - Added CursorManager support for both static and dynamic modes, and allow setting the cursor's animation state.
 - Added CursorManager prefab in Samples.

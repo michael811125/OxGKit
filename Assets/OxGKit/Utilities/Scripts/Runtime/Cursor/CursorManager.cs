@@ -507,6 +507,28 @@ namespace OxGKit.Utilities.CursorAnim
         }
 
         /// <summary>
+        /// 設定 scale 到所有的 cursor state, 並且重置渲染
+        /// </summary>
+        /// <param name="scale"></param>
+        public void SetScaleToAllCursors(Vector2 scale)
+        {
+            foreach (var cursorState in this.GetAllCursorStates())
+            {
+                cursorState.SetCursorScale(scale);
+                cursorState.ResetRender();
+            }
+        }
+
+        /// <summary>
+        /// 取得所有的 cursor states
+        /// </summary>
+        /// <returns></returns>
+        public CursorState[] GetAllCursorStates()
+        {
+            return this._listCursorStates.ToArray();
+        }
+
+        /// <summary>
         /// 取得對應的 Cursor 狀態
         /// </summary>
         /// <param name="stateName"></param>

@@ -373,9 +373,6 @@ namespace OxGKit.Utilities.CursorAnim
         private bool _ignoreTimeScale = true;
 
         [SerializeField]
-        private CursorMode _cursorMode = CursorMode.Auto;
-
-        [SerializeField]
         private List<CursorState> _listCursorStates = new List<CursorState>()
         {
             new CursorState()

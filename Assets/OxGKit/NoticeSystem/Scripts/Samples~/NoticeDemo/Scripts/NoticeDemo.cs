@@ -36,7 +36,7 @@ public class NoticeDemo : MonoBehaviour
     private void Awake()
     {
         // Trigger static constructor to init first
-        NoticeConditionRegisters.Init();
+        NoticeConditionRegister.Init();
 
         // Reference Type
         this._wallet = new Wallet();
@@ -48,6 +48,11 @@ public class NoticeDemo : MonoBehaviour
     private void Update()
     {
         this._RefreshCoinText();
+    }
+
+    private void OnDestroy()
+    {
+        this._DeregisterNoticeItems();
     }
 
     private void _NotifyAndRegisterNoticeItems()
@@ -76,6 +81,27 @@ public class NoticeDemo : MonoBehaviour
         (
              // Reference type data
              new NoticeInfo(CoinIsEvenCond.id, this._wallet)
+        );
+        #endregion
+    }
+
+    private void _DeregisterNoticeItems()
+    {
+        #region Deregister NoticeItem Conditions
+        noticeItems[0].DeregisterNotice
+        (
+            CoinInWalletCond.id,
+            CoinIsEvenCond.id
+        );
+
+        noticeItems[1].DeregisterNotice
+        (
+            CoinInWalletCond.id
+        );
+
+        noticeItems[2].DeregisterNotice
+        (
+            CoinIsEvenCond.id
         );
         #endregion
     }

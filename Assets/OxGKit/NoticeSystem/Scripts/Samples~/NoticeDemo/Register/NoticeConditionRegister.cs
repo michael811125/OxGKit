@@ -1,8 +1,8 @@
 ﻿using OxGKit.NoticeSystem;
 
-public static class NoticeConditionRegisters
+public static class NoticeConditionRegister
 {
-    static NoticeConditionRegisters()
+    static NoticeConditionRegister()
     {
         NoticeManager.RegisterCondition<CoinInWalletCond>();
         NoticeManager.RegisterCondition<CoinIsEvenCond>();

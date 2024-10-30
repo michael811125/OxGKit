@@ -1,10 +1,13 @@
 ## CHANGELOG
 
+## [1.0.2] - 2024-10-31
+- Modified when noticeItem is detected as destroyed, it will be removed from condition.
+
 ## [1.0.1] - 2024-03-15
 - Modified set #ROOTNAMESPACE# symbol in script templates.
 
 ## [1.0.0] - 2024-02-02
-- Stabled
+- Stabled.
 
 ## [0.0.5-preview] - 2023-09-22
 - Added default constructor for Logger.

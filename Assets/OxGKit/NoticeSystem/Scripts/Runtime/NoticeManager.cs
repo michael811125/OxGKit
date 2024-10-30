@@ -70,11 +70,17 @@ namespace OxGKit.NoticeSystem
                     if (_dictNoticeItems.ContainsKey(conditionId))
                     {
                         ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
-                        foreach (var noticeItem in noticeItems.GetList())
+                        for (int i = noticeItems.Count - 1; i >= 0; i--)
                         {
+                            var noticeItem = noticeItems.GetList()[i];
                             if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
                             {
                                 noticeItem.CheckConditionAndVisible();
+                            }
+                            else
+                            {
+                                noticeItems.RemoveAt(i);
+                                Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!</color>");
                             }
                         }
                     }

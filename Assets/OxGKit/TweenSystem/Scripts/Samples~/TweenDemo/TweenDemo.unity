@@ -1013,6 +1013,7 @@ MonoBehaviour:
   - {fileID: 1377621238}
   - {fileID: 1861814907}
   - {fileID: 1427534651}
+  - {fileID: 1644943964}
 --- !u!114 &301536689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,6 +2353,7 @@ MonoBehaviour:
   - {fileID: 1988143987}
   - {fileID: 344864859}
   - {fileID: 1386874001}
+  - {fileID: 1488687468}
 --- !u!114 &1024605907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5132,8 +5134,8 @@ MonoBehaviour:
     duration: 0.4
     ignoreTimeScale: 1
     autoActive: 0
-    transform: {fileID: 0}
-    originScale: {x: 0, y: 0, z: 0}
+    transform: {fileID: 1488687464}
+    originScale: {x: 1, y: 1, z: 1}
     beginScale: {x: 1, y: 1, z: 1}
     endScale: {x: -1, y: 1, z: 1}
     scaleSeq:

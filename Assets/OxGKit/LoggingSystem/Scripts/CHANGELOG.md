@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## [1.1.2] - 2024-11-20
+- Added SetMainActive in LoggerSetting.
+- Added SetLoggerActive in LoggerSetting.
+- Added SetAllLoggersActive in LoggerSetting.
+- Organized code.
+
 ## [1.1.1] - 2024-10-08
 - Added SetSetting method.
 

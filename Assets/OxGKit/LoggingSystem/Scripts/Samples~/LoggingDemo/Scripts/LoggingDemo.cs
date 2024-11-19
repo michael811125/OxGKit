@@ -82,5 +82,23 @@ public class LoggingDemo : MonoBehaviour
             // Use Logger3 to print
             Logging.Print<LoggingDemoLogger3>("[Override] Implement Logger by LoggingDemoLogger3!!!");
         }
+        // Switch the logger's active state at runtime (1 and 3)
+        else if (Mouse.current.rightButton.wasReleasedThisFrame)
+        {
+            var setting = LoggingLauncher.GetSetting();
+            setting.SetLoggerActive("LoggingDemo.Logger1", true);
+            setting.SetLoggerActive("LoggingDemo.Logger2", false);
+            setting.SetLoggerActive("LoggingDemo.Logger3", true);
+            LoggingLauncher.TryLoadLoggerSetting();
+        }
+        // Switch the logger's active state at runtime (2)
+        else if (Mouse.current.middleButton.wasReleasedThisFrame)
+        {
+            var setting = LoggingLauncher.GetSetting();
+            setting.SetLoggerActive("LoggingDemo.Logger1", false);
+            setting.SetLoggerActive("LoggingDemo.Logger2", true);
+            setting.SetLoggerActive("LoggingDemo.Logger3", false);
+            LoggingLauncher.TryLoadLoggerSetting();
+        }
     }
 }

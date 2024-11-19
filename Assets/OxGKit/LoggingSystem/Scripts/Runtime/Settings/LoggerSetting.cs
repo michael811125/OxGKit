@@ -43,11 +43,49 @@ namespace OxGKit.LoggingSystem
             this.CheckAnSetSettingData();
         }
 
+        /// <summary>
+        /// Enabled all loggers
+        /// </summary>
+        /// <param name="logMainActive"></param>
+        public void SetMainActive(bool logMainActive)
+        {
+            this.logMainActive = logMainActive;
+        }
+
+        /// <summary>
+        /// Set logger active
+        /// </summary>
+        /// <param name="loggerName"></param>
+        /// <param name="logActive"></param>
+        public void SetLoggerActive(string loggerName, bool logActive)
+        {
+            foreach (var loggerConfig in this.loggerConfigs)
+            {
+                if (loggerConfig.loggerName == loggerName)
+                {
+                    loggerConfig.logActive = logActive;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set all loggers active
+        /// </summary>
+        /// <param name="logActive"></param>
+        public void SetAllLoggersActive(bool logActive)
+        {
+            foreach (var loggerConfig in this.loggerConfigs)
+                loggerConfig.logActive = logActive;
+        }
+
+        /// <summary>
+        /// Clear loggers and reload again
+        /// </summary>
         public void ResetSettingData()
         {
-            Logging.InitLoggers();
             this.loggerConfigs.Clear();
-            this.CheckAnSetSettingData();
+            this.RefreshAndLoadLoggers();
         }
 
         public void CheckAnSetSettingData()

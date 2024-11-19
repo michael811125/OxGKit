@@ -57,7 +57,8 @@ namespace OxGKit.LoggingSystem
 
         public static LoggerSetting GetSetting()
         {
-            if (GetInstance().loggerSetting == null) _LoadSettingData();
+            if (GetInstance().loggerSetting == null)
+                _LoadSettingData();
             return GetInstance().loggerSetting;
         }
 
@@ -65,9 +66,7 @@ namespace OxGKit.LoggingSystem
         {
             GetInstance().loggerSetting = Resources.Load<LoggerSetting>(nameof(LoggerSetting));
             if (GetInstance().loggerSetting == null)
-            {
                 GetInstance().loggerSetting = ScriptableObject.CreateInstance<LoggerSetting>();
-            }
         }
 
         /// <summary>
@@ -112,10 +111,11 @@ namespace OxGKit.LoggingSystem
             if (GetSetting() != null)
             {
                 // Set loggers active from setting
-                foreach (var loggerData in GetSetting().loggerConfigs)
+                foreach (var loggerConfig in GetSetting().loggerConfigs)
                 {
-                    var logger = Logging.GetLogger(loggerData.loggerName);
-                    if (logger != null) logger.logActive = loggerData.logActive;
+                    var logger = Logging.GetLogger(loggerConfig.loggerName);
+                    if (logger != null)
+                        logger.logActive = loggerConfig.logActive;
                 }
 
                 // Set main active from setting

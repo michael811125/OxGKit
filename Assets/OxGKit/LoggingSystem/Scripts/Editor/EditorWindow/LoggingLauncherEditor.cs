@@ -40,7 +40,7 @@ namespace OxGKit.LoggingSystem.Editor
                 EditorGUI.BeginDisabledGroup(!this._isDirty);
                 if (GUILayout.Button("Runtime Reload Setting", GUILayout.MaxWidth(225f)))
                 {
-                    LoggingLauncher.ReloadLoggerSetting();
+                    LoggingLauncher.TryLoadLoggerSetting();
                     this._isDirty = false;
                 }
                 GUI.backgroundColor = bc;

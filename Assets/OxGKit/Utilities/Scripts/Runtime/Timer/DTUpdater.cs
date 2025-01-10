@@ -14,20 +14,32 @@ namespace OxGKit.Utilities.Timer
         public DeltaTimeFixedUpdate onFixedUpdate = null;
 
         private DateTime _createTime;
-        public float timeSinceStartup { get; private set; }       // 自啟動以來的時間
-        public float timeAtLastFrame { get; private set; }        // 記錄最後一幀的時間
-        private float _timeScale = 1f;                            // 時間尺度, 預設 = 1
+
+        /// <summary>
+        /// 自啟動以來的時間
+        /// </summary>
+        public float timeSinceStartup { get; private set; }
+
+        /// <summary>
+        /// 記錄最後一幀的時間
+        /// </summary>
+        public float timeAtLastFrame { get; private set; }
+
+        /// <summary>
+        /// 時間尺度, 預設 = 1
+        /// </summary>
+        private float _timeScale = 1f;
         public float timeScale
         {
             get { return this._timeScale; }
             set
             {
-                if (value >= MAX_TIMESCALE) this._timeScale = MAX_TIMESCALE;
+                if (value >= _MAX_TIMESCALE) this._timeScale = _MAX_TIMESCALE;
                 else if (value < 0f) this._timeScale = 0f;
                 else this._timeScale = value;
             }
         }
-        private float _targetFrameRate = FIXED_FRAME;
+        private float _targetFrameRate = _FIXED_FRAME;
         public float targetFrameRate
         {
             get { return this._targetFrameRate; }
@@ -42,8 +54,15 @@ namespace OxGKit.Utilities.Timer
         private CancellationTokenSource _cts = null;
         private bool _isRuning = false;
 
-        private const float FIXED_FRAME = 60;                     // 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
-        private const float MAX_TIMESCALE = 1 << 6;
+        /// <summary>
+        /// 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
+        /// </summary>
+        private const float _FIXED_FRAME = 60;
+
+        /// <summary>
+        /// 最大時間縮放比例
+        /// </summary>
+        private const float _MAX_TIMESCALE = 1 << 6;
 
         public DTUpdater()
         {

@@ -1,5 +1,12 @@
 ## CHANGELOG
 
+## [1.2.0] - 2025-01-10
+- Added Cursors APIs to replace the original CursorManager.GetInstance().
+- Added NodePoolDemo, which can be imported from the Samples in the Package Manager.
+- Modified the access modifier of CursorManager.GetInstance(), please use Cursors for invocation.
+- Optimized NodePool, supports loading across frames, supports setting a limit for the max size, and supports manual initialization.
+- Removed the Size() method from NodePool, replaced it with Count().
+
 ## [1.1.2] - 2024-10-22
 - Added ScalingEnabled trigger in CursorManager.
 - Optimized memory allocation and reuse in CursorManager t2d.

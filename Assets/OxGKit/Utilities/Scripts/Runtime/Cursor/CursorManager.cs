@@ -406,7 +406,7 @@ namespace OxGKit.Utilities.CursorAnim
         private static readonly object _locker = new object();
         private static CursorManager _instance;
 
-        public static CursorManager GetInstance()
+        internal static CursorManager GetInstance()
         {
             if (_instance == null)
             {

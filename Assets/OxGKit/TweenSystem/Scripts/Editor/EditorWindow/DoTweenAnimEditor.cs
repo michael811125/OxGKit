@@ -2,6 +2,7 @@
 using DG.Tweening;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using static OxGKit.TweenSystem.DoTweenAnim;
@@ -20,6 +21,7 @@ namespace OxGKit.TweenSystem.Editor
         private bool _isPlaying = false;
         private bool _playTrigger = false;
         private float _progress = 0f;
+        private bool _isEditable = true;
 
         // Records Origin Values
         private TweenPosition _tPosition = new TweenPosition();
@@ -48,14 +50,42 @@ namespace OxGKit.TweenSystem.Editor
 
         public override void OnInspectorGUI()
         {
-            EditorGUI.BeginDisabledGroup(isPreviewMode || Application.isPlaying);
+            // Check whether the current state is in Prefab Isolation mode
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+
+            // In Prefab Isolation mode
+            if (prefabStage != null)
+            {
+                this._isEditable = true;
+                EditorGUILayout.HelpBox("Currently editing in Prefab Isolation mode.", MessageType.Info);
+            }
+            else
+            {
+                // Not in Prefab Isolation mode
+                if (Application.isPlaying)
+                {
+                    this._isEditable = false;
+                    EditorGUILayout.HelpBox("Cannot edit in the scene during Play Mode.", MessageType.Warning);
+                }
+                else
+                {
+                    this._isEditable = true;
+                    EditorGUILayout.HelpBox("Currently editing in the scene.", MessageType.Info);
+                }
+            }
+
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+
+            // Tween Settings
+            EditorGUI.BeginDisabledGroup(isPreviewMode || !this._isEditable);
             base.OnInspectorGUI();
             EditorGUI.EndDisabledGroup();
 
-            // Preview Editor
             EditorGUILayout.Space();
             EditorGUILayout.Space();
 
+            // Preview Editor
             GUIStyle style = new GUIStyle();
             var bg = new Texture2D(1, 1);
             ColorUtility.TryParseHtmlString("#124034", out Color color);
@@ -68,8 +98,8 @@ namespace OxGKit.TweenSystem.Editor
             EditorGUILayout.LabelField("Editor");
             EditorGUILayout.Space();
 
-            // Draw Views
-            EditorGUI.BeginDisabledGroup(Application.isPlaying);
+            // Draw preview btn views
+            EditorGUI.BeginDisabledGroup(!this._isEditable);
             this._DrawIsSyncBeginValuesView();
             EditorGUILayout.Space();
             this._DrawPlayControlsView();

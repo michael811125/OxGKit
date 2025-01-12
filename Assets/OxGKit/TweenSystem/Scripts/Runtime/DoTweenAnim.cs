@@ -2037,7 +2037,7 @@ namespace OxGKit.TweenSystem
             if (tweens.Count == 0) return null;
 
             // Get max of duration time
-            TweenBase maxDurationTween = tweens.Aggregate((e, n) => e.duration > n.duration ? e : n);
+            TweenBase maxDurationTween = tweens.Aggregate((a, b) => a.duration > b.duration ? a : b);
             return maxDurationTween;
         }
         #endregion

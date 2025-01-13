@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.1] - 2025-01-13
+- Fixed the issue where TextureAnimation spIdx was not reset to zero, and adjusted it to execute ResetAnim in OnDisable.
+
 ## [1.2.0] - 2025-01-10
 - Added Cursors APIs to replace the original CursorManager.GetInstance().
 - Added NodePoolDemo, which can be imported from the Samples in the Package Manager.

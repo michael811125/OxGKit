@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.2] - 2025-02-11
+- Added delayFrameAfterSpawnCount for NodePool (Allows setting a delay after producing N objects, where a delay of N frames occurs after every N objects are produced).
+
 ## [1.2.1] - 2025-01-13
 - Fixed the issue where TextureAnimation spIdx was not reset to zero, and adjusted it to execute ResetAnim in OnDisable.
 

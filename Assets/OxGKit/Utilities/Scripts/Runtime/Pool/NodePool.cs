@@ -23,6 +23,8 @@ namespace OxGKit.Utilities.Pool
         public int initSize = 5;
         [Tooltip("Enable load smoothing across frames during initialization")]
         public bool initLoadAcrossFrames = true;
+        [ConditionalField(nameof(initLoadAcrossFrames)), Tooltip("After generating N objects, a delay will be applied")]
+        public int initDelayFrameAfterSpawnCount = 1;
         [ConditionalField(nameof(initLoadAcrossFrames)), Tooltip("Number of frames to delay when loading during initialization")]
         public int initDelayFrame = 1;
 
@@ -34,6 +36,8 @@ namespace OxGKit.Utilities.Pool
         public int autoPutSize = 1;
         [ConditionalField(nameof(autoPut)), Tooltip("Enable load smoothing across frames when auto-put is enabled")]
         public bool autoPutLoadAcrossFrames = true;
+        [ConditionalField(new[] { nameof(autoPut), nameof(autoPutLoadAcrossFrames) }), Tooltip("After generating N objects, a delay will be applied")]
+        public int autoDelayFrameAfterSpawnCount = 1;
         [ConditionalField(new[] { nameof(autoPut), nameof(autoPutLoadAcrossFrames) }), Tooltip("Number of frames to delay when loading with auto-put")]
         public int autoPutDelayFrame = 1;
 
@@ -86,7 +90,7 @@ namespace OxGKit.Utilities.Pool
             int initialCount = this.maxSize > 0 ? Mathf.Min(this.initSize, this.maxSize) : this.initSize;
             if (this._cts == null)
                 this._cts = new CancellationTokenSource();
-            this._Create(initialCount, this.initLoadAcrossFrames, this.initDelayFrame, this._cts).Forget();
+            this._Create(initialCount, this.initLoadAcrossFrames, this.initDelayFrameAfterSpawnCount, this.initDelayFrame, this._cts).Forget();
         }
 
         private void _AutoPut()
@@ -98,15 +102,19 @@ namespace OxGKit.Utilities.Pool
             int createCount = Mathf.Min(this.autoPutSize, availableSpace);
             if (this._cts == null)
                 this._cts = new CancellationTokenSource();
-            this._Create(createCount, this.autoPutLoadAcrossFrames, this.autoPutDelayFrame, this._cts).Forget();
+            this._Create(createCount, this.autoPutLoadAcrossFrames, this.initDelayFrameAfterSpawnCount, this.autoPutDelayFrame, this._cts).Forget();
         }
 
-        private async UniTaskVoid _Create(int count, bool acrossFrames, int delayFrame, CancellationTokenSource cts)
+        private async UniTaskVoid _Create(int count, bool acrossFrames, int delayFrameAfterSpawnCount, int delayFrame, CancellationTokenSource cts)
         {
             this._isLoadFinished = false;
 
             if (this.go == null)
                 throw new ArgumentNullException("Source GameObject cannot be null. Please ensure the object pool source is specified.");
+
+            // Ensure safety correction -> delayFrameAfterSpawnCount must be at least 1
+            if (delayFrameAfterSpawnCount <= 0)
+                delayFrameAfterSpawnCount = 1;
 
             for (int i = 0; i < count; i++)
             {
@@ -115,7 +123,8 @@ namespace OxGKit.Utilities.Pool
                 if (acrossFrames)
                 {
                     // Load Balancing
-                    await UniTask.DelayFrame(delayFrame, PlayerLoopTiming.Update, cts.Token);
+                    if (i % delayFrameAfterSpawnCount == 0)
+                        await UniTask.DelayFrame(delayFrame, PlayerLoopTiming.Update, cts.Token);
                 }
             }
 

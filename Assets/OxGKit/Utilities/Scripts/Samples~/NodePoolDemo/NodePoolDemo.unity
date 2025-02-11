@@ -759,14 +759,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go: {fileID: 7992292349752625372, guid: 8cb31c0b2bf103546834ba22138ea380, type: 3}
   initializeOnStart: 0
-  initSize: 5
+  initSize: 10
   initLoadAcrossFrames: 1
+  initFrameDelayPerCount: 2
   initDelayFrame: 1
   autoPut: 1
   autoPutSize: 2
   autoPutLoadAcrossFrames: 1
+  autoFrameDelayPerCount: 1
   autoPutDelayFrame: 1
-  maxSize: 10
+  maxSize: 20
 --- !u!4 &908036202
 Transform:
   m_ObjectHideFlags: 0

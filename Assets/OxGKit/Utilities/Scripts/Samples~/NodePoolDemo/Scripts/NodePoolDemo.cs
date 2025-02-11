@@ -22,15 +22,12 @@ public class NodePoolDemo : MonoBehaviour
     {
         // Manually initialize object pool
         if (this.objPool != null)
-        {
             this.objPool.Initialize();
-            this.poolCountTxt.text = this.objPool.Count().ToString();
-        }
     }
 
     private void Update()
     {
-        if (this.objPool != null && this.objPool.IsLoadFinished())
+        if (this.objPool != null)
             this.poolCountTxt.text = this.objPool.Count().ToString();
     }
 

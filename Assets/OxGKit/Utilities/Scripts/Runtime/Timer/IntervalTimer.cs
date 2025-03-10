@@ -62,5 +62,10 @@ namespace OxGKit.Utilities.Timer
             this._cts.Dispose();
             this._cts = null;
         }
+
+        public bool IsRunning()
+        {
+            return this._isRuning;
+        }
     }
 }

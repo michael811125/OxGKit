@@ -103,6 +103,11 @@ namespace OxGKit.Utilities.Timer
             this._cts = null;
         }
 
+        public bool IsRunning()
+        {
+            return this._isRuning;
+        }
+
         private async UniTaskVoid _SetInterval(bool switchToThread, CancellationTokenSource cts)
         {
             try

@@ -103,6 +103,13 @@ namespace OxGKit.Utilities.Timer
             return intervalTimer;
         }
 
+        public static bool CheckIsRunning(int id)
+        {
+            if (_intervalTimers.ContainsKey(id))
+                return _intervalTimers[id].IsRunning();
+            return false;
+        }
+
         public static bool TryClearInterval(int id)
         {
             if (_intervalTimers.ContainsKey(id))

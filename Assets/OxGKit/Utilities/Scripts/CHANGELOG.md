@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.3.0] - 2025-03-10
+- Added onLateUpdate callback in DTUpdater and RTUpdater.
+
 ## [1.2.2] - 2025-02-11
 - Added delayFrameAfterSpawnCount for NodePool (Allows setting a delay after producing N objects, where a delay of N frames occurs after every N objects are produced).
 

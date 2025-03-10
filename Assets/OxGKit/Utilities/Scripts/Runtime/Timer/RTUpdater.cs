@@ -8,9 +8,11 @@ namespace OxGKit.Utilities.Timer
     {
         public delegate void RealTimeUpdate(float deltaTime);
         public delegate void RealTimeFixedUpdate(float fixedDeltaTime);
+        public delegate void RealTimeLateUpdate(float deltaTime);
 
         public RealTimeUpdate onUpdate = null;
         public RealTimeFixedUpdate onFixedUpdate = null;
+        public RealTimeLateUpdate onLateUpdate = null;
 
         private DateTime _createTime;
 
@@ -71,6 +73,9 @@ namespace OxGKit.Utilities.Timer
         ~RTUpdater()
         {
             this.Stop();
+            this.onUpdate = null;
+            this.onFixedUpdate = null;
+            this.onLateUpdate = null;
         }
 
         public void Start()
@@ -128,6 +133,7 @@ namespace OxGKit.Utilities.Timer
                         this.timeSinceStartup = (float)timeSpan.TotalSeconds;
 
                         this.onUpdate?.Invoke(this.deltaTime);
+                        this.onLateUpdate?.Invoke(this.deltaTime);
                     }
                     else await UniTask.Yield(cts.Token);
                 } while (this._isRuning);

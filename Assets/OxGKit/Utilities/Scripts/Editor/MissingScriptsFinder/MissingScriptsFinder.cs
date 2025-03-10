@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using UnityEditor;
-using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.IO;
-using System;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace OxGKit.Utilities.MissingFinder.Editor
@@ -25,7 +25,11 @@ namespace OxGKit.Utilities.MissingFinder.Editor
         {
             BeginSearch(MENU_SEARCH_IN_LOADED_SCENES);
             // Get all loaded scenes
+#if UNITY_2022_3_OR_NEWER
+            for (int i = 0, count = SceneManager.loadedSceneCount; i < count; i++)
+#else
             for (int i = 0, count = EditorSceneManager.loadedSceneCount; i < count; i++)
+#endif
                 SearchInScene(SceneManager.GetSceneAt(i).path, i, count);
             EndSearch();
         }

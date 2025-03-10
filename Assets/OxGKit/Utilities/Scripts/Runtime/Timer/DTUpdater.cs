@@ -9,9 +9,11 @@ namespace OxGKit.Utilities.Timer
     {
         public delegate void DeltaTimeUpdate(float deltaTime);
         public delegate void DeltaTimeFixedUpdate(float fixedDeltaTime);
+        public delegate void DeltaTimeLateUpdate(float deltaTime);
 
         public DeltaTimeUpdate onUpdate = null;
         public DeltaTimeFixedUpdate onFixedUpdate = null;
+        public DeltaTimeLateUpdate onLateUpdate = null;
 
         private DateTime _createTime;
 
@@ -72,6 +74,9 @@ namespace OxGKit.Utilities.Timer
         ~DTUpdater()
         {
             this.Stop();
+            this.onUpdate = null;
+            this.onFixedUpdate = null;
+            this.onLateUpdate = null;
         }
 
         public void Start()
@@ -119,6 +124,7 @@ namespace OxGKit.Utilities.Timer
                         this.timeSinceStartup = (float)timeSpan.TotalSeconds;
 
                         this.onUpdate?.Invoke(this.deltaTime);
+                        this.onLateUpdate?.Invoke(this.deltaTime);
                     }
                     else await UniTask.Yield(cts.Token);
                 } while (this._isRuning);

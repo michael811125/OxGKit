@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 namespace OxGKit.Utilities.TextureAnim
 {
+    /**
+     * CPU computation
+     */
+
     [AddComponentMenu("OxGKit/Utilities/TextureAnim/" + nameof(TextureAnimation))]
     [ExecuteInEditMode]
     public class TextureAnimation : MonoBehaviour

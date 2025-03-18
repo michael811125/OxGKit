@@ -175,17 +175,23 @@ namespace OxGKit.Utilities.Request
             do
             {
                 bool finished = RemoveFromARCCacheForAudio(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 finished = RemoveFromARCCacheForTexture2d(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 finished = RemoveFromARCCacheForText(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 finished = RemoveFromLRUCacheForAudio(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 finished = RemoveFromLRUCacheForTexture2d(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 finished = RemoveFromLRUCacheForText(url);
-                if (finished) return true;
+                if (finished)
+                    return true;
                 return false;
             } while (true);
         }
@@ -223,13 +229,15 @@ namespace OxGKit.Utilities.Request
                 if (_arcAudios != null)
                 {
                     AudioClip audioClip = _arcAudios.Get(url);
-                    if (audioClip != null) return audioClip;
+                    if (audioClip != null)
+                        return audioClip;
                 }
                 // LRUCache
                 else if (_lruAudios != null)
                 {
                     AudioClip audioClip = _lruAudios.Get(url);
-                    if (audioClip != null) return audioClip;
+                    if (audioClip != null)
+                        return audioClip;
                 }
             }
 
@@ -239,8 +247,10 @@ namespace OxGKit.Utilities.Request
                 request = UnityWebRequestMultimedia.GetAudioClip(url, audioType);
                 ((DownloadHandlerAudioClip)request.downloadHandler).streamAudio = true;
 
-                if (cts != null) await request.SendWebRequest().WithCancellation(cts.Token);
-                else await request.SendWebRequest();
+                if (cts != null)
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                else
+                    await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
@@ -309,13 +319,15 @@ namespace OxGKit.Utilities.Request
                 if (_arcTexture2ds != null)
                 {
                     Texture2D t2d = _arcTexture2ds.Get(url);
-                    if (t2d != null) return t2d;
+                    if (t2d != null)
+                        return t2d;
                 }
                 // LRUCache
                 else if (_lruTexture2ds != null)
                 {
                     Texture2D t2d = _lruTexture2ds.Get(url);
-                    if (t2d != null) return t2d;
+                    if (t2d != null)
+                        return t2d;
                 }
             }
 
@@ -325,8 +337,10 @@ namespace OxGKit.Utilities.Request
                 request = new UnityWebRequest(url);
                 request.downloadHandler = new DownloadHandlerTexture();
 
-                if (cts != null) await request.SendWebRequest().WithCancellation(cts.Token);
-                else await request.SendWebRequest();
+                if (cts != null)
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                else
+                    await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
@@ -418,8 +432,10 @@ namespace OxGKit.Utilities.Request
             {
                 request = UnityWebRequest.Get(url);
 
-                if (cts != null) await request.SendWebRequest().WithCancellation(cts.Token);
-                else await request.SendWebRequest();
+                if (cts != null)
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                else
+                    await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
@@ -473,13 +489,15 @@ namespace OxGKit.Utilities.Request
                 if (_arcTexts != null)
                 {
                     string text = _arcTexts.Get(url);
-                    if (text != null) return text;
+                    if (text != null)
+                        return text;
                 }
                 // LRUCache
                 else if (_lruTexts != null)
                 {
                     string text = _lruTexts.Get(url);
-                    if (text != null) return text;
+                    if (text != null)
+                        return text;
                 }
             }
 
@@ -488,8 +506,10 @@ namespace OxGKit.Utilities.Request
             {
                 request = UnityWebRequest.Get(url);
 
-                if (cts != null) await request.SendWebRequest().WithCancellation(cts.Token);
-                else await request.SendWebRequest();
+                if (cts != null)
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                else
+                    await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)

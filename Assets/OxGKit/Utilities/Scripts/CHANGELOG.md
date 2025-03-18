@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## [1.3.1] - 2025-03-18
+- Added EasyAnim (AnimEnd = key event).
+- Added DontDestroy.
+- Fixed Cursors namespace.
+
 ## [1.3.0] - 2025-03-10
 - Added onLateUpdate callback in DTUpdater and RTUpdater.
 - Added IsRunning() method in DTUpdater, RTUpdater, IntervalTimer.

@@ -19,7 +19,7 @@
 	],
 	"dependencies": 
 	{
-	    "com.domybest.lwmybox": "git+https://github.com/michael811125/LWMyBox.git",
+	    "com.domybest.lwmybox": "git+https://github.com/michael811125/LWMyBox.git"
 	},
 	"author": {
 		"name": "MichaelO",

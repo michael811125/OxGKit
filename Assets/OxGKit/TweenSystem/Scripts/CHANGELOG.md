@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.2] - 2025-03-19
+- Modified to use OxGKit.TimeSystem plugin.
+
 ## [1.0.1] - 2025-01-12
 - Added methods with an endCallback parameter to DoTweenAnimEvent.
 - Modified DoTweenAnim to allow editing in Prefab Isolation mode during Play Mode.

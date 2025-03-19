@@ -21,7 +21,8 @@ namespace OxGKit.Utilities.UnityMainThread
                 lock (_locker)
                 {
                     _instance = FindObjectOfType<UMT>();
-                    if (_instance == null) _instance = new GameObject(nameof(UMT)).AddComponent<UMT>();
+                    if (_instance == null)
+                        _instance = new GameObject(nameof(UMT)).AddComponent<UMT>();
                 }
             }
             return _instance;
@@ -34,11 +35,13 @@ namespace OxGKit.Utilities.UnityMainThread
             if (this.gameObject.transform.root.name == newName)
             {
                 var container = GameObject.Find(nameof(OxGKit));
-                if (container == null) container = new GameObject(nameof(OxGKit));
+                if (container == null)
+                    container = new GameObject(nameof(OxGKit));
                 this.gameObject.transform.SetParent(container.transform);
                 DontDestroyOnLoad(container);
             }
-            else DontDestroyOnLoad(this.gameObject.transform.root);
+            else
+                DontDestroyOnLoad(this.gameObject.transform.root);
         }
 
         private void Update()

@@ -3,6 +3,7 @@
 namespace OxGKit.Utilities.DontDestroy
 {
     [DisallowMultipleComponent]
+    [AddComponentMenu("OxGKit/Utilities/DontDestroy/" + nameof(DontDestroy))]
     public class DontDestroy : MonoBehaviour
     {
         [SerializeField]

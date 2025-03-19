@@ -1,0 +1,24 @@
+{
+	"name": "com.michaelo.oxgkit.timesystem",
+	"displayName": "OxGKit.TimeSystem",
+	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
+	"version": "1.0.0",
+	"unity": "2021.3",
+	"license": "MIT",
+	"samples": [
+		{
+			"displayName": "Timer Demo",
+			"description": "Sample to use Timer",
+			"path": "Samples~/TimerDemo"
+		}
+	],
+	"dependencies": 
+	{
+		"com.michaelo.oxgkit.loggingsystem": "git+https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts",
+		"com.cysharp.unitask": "git+https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+	},
+	"author": {
+		"name": "MichaelO",
+		"url": "https://github.com/michael811125"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "com.michaelo.oxgkit.cursorsystem",
+	"displayName": "OxGKit.CursorSystem",
+	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
+	"version": "1.0.0",
+	"unity": "2021.3",
+	"license": "MIT",
+	"samples": [
+		{
+			"displayName": "CursorManager Prefab",
+			"description": "",
+			"path": "Samples~/CursorManagerPrefab"
+		},
+		{
+			"displayName": "CursorManager Demo",
+			"description": "Sample to use CursorManager",
+			"path": "Samples~/CursorManagerDemo"
+		}
+	],
+	"dependencies": {},
+	"author": {
+		"name": "MichaelO",
+		"url": "https://github.com/michael811125"
+	}
+}

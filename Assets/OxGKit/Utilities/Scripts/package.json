@@ -2,42 +2,15 @@
 	"name": "com.michaelo.oxgkit.utilities",
 	"displayName": "OxGKit.Utilities",
 	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-	"version": "1.3.1",
+	"version": "1.4.0",
 	"unity": "2021.3",
 	"license": "MIT",
-	"samples": [
-		{
-			"displayName": "CursorManager Prefab",
-			"description": "",
-			"path": "Samples~/CursorManagerPrefab"
-		},
-		{
-			"displayName": "ButtonPlus Demo",
-			"description": "Sample to use ButtonPlus",
-			"path": "Samples~/ButtonPlusDemo"
-		},
-		{
-			"displayName": "Timer Demo",
-			"description": "Sample to use Timer",
-			"path": "Samples~/TimerDemo"
-		},
-		{
-			"displayName": "MonoSingleton Demo",
-			"description": "Sample to use MonoSingleton",
-			"path": "Samples~/MonoSingletonDemo"
-		},
-		{
-			"displayName": "CursorManager Demo",
-			"description": "Sample to use CursorManager",
-			"path": "Samples~/CursorManagerDemo"
-		},
-		{
-			"displayName": "NodePool Demo",
-			"description": "Sample to use NodePool",
-			"path": "Samples~/NodePoolDemo"
-		}
-	],
-	"dependencies": {},
+	"dependencies": 
+	{
+	    "com.domybest.lwmybox": "git+https://github.com/michael811125/LWMyBox.git",
+		"com.michaelo.oxgkit.loggingsystem": "git+https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts",
+		"com.cysharp.unitask": "git+https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+	},
 	"author": {
 		"name": "MichaelO",
 		"url": "https://github.com/michael811125"

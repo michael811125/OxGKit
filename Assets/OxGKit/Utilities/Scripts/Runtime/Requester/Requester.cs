@@ -6,7 +6,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace OxGKit.Utilities.Request
+namespace OxGKit.Utilities.Requester
 {
     public static class Requester
     {

@@ -32,7 +32,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 ## 工具系統介紹
 
-### InfiniteScrollView (dependence UniTask, OxGKit.LoggingSystem)
+## InfiniteScrollView (dependence UniTask, OxGKit.LoggingSystem)
 
 無限列表 (魔改版)，基於原生 UGUI 能夠簡單的繼承或使用現有的 Infinite ScrollView，以物件池的概念進行物件有效循環利用。
 
@@ -54,7 +54,7 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 
 ---
 
-### ActionSystem (dependence UniTask, OxGKit.LoggingSystem)
+## ActionSystem (dependence UniTask, OxGKit.LoggingSystem)
 
 動作序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
 - 透過 Right-Click Create/OxGKit/Action System/Template Action.cs 實作自定義 Action。
@@ -79,7 +79,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 
 ---
 
-### NoticeSystem or RedDotSystem (dependence OxGKit.LoggingSystem)
+## NoticeSystem or RedDotSystem (dependence OxGKit.LoggingSystem)
 
 通知系統 (也稱紅點系統)，支援動態新增刪除通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上其中持有任一符合條件則通知顯示圖示 (紅點)。
 - 透過 Right-Click Create/OxGKit/Notice System/Template Notice Condition.cs 實作通知條件。
@@ -105,7 +105,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 ---
 
-### InputSystem (dependence Unity New InputSystem, OxGKit.LoggingSystem)
+## InputSystem (dependence Unity New InputSystem, OxGKit.LoggingSystem)
 
 輸入控制系統，支援 Unity New InputSystem，如果使用 Unity New InputSystem 需自行建立 Unity New InpuptSystem 的控制表 (Control Maps)，並且還有提供使用於 Unity New InputSystem 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
 - 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 InputAction 介面。
@@ -139,7 +139,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ---
 
-### LoggingSystem (dependence LWMyBox)
+## LoggingSystem (dependence LWMyBox)
 
 日誌系統，透過拖曳 LoggingLauncher 至場景上激活環境配置 (僅需激活一次)，並且需加載 LoggerSetting 進行日誌開關控制。 
 - 透過 Right-Click Create/OxGKit/Logging System/Create Logger Setting 建立配置檔。
@@ -222,7 +222,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/cef1a484-d617-466d-bf3e-
 
 ---
 
-### TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
+## TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
 - Add Component/OxGKit/TweenSystem/DoTweenAnim
@@ -302,19 +302,94 @@ fdf3e181e62e9d243a7fee5ce890ab71
 --->
 ---
 
+## ButtonSystem
+
+ButtonPlus 是基於繼承 Unity UGUI 的 Button 進行擴展的，功能擴展支持各 Long Click 等行為。
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ButtonSystem/Scripts to Package Manager |
+
+**ButtonSystem Demo**
+
+https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-a9877f4ca254
+
+## TimeSystem
+
+各種 DeltaTimer, RealTimer, DTUpdater, RTUpdater, IntervalTimer, IntervalSetter, NtpTime (clock sync with NTP server) 關於時間的控制器。
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts to Package Manager |
+
+**TimeSystem Demo**
+
+https://github.com/michael811125/OxGKit/assets/30960759/ee085eb4-f803-45e5-9593-b481a4b5a821
+
+## CursorSystem
+
+Cursor 游標管理器，支持靜態與動態游標與各種狀態行為切換 (例如經營模擬類的遊戲，需要有各種游標狀態等...)。
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/CursorSystem/Scripts to Package Manager |
+
+**CursorSystem Demo**
+
+https://github.com/user-attachments/assets/49e2a081-6d31-4ba6-8bb8-be60a148742c
+
+## PoolSystem
+
+簡易 GameObject 物件池，支持異步分散幀加載 (負載平衡)。
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/PoolSystem/Scripts to Package Manager |
+
+**PoolSystem Demo**
+
+https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
+
+## SingletonSystem
+
+單例模式，支持 MonoSingleton (MonoBehaviour), NewSingleton (class)。
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SingletonSystem/Scripts to Package Manager |
+
 ### Utilities (dependence UniTask)
 
 各通用組件 (Essential)。
+
 - Utilities 
-  - Timer: DeltaTimer, RealTimer, DTUpdater, RTUpdater, IntervalTimer, IntervalSetter, NtpTime (clock sync with NTP server).
   - Adapter: UISafeAreaAdapter.
-  - Pool: NodePool (GameObject Pool).
-  - ButtonPlus: Inherited by Unity Button. extend Long Click and Transition Scale.
-  - Unity Main Thread: UMT.
-  - Singleton: MonoSingleton (MonoBehaviour), NewSingleton (class).
-  - Requester: RequestAudio, RequestTexture2D, RequestSprite, RequestBytes, RequestText.
   - Cacher: ARCCache<TKey, TValue>, LRUCache<TKey, TValue>, LRUKCache<TKey, TValue>.
-  - TextureAnimation.
+  - Requester: RequestAudio, RequestTexture2D, RequestSprite, RequestBytes, RequestText.
+  - TextureAnim (CPU computation): Image sequence animation.
+  - EasyAnim: Must set an animation event on the clip with the function name AnimEnd to invoke the animEnd callback.
+  - DontDestroy.
+  - UnityMainThread: UMT.
 - Editor
   - RectTransform: RectTransformAdjuster (Hotkey: Shift+R, R: RectTransform).
   - MissingScriptsFinder.
@@ -336,14 +411,6 @@ fdf3e181e62e9d243a7fee5ce890ab71
 **Utilities Demo (RectTransformAdjuster)**
 
 https://github.com/michael811125/OxGKit/assets/30960759/cd43fc8b-c6f7-4878-990b-99dcacb8ed1f
-
-**Utilities Demo (ButtonPlus)**
-
-https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-a9877f4ca254
-
-**Utilities Demo (Timer)**
-
-https://github.com/michael811125/OxGKit/assets/30960759/ee085eb4-f803-45e5-9593-b481a4b5a821
 
 ---
 

@@ -17,7 +17,10 @@
 			"path": "Samples~/LoggingDemo"
 		}
 	],
-	"dependencies": {},
+	"dependencies": 
+	{
+	    "com.domybest.lwmybox": "git+https://github.com/michael811125/LWMyBox.git",
+	},
 	"author": {
 		"name": "MichaelO",
 		"url": "https://github.com/michael811125"

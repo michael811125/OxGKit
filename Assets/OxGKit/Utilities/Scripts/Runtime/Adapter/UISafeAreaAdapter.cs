@@ -25,7 +25,9 @@ namespace OxGKit.Utilities.Adapter
 
         private void LateUpdate()
         {
-            if (this.refreshAlways || this._lateResolution.width != Screen.currentResolution.width || this._lateResolution.height != Screen.currentResolution.height)
+            if (this.refreshAlways ||
+                this._lateResolution.width != Screen.currentResolution.width ||
+                this._lateResolution.height != Screen.currentResolution.height)
             {
                 this.RefreshViewSize();
                 this._lateResolution = Screen.currentResolution;
@@ -34,12 +36,14 @@ namespace OxGKit.Utilities.Adapter
 
         private void _InitPanel()
         {
-            if (this.panel == null) this.panel = this.GetComponent<RectTransform>();
+            if (this.panel == null)
+                this.panel = this.GetComponent<RectTransform>();
         }
 
         public void RefreshViewSize()
         {
-            if (this.panel == null) return;
+            if (this.panel == null)
+                return;
 
             Logging.Print<Logger>($"<color=#FFFF00>Current Safe Area w: {Screen.safeArea.width}, h: {Screen.safeArea.height}, x: {Screen.safeArea.position.x}, y: {Screen.safeArea.position.y}</color>");
             Logging.Print<Logger>($"<color=#32CD32>Current Resolution w: {Screen.currentResolution.width}, h: {Screen.currentResolution.height}, dpi: {Screen.dpi}</color>");

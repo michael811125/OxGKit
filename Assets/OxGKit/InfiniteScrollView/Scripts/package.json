@@ -27,7 +27,11 @@
 			"path": "Samples~/05_ChatRoom"
 		}
 	],
-	"dependencies": {},
+	"dependencies": 
+	{
+        "com.michaelo.oxgkit.loggingsystem": "git+https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts",
+	    "com.cysharp.unitask": "git+https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+	},
 	"author": {
 		"name": "MichaelO",
 		"url": "https://github.com/michael811125"

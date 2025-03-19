@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+## [1.4.0] - 2025-03-19
+- Renamed namespace OxGKit.Utilities.Request to OxGKit.Utilities.Requester.
+- Removed Cursor will be separated into an independent CursorSystem (namespace OxGKit.Utilities.CursorAnim -> OxGKit.CursorSystem).
+- Removed ButtonPlus will be separated into an independent ButtonSystem (namespace OxGKit.Utilities.Button -> OxGKit.ButtonSystem).
+- Removed Timer will be separated into an independent TimeSystem (namespace OxGKit.Utilities.Timer -> OxGKit.TimeSystem).
+- Removed Singleton will be separated into an independent SingletonSystem (namespace OxGKit.Utilities.Singleton -> OxGKit.SingletonSystem).
+- Removed NodePool will be separated into an independent PoolSystem (namespace OxGKit.Utilities.Pool -> OxGKit.PoolSystem).
+
 ## [1.3.1] - 2025-03-18
 - Added EasyAnim (AnimEnd = key event).
 - Added DontDestroy.

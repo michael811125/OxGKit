@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace OxGKit.Utilities.EasyAnim
 {
+    [AddComponentMenu("OxGKit/Utilities/EasyAnim/" + nameof(EasyAnimator))]
     public class EasyAnimator : EasyAnim
     {
         [SerializeField]

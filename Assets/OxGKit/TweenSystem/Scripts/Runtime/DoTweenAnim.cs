@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using DG.Tweening;
 using MyBox;
-using DG.Tweening;
-using UnityEngine.UI;
-using OxGKit.Utilities.Timer;
+using OxGKit.TimeSystem;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace OxGKit.TweenSystem
 {

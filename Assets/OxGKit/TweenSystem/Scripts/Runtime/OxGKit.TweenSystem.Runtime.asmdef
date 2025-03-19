@@ -3,8 +3,8 @@
     "rootNamespace": "",
     "references": [
         "MyBox",
-        "OxGKit.Utilities.Runtime",
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "OxGKit.TimeSystem.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+## [1.2.0] - 2025-03-21 (Breaking Changes)
+- Added new LogLevel levels.
+- Added LoggingLauncher API methods.
+- Added a new loggersconfig.json storage method (stored in StreamingAssets).
+- Added LoggingHelper Editor, which can be used for BuildTool.
+- Updated LoggingDemo.
+- Removed the ScriptableObject storage method for loggers.
+
 ## [1.1.2] - 2024-11-20
 - Added SetMainActive in LoggerSetting.
 - Added SetLoggerActive in LoggerSetting.

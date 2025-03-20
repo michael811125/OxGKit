@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -104,7 +103,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +116,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -155,7 +154,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 883415163}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -254,7 +252,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 883415163}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -395,7 +392,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -413,7 +412,6 @@ RectTransform:
   m_Children:
   - {fileID: 883415163}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -460,9 +458,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -496,13 +502,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800915637}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829824816
 GameObject:
@@ -540,13 +546,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829824816}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.723393, y: 19.929977, z: -7.336853}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &883415162
 GameObject:
@@ -581,7 +587,6 @@ RectTransform:
   - {fileID: 75659406}
   - {fileID: 532214618}
   m_Father: {fileID: 587462771}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -633,6 +638,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3415422755630365936, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
@@ -646,6 +652,134 @@ PrefabInstance:
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: initLoggersOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.logMainActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[0].logLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[1].logLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[2].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[3].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[4].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[5].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[6].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[7].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[8].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[9].logLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[0].logActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[1].logActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[2].logActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[3].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[4].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[5].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[6].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[7].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[8].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[9].logActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[0].loggerName
+      value: LoggingDemo.Logger1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[1].loggerName
+      value: LoggingDemo.Logger2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[2].loggerName
+      value: LoggingDemo.Logger3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[3].loggerName
+      value: OxGKit.ActionSystem.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[4].loggerName
+      value: OxGKit.InfiniteScrollView.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[5].loggerName
+      value: OxGKit.InputSystem.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[6].loggerName
+      value: OxGKit.TimeSystem.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[7].loggerName
+      value: OxGKit.NoticeSystem.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[8].loggerName
+      value: OxGKit.PoolSystem.Logger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[9].loggerName
+      value: OxGKit.Utilities.Logger
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365950, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: m_RootOrder
@@ -692,6 +826,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
 --- !u!1 &1993374906
 GameObject:
@@ -733,13 +870,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993374906}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1993374910
 MonoBehaviour:
@@ -771,3 +908,13 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 800915640}
+  - {fileID: 587462771}
+  - {fileID: 1993374909}
+  - {fileID: 829824818}
+  - {fileID: 1801382069}

@@ -146,16 +146,19 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ## LoggingSystem (dependence LWMyBox)
 
-日誌系統，透過拖曳 LoggingLauncher 至場景上激活環境配置 (僅需激活一次)，並且需加載 LoggerSetting 進行日誌開關控制。 
-- 透過 Right-Click Create/OxGKit/Logging System/Create Logger Setting 建立配置檔。
-- 透過菜單選項 OxGKit/Logging System/Logger Setting 開啟將會自動生成配置檔。
+日誌系統，支持動態配置與覆寫日誌器功能，其他還有開關配置、級別配置、全域開關。
+- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.json (In StreamingAssets) 建立配置檔。
+- 透過 LoggingLauncher 進行配置或只直接修改 loggersconfig.json 文件。
 
 **Build 激活宏**
 - OXGKIT_LOGGER_ON
 
+LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)。
+- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.json 進行日誌開關控制。 
+
 ![](Docs/img_4.png)
 
-新增 Logger 或移除 Logger 皆需手動執行 Reload Loggers 重載 (建議定義一個 default constructor，避免搭配 HybridCLR + Activator.CreateInstance(type) 出現錯誤)。
+新增 Logger 或移除 Logger，皆需呼叫 LoggingLauncher.TryLoadLoggers() 進行重載 (建議定義一個 default constructor，避免搭配 HybridCLR + Activator.CreateInstance(type) 出現錯誤)。
 ```C#
 using OxGKit.LoggingSystem;
 
@@ -195,11 +198,31 @@ public class MyLogger2 : Logging
 }
 ```
 
-如果搭配 HybridCLR 有主工程跟熱更工程的區分，建議自行手動拆分調用 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下。
+如果搭配 HybridCLR 有主工程跟熱更工程的區分，必須手動拆分調用 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下。
 ```C#
-// Init by yourself
-Logging.CreateLogger<YourLogger>();
-LoggingLauncher.TryLoadLoggerSetting();
+// HybridCLR (必須取消 LoggingLauncher 上的 InitializedOnAwake 選項):
+LoggingLauncher.CreateLogger<LoggingDemoLogger1>();
+LoggingLauncher.CreateLogger<LoggingDemoLogger2>();
+LoggingLauncher.CreateLogger<LoggingDemoLogger3>();
+LoggingLauncher.CreateLogger<LoggingDemoLogger4>();
+LoggingLauncher.TryLoadLoggers();
+```
+
+動態配置日誌器。
+```C#
+// Reload LoggersConfig at Runtime (方式一)
+var loggersConfig = new LoggersConfig
+(
+    new LoggerSetting("LoggingDemo.Logger1", true, LogLevel.Log),
+    new LoggerSetting("LoggingDemo.Logger2", true, LogLevel.LogWarning),
+    new LoggerSetting("LoggingDemo.Logger3", true, LogLevel.Off)
+);
+LoggingLauncher.SetLoggersConfig(loggersConfig);
+
+// Reload LoggersConfig at Runtime (方式二)
+LoggingLauncher.ConfigureLogger("LoggingDemo.Logger1", false);
+LoggingLauncher.ConfigureLogger("LoggingDemo.Logger2", true, LogLevel.LogWarning | LogLevel.LogError);
+LoggingLauncher.ConfigureLogger("LoggingDemo.Logger3", false);
 ```
 
 以下是在 AOT 工程中初始 AOT 工程的 Loggers (如果 Hotfix 工程的 Loggers 需要再 Hotfix 工程中初始)。

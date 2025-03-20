@@ -28,22 +28,22 @@ public class LoggingDemoLogger4 : Logging
 
     public override void Log(object message)
     {
-        UnityEngine.Debug.Log("logger 3 is overridden by logger 4: " + message);
+        Debug.Log($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
     }
 
     public override void LogWarning(object message)
     {
-        UnityEngine.Debug.LogWarning("logger 3 is overridden by logger 4: " + message);
+        Debug.LogWarning($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
     }
 
     public override void LogError(object message)
     {
-        UnityEngine.Debug.LogError("logger 3 is overridden by logger 4: " + message);
+        Debug.LogError($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
     }
 
     public override void LogException(Exception exception)
     {
-        UnityEngine.Debug.LogException(exception);
+        Debug.LogException(new Exception($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {exception.Message}"));
     }
 }
 
@@ -52,23 +52,16 @@ public class LoggingDemo : MonoBehaviour
     private void Awake()
     {
         /**
-         * If you have hotfix procedure but want to initialize manually you can do the following (must unchecked InitLoggersOnAwake trigger)
+         * If you have hotfix procedure but want to initialize manually you can do the following 
+         * (Must unchecked InitializedOnAwake trigger)
          * 
-         * Logging.CreateLogger<LoggingDemoLogger1>();
-         * Logging.CreateLogger<LoggingDemoLogger2>();
-         * LoggingLauncher.ReloadLoggerSetting();
+         * LoggingLauncher.CreateLogger<LoggingDemoLogger1>();
+         * LoggingLauncher.CreateLogger<LoggingDemoLogger2>(); 
+         * LoggingLauncher.CreateLogger<LoggingDemoLogger3>(); 
+         * LoggingLauncher.CreateLogger<LoggingDemoLogger4>(); 
+         * LoggingLauncher.TryLoadLoggers();
          * 
          */
-    }
-
-    private void Start()
-    {
-        // Use logger1 to print
-        Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger1!!!");
-        // Use Logger2 to print
-        Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger2!!!");
-        // Use Logger3 to print
-        Logging.Print<LoggingDemoLogger3>("[Override] Implement Logger by LoggingDemoLogger3!!!");
     }
 
     private void Update()
@@ -76,29 +69,38 @@ public class LoggingDemo : MonoBehaviour
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             // Use logger1 to print
-            Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger1!!!");
+            Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
+            Logging.PrintWarning<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
+            Logging.PrintError<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
+            Logging.PrintException<LoggingDemoLogger1>(new Exception("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!"));
             // Use Logger2 to print
-            Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger2!!!");
+            Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
+            Logging.PrintWarning<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
+            Logging.PrintError<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
+            Logging.PrintException<LoggingDemoLogger2>(new Exception("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!"));
             // Use Logger3 to print
-            Logging.Print<LoggingDemoLogger3>("[Override] Implement Logger by LoggingDemoLogger3!!!");
+            Logging.Print<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
+            Logging.PrintWarning<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
+            Logging.PrintError<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
+            Logging.PrintException<LoggingDemoLogger3>(new Exception("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!"));
         }
         // Switch the logger's active state at runtime (1 and 3)
         else if (Mouse.current.rightButton.wasReleasedThisFrame)
         {
-            var setting = LoggingLauncher.GetSetting();
-            setting.SetLoggerActive("LoggingDemo.Logger1", true);
-            setting.SetLoggerActive("LoggingDemo.Logger2", false);
-            setting.SetLoggerActive("LoggingDemo.Logger3", true);
-            LoggingLauncher.TryLoadLoggerSetting();
+            var loggersConfig = new LoggersConfig
+            (
+                new LoggerSetting("LoggingDemo.Logger1", true, LogLevel.Log),
+                new LoggerSetting("LoggingDemo.Logger2", true, LogLevel.LogWarning),
+                new LoggerSetting("LoggingDemo.Logger3", true, LogLevel.Off)
+            );
+            LoggingLauncher.SetLoggersConfig(loggersConfig);
         }
         // Switch the logger's active state at runtime (2)
         else if (Mouse.current.middleButton.wasReleasedThisFrame)
         {
-            var setting = LoggingLauncher.GetSetting();
-            setting.SetLoggerActive("LoggingDemo.Logger1", false);
-            setting.SetLoggerActive("LoggingDemo.Logger2", true);
-            setting.SetLoggerActive("LoggingDemo.Logger3", false);
-            LoggingLauncher.TryLoadLoggerSetting();
+            LoggingLauncher.ConfigureLogger("LoggingDemo.Logger1", false);
+            LoggingLauncher.ConfigureLogger("LoggingDemo.Logger2", true, LogLevel.LogWarning | LogLevel.LogError);
+            LoggingLauncher.ConfigureLogger("LoggingDemo.Logger3", false);
         }
     }
 }

@@ -1,0 +1,40 @@
+{
+    "logMainActive": true,
+    "loggerSettings": [
+        {
+            "loggerName": "OxGKit.ActionSystem.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.InfiniteScrollView.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.InputSystem.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.TimeSystem.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.NoticeSystem.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.PoolSystem.Logger",
+            "logActive": false,
+            "logLevel": -1
+        },
+        {
+            "loggerName": "OxGKit.Utilities.Logger",
+            "logActive": false,
+            "logLevel": -1
+        }
+    ]
+}

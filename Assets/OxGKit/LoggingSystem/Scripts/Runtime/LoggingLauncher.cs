@@ -25,11 +25,7 @@ namespace OxGKit.LoggingSystem
             return _instance;
         }
 
-        [Separator("Options")]
-        [Tooltip("If checked, all loggers in the application domain will be automatically found and loaded. (HybridCLR is not supported. Must be initialized manually.)")]
-        [InfoBox("HybridCLR is not supported. Must be initialized manually.", EInfoBoxType.Warning)]
-        [OverrideLabel("Initialized On Awake")]
-        [SerializeField]
+        [HideInInspector]
         public bool initLoggersOnAwake = true;
 
         [Separator("Loggers")]
@@ -50,16 +46,13 @@ namespace OxGKit.LoggingSystem
             }
             else
                 DontDestroyOnLoad(this.gameObject.transform.root);
+
+            // Init and read values from config
+            if (this.initLoggersOnAwake)
+                this.StartCoroutine(this._TryInitLoggers());
         }
 
         #region Logging APIs
-        private void Start()
-        {
-            // Init and read values from config
-            if (this.initLoggersOnAwake)
-                StartCoroutine(this._TryInitLoggers());
-        }
-
         /// <summary>
         /// Init all loggers
         /// </summary>
@@ -242,12 +235,12 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         public void ReloadLoggersConfig(Action<LoggersConfig> result = null)
         {
-            StartCoroutine(this._ReloadLoggersConfig(false, result));
+            this.StartCoroutine(this._ReloadLoggersConfig(false, result));
         }
 
         public void ReloadFromLoggersConfig(Action<LoggersConfig> result = null)
         {
-            StartCoroutine(this._LoadLoggersConfig(result, false, false));
+            this.StartCoroutine(this._LoadLoggersConfig(result, false, false));
         }
 
         /// <summary>
@@ -255,7 +248,7 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         public void ResetLoggersConfig(Action<LoggersConfig> result = null)
         {
-            StartCoroutine(this._ResetLoggersConfig(result));
+            this.StartCoroutine(this._ResetLoggersConfig(result));
         }
 
         private IEnumerator _ResetLoggersConfig(Action<LoggersConfig> result)

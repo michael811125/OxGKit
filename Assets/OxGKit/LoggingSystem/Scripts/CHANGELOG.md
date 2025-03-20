@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.1] - 2025-03-21
+- Modified LoggingLauncherEditor.
+
 ## [1.2.0] - 2025-03-21 (Breaking Changes)
 - Added new LogLevel levels.
 - Added LoggingLauncher API methods.

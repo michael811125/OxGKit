@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.DemiEditor;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -53,10 +54,32 @@ namespace OxGKit.LoggingSystem.Editor
         {
             var loggersConfig = this._target.loggersConfig;
 
-            this.DrawRuntimeReloadButtonView(loggersConfig);
-
+            #region Section 1
+            EditorGUILayout.Space();
             EditorGUI.BeginChangeCheck();
+
+            this.serializedObject.Update();
+            this.DrawSeparator("Options", "#282828", 1);
+            Rect infoBoxRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight * 2);
+            EditorGUI.HelpBox(infoBoxRect, "HybridCLR is not supported and must be initialized manually.", MessageType.Warning);
+            this._target.initLoggersOnAwake = EditorGUILayout.Toggle(new GUIContent("Initialized On Awake", "If enabled, all loggers in the application domain will be automatically detected and loaded. (HybridCLR is not supported and must be initialized manually.)"), this._target.initLoggersOnAwake);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(this._target);
+                this.serializedObject.ApplyModifiedProperties();
+            }
+            #endregion
+
+            #region Section 2
+            this.DrawRuntimeReloadButtonView(loggersConfig);
+            #endregion
+
+            #region Section 3
+            EditorGUI.BeginChangeCheck();
+
             base.OnInspectorGUI();
+
             if (EditorGUI.EndChangeCheck())
             {
                 if (Application.isPlaying)
@@ -68,8 +91,11 @@ namespace OxGKit.LoggingSystem.Editor
                 LoggingHelper.WriteConfig(loggersConfig);
                 this._currentLoggersConfig = loggersConfig;
             }
+            #endregion
 
+            #region Section 4
             this.DrawControlButtonsView(loggersConfig);
+            #endregion
         }
 
         protected void DrawRuntimeReloadButtonView(LoggersConfig loggersConfig)
@@ -269,6 +295,12 @@ namespace OxGKit.LoggingSystem.Editor
             }
         }
 
+        /// <summary>
+        /// 繪製線條
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="thickness"></param>
+        /// <param name="padding"></param>
         protected void DrawLine(Color color, int thickness = 1, int padding = 10)
         {
             Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
@@ -277,6 +309,60 @@ namespace OxGKit.LoggingSystem.Editor
             r.x -= 2;
             r.width += 6;
             EditorGUI.DrawRect(r, color);
+        }
+
+        /// <summary>
+        /// 在 Inspector 中繪製分隔線
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="colorHex"></param>
+        /// <param name="thickness"></param>
+        protected void DrawSeparator(string title, string colorHex, float thickness)
+        {
+            ColorUtility.TryParseHtmlString(colorHex, out Color color);
+            Texture2D t2d = MakeT2d(1, 1, color);
+
+            // 根據是否有標題決定分隔線高度
+            float separatorHeight = title.IsNullOrEmpty() ? thickness + 10 : thickness + 20;
+            Rect separatorRect = EditorGUILayout.GetControlRect(false, separatorHeight);
+
+            if (title.IsNullOrEmpty())
+            {
+                // 只有線條
+                separatorRect.height = thickness;
+                separatorRect.y += (separatorHeight - thickness) / 2; // 讓線條置中
+                GUI.DrawTexture(separatorRect, t2d);
+            }
+            else
+            {
+                // 計算標題大小
+                Vector2 textSize = GUI.skin.label.CalcSize(new GUIContent(title));
+                float separatorWidth = (separatorRect.width - textSize.x) / 2 - 5;
+
+                // 讓線條與標題垂直置中
+                float centerY = separatorRect.y + (separatorHeight - thickness) / 2;
+                float labelY = separatorRect.y + (separatorHeight - textSize.y) / 2;
+
+                GUI.DrawTexture(new Rect(separatorRect.xMin, centerY, separatorWidth, thickness), t2d);
+                GUI.Label(new Rect(separatorRect.xMin + separatorWidth + 5, labelY, textSize.x, textSize.y), title);
+                GUI.DrawTexture(new Rect(separatorRect.xMin + separatorWidth + 10 + textSize.x, centerY, separatorWidth, thickness), t2d);
+            }
+        }
+
+        /// <summary>
+        /// 生成單色紋理
+        /// </summary>
+        protected Texture2D MakeT2d(int width, int height, Color color)
+        {
+            Color[] pixels = new Color[width * height];
+            for (int i = 0; i < pixels.Length; ++i)
+            {
+                pixels[i] = color;
+            }
+            Texture2D t2d = new Texture2D(width, height);
+            t2d.SetPixels(pixels);
+            t2d.Apply();
+            return t2d;
         }
     }
 }

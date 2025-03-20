@@ -146,7 +146,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ## LoggingSystem (dependence LWMyBox)
 
-日誌系統，支持動態配置與覆寫日誌器功能，其他還有開關配置、級別配置、全域開關。
+日誌系統，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關、個別開關配置、個別級別配置。
 - 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.json (In StreamingAssets) 建立配置檔。
 - 透過 LoggingLauncher 進行配置或只直接修改 loggersconfig.json 文件。
 
@@ -198,9 +198,9 @@ public class MyLogger2 : Logging
 }
 ```
 
-如果搭配 HybridCLR 有主工程跟熱更工程的區分，必須手動拆分調用 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下。
+如果搭配 HybridCLR 有主工程跟熱更工程的區分，必須手動拆分創建 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下：
 ```C#
-// HybridCLR (必須取消 LoggingLauncher 上的 InitializedOnAwake 選項):
+// HybridCLR (必須取消 LoggingLauncher 上的 "Initialize On Awake" 選項):
 LoggingLauncher.CreateLogger<LoggingDemoLogger1>();
 LoggingLauncher.CreateLogger<LoggingDemoLogger2>();
 LoggingLauncher.CreateLogger<LoggingDemoLogger3>();
@@ -208,7 +208,7 @@ LoggingLauncher.CreateLogger<LoggingDemoLogger4>();
 LoggingLauncher.TryLoadLoggers();
 ```
 
-動態配置日誌器。
+動態配置日誌器，參考如下：
 ```C#
 // Reload LoggersConfig at Runtime (方式一)
 var loggersConfig = new LoggersConfig
@@ -225,7 +225,7 @@ LoggingLauncher.ConfigureLogger("LoggingDemo.Logger2", true, LogLevel.LogWarning
 LoggingLauncher.ConfigureLogger("LoggingDemo.Logger3", false);
 ```
 
-以下是在 AOT 工程中初始 AOT 工程的 Loggers (如果 Hotfix 工程的 Loggers 需要再 Hotfix 工程中初始)。
+以下是在 AOT 工程中初始 AOT 工程的 Loggers **(如果 Hotfix 工程的 Loggers 需要再 Hotfix 工程中初始)**：
 
 ![](Docs/img_5.png)
 

@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.4.1] - 2025-03-20
+- Modified the Requester to support a timeout feature, with a default timeout of 180 seconds.
+
 ## [1.4.0] - 2025-03-19
 - Renamed namespace OxGKit.Utilities.Request to OxGKit.Utilities.Requester.
 - Removed Cursor will be separated into an independent CursorSystem (namespace OxGKit.Utilities.CursorAnim -> OxGKit.CursorSystem).

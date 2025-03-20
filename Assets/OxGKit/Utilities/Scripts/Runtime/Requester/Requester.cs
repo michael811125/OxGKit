@@ -17,10 +17,18 @@ namespace OxGKit.Utilities.Requester
         private static LRUCache<string, Texture2D> _lruTexture2ds = null;
         private static LRUCache<string, string> _lruTexts = null;
 
+        private const int _MAX_REQUEST_TIME_SECONDS = 180;
+
         #region ARC Audio
         public static void InitARCCacheCapacityForAudio(int capacity = 20)
         {
-            if (_arcAudios == null) _arcAudios = new ARCCache<string, AudioClip>(capacity);
+            if (_arcAudios == null)
+                _arcAudios = new ARCCache<string, AudioClip>(capacity);
+            else
+            {
+                ClearARCCacheCapacityForAudio();
+                _arcAudios = new ARCCache<string, AudioClip>(capacity);
+            }
 
             // Only allow one cache type (Clear LRU)
             ClearLRUCacheCapacityForAudio();
@@ -29,20 +37,28 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromARCCacheForAudio(string url)
         {
-            if (_arcAudios != null) return _arcAudios.Remove(url);
+            if (_arcAudios != null)
+                return _arcAudios.Remove(url);
             return false;
         }
 
         public static void ClearARCCacheCapacityForAudio()
         {
-            if (_arcAudios != null) _arcAudios.Clear();
+            if (_arcAudios != null)
+                _arcAudios.Clear();
         }
         #endregion
 
         #region ARC Texture2d
         public static void InitARCCacheCapacityForTexture2d(int capacity = 60)
         {
-            if (_arcTexture2ds == null) _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
+            if (_arcTexture2ds == null)
+                _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
+            else
+            {
+                ClearARCCacheCapacityForTexture2d();
+                _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
+            }
 
             // Only allow one cache type (Clear LRU)
             ClearLRUCacheCapacityForTexture2d();
@@ -51,7 +67,8 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromARCCacheForTexture2d(string url)
         {
-            if (_arcTexture2ds != null) return _arcTexture2ds.Remove(url);
+            if (_arcTexture2ds != null)
+                return _arcTexture2ds.Remove(url);
             return false;
         }
 
@@ -72,7 +89,13 @@ namespace OxGKit.Utilities.Requester
         #region ARC Text
         public static void InitARCCacheCapacityForText(int capacity = 100)
         {
-            if (_arcTexts == null) _arcTexts = new ARCCache<string, string>(capacity);
+            if (_arcTexts == null)
+                _arcTexts = new ARCCache<string, string>(capacity);
+            else
+            {
+                ClearARCCacheCapacityForText();
+                _arcTexts = new ARCCache<string, string>(capacity);
+            }
 
             // Only allow one cache type (Clear LRU)
             ClearLRUCacheCapacityForText();
@@ -81,20 +104,28 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromARCCacheForText(string url)
         {
-            if (_arcTexts != null) return _arcTexts.Remove(url);
+            if (_arcTexts != null)
+                return _arcTexts.Remove(url);
             return false;
         }
 
         public static void ClearARCCacheCapacityForText()
         {
-            if (_arcTexts != null) _arcTexts.Clear();
+            if (_arcTexts != null)
+                _arcTexts.Clear();
         }
         #endregion
 
         #region LRU Audio
         public static void InitLRUCacheCapacityForAudio(int capacity = 20)
         {
-            if (_lruAudios == null) _lruAudios = new LRUCache<string, AudioClip>(capacity);
+            if (_lruAudios == null)
+                _lruAudios = new LRUCache<string, AudioClip>(capacity);
+            else
+            {
+                ClearLRUCacheCapacityForAudio();
+                _lruAudios = new LRUCache<string, AudioClip>(capacity);
+            }
 
             // Only allow one cache type (Clear ARC)
             ClearARCCacheCapacityForAudio();
@@ -103,20 +134,28 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromLRUCacheForAudio(string url)
         {
-            if (_lruAudios != null) return _lruAudios.Remove(url);
+            if (_lruAudios != null)
+                return _lruAudios.Remove(url);
             return false;
         }
 
         public static void ClearLRUCacheCapacityForAudio()
         {
-            if (_lruAudios != null) _lruAudios.Clear();
+            if (_lruAudios != null)
+                _lruAudios.Clear();
         }
         #endregion
 
         #region LRU Texture2d
         public static void InitLRUCacheCapacityForTexture2d(int capacity = 60)
         {
-            if (_lruTexture2ds == null) _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
+            if (_lruTexture2ds == null)
+                _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
+            else
+            {
+                ClearLRUCacheCapacityForTexture2d();
+                _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
+            }
 
             // Only allow one cache type (Clear ARC)
             ClearARCCacheCapacityForTexture2d();
@@ -125,7 +164,8 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromLRUCacheForTexture2d(string url)
         {
-            if (_lruTexture2ds != null) return _lruTexture2ds.Remove(url);
+            if (_lruTexture2ds != null)
+                return _lruTexture2ds.Remove(url);
             return false;
         }
 
@@ -146,7 +186,13 @@ namespace OxGKit.Utilities.Requester
         #region LRU Text
         public static void InitLRUCacheCapacityForText(int capacity = 80)
         {
-            if (_lruTexts == null) _lruTexts = new LRUCache<string, string>(capacity);
+            if (_lruTexts == null)
+                _lruTexts = new LRUCache<string, string>(capacity);
+            else
+            {
+                ClearLRUCacheCapacityForText();
+                _lruTexts = new LRUCache<string, string>(capacity);
+            }
 
             // Only allow one cache type (Clear ARC)
             ClearARCCacheCapacityForText();
@@ -155,13 +201,15 @@ namespace OxGKit.Utilities.Requester
 
         public static bool RemoveFromLRUCacheForText(string url)
         {
-            if (_lruTexts != null) return _lruTexts.Remove(url);
+            if (_lruTexts != null)
+                return _lruTexts.Remove(url);
             return false;
         }
 
         public static void ClearLRUCacheCapacityForText()
         {
-            if (_lruTexts != null) _lruTexts.Clear();
+            if (_lruTexts != null)
+                _lruTexts.Clear();
         }
         #endregion
 
@@ -214,12 +262,13 @@ namespace OxGKit.Utilities.Requester
         /// <param name="successAction"></param>
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
+        /// <param name="cached"></param>
         /// <returns></returns>
         public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
         {
             if (string.IsNullOrEmpty(url))
             {
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
                 return null;
             }
 
@@ -250,14 +299,19 @@ namespace OxGKit.Utilities.Requester
                 if (cts != null)
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 else
-                    await request.SendWebRequest();
+                {
+                    cts = new CancellationTokenSource();
+                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                }
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
+                    cts?.Dispose();
                     request.Dispose();
                     errorAction?.Invoke();
-                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
                     return null;
                 }
 
@@ -284,15 +338,16 @@ namespace OxGKit.Utilities.Requester
                 Logging.Print<Logger>($"<color=#90ff67>Request Audio => Channel: {audioClip.channels}, Frequency: {audioClip.frequency}, Sample: {audioClip.samples}, Length: {audioClip.length}, State: {audioClip.loadState}, Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
+                cts?.Dispose();
                 request.Dispose();
                 return audioClip;
             }
             catch (Exception ex)
             {
+                cts?.Dispose();
                 request?.Dispose();
                 errorAction?.Invoke();
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Logging.PrintException<Logger>(ex);
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
                 return null;
             }
         }
@@ -304,12 +359,13 @@ namespace OxGKit.Utilities.Requester
         /// <param name="successAction"></param>
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
+        /// <param name="cached"></param>
         /// <returns></returns>
         public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
         {
             if (string.IsNullOrEmpty(url))
             {
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
                 return null;
             }
 
@@ -340,14 +396,19 @@ namespace OxGKit.Utilities.Requester
                 if (cts != null)
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 else
-                    await request.SendWebRequest();
+                {
+                    cts = new CancellationTokenSource();
+                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                }
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
+                    cts?.Dispose();
                     request.Dispose();
                     errorAction?.Invoke();
-                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
                     return null;
                 }
 
@@ -374,15 +435,16 @@ namespace OxGKit.Utilities.Requester
                 Logging.Print<Logger>($"<color=#90ff67>Request Texture2D => Width: {t2d.width}, Height: {t2d.height}, Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
+                cts?.Dispose();
                 request.Dispose();
                 return t2d;
             }
             catch (Exception ex)
             {
+                cts?.Dispose();
                 request?.Dispose();
                 errorAction?.Invoke();
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Logging.PrintException<Logger>(ex);
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
                 return null;
             }
         }
@@ -395,7 +457,11 @@ namespace OxGKit.Utilities.Requester
         /// <param name="errorAction"></param>
         /// <param name="position"></param>
         /// <param name="pivot"></param>
+        /// <param name="pixelPerUnit"></param>
+        /// <param name="extrude"></param>
+        /// <param name="meshType"></param>
         /// <param name="cts"></param>
+        /// <param name="cached"></param>
         /// <returns></returns>
         public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true)
         {
@@ -423,7 +489,7 @@ namespace OxGKit.Utilities.Requester
         {
             if (string.IsNullOrEmpty(url))
             {
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
                 return new byte[] { };
             }
 
@@ -435,14 +501,19 @@ namespace OxGKit.Utilities.Requester
                 if (cts != null)
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 else
-                    await request.SendWebRequest();
+                {
+                    cts = new CancellationTokenSource();
+                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                }
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
+                    cts?.Dispose();
                     request.Dispose();
                     errorAction?.Invoke();
-                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
                     return new byte[] { };
                 }
 
@@ -454,15 +525,16 @@ namespace OxGKit.Utilities.Requester
                 Logging.Print<Logger>($"<color=#90ff67>Request Bytes => Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
+                cts?.Dispose();
                 request.Dispose();
                 return bytes;
             }
             catch (Exception ex)
             {
+                cts?.Dispose();
                 request?.Dispose();
                 errorAction?.Invoke();
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Logging.PrintException<Logger>(ex);
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
                 return null;
             }
         }
@@ -474,12 +546,13 @@ namespace OxGKit.Utilities.Requester
         /// <param name="successAction"></param>
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
+        /// <param name="cached"></param>
         /// <returns></returns>
         public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
         {
             if (string.IsNullOrEmpty(url))
             {
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL is null or empty.</color>");
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
                 return null;
             }
 
@@ -509,14 +582,19 @@ namespace OxGKit.Utilities.Requester
                 if (cts != null)
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 else
-                    await request.SendWebRequest();
+                {
+                    cts = new CancellationTokenSource();
+                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
+                    await request.SendWebRequest().WithCancellation(cts.Token);
+                }
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
+                    cts?.Dispose();
                     request.Dispose();
                     errorAction?.Invoke();
-                    Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
+                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
                     return null;
                 }
 
@@ -543,15 +621,16 @@ namespace OxGKit.Utilities.Requester
                 Logging.Print<Logger>($"<color=#90ff67>Request Text => Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
+                cts?.Dispose();
                 request.Dispose();
                 return text;
             }
             catch (Exception ex)
             {
+                cts?.Dispose();
                 request?.Dispose();
                 errorAction?.Invoke();
-                Logging.Print<Logger>($"<color=#FF0000>Request failed, URL: {url}</color>");
-                Logging.PrintException<Logger>(ex);
+                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
                 return null;
             }
         }

@@ -60,9 +60,9 @@ namespace OxGKit.LoggingSystem.Editor
 
             this.serializedObject.Update();
             this.DrawSeparator("Options", "#282828", 1);
-            Rect infoBoxRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight * 2);
-            EditorGUI.HelpBox(infoBoxRect, "HybridCLR is not supported and must be initialized manually.", MessageType.Warning);
-            this._target.initLoggersOnAwake = EditorGUILayout.Toggle(new GUIContent("Initialized On Awake", "If enabled, all loggers in the application domain will be automatically detected and loaded. (HybridCLR is not supported and must be initialized manually.)"), this._target.initLoggersOnAwake);
+            Rect infoBoxRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight * 2.5f);
+            EditorGUI.HelpBox(infoBoxRect, "HybridCLR is not supported. The 'Initialize On Awake' option must be disabled and loggers must be manually initialized.", MessageType.Warning);
+            this._target.initLoggersOnAwake = EditorGUILayout.Toggle(new GUIContent("Initialize On Awake", "If enabled, all loggers in the application domain will be automatically detected and loaded.\n\nNote: HybridCLR is not supported, and this option must be disabled for HybridCLR to function correctly."), this._target.initLoggersOnAwake);
 
             if (EditorGUI.EndChangeCheck())
             {

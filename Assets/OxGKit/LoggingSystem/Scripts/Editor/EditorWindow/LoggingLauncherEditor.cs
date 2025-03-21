@@ -1,5 +1,4 @@
-﻿using DG.DemiEditor;
-using System;
+﻿using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -323,10 +322,10 @@ namespace OxGKit.LoggingSystem.Editor
             Texture2D t2d = MakeT2d(1, 1, color);
 
             // 根據是否有標題決定分隔線高度
-            float separatorHeight = title.IsNullOrEmpty() ? thickness + 10 : thickness + 20;
+            float separatorHeight = string.IsNullOrEmpty(title) ? thickness + 10 : thickness + 20;
             Rect separatorRect = EditorGUILayout.GetControlRect(false, separatorHeight);
 
-            if (title.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(title))
             {
                 // 只有線條
                 separatorRect.height = thickness;

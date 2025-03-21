@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+## [1.2.2] - 2025-03-21
+- Added loggersconfig.conf.
+- Added support for Cipher and Plaintext formats (JSON, BYTES), allowing for conversion in either direction, with automatic parsing.
+- Added global-level control.
+- Added Logging -> CheckLogActive method (to check the log level).
+- Removed Logging -> LogActive method.
+- Removed loggersconfig.json.
+
 ## [1.2.1] - 2025-03-21
 - Modified LoggingLauncherEditor.
 

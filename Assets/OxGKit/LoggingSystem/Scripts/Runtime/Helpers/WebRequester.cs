@@ -57,6 +57,55 @@ namespace OxGKit.LoggingSystem
             yield break;
         }
 
+        public static IEnumerator RequestBytes(string url, Action<byte[]> successAction, Action errorAction = null)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                Debug.LogWarning($"<color=#FF0000>Request failed. URL is null or empty.</color>");
+                successAction?.Invoke(null);
+                yield break;
+            }
+
+            // 編輯器有需求時, 如果使用 UnityWebRequest 會死機, 只能統一改用 WWW
+            WWW www = new WWW(url);
+
+            // 設置超時時間
+            float timer = 0f;
+            float maxTime = _MAX_REQUEST_TIME_SECONDS;
+
+            while (!www.isDone && timer < maxTime)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            // 檢查是否超時
+            if (timer >= maxTime && !www.isDone)
+            {
+                Debug.Log($"<color=#FF0000>Request timed out. URL: {url}, SpentTime: {timer} (s)</color>");
+                errorAction?.Invoke();
+                successAction?.Invoke(null);
+                www.Dispose();
+                yield break;
+            }
+
+            // 檢查是否有錯誤
+            if (!string.IsNullOrEmpty(www.error))
+            {
+                Debug.Log($"<color=#FF0000>Request failed. URL: {url}, Error: {www.error}, SpentTime: {timer} (s)</color>");
+                errorAction?.Invoke();
+                successAction?.Invoke(null);
+                www.Dispose();
+                yield break;
+            }
+
+            // 成功獲取內容
+            Debug.Log($"<color=#90ff67>Successfully requested bytes file. URL: {url}, SpentTime: {timer} (s)</color>");
+            successAction?.Invoke(www.bytes);
+            www.Dispose();
+            yield break;
+        }
+
         /// <summary>
         /// 獲取 UnityWebRequest StreamingAssets 路徑 (OSX and iOS 需要 + file://)
         /// </summary>

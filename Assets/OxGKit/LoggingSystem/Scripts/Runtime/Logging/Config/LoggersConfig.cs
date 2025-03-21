@@ -10,11 +10,28 @@ namespace OxGKit.LoggingSystem
     public class LoggersConfig
     {
         /// <summary>
-        /// 日誌器總開關
+        /// 配置檔標檔頭
+        /// </summary>
+        public const short CIPHER_HEADER = 0x584F;
+
+        /// <summary>
+        /// 配置檔金鑰
+        /// </summary>
+        public const byte CIPHER = 0x42;
+
+        /// <summary>
+        /// 日誌器全域開關
         /// </summary>
         [OverrideLabel("Master Logging Toggle")]
         [SerializeField]
         public bool logMainActive = true;
+
+        /// <summary>
+        /// 日誌器全域級別
+        /// </summary>
+        [OverrideLabel("Master Logging Level")]
+        [SerializeField]
+        public LogLevel logMainLevel = LogLevel.All;
 
         /// <summary>
         /// 各日誌器配置
@@ -25,11 +42,12 @@ namespace OxGKit.LoggingSystem
         /// <summary>
         /// 配置文件輸出名稱
         /// </summary>
-        public const string LOGGERS_CONFIG_FILE_NAME = "loggersconfig.json";
+        public const string LOGGERS_CONFIG_FILE_NAME = "loggersconfig.conf";
 
         public LoggersConfig()
         {
             this.logMainActive = true;
+            this.logMainLevel = LogLevel.All;
             this.loggerSettings = new List<LoggerSetting>();
         }
 
@@ -71,12 +89,21 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// 日誌器總開關
+        /// 日誌器全域開關
         /// </summary>
         /// <param name="isEnabled"></param>
         internal void ToggleMasterLogging(bool isEnabled)
         {
             this.logMainActive = isEnabled;
+        }
+
+        /// <summary>
+        /// 日誌器全域級別
+        /// </summary>
+        /// <param name="logLevel"></param>
+        internal void LevelMasterLogging(LogLevel logLevel)
+        {
+            this.logMainLevel = logLevel;
         }
 
         /// <summary>

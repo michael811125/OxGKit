@@ -87,7 +87,7 @@ namespace OxGKit.LoggingSystem.Editor
                     EditorStorage.SaveData(keySaver, "_isDirty", this._isDirty.ToString());
                 }
 
-                LoggingHelper.WriteConfig(loggersConfig);
+                LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                 this._currentLoggersConfig = loggersConfig;
             }
             #endregion
@@ -171,7 +171,7 @@ namespace OxGKit.LoggingSystem.Editor
 
                     this._target.ReloadLoggersConfig((loggersConfig) =>
                     {
-                        LoggingHelper.WriteConfig(loggersConfig);
+                        LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                         this._currentLoggersConfig = loggersConfig;
                     });
                 }
@@ -197,7 +197,7 @@ namespace OxGKit.LoggingSystem.Editor
 
                     this._target.ResetLoggersConfig((loggersConfig) =>
                     {
-                        LoggingHelper.WriteConfig(loggersConfig);
+                        LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                         this._currentLoggersConfig = loggersConfig;
                     });
 
@@ -230,7 +230,7 @@ namespace OxGKit.LoggingSystem.Editor
                     foreach (var loggerSetting in loggersConfig.loggerSettings)
                         loggerSetting.logActive = true;
 
-                    LoggingHelper.WriteConfig(loggersConfig);
+                    LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;
@@ -260,7 +260,7 @@ namespace OxGKit.LoggingSystem.Editor
                     foreach (var loggerSetting in loggersConfig.loggerSettings)
                         loggerSetting.logActive = false;
 
-                    LoggingHelper.WriteConfig(loggersConfig);
+                    LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;
@@ -282,7 +282,7 @@ namespace OxGKit.LoggingSystem.Editor
                     foreach (var loggerSetting in loggersConfig.loggerSettings)
                         loggerSetting.logLevel = this._selectedLogLevel;
 
-                    LoggingHelper.WriteConfig(loggersConfig);
+                    LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;

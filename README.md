@@ -146,15 +146,20 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ## LoggingSystem (dependence LWMyBox)
 
-日誌系統，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關、個別開關配置、個別級別配置。
-- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.json (In StreamingAssets) 建立配置檔。
-- 透過 LoggingLauncher 進行配置或只直接修改 loggersconfig.json 文件。
+日誌系統，支持 Cipher & Plaintext (可以任一轉換)，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關、全域級別、個別開關配置、個別級別配置。
+- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.conf (In StreamingAssets) 建立配置檔。
+  - ![](Docs/img_7.png)
+- 透過 LoggingLauncher 進行配置或只直接修改 loggersconfig.conf 文件。
 
 **Build 激活宏**
 - OXGKIT_LOGGER_ON
 
+配置文件轉換。
+
+![](Docs/img_6.png)
+
 LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)。
-- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.json 進行日誌開關控制。 
+- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.conf 進行日誌開關控制。 
 
 ![](Docs/img_4.png)
 

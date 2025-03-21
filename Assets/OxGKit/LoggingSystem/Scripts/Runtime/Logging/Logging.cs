@@ -6,7 +6,19 @@ namespace OxGKit.LoggingSystem
 {
     public abstract class Logging : ILogging
     {
+        /// <summary>
+        /// 全域開關
+        /// </summary>
         internal static bool logMainActive = true;
+
+        /// <summary>
+        /// 全域級別
+        /// </summary>
+        internal static LogLevel logMainLevel = LogLevel.All;
+
+        /// <summary>
+        /// 日誌器緩存
+        /// </summary>
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
         #region Internal Methods
@@ -229,49 +241,72 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         internal LogLevel logLevel = LogLevel.All;
 
-        public bool LogActive()
+        /// <summary>
+        /// 檢查日誌器激活狀態
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        public bool CheckLogActive(LogLevel level)
         {
-            return logMainActive && this.logActive;
+            // 如果全域級別關閉, 則禁止所有日誌輸出
+            if (!logMainActive || logMainLevel == LogLevel.Off)
+                return false;
+
+            // 如果全域級別允許該級別, 則允許記錄
+            // 但是需要考慮全域級別的限制, 不能打印高於全域級別的日誌
+            if (logMainLevel.HasFlag(level))
+            {
+                switch (logMainLevel)
+                {
+                    // 全域優先
+                    case LogLevel.Log:
+                        return this.logActive && this.logLevel.HasFlag(LogLevel.Log);
+                    case LogLevel.LogWarning:
+                        return this.logActive && this.logLevel.HasFlag(LogLevel.LogWarning);
+                    case LogLevel.LogError:
+                        return this.logActive && this.logLevel.HasFlag(LogLevel.LogError);
+                    case LogLevel.LogException:
+                        return this.logActive && this.logLevel.HasFlag(LogLevel.LogException);
+
+                    // 檢查個別級別
+                    default:
+                        return this.logActive && this.logLevel.HasFlag(level);
+                }
+            }
+
+            return false;
         }
 
         internal void Print(object message)
         {
-            if (!this.LogActive())
+            if (!this.CheckLogActive(LogLevel.Log))
                 return;
 
-            if (this.logLevel.HasFlag(LogLevel.All) ||
-                this.logLevel.HasFlag(LogLevel.Log))
-                this.Log(message);
+            this.Log(message);
         }
 
         internal void PrintWarning(object message)
         {
-            if (!this.LogActive())
+            if (!this.CheckLogActive(LogLevel.LogWarning))
                 return;
 
-            if (this.logLevel.HasFlag(LogLevel.All) ||
-                this.logLevel.HasFlag(LogLevel.LogWarning))
-                this.LogWarning(message);
+            this.LogWarning(message);
         }
 
         internal void PrintError(object message)
         {
-            if (!this.LogActive())
+            if (!this.CheckLogActive(LogLevel.LogError))
                 return;
 
-            if (this.logLevel.HasFlag(LogLevel.All) ||
-                this.logLevel.HasFlag(LogLevel.LogError))
-                this.LogError(message);
+            this.LogError(message);
         }
 
         internal void PrintException(Exception exception)
         {
-            if (!this.LogActive())
+            if (!this.CheckLogActive(LogLevel.LogException))
                 return;
 
-            if (this.logLevel.HasFlag(LogLevel.All) ||
-                this.logLevel.HasFlag(LogLevel.LogException))
-                this.LogException(exception);
+            this.LogException(exception);
         }
 
         #region Interface

@@ -25,12 +25,23 @@ namespace OxGKit.LoggingSystem
             return _instance;
         }
 
+        /// <summary>
+        /// 是否 Awake 初始
+        /// </summary>
         [HideInInspector]
         public bool initLoggersOnAwake = true;
 
+        /// <summary>
+        /// 日誌器配置數據
+        /// </summary>
         [Separator("Loggers")]
         [SerializeField]
         public LoggersConfig loggersConfig = new LoggersConfig();
+
+        /// <summary>
+        /// 當前文件類型
+        /// </summary>
+        public static ConfigFileType currentConfigFileType = ConfigFileType.Bytes;
 
         private void Awake()
         {
@@ -94,6 +105,19 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
+        /// Sets the master logging level for all loggers
+        /// </summary>
+        /// <param name="logMainLevel"></param>
+        public static void LevelMasterLogging(LogLevel logMainLevel)
+        {
+            GetInstance().StartCoroutine(GetInstance()._LoadLoggersConfig((result) =>
+            {
+                result.LevelMasterLogging(logMainLevel);
+                GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
+            }, false, true));
+        }
+
+        /// <summary>
         /// Configures the specified logger's active state and log level
         /// </summary>
         /// <param name="loggerName"></param>
@@ -144,11 +168,13 @@ namespace OxGKit.LoggingSystem
             if (!forceReset)
             {
                 string url = LoggersConfig.GetStreamingAssetsConfigRequestPath();
-                yield return WebRequester.RequestText(url, (json) =>
+                yield return WebRequester.RequestBytes(url, (data) =>
                 {
-                    if (!string.IsNullOrEmpty(json))
+                    if (data.Length > 0)
                     {
-                        this.loggersConfig = JsonUtility.FromJson<LoggersConfig>(json);
+                        var configInfo = BinaryHelper.DecryptToString(data);
+                        currentConfigFileType = configInfo.type;
+                        this.loggersConfig = JsonUtility.FromJson<LoggersConfig>(configInfo.content);
                         result?.Invoke(this.loggersConfig);
                     }
                 },
@@ -219,8 +245,9 @@ namespace OxGKit.LoggingSystem
                         }
                     }
 
-                    // Set main active from config
+                    // Set main info from config
                     Logging.logMainActive = loggersConfig.logMainActive;
+                    Logging.logMainLevel = loggersConfig.logMainLevel;
                 }
             }, false, isCustom);
 #else

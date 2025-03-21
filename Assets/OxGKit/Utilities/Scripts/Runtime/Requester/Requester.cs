@@ -263,8 +263,9 @@ namespace OxGKit.Utilities.Requester
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
         /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
+        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -290,66 +291,39 @@ namespace OxGKit.Utilities.Requester
                 }
             }
 
-            UnityWebRequest request = null;
-            try
+            AudioClip audioClipResult = await SendRequest<AudioClip>
+            (
+                url,
+                cts,
+                timeoutSeconds,
+                () =>
+                {
+                    UnityWebRequest req = UnityWebRequestMultimedia.GetAudioClip(url, audioType);
+                    ((DownloadHandlerAudioClip)req.downloadHandler).streamAudio = true;
+                    return req;
+                },
+                req => ((DownloadHandlerAudioClip)req.downloadHandler).audioClip,
+                errorAction
+            );
+
+            if (cached && audioClipResult != null)
             {
-                request = UnityWebRequestMultimedia.GetAudioClip(url, audioType);
-                ((DownloadHandlerAudioClip)request.downloadHandler).streamAudio = true;
-
-                if (cts != null)
-                    await request.SendWebRequest().WithCancellation(cts.Token);
-                else
+                // ARCCache
+                if (_arcAudios != null)
                 {
-                    cts = new CancellationTokenSource();
-                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
-                    await request.SendWebRequest().WithCancellation(cts.Token);
+                    _arcAudios.Add(url, audioClipResult);
+                    audioClipResult = _arcAudios.Get(url);
                 }
-
-                if (request.result == UnityWebRequest.Result.ProtocolError ||
-                    request.result == UnityWebRequest.Result.ConnectionError)
+                // LRUCache
+                else if (_lruAudios != null)
                 {
-                    cts?.Dispose();
-                    request.Dispose();
-                    errorAction?.Invoke();
-                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
-                    return null;
+                    _lruAudios.Add(url, audioClipResult);
+                    audioClipResult = _lruAudios.Get(url);
                 }
-
-                AudioClip audioClip = ((DownloadHandlerAudioClip)request.downloadHandler).audioClip;
-                if (cached)
-                {
-                    // ARCCache
-                    if (_arcAudios != null)
-                    {
-                        _arcAudios.Add(url, audioClip);
-                        audioClip = _arcAudios.Get(url);
-                    }
-                    // LRUCache
-                    else if (_lruAudios != null)
-                    {
-                        _lruAudios.Add(url, audioClip);
-                        audioClip = _lruAudios.Get(url);
-                    }
-                }
-                successAction?.Invoke(audioClip);
-
-#if UNITY_EDITOR
-                ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Logging.Print<Logger>($"<color=#90ff67>Request Audio => Channel: {audioClip.channels}, Frequency: {audioClip.frequency}, Sample: {audioClip.samples}, Length: {audioClip.length}, State: {audioClip.loadState}, Size: {GetBytesToString(sizeBytes)}</color>");
-#endif
-
-                cts?.Dispose();
-                request.Dispose();
-                return audioClip;
             }
-            catch (Exception ex)
-            {
-                cts?.Dispose();
-                request?.Dispose();
-                errorAction?.Invoke();
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
-                return null;
-            }
+
+            successAction?.Invoke(audioClipResult);
+            return audioClipResult;
         }
 
         /// <summary>
@@ -360,8 +334,9 @@ namespace OxGKit.Utilities.Requester
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
         /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
+        public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -387,66 +362,39 @@ namespace OxGKit.Utilities.Requester
                 }
             }
 
-            UnityWebRequest request = null;
-            try
+            Texture2D textureResult = await SendRequest<Texture2D>
+            (
+                url,
+                cts,
+                timeoutSeconds,
+                () =>
+                {
+                    UnityWebRequest req = new UnityWebRequest(url);
+                    req.downloadHandler = new DownloadHandlerTexture();
+                    return req;
+                },
+                req => ((DownloadHandlerTexture)req.downloadHandler).texture,
+                errorAction
+            );
+
+            if (cached && textureResult != null)
             {
-                request = new UnityWebRequest(url);
-                request.downloadHandler = new DownloadHandlerTexture();
-
-                if (cts != null)
-                    await request.SendWebRequest().WithCancellation(cts.Token);
-                else
+                // ARCCache
+                if (_arcTexture2ds != null)
                 {
-                    cts = new CancellationTokenSource();
-                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
-                    await request.SendWebRequest().WithCancellation(cts.Token);
+                    _arcTexture2ds.Add(url, textureResult);
+                    textureResult = _arcTexture2ds.Get(url);
                 }
-
-                if (request.result == UnityWebRequest.Result.ProtocolError ||
-                    request.result == UnityWebRequest.Result.ConnectionError)
+                // LRUCache
+                else if (_lruTexture2ds != null)
                 {
-                    cts?.Dispose();
-                    request.Dispose();
-                    errorAction?.Invoke();
-                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
-                    return null;
+                    _lruTexture2ds.Add(url, textureResult);
+                    textureResult = _lruTexture2ds.Get(url);
                 }
-
-                Texture2D t2d = ((DownloadHandlerTexture)request.downloadHandler).texture;
-                if (cached)
-                {
-                    // ARCCache
-                    if (_arcTexture2ds != null)
-                    {
-                        _arcTexture2ds.Add(url, t2d);
-                        t2d = _arcTexture2ds.Get(url);
-                    }
-                    // LRUCache
-                    else if (_lruTexture2ds != null)
-                    {
-                        _lruTexture2ds.Add(url, t2d);
-                        t2d = _lruTexture2ds.Get(url);
-                    }
-                }
-                successAction?.Invoke(t2d);
-
-#if UNITY_EDITOR
-                ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Logging.Print<Logger>($"<color=#90ff67>Request Texture2D => Width: {t2d.width}, Height: {t2d.height}, Size: {GetBytesToString(sizeBytes)}</color>");
-#endif
-
-                cts?.Dispose();
-                request.Dispose();
-                return t2d;
             }
-            catch (Exception ex)
-            {
-                cts?.Dispose();
-                request?.Dispose();
-                errorAction?.Invoke();
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
-                return null;
-            }
+
+            successAction?.Invoke(textureResult);
+            return textureResult;
         }
 
         /// <summary>
@@ -462,10 +410,11 @@ namespace OxGKit.Utilities.Requester
         /// <param name="meshType"></param>
         /// <param name="cts"></param>
         /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true)
+        public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            var texture = await RequestTexture2D(url, null, errorAction, cts, cached);
+            var texture = await RequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
             if (texture != null)
             {
                 pivot = pivot != Vector2.zero ? pivot : new Vector2(0.5f, 0.5f);
@@ -473,7 +422,6 @@ namespace OxGKit.Utilities.Requester
                 successAction?.Invoke(sprite);
                 return sprite;
             }
-
             return null;
         }
 
@@ -484,59 +432,28 @@ namespace OxGKit.Utilities.Requester
         /// <param name="successAction"></param>
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
+        /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action errorAction = null, CancellationTokenSource cts = null)
+        public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
                 Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
-                return new byte[] { };
-            }
-
-            UnityWebRequest request = null;
-            try
-            {
-                request = UnityWebRequest.Get(url);
-
-                if (cts != null)
-                    await request.SendWebRequest().WithCancellation(cts.Token);
-                else
-                {
-                    cts = new CancellationTokenSource();
-                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
-                    await request.SendWebRequest().WithCancellation(cts.Token);
-                }
-
-                if (request.result == UnityWebRequest.Result.ProtocolError ||
-                    request.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    cts?.Dispose();
-                    request.Dispose();
-                    errorAction?.Invoke();
-                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
-                    return new byte[] { };
-                }
-
-                byte[] bytes = request.downloadHandler.data;
-                successAction?.Invoke(bytes);
-
-#if UNITY_EDITOR
-                ulong sizeBytes = (ulong)bytes.Length;
-                Logging.Print<Logger>($"<color=#90ff67>Request Bytes => Size: {GetBytesToString(sizeBytes)}</color>");
-#endif
-
-                cts?.Dispose();
-                request.Dispose();
-                return bytes;
-            }
-            catch (Exception ex)
-            {
-                cts?.Dispose();
-                request?.Dispose();
-                errorAction?.Invoke();
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
                 return null;
             }
+
+            byte[] bytesResult = await SendRequest<byte[]>
+            (
+                url,
+                cts,
+                timeoutSeconds,
+                () => UnityWebRequest.Get(url),
+                req => req.downloadHandler.data,
+                errorAction
+            );
+
+            successAction?.Invoke(bytesResult);
+            return bytesResult;
         }
 
         /// <summary>
@@ -547,8 +464,9 @@ namespace OxGKit.Utilities.Requester
         /// <param name="errorAction"></param>
         /// <param name="cts"></param>
         /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true)
+        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -574,64 +492,92 @@ namespace OxGKit.Utilities.Requester
                 }
             }
 
+            string textResult = await SendRequest<string>
+            (
+                url,
+                cts,
+                timeoutSeconds,
+                () => UnityWebRequest.Get(url),
+                req => req.downloadHandler.text,
+                errorAction
+            );
+
+            if (cached && textResult != null)
+            {
+                // ARCCache
+                if (_arcTexts != null)
+                {
+                    _arcTexts.Add(url, textResult);
+                    textResult = _arcTexts.Get(url);
+                }
+                // LRUCache
+                else if (_lruTexts != null)
+                {
+                    _lruTexts.Add(url, textResult);
+                    textResult = _lruTexts.Get(url);
+                }
+            }
+
+            successAction?.Invoke(textResult);
+            return textResult;
+        }
+
+        #region Internal Methods
+        /// <summary>
+        /// Create UnityWebRequest
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="cts"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <param name="createRequest"></param>
+        /// <param name="processResponse"></param>
+        /// <param name="errorAction"></param>
+        /// <returns></returns>
+        internal static async UniTask<T> SendRequest<T>(string url, CancellationTokenSource cts, int? timeoutSeconds, Func<UnityWebRequest> createRequest, Func<UnityWebRequest, T> processResponse, Action errorAction)
+        {
             UnityWebRequest request = null;
             try
             {
-                request = UnityWebRequest.Get(url);
+                request = createRequest();
 
                 if (cts != null)
+                {
                     await request.SendWebRequest().WithCancellation(cts.Token);
+                }
                 else
                 {
+                    timeoutSeconds ??= _MAX_REQUEST_TIME_SECONDS;
                     cts = new CancellationTokenSource();
-                    cts.CancelAfterSlim(TimeSpan.FromSeconds(_MAX_REQUEST_TIME_SECONDS));
+                    cts.CancelAfterSlim(TimeSpan.FromSeconds((int)timeoutSeconds));
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 }
 
                 if (request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
-                    cts?.Dispose();
                     request.Dispose();
                     errorAction?.Invoke();
                     Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
-                    return null;
+                    return default;
                 }
 
-                string text = request.downloadHandler.text;
-                if (cached)
-                {
-                    // ARCCache
-                    if (_arcTexts != null)
-                    {
-                        _arcTexts.Add(url, text);
-                        text = _arcTexts.Get(url);
-                    }
-                    // LRUCache
-                    else if (_lruTexts != null)
-                    {
-                        _lruTexts.Add(url, text);
-                        text = _lruTexts.Get(url);
-                    }
-                }
-                successAction?.Invoke(text);
+                T result = processResponse(request);
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Logging.Print<Logger>($"<color=#90ff67>Request Text => Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"<color=#90ff67>Request result => Size: {GetBytesToString(sizeBytes)}</color>");
 #endif
 
-                cts?.Dispose();
                 request.Dispose();
-                return text;
+                return result;
             }
             catch (Exception ex)
             {
-                cts?.Dispose();
                 request?.Dispose();
                 errorAction?.Invoke();
                 Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
-                return null;
+                return default;
             }
         }
 
@@ -655,5 +601,6 @@ namespace OxGKit.Utilities.Requester
                 return (bytes / (1024 * 1024 * 1024 * 1f)).ToString("f2") + "GB";
             }
         }
+        #endregion
     }
 }

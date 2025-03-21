@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.4.2] - 2025-03-21
+- Fixed CancellationTokenSource disposal bug.
+- Optimized Requester code.
+
 ## [1.4.1] - 2025-03-20
 - Modified the Requester to support a timeout feature, with a default timeout of 180 seconds.
 

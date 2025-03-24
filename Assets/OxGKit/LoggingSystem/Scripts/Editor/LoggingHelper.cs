@@ -33,7 +33,7 @@ namespace OxGKit.LoggingSystem.Editor
             });
         }
 
-        [MenuItem("Assets/OxGKit/Convert loggersconfig.conf (BYTES <-> JSON)", false, -99)]
+        [MenuItem("Assets/OxGKit/Logging System/Convert loggersconfig.conf (BYTES [Cipher] <-> JSON [Plaintext])", false, -99)]
         private static void _ConvertConfigFile()
         {
             UnityEngine.Object selectedObject = Selection.activeObject;

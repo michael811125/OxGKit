@@ -12,10 +12,9 @@
 			"path": "Samples~/TweenDemo"
 		}
 	],
-	"dependencies": 
-	{
-		"com.domybest.lwmybox": "git+https://github.com/michael811125/LWMyBox.git",
-		"com.michaelo.oxgkit.timesystem": "git+https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts"
+	"dependencies": {
+		"com.domybest.lwmybox": "https://github.com/michael811125/LWMyBox.git",
+		"com.michaelo.oxgkit.timesystem": "https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts"
 	},
 	"author": {
 		"name": "MichaelO",

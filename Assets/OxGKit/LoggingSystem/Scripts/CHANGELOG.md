@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.3] - 2025-03-24
+- Added Async methods (can await).
+
 ## [1.2.2] - 2025-03-21
 - Added loggersconfig.conf.
 - Added support for Cipher and Plaintext formats (JSON, BYTES), allowing for conversion in either direction, with automatic parsing.

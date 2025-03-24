@@ -92,71 +92,166 @@ namespace OxGKit.LoggingSystem
 
         #region LoggersConfig APIs
         /// <summary>
-        /// Toggles the master logging switch to enable or disable all logger
+        /// [StartCoroutine] Toggles the master logging switch to enable or disable all logger
         /// </summary>
         /// <param name="logMainActive"></param>
         public static void ToggleMasterLogging(bool logMainActive)
         {
-            GetInstance().StartCoroutine(GetInstance()._LoadLoggersConfig((result) =>
-            {
-                result.ToggleMasterLogging(logMainActive);
-                GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
-            }, false, true));
+            GetInstance().StartCoroutine(ToggleMasterLoggingAsync(logMainActive));
         }
 
         /// <summary>
-        /// Sets the master logging level for all loggers
+        /// [Async] Toggles the master logging switch to enable or disable all logger
+        /// </summary>
+        /// <param name="logMainActive"></param>
+        /// <returns></returns>
+        public static IEnumerator ToggleMasterLoggingAsync(bool logMainActive)
+        {
+            LoggersConfig loggersConfig = null;
+            bool isCompleted = false;
+
+            yield return GetInstance()._LoadLoggersConfig((result) =>
+            {
+                loggersConfig = result;
+                loggersConfig.ToggleMasterLogging(logMainActive);
+                isCompleted = true;
+            }, false, true);
+
+            while (!isCompleted)
+                yield return null;
+
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Sets the master logging level for all loggers
         /// </summary>
         /// <param name="logMainLevel"></param>
         public static void LevelMasterLogging(LogLevel logMainLevel)
         {
-            GetInstance().StartCoroutine(GetInstance()._LoadLoggersConfig((result) =>
-            {
-                result.LevelMasterLogging(logMainLevel);
-                GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
-            }, false, true));
+            GetInstance().StartCoroutine(LevelMasterLoggingAsync(logMainLevel));
         }
 
         /// <summary>
-        /// Configures the specified logger's active state and log level
+        /// [Async] Sets the master logging level for all loggers
+        /// </summary>
+        /// <param name="logMainLevel"></param>
+        /// <returns></returns>
+        public static IEnumerator LevelMasterLoggingAsync(LogLevel logMainLevel)
+        {
+            LoggersConfig loggersConfig = null;
+            bool isCompleted = false;
+
+            yield return GetInstance()._LoadLoggersConfig((result) =>
+            {
+                loggersConfig = result;
+                loggersConfig.LevelMasterLogging(logMainLevel);
+                isCompleted = true;
+            }, false, true);
+
+            while (!isCompleted)
+                yield return null;
+
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Configures the specified logger's active state and log level
         /// </summary>
         /// <param name="loggerName"></param>
         /// <param name="logActive"></param>
         /// <param name="logLevel"></param>
         public static void ConfigureLogger(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All)
         {
-            GetInstance().StartCoroutine(GetInstance()._LoadLoggersConfig((result) =>
-            {
-                result.ConfigureLogger(loggerName, logActive, logLevel);
-                GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
-            }, false, true));
+            GetInstance().StartCoroutine(ConfigureLoggerAsync(loggerName, logActive, logLevel));
         }
 
         /// <summary>
-        /// Configures all loggers' active state and log level
+        /// [Async] Configures the specified logger's active state and log level
+        /// </summary>
+        /// <param name="loggerName"></param>
+        /// <param name="logActive"></param>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
+        public static IEnumerator ConfigureLoggerAsync(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All)
+        {
+            LoggersConfig loggersConfig = null;
+            bool isCompleted = false;
+
+            yield return GetInstance()._LoadLoggersConfig((result) =>
+            {
+                loggersConfig = result;
+                loggersConfig.ConfigureLogger(loggerName, logActive, logLevel);
+                isCompleted = true;
+            }, false, true);
+
+            while (!isCompleted)
+                yield return null;
+
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Configures all loggers' active state and log level
         /// </summary>
         /// <param name="logActive"></param>
         /// <param name="logLevel"></param>
         public static void ConfigureAllLoggers(bool logActive, LogLevel logLevel = LogLevel.All)
         {
-            GetInstance().StartCoroutine(GetInstance()._LoadLoggersConfig((result) =>
-            {
-                result.ConfigureAllLoggers(logActive, logLevel);
-                GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
-            }, false, true));
+            GetInstance().StartCoroutine(ConfigureAllLoggersAsync(logActive, logLevel));
         }
 
         /// <summary>
-        /// Set configuration file
+        /// [Async] Configures all loggers' active state and log level
+        /// </summary>
+        /// <param name="logActive"></param>
+        /// <param name="logLevel"></param>
+        public static IEnumerator ConfigureAllLoggersAsync(bool logActive, LogLevel logLevel = LogLevel.All)
+        {
+            LoggersConfig loggersConfig = null;
+            bool isCompleted = false;
+
+            yield return GetInstance()._LoadLoggersConfig((result) =>
+            {
+                loggersConfig = result;
+                loggersConfig.ConfigureAllLoggers(logActive, logLevel);
+                isCompleted = true;
+            }, false, true);
+
+            while (!isCompleted)
+                yield return null;
+
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Set configuration file
         /// </summary>
         /// <param name="loggersConfig"></param>
         public static void SetLoggersConfig(LoggersConfig loggersConfig)
         {
-            GetInstance().loggersConfig = null;
-            GetInstance().loggersConfig = loggersConfig;
-            GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(true));
+            GetInstance().StartCoroutine(SetLoggersConfigAsync(loggersConfig));
         }
 
+        /// <summary>
+        /// [Async] Set configuration file
+        /// </summary>
+        /// <param name="loggersConfig"></param>
+        /// <returns></returns>
+        public static IEnumerator SetLoggersConfigAsync(LoggersConfig loggersConfig)
+        {
+            GetInstance().loggersConfig = null;
+            GetInstance().loggersConfig = loggersConfig;
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// Load LoggersConfig
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="forceReset"></param>
+        /// <param name="isCustom"></param>
+        /// <returns></returns>
         private IEnumerator _LoadLoggersConfig(Action<LoggersConfig> result, bool forceReset, bool isCustom)
         {
             if (isCustom)
@@ -194,11 +289,20 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// Attempts to find and initialize all loggers with their settings
+        /// [StartCoroutine] Attempts to find and initialize all loggers with their settings
         /// </summary>
         public static void TryInitLoggers()
         {
-            GetInstance().StartCoroutine(GetInstance()._TryInitLoggers());
+            GetInstance().StartCoroutine(TryInitLoggersAsync());
+        }
+
+        /// <summary>
+        /// [Async] Attempts to find and initialize all loggers with their settings
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerator TryInitLoggersAsync()
+        {
+            yield return GetInstance()._TryInitLoggers();
         }
 
         private IEnumerator _TryInitLoggers()
@@ -211,11 +315,20 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// Attempts to load loggers based on the configuration
+        /// [StartCoroutine] Attempts to load loggers based on the configuration
         /// </summary>
         public static void TryLoadLoggers()
         {
-            GetInstance().StartCoroutine(GetInstance()._TryLoadLoggers(false));
+            GetInstance().StartCoroutine(TryLoadLoggersAsync());
+        }
+
+        /// <summary>
+        /// [Async] Attempts to load loggers based on the configuration
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerator TryLoadLoggersAsync()
+        {
+            yield return GetInstance()._TryLoadLoggers(false);
         }
 
         private IEnumerator _TryLoadLoggers(bool isCustom)
@@ -258,24 +371,56 @@ namespace OxGKit.LoggingSystem
         #endregion
 
         /// <summary>
-        /// Reload loggers again
+        /// [StartCoroutine] Reload loggers again
         /// </summary>
         public void ReloadLoggersConfig(Action<LoggersConfig> result = null)
         {
-            this.StartCoroutine(this._ReloadLoggersConfig(false, result));
-        }
-
-        public void ReloadFromLoggersConfig(Action<LoggersConfig> result = null)
-        {
-            this.StartCoroutine(this._LoadLoggersConfig(result, false, false));
+            this.StartCoroutine(this.ReloadLoggersConfigAsync(result));
         }
 
         /// <summary>
-        /// Clear loggers and reload again
+        /// [Async] Reload loggers again
+        /// </summary>
+        public IEnumerator ReloadLoggersConfigAsync(Action<LoggersConfig> result = null)
+        {
+            yield return this._ReloadLoggersConfig(false, result);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Reload loggers from config
+        /// </summary>
+        /// <param name="result"></param>
+        public void ReloadFromLoggersConfig(Action<LoggersConfig> result = null)
+        {
+            this.StartCoroutine(this.ReloadFromLoggersConfigAsync());
+        }
+
+        /// <summary>
+        /// [Async] Reload loggers from config
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public IEnumerator ReloadFromLoggersConfigAsync(Action<LoggersConfig> result = null)
+        {
+            yield return this._LoadLoggersConfig(result, false, false);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Clear loggers and reload again
         /// </summary>
         public void ResetLoggersConfig(Action<LoggersConfig> result = null)
         {
-            this.StartCoroutine(this._ResetLoggersConfig(result));
+            this.StartCoroutine(this.ResetLoggersConfigAsync(result));
+        }
+
+        /// <summary>
+        /// [Async] Clear loggers and reload again
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public IEnumerator ResetLoggersConfigAsync(Action<LoggersConfig> result = null)
+        {
+            yield return this._ResetLoggersConfig(result);
         }
 
         private IEnumerator _ResetLoggersConfig(Action<LoggersConfig> result)
@@ -294,6 +439,11 @@ namespace OxGKit.LoggingSystem
             }, forceReset, false);
         }
 
+        /// <summary>
+        /// Reload loggers config and set values
+        /// </summary>
+        /// <param name="loggersConfig"></param>
+        /// <param name="result"></param>
         public static void ReloadLoggersConfigAndSet(LoggersConfig loggersConfig, Action<LoggersConfig> result)
         {
             if (loggersConfig.loggerSettings.Count == 0)

@@ -244,17 +244,18 @@ namespace OxGKit.LoggingSystem
         /// <summary>
         /// 檢查日誌器激活狀態
         /// </summary>
-        /// <param name="level"></param>
+        /// <param name="logLevel"></param>
         /// <returns></returns>
-        public bool CheckLogActive(LogLevel level)
+        public bool CheckLogActive(LogLevel logLevel)
         {
             // 如果全域級別關閉, 則禁止所有日誌輸出
-            if (!logMainActive || logMainLevel == LogLevel.Off)
+            if (!logMainActive ||
+                logMainLevel == LogLevel.Off)
                 return false;
 
             // 如果全域級別允許該級別, 則允許記錄
             // 但是需要考慮全域級別的限制, 不能打印高於全域級別的日誌
-            if (logMainLevel.HasFlag(level))
+            if (logMainLevel.HasFlag(logLevel))
             {
                 switch (logMainLevel)
                 {
@@ -270,7 +271,7 @@ namespace OxGKit.LoggingSystem
 
                     // 檢查個別級別
                     default:
-                        return this.logActive && this.logLevel.HasFlag(level);
+                        return this.logActive && this.logLevel.HasFlag(logLevel);
                 }
             }
 

@@ -13,7 +13,7 @@ namespace OxGKit.LoggingSystem
             if (string.IsNullOrEmpty(url))
             {
                 Debug.LogWarning($"<color=#FF0000>Request failed. URL is null or empty.</color>");
-                successAction?.Invoke(null);
+                errorAction?.Invoke();
                 yield break;
             }
 
@@ -35,7 +35,6 @@ namespace OxGKit.LoggingSystem
             {
                 Debug.Log($"<color=#FF0000>Request timed out. URL: {url}, SpentTime: {timer} (s)</color>");
                 errorAction?.Invoke();
-                successAction?.Invoke(null);
                 www.Dispose();
                 yield break;
             }
@@ -45,7 +44,6 @@ namespace OxGKit.LoggingSystem
             {
                 Debug.Log($"<color=#FF0000>Request failed. URL: {url}, Error: {www.error}, SpentTime: {timer} (s)</color>");
                 errorAction?.Invoke();
-                successAction?.Invoke(null);
                 www.Dispose();
                 yield break;
             }
@@ -62,7 +60,7 @@ namespace OxGKit.LoggingSystem
             if (string.IsNullOrEmpty(url))
             {
                 Debug.LogWarning($"<color=#FF0000>Request failed. URL is null or empty.</color>");
-                successAction?.Invoke(null);
+                errorAction?.Invoke();
                 yield break;
             }
 
@@ -84,7 +82,6 @@ namespace OxGKit.LoggingSystem
             {
                 Debug.Log($"<color=#FF0000>Request timed out. URL: {url}, SpentTime: {timer} (s)</color>");
                 errorAction?.Invoke();
-                successAction?.Invoke(null);
                 www.Dispose();
                 yield break;
             }
@@ -94,7 +91,6 @@ namespace OxGKit.LoggingSystem
             {
                 Debug.Log($"<color=#FF0000>Request failed. URL: {url}, Error: {www.error}, SpentTime: {timer} (s)</color>");
                 errorAction?.Invoke();
-                successAction?.Invoke(null);
                 www.Dispose();
                 yield break;
             }
@@ -107,7 +103,7 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// 獲取 UnityWebRequest StreamingAssets 路徑 (OSX and iOS 需要 + file://)
+        /// 獲取 WWW StreamingAssets 路徑 (OSX and iOS 需要 + file://)
         /// </summary>
         /// <returns></returns>
         public static string GetRequestStreamingAssetsPath()

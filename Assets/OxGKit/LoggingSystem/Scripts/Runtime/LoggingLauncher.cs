@@ -265,7 +265,7 @@ namespace OxGKit.LoggingSystem
                 string url = LoggersConfig.GetStreamingAssetsConfigRequestPath();
                 yield return WebRequester.RequestBytes(url, (data) =>
                 {
-                    if (data.Length > 0)
+                    if (data != null && data.Length > 0)
                     {
                         var configInfo = BinaryHelper.DecryptToString(data);
                         currentConfigFileType = configInfo.type;

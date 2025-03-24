@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.4] - 2025-03-25
+- Fixed WebRequest callback bug issue.
+
 ## [1.2.3] - 2025-03-24
 - Added Async methods (can await).
 

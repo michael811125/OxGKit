@@ -14,5 +14,10 @@ namespace OxGKit.Utilities.DontDestroy
             this.gameObject.name = $"{this._runtimeName}";
             DontDestroyOnLoad(this);
         }
+
+        public void SetRuntimeName(string runtimeName)
+        {
+            this.gameObject.name = this._runtimeName = runtimeName;
+        }
     }
 }

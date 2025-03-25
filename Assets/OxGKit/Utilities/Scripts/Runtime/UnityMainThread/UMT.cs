@@ -83,7 +83,7 @@ namespace OxGKit.Utilities.UnityMainThread
             this.StopCoroutine(methodName);
         }
 
-        public void CancelAllCoroutine()
+        public void CancelAllCoroutines()
         {
             this.StopAllCoroutines();
         }

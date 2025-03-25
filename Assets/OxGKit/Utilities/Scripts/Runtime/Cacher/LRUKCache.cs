@@ -9,8 +9,18 @@ namespace OxGKit.Utilities.Cacher
         private readonly int _k;
         private readonly Dictionary<TKey, LinkedListNode<CacheItem>> _cache;
         private readonly LinkedList<CacheItem> _lruList;
+        private readonly object _syncRoot = new object();
 
-        public int Count => this._cache.Count;
+        public int Count
+        {
+            get
+            {
+                lock (this._syncRoot)
+                {
+                    return this._cache?.Count ?? 0;
+                }
+            }
+        }
 
         public LRUKCache(int capacity, int k)
         {
@@ -22,128 +32,169 @@ namespace OxGKit.Utilities.Cacher
 
         public TKey[] GetKeys()
         {
-            return this._cache.Keys.ToArray();
+            lock (this._syncRoot)
+            {
+                return this._cache.Keys.ToArray();
+            }
         }
 
         public bool Contains(TKey key)
         {
-            return this._cache.ContainsKey(key);
+            lock (this._syncRoot)
+            {
+                return this._cache.ContainsKey(key);
+            }
         }
 
         public TValue Get(TKey key)
         {
-            if (this._cache.TryGetValue(key, out var node))
+            lock (this._syncRoot)
             {
-                this.IncrementCounter(node.Value.Counter);
-                this._lruList.Remove(node);
-                this._lruList.AddLast(node);
-                return node.Value.Value;
+                if (this._cache.TryGetValue(key, out var node))
+                {
+                    // 對當前節點更新 Counter
+                    if (node.Value.Counter < this._k)
+                    {
+                        node.Value.Counter++;
+                    }
+                    // 將節點移到最新使用 (LRU 列表尾部)
+                    this._MoveToEndOfLRU(node);
+                    return node.Value.Value;
+                }
+                return default;
             }
-            return default;
         }
 
         public void Add(TKey key, TValue value)
         {
-            if (this._cache.Count >= this._capacity && !this._cache.ContainsKey(key))
+            lock (this._syncRoot)
             {
-                this.Evict();
-            }
+                // 當緩存滿且新增的是新鍵時進行淘汰
+                if (this._cache.Count >= this._capacity && !this._cache.ContainsKey(key))
+                {
+                    this.Evict();
+                }
 
-            if (this._cache.TryGetValue(key, out var node))
-            {
-                node.Value.Value = value;
-                this.IncrementCounter(node.Value.Counter);
-                this._lruList.Remove(node);
-                this._lruList.AddLast(node);
-            }
-            else
-            {
-                var newNode = new LinkedListNode<CacheItem>(new CacheItem(key, value));
-                this._cache.Add(key, newNode);
-                this.IncrementCounter(newNode.Value.Counter);
-                this._lruList.AddLast(newNode);
+                if (this._cache.TryGetValue(key, out var node))
+                {
+                    node.Value.Value = value;
+                    if (node.Value.Counter < this._k)
+                    {
+                        node.Value.Counter++;
+                    }
+                    this._MoveToEndOfLRU(node);
+                }
+                else
+                {
+                    var newNode = new LinkedListNode<CacheItem>(new CacheItem(key, value));
+                    // 初始時將 Counter 設為 1
+                    newNode.Value.Counter = 1;
+                    this._cache.Add(key, newNode);
+                    this._lruList.AddLast(newNode);
+                }
             }
         }
 
         public bool Remove(TKey key)
         {
-            if (this._cache.TryGetValue(key, out var node))
+            lock (this._syncRoot)
             {
-                // For Unity
-                var item = node.Value.Value;
-                if (item is UnityEngine.Object) UnityEngine.Object.Destroy(item as UnityEngine.Object);
-                node.Value.Value = default;
-                this._lruList.Remove(node);
-                this._cache.Remove(key);
-                return true;
+                if (this._cache.TryGetValue(key, out var node))
+                {
+                    // For Unity
+                    var item = node.Value.Value;
+                    if (item is UnityEngine.Object)
+                        UnityEngine.Object.Destroy(item as UnityEngine.Object);
+                    this._lruList.Remove(node);
+                    this._cache.Remove(key);
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         public void Clear()
         {
-            var keys = this.GetKeys();
-            foreach (var key in keys)
+            lock (this._syncRoot)
             {
-                this.Remove(key);
-            }
-            this._lruList.Clear();
-            this._cache.Clear();
-        }
-
-        protected void IncrementCounter(int counter)
-        {
-            foreach (var node in this._cache.Values)
-            {
-                if (node.Value.Counter < _k || node.Value.Counter == counter)
+                var keys = this.GetKeys();
+                foreach (var key in keys)
                 {
-                    node.Value.Counter++;
+                    this.Remove(key);
                 }
+                this._lruList.Clear();
+                this._cache.Clear();
             }
         }
 
-        protected void DecrementCounters()
+        /// <summary>
+        /// 將節點移動到 LRU 列表的尾部 (最新使用)
+        /// </summary>
+        private void _MoveToEndOfLRU(LinkedListNode<CacheItem> node)
         {
-            foreach (var node in this._cache.Values)
-            {
-                node.Value.Counter--;
-            }
+            this._lruList.Remove(node);
+            this._lruList.AddLast(node);
         }
 
-        protected int FindMinCounter()
-        {
-            var minCounter = int.MaxValue;
-
-            foreach (var node in this._cache.Values)
-            {
-                if (node.Value.Counter < minCounter)
-                {
-                    minCounter = node.Value.Counter;
-                }
-            }
-
-            return minCounter;
-        }
-
+        /// <summary>
+        /// 淘汰一個最久未使用且人氣最低的項目
+        /// </summary>
         protected void Evict()
         {
-            var minCounter = this.FindMinCounter();
-            var node = this._lruList.First;
-
-            while (node != null)
+            lock (this._syncRoot)
             {
-                if (node.Value.Counter <= this._k && node.Value.Counter == minCounter)
+                // 從 LRU 列表首端開始尋找淘汰項目
+                var node = this._lruList.First;
+                int minCounter = this.FindMinCounter();
+                while (node != null)
                 {
-                    // For Unity
-                    var item = node.Value.Value;
-                    if (item is UnityEngine.Object) UnityEngine.Object.Destroy(item as UnityEngine.Object);
-                    node.Value.Value = default;
-                    this._cache.Remove(node.Value.Key);
-                    this.DecrementCounters();
-                    this._lruList.Remove(node);
-                    break;
+                    if (node.Value.Counter <= this._k && node.Value.Counter == minCounter)
+                    {
+                        var item = node.Value.Value;
+                        if (item is UnityEngine.Object)
+                            UnityEngine.Object.Destroy(item as UnityEngine.Object);
+                        this._cache.Remove(node.Value.Key);
+                        // 淘汰時對其餘項目進行衰減, 使人氣動態調整
+                        this.DecrementCounters();
+                        this._lruList.Remove(node);
+                        break;
+                    }
+                    node = node.Next;
                 }
-                node = node.Next;
+            }
+        }
+
+        /// <summary>
+        /// 尋找目前所有項目的最小 Counter
+        /// </summary>
+        protected int FindMinCounter()
+        {
+            lock (this._syncRoot)
+            {
+                int minCounter = int.MaxValue;
+                foreach (var node in this._cache.Values)
+                {
+                    if (node.Value.Counter < minCounter)
+                    {
+                        minCounter = node.Value.Counter;
+                    }
+                }
+                return minCounter;
+            }
+        }
+
+        /// <summary>
+        /// 淘汰後對所有項目進行衰減
+        /// </summary>
+        protected void DecrementCounters()
+        {
+            lock (this._syncRoot)
+            {
+                foreach (var node in this._cache.Values)
+                {
+                    if (node.Value.Counter > 0)
+                        node.Value.Counter--;
+                }
             }
         }
 

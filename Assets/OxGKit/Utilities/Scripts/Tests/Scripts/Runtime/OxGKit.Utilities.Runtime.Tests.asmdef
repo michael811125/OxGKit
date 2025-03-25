@@ -1,0 +1,23 @@
+{
+    "name": "OxGKit.Utilities.Runtime.Tests",
+    "rootNamespace": "OxGKit.Utilities.Tests",
+    "references": [
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:f3b8d4b152174ca47b578c325544e581"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## [1.4.4] - 2025-03-26
+- Added Tests.
+- Renamed UMT.CancelAllCoroutines().
+- Optimized Cacher and added thread lock feature.
+
 ## [1.4.3] - 2025-03-25
 - Modified Requester's errorAction to return ErrorInfo.
 - Fixed handling of successAction and errorAction invocation logic.

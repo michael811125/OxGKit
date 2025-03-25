@@ -560,7 +560,7 @@ namespace OxGKit.Utilities.Requester
                     string errorMsg = request.error;
                     errorAction?.Invoke(errorMsg);
                     request.Dispose();
-                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
+                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, ErrorMsg: {errorMsg}</color>");
                     return default;
                 }
 
@@ -576,7 +576,7 @@ namespace OxGKit.Utilities.Requester
             }
             catch (Exception ex)
             {
-                string errorMsg = string.IsNullOrEmpty(request?.error) ? $"RequestAPI failed. URL: {url}, Exception: {ex}" : request.error;
+                string errorMsg = string.IsNullOrEmpty(request?.error) ? $"Request failed. URL: {url}, Exception: {ex}" : request.error;
                 errorAction?.Invoke(errorMsg);
                 request?.Dispose();
                 Logging.PrintWarning<Logger>($"<color=#FF0000>{errorMsg}</color>");

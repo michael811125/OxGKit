@@ -13,6 +13,11 @@ namespace OxGKit.Utilities.Cacher
         private readonly HashSet<TKey> _b1b2;
         private readonly object _syncRoot = new object();
 
+        /// <summary>
+        /// 特殊處理
+        /// </summary>
+        private IRemoveCacheHandler<TKey, TValue> _removeCacheHandler;
+
         public int Count
         {
             get
@@ -34,6 +39,12 @@ namespace OxGKit.Utilities.Cacher
             this._t1 = new LinkedList<TKey>();
             this._t2 = new LinkedList<TKey>();
             this._b1b2 = new HashSet<TKey>();
+            this._removeCacheHandler = new UnityObjectRemoveCacheHandler<TKey, TValue>();
+        }
+
+        public ARCCache(int capacity, IRemoveCacheHandler<TKey, TValue> removeCacheHandler) : this(capacity)
+        {
+            this._removeCacheHandler = removeCacheHandler;
         }
 
         public TKey[] GetKeys()
@@ -140,10 +151,9 @@ namespace OxGKit.Utilities.Cacher
 
         private void _RemoveCacheEntry(TKey key)
         {
-            // For Unity
+            // For remove handler
             var item = this._cache[key];
-            if (item is UnityEngine.Object)
-                UnityEngine.Object.Destroy(item as UnityEngine.Object);
+            this._removeCacheHandler?.RemoveCache(key, item);
             this._cache.Remove(key);
         }
 

@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## [1.4.5] - 2025-03-26
+- Added IRemoveCacheHandler interface for Cacher.
+- Modified Requester can new (instance).
+- Fixed LRUK minCounter bug issue.
+
 ## [1.4.4] - 2025-03-26
 - Added Tests.
 - Renamed UMT.CancelAllCoroutines().

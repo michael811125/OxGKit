@@ -12,6 +12,11 @@ namespace OxGKit.Utilities.Cacher
         private readonly LinkedList<CacheItem> _lruList;
         private readonly object _syncRoot = new object();
 
+        /// <summary>
+        /// 特殊處理
+        /// </summary>
+        private IRemoveCacheHandler<TKey, TValue> _removeCacheHandler;
+
         public int Count
         {
             get
@@ -31,6 +36,12 @@ namespace OxGKit.Utilities.Cacher
             this._capacity = capacity;
             this._cache = new ConcurrentDictionary<TKey, LinkedListNode<CacheItem>>();
             this._lruList = new LinkedList<CacheItem>();
+            this._removeCacheHandler = new UnityObjectRemoveCacheHandler<TKey, TValue>();
+        }
+
+        public LRUCache(int capacity, IRemoveCacheHandler<TKey, TValue> removeCacheHandler) : this(capacity)
+        {
+            this._removeCacheHandler = removeCacheHandler;
         }
 
         public TKey[] GetKeys()
@@ -104,10 +115,9 @@ namespace OxGKit.Utilities.Cacher
             {
                 if (this._cache.TryRemove(key, out var node))
                 {
-                    // For Unity
+                    // For remove handler
                     var item = node.Value.Value;
-                    if (item is UnityEngine.Object)
-                        UnityEngine.Object.Destroy(item as UnityEngine.Object);
+                    this._removeCacheHandler?.RemoveCache(key, item);
                     node.Value.Value = default;
                     // 從 LRU 列表中移除
                     this._lruList.Remove(node);
@@ -138,12 +148,12 @@ namespace OxGKit.Utilities.Cacher
                 var lastNode = this._lruList.Last;
                 if (lastNode != null)
                 {
-                    // For Unity
+                    // For remove handler
+                    var key = lastNode.Value.Key;
                     var item = lastNode.Value.Value;
-                    if (item is UnityEngine.Object)
-                        UnityEngine.Object.Destroy(item as UnityEngine.Object);
+                    this._removeCacheHandler?.RemoveCache(key, item);
                     lastNode.Value.Value = default;
-                    this._cache.TryRemove(lastNode.Value.Key, out _);
+                    this._cache.TryRemove(key, out _);
                     this._lruList.RemoveLast();
                 }
             }

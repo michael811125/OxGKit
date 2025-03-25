@@ -15,236 +15,333 @@ namespace OxGKit.Utilities.Requester
         public Exception exception;
     }
 
-    public static class Requester
+    public class Requester
     {
-        private static ARCCache<string, AudioClip> _arcAudios = null;
-        private static ARCCache<string, Texture2D> _arcTexture2ds = null;
-        private static ARCCache<string, string> _arcTexts = null;
-        private static LRUCache<string, AudioClip> _lruAudios = null;
-        private static LRUCache<string, Texture2D> _lruTexture2ds = null;
-        private static LRUCache<string, string> _lruTexts = null;
+        private ARCCache<string, AudioClip> _arcAudios = null;
+        private ARCCache<string, Texture2D> _arcTexture2ds = null;
+        private ARCCache<string, string> _arcTexts = null;
+        private LRUCache<string, AudioClip> _lruAudios = null;
+        private LRUCache<string, Texture2D> _lruTexture2ds = null;
+        private LRUCache<string, string> _lruTexts = null;
 
         private const int _MAX_REQUEST_TIME_SECONDS = 180;
+
+        private static readonly object _locker = new object();
+        private static Requester _instance;
+
+        internal static Requester GetInstance()
+        {
+            if (_instance == null)
+            {
+                lock (_locker)
+                {
+                    if (_instance == null)
+                        _instance = new Requester();
+                }
+            }
+            return _instance;
+        }
 
         #region ARC Audio
         public static void InitARCCacheCapacityForAudio(int capacity = 20)
         {
-            if (_arcAudios == null)
-                _arcAudios = new ARCCache<string, AudioClip>(capacity);
+            GetInstance().SelfInitARCCacheCapacityForAudio(capacity);
+        }
+
+        public void SelfInitARCCacheCapacityForAudio(int capacity = 20)
+        {
+            if (this._arcAudios == null)
+                this._arcAudios = new ARCCache<string, AudioClip>(capacity);
             else
             {
-                ClearARCCacheCapacityForAudio();
-                _arcAudios = new ARCCache<string, AudioClip>(capacity);
+                this.SelfClearARCCacheCapacityForAudio();
+                this._arcAudios = new ARCCache<string, AudioClip>(capacity);
             }
 
             // Only allow one cache type (Clear LRU)
-            ClearLRUCacheCapacityForAudio();
-            _lruAudios = null;
+            this.SelfClearLRUCacheCapacityForAudio();
+            this._lruAudios = null;
         }
 
         public static bool RemoveFromARCCacheForAudio(string url)
         {
-            if (_arcAudios != null)
-                return _arcAudios.Remove(url);
+            return GetInstance().SelfRemoveFromARCCacheForAudio(url);
+        }
+
+        public bool SelfRemoveFromARCCacheForAudio(string url)
+        {
+            if (this._arcAudios != null)
+                return this._arcAudios.Remove(url);
             return false;
         }
 
         public static void ClearARCCacheCapacityForAudio()
         {
-            if (_arcAudios != null)
-                _arcAudios.Clear();
+            GetInstance().SelfClearARCCacheCapacityForAudio();
+        }
+
+        public void SelfClearARCCacheCapacityForAudio()
+        {
+            if (this._arcAudios != null)
+                this._arcAudios.Clear();
         }
         #endregion
 
         #region ARC Texture2d
         public static void InitARCCacheCapacityForTexture2d(int capacity = 60)
         {
-            if (_arcTexture2ds == null)
-                _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
+            GetInstance().SelfInitARCCacheCapacityForTexture2d(capacity);
+        }
+
+        public void SelfInitARCCacheCapacityForTexture2d(int capacity = 60)
+        {
+            if (this._arcTexture2ds == null)
+                this._arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
             else
             {
-                ClearARCCacheCapacityForTexture2d();
-                _arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
+                this.SelfClearARCCacheCapacityForTexture2d();
+                this._arcTexture2ds = new ARCCache<string, Texture2D>(capacity);
             }
 
             // Only allow one cache type (Clear LRU)
-            ClearLRUCacheCapacityForTexture2d();
-            _lruTexture2ds = null;
+            this.SelfClearLRUCacheCapacityForTexture2d();
+            this._lruTexture2ds = null;
         }
 
         public static bool RemoveFromARCCacheForTexture2d(string url)
         {
-            if (_arcTexture2ds != null)
-                return _arcTexture2ds.Remove(url);
+            return GetInstance().SelfRemoveFromARCCacheForTexture2d(url);
+        }
+
+        public bool SelfRemoveFromARCCacheForTexture2d(string url)
+        {
+            if (this._arcTexture2ds != null)
+                return this._arcTexture2ds.Remove(url);
             return false;
         }
 
         public static void ClearARCCacheCapacityForTexture2d()
         {
-            if (_arcTexture2ds != null)
-            {
-                string[] urls = _arcTexture2ds.GetKeys();
-                foreach (var url in urls)
-                {
-                    RemoveFromARCCacheForTexture2d(url);
-                }
-                _arcTexture2ds.Clear();
-            }
+            GetInstance().SelfClearARCCacheCapacityForTexture2d();
+        }
+
+        public void SelfClearARCCacheCapacityForTexture2d()
+        {
+            if (this._arcTexture2ds != null)
+                this._arcTexture2ds.Clear();
         }
         #endregion
 
         #region ARC Text
         public static void InitARCCacheCapacityForText(int capacity = 100)
         {
-            if (_arcTexts == null)
-                _arcTexts = new ARCCache<string, string>(capacity);
+            GetInstance().SelfInitARCCacheCapacityForText(capacity);
+        }
+
+        public void SelfInitARCCacheCapacityForText(int capacity = 100)
+        {
+            if (this._arcTexts == null)
+                this._arcTexts = new ARCCache<string, string>(capacity);
             else
             {
-                ClearARCCacheCapacityForText();
-                _arcTexts = new ARCCache<string, string>(capacity);
+                this.SelfClearARCCacheCapacityForText();
+                this._arcTexts = new ARCCache<string, string>(capacity);
             }
 
             // Only allow one cache type (Clear LRU)
-            ClearLRUCacheCapacityForText();
-            _lruTexts = null;
+            this.SelfClearLRUCacheCapacityForText();
+            this._lruTexts = null;
         }
 
         public static bool RemoveFromARCCacheForText(string url)
         {
-            if (_arcTexts != null)
-                return _arcTexts.Remove(url);
+            return GetInstance().SelfRemoveFromARCCacheForText(url);
+        }
+
+        public bool SelfRemoveFromARCCacheForText(string url)
+        {
+            if (this._arcTexts != null)
+                return this._arcTexts.Remove(url);
             return false;
         }
 
         public static void ClearARCCacheCapacityForText()
         {
-            if (_arcTexts != null)
-                _arcTexts.Clear();
+            GetInstance().SelfClearARCCacheCapacityForText();
+        }
+
+        public void SelfClearARCCacheCapacityForText()
+        {
+            if (this._arcTexts != null)
+                this._arcTexts.Clear();
         }
         #endregion
 
         #region LRU Audio
         public static void InitLRUCacheCapacityForAudio(int capacity = 20)
         {
-            if (_lruAudios == null)
-                _lruAudios = new LRUCache<string, AudioClip>(capacity);
+            GetInstance().SelfInitLRUCacheCapacityForAudio(capacity);
+        }
+
+        public void SelfInitLRUCacheCapacityForAudio(int capacity = 20)
+        {
+            if (this._lruAudios == null)
+                this._lruAudios = new LRUCache<string, AudioClip>(capacity);
             else
             {
-                ClearLRUCacheCapacityForAudio();
-                _lruAudios = new LRUCache<string, AudioClip>(capacity);
+                this.SelfClearLRUCacheCapacityForAudio();
+                this._lruAudios = new LRUCache<string, AudioClip>(capacity);
             }
 
             // Only allow one cache type (Clear ARC)
-            ClearARCCacheCapacityForAudio();
-            _arcAudios = null;
+            this.SelfClearARCCacheCapacityForAudio();
+            this._arcAudios = null;
         }
 
         public static bool RemoveFromLRUCacheForAudio(string url)
         {
-            if (_lruAudios != null)
-                return _lruAudios.Remove(url);
+            return GetInstance().SelfRemoveFromLRUCacheForAudio(url);
+        }
+
+        public bool SelfRemoveFromLRUCacheForAudio(string url)
+        {
+            if (this._lruAudios != null)
+                return this._lruAudios.Remove(url);
             return false;
         }
 
         public static void ClearLRUCacheCapacityForAudio()
         {
-            if (_lruAudios != null)
-                _lruAudios.Clear();
+            GetInstance().SelfClearLRUCacheCapacityForAudio();
+        }
+
+        public void SelfClearLRUCacheCapacityForAudio()
+        {
+            if (this._lruAudios != null)
+                this._lruAudios.Clear();
         }
         #endregion
 
         #region LRU Texture2d
         public static void InitLRUCacheCapacityForTexture2d(int capacity = 60)
         {
-            if (_lruTexture2ds == null)
-                _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
+            GetInstance().SelfInitLRUCacheCapacityForTexture2d(capacity);
+        }
+
+        public void SelfInitLRUCacheCapacityForTexture2d(int capacity = 60)
+        {
+            if (this._lruTexture2ds == null)
+                this._lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
             else
             {
-                ClearLRUCacheCapacityForTexture2d();
-                _lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
+                this.SelfClearLRUCacheCapacityForTexture2d();
+                this._lruTexture2ds = new LRUCache<string, Texture2D>(capacity);
             }
 
             // Only allow one cache type (Clear ARC)
-            ClearARCCacheCapacityForTexture2d();
-            _arcTexture2ds = null;
+            this.SelfClearARCCacheCapacityForTexture2d();
+            this._arcTexture2ds = null;
         }
 
         public static bool RemoveFromLRUCacheForTexture2d(string url)
         {
-            if (_lruTexture2ds != null)
-                return _lruTexture2ds.Remove(url);
+            return GetInstance().SelfRemoveFromLRUCacheForTexture2d(url);
+        }
+
+        public bool SelfRemoveFromLRUCacheForTexture2d(string url)
+        {
+            if (this._lruTexture2ds != null)
+                return this._lruTexture2ds.Remove(url);
             return false;
         }
 
         public static void ClearLRUCacheCapacityForTexture2d()
         {
-            if (_lruTexture2ds != null)
-            {
-                string[] urls = _lruTexture2ds.GetKeys();
-                foreach (var url in urls)
-                {
-                    RemoveFromLRUCacheForTexture2d(url);
-                }
-                _lruTexture2ds.Clear();
-            }
+            GetInstance().SelfClearLRUCacheCapacityForTexture2d();
+        }
+
+        public void SelfClearLRUCacheCapacityForTexture2d()
+        {
+            if (this._lruTexture2ds != null)
+                this._lruTexture2ds.Clear();
         }
         #endregion
 
         #region LRU Text
         public static void InitLRUCacheCapacityForText(int capacity = 80)
         {
-            if (_lruTexts == null)
-                _lruTexts = new LRUCache<string, string>(capacity);
+            GetInstance().SelfInitLRUCacheCapacityForText(capacity);
+        }
+
+        public void SelfInitLRUCacheCapacityForText(int capacity = 80)
+        {
+            if (this._lruTexts == null)
+                this._lruTexts = new LRUCache<string, string>(capacity);
             else
             {
-                ClearLRUCacheCapacityForText();
-                _lruTexts = new LRUCache<string, string>(capacity);
+                this.SelfClearLRUCacheCapacityForText();
+                this._lruTexts = new LRUCache<string, string>(capacity);
             }
 
             // Only allow one cache type (Clear ARC)
-            ClearARCCacheCapacityForText();
-            _arcTexts = null;
+            this.SelfClearARCCacheCapacityForText();
+            this._arcTexts = null;
         }
 
         public static bool RemoveFromLRUCacheForText(string url)
         {
-            if (_lruTexts != null)
-                return _lruTexts.Remove(url);
+            return GetInstance().SelfRemoveFromLRUCacheForText(url);
+        }
+
+        public bool SelfRemoveFromLRUCacheForText(string url)
+        {
+            if (this._lruTexts != null)
+                return this._lruTexts.Remove(url);
             return false;
         }
 
         public static void ClearLRUCacheCapacityForText()
         {
-            if (_lruTexts != null)
-                _lruTexts.Clear();
+            GetInstance().SelfClearLRUCacheCapacityForText();
+        }
+
+        public void SelfClearLRUCacheCapacityForText()
+        {
+            if (this._lruTexts != null)
+                this._lruTexts.Clear();
         }
         #endregion
+
+        public static bool AutoRemoveFromCaches(string url)
+        {
+            return GetInstance().SelfAutoRemoveFromCaches(url);
+        }
 
         /// <summary>
         /// Searching all caches and remove it
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static bool AutoRemoveFromCaches(string url)
+        public bool SelfAutoRemoveFromCaches(string url)
         {
             do
             {
-                bool finished = RemoveFromARCCacheForAudio(url);
+                bool finished = this.SelfRemoveFromARCCacheForAudio(url);
                 if (finished)
                     return true;
-                finished = RemoveFromARCCacheForTexture2d(url);
+                finished = this.SelfRemoveFromARCCacheForTexture2d(url);
                 if (finished)
                     return true;
-                finished = RemoveFromARCCacheForText(url);
+                finished = this.SelfRemoveFromARCCacheForText(url);
                 if (finished)
                     return true;
-                finished = RemoveFromLRUCacheForAudio(url);
+                finished = this.SelfRemoveFromLRUCacheForAudio(url);
                 if (finished)
                     return true;
-                finished = RemoveFromLRUCacheForTexture2d(url);
+                finished = this.SelfRemoveFromLRUCacheForTexture2d(url);
                 if (finished)
                     return true;
-                finished = RemoveFromLRUCacheForText(url);
+                finished = this.SelfRemoveFromLRUCacheForText(url);
                 if (finished)
                     return true;
                 return false;
@@ -253,12 +350,33 @@ namespace OxGKit.Utilities.Requester
 
         public static void ClearAllCaches()
         {
-            ClearARCCacheCapacityForAudio();
-            ClearARCCacheCapacityForText();
-            ClearARCCacheCapacityForTexture2d();
-            ClearLRUCacheCapacityForAudio();
-            ClearLRUCacheCapacityForText();
-            ClearLRUCacheCapacityForTexture2d();
+            GetInstance().SelfClearAllCaches();
+        }
+
+        public void SelfClearAllCaches()
+        {
+            this.SelfClearARCCacheCapacityForAudio();
+            this.SelfClearARCCacheCapacityForText();
+            this.SelfClearARCCacheCapacityForTexture2d();
+            this.SelfClearLRUCacheCapacityForAudio();
+            this.SelfClearLRUCacheCapacityForText();
+            this.SelfClearLRUCacheCapacityForTexture2d();
+        }
+
+        /// <summary>
+        /// Audio reques
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="audioType"></param>
+        /// <param name="successAction"></param>
+        /// <param name="errorAction"></param>
+        /// <param name="cts"></param>
+        /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <returns></returns>
+        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        {
+            return await GetInstance().SelfRequestAudio(url, audioType, successAction, errorAction, cts, cached, timeoutSeconds);
         }
 
         /// <summary>
@@ -272,7 +390,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public async UniTask<AudioClip> SelfRequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (CheckUrlMissing(url, errorAction))
                 return null;
@@ -282,14 +400,14 @@ namespace OxGKit.Utilities.Requester
             if (cached)
             {
                 // ARCCache
-                if (_arcAudios != null)
+                if (this._arcAudios != null)
                 {
-                    audioClip = _arcAudios.Get(url);
+                    audioClip = this._arcAudios.Get(url);
                 }
                 // LRUCache
-                else if (_lruAudios != null)
+                else if (this._lruAudios != null)
                 {
-                    audioClip = _lruAudios.Get(url);
+                    audioClip = this._lruAudios.Get(url);
                 }
             }
 
@@ -317,16 +435,16 @@ namespace OxGKit.Utilities.Requester
             if (cached && audioClip != null)
             {
                 // ARCCache
-                if (_arcAudios != null)
+                if (this._arcAudios != null)
                 {
-                    _arcAudios.Add(url, audioClip);
-                    audioClip = _arcAudios.Get(url);
+                    this._arcAudios.Add(url, audioClip);
+                    audioClip = this._arcAudios.Get(url);
                 }
                 // LRUCache
-                else if (_lruAudios != null)
+                else if (this._lruAudios != null)
                 {
-                    _lruAudios.Add(url, audioClip);
-                    audioClip = _lruAudios.Get(url);
+                    this._lruAudios.Add(url, audioClip);
+                    audioClip = this._lruAudios.Get(url);
                 }
             }
 
@@ -348,6 +466,21 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
+            return await GetInstance().SelfRequestTexture2D(url, successAction, errorAction, cts, cached, timeoutSeconds);
+        }
+
+        /// <summary>
+        /// Texture2D request
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="successAction"></param>
+        /// <param name="errorAction"></param>
+        /// <param name="cts"></param>
+        /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <returns></returns>
+        public async UniTask<Texture2D> SelfRequestTexture2D(string url, Action<Texture2D> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        {
             if (CheckUrlMissing(url, errorAction))
                 return null;
 
@@ -356,14 +489,14 @@ namespace OxGKit.Utilities.Requester
             if (cached)
             {
                 // ARCCache
-                if (_arcTexture2ds != null)
+                if (this._arcTexture2ds != null)
                 {
-                    t2d = _arcTexture2ds.Get(url);
+                    t2d = this._arcTexture2ds.Get(url);
                 }
                 // LRUCache
-                else if (_lruTexture2ds != null)
+                else if (this._lruTexture2ds != null)
                 {
-                    t2d = _lruTexture2ds.Get(url);
+                    t2d = this._lruTexture2ds.Get(url);
                 }
             }
 
@@ -391,16 +524,16 @@ namespace OxGKit.Utilities.Requester
             if (cached && t2d != null)
             {
                 // ARCCache
-                if (_arcTexture2ds != null)
+                if (this._arcTexture2ds != null)
                 {
-                    _arcTexture2ds.Add(url, t2d);
-                    t2d = _arcTexture2ds.Get(url);
+                    this._arcTexture2ds.Add(url, t2d);
+                    t2d = this._arcTexture2ds.Get(url);
                 }
                 // LRUCache
-                else if (_lruTexture2ds != null)
+                else if (this._lruTexture2ds != null)
                 {
-                    _lruTexture2ds.Add(url, t2d);
-                    t2d = _lruTexture2ds.Get(url);
+                    this._lruTexture2ds.Add(url, t2d);
+                    t2d = this._lruTexture2ds.Get(url);
                 }
             }
 
@@ -427,7 +560,27 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action<ErrorInfo> errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            var t2d = await RequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
+            return await GetInstance().SelfRequestSprite(url, successAction, errorAction, position, pivot, pixelPerUnit, extrude, meshType, cts, cached, timeoutSeconds);
+        }
+
+        /// <summary>
+        /// Sprite request
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="successAction"></param>
+        /// <param name="errorAction"></param>
+        /// <param name="position"></param>
+        /// <param name="pivot"></param>
+        /// <param name="pixelPerUnit"></param>
+        /// <param name="extrude"></param>
+        /// <param name="meshType"></param>
+        /// <param name="cts"></param>
+        /// <param name="cached"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <returns></returns>
+        public async UniTask<Sprite> SelfRequestSprite(string url, Action<Sprite> successAction = null, Action<ErrorInfo> errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        {
+            var t2d = await this.SelfRequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
 
             if (t2d != null)
             {
@@ -451,6 +604,20 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
         {
+            return await GetInstance().SelfRequestBytes(url, successAction, errorAction, cts, timeoutSeconds);
+        }
+
+        /// <summary>
+        /// File bytes request
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="successAction"></param>
+        /// <param name="errorAction"></param>
+        /// <param name="cts"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <returns></returns>
+        public async UniTask<byte[]> SelfRequestBytes(string url, Action<byte[]> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
+        {
             if (CheckUrlMissing(url, errorAction))
                 return null;
 
@@ -470,6 +637,11 @@ namespace OxGKit.Utilities.Requester
             return bytes;
         }
 
+        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        {
+            return await GetInstance().SelfRequestText(url, successAction, errorAction, cts, cached, timeoutSeconds);
+        }
+
         /// <summary>
         /// File text request
         /// </summary>
@@ -480,7 +652,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public async UniTask<string> SelfRequestText(string url, Action<string> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (CheckUrlMissing(url, errorAction))
                 return null;
@@ -490,14 +662,14 @@ namespace OxGKit.Utilities.Requester
             if (cached)
             {
                 // ARCCache
-                if (_arcTexts != null)
+                if (this._arcTexts != null)
                 {
-                    text = _arcTexts.Get(url);
+                    text = this._arcTexts.Get(url);
                 }
                 // LRUCache
                 else if (_lruTexts != null)
                 {
-                    text = _lruTexts.Get(url);
+                    text = this._lruTexts.Get(url);
                 }
             }
 
@@ -520,16 +692,16 @@ namespace OxGKit.Utilities.Requester
             if (cached && text != null)
             {
                 // ARCCache
-                if (_arcTexts != null)
+                if (this._arcTexts != null)
                 {
-                    _arcTexts.Add(url, text);
-                    text = _arcTexts.Get(url);
+                    this._arcTexts.Add(url, text);
+                    text = this._arcTexts.Get(url);
                 }
                 // LRUCache
-                else if (_lruTexts != null)
+                else if (this._lruTexts != null)
                 {
-                    _lruTexts.Add(url, text);
-                    text = _lruTexts.Get(url);
+                    this._lruTexts.Add(url, text);
+                    text = this._lruTexts.Get(url);
                 }
             }
 

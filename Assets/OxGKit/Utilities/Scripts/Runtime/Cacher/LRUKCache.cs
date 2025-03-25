@@ -9,7 +9,13 @@ namespace OxGKit.Utilities.Cacher
         private readonly int _k;
         private readonly Dictionary<TKey, LinkedListNode<CacheItem>> _cache;
         private readonly LinkedList<CacheItem> _lruList;
+        private SortedSet<(int counter, TKey key)> _minHeap = new();
         private readonly object _syncRoot = new object();
+
+        /// <summary>
+        /// 特殊處理
+        /// </summary>
+        private IRemoveCacheHandler<TKey, TValue> _removeCacheHandler;
 
         public int Count
         {
@@ -28,6 +34,12 @@ namespace OxGKit.Utilities.Cacher
             this._k = k;
             this._cache = new Dictionary<TKey, LinkedListNode<CacheItem>>(capacity);
             this._lruList = new LinkedList<CacheItem>();
+            this._removeCacheHandler = new UnityObjectRemoveCacheHandler<TKey, TValue>();
+        }
+
+        public LRUKCache(int capacity, int k, IRemoveCacheHandler<TKey, TValue> removeCacheHandler) : this(capacity, k)
+        {
+            this._removeCacheHandler = removeCacheHandler;
         }
 
         public TKey[] GetKeys()
@@ -52,12 +64,17 @@ namespace OxGKit.Utilities.Cacher
             {
                 if (this._cache.TryGetValue(key, out var node))
                 {
-                    // 對當前節點更新 Counter
+                    int oldCounter = node.Value.Counter;
                     if (node.Value.Counter < this._k)
                     {
                         node.Value.Counter++;
                     }
-                    // 將節點移到最新使用 (LRU 列表尾部)
+                    int newCounter = node.Value.Counter;
+
+                    // 更新 minHeap
+                    this.UpdateMinHeap(key, oldCounter, newCounter);
+
+                    // 移動到 LRU 列表尾部
                     this._MoveToEndOfLRU(node);
                     return node.Value.Value;
                 }
@@ -69,7 +86,6 @@ namespace OxGKit.Utilities.Cacher
         {
             lock (this._syncRoot)
             {
-                // 當緩存滿且新增的是新鍵時進行淘汰
                 if (this._cache.Count >= this._capacity && !this._cache.ContainsKey(key))
                 {
                     this.Evict();
@@ -77,20 +93,28 @@ namespace OxGKit.Utilities.Cacher
 
                 if (this._cache.TryGetValue(key, out var node))
                 {
+                    int oldCounter = node.Value.Counter;
                     node.Value.Value = value;
                     if (node.Value.Counter < this._k)
                     {
                         node.Value.Counter++;
                     }
+                    int newCounter = node.Value.Counter;
+
+                    // 更新 minHeap
+                    this.UpdateMinHeap(key, oldCounter, newCounter);
+
                     this._MoveToEndOfLRU(node);
                 }
                 else
                 {
                     var newNode = new LinkedListNode<CacheItem>(new CacheItem(key, value));
-                    // 初始時將 Counter 設為 1
                     newNode.Value.Counter = 1;
                     this._cache.Add(key, newNode);
                     this._lruList.AddLast(newNode);
+
+                    // 新增到 minHeap
+                    this.UpdateMinHeap(key, 0, 1);
                 }
             }
         }
@@ -101,12 +125,15 @@ namespace OxGKit.Utilities.Cacher
             {
                 if (this._cache.TryGetValue(key, out var node))
                 {
-                    // For Unity
+                    // For remove handler
                     var item = node.Value.Value;
-                    if (item is UnityEngine.Object)
-                        UnityEngine.Object.Destroy(item as UnityEngine.Object);
+                    this._removeCacheHandler?.RemoveCache(key, item);
                     this._lruList.Remove(node);
                     this._cache.Remove(key);
+
+                    // 確保從 minHeap 內移除
+                    this._minHeap.Remove((node.Value.Counter, key));
+
                     return true;
                 }
                 return false;
@@ -143,24 +170,44 @@ namespace OxGKit.Utilities.Cacher
         {
             lock (this._syncRoot)
             {
-                // 從 LRU 列表首端開始尋找淘汰項目
                 var node = this._lruList.First;
                 int minCounter = this.FindMinCounter();
+
                 while (node != null)
                 {
                     if (node.Value.Counter <= this._k && node.Value.Counter == minCounter)
                     {
+                        var key = node.Value.Key;
                         var item = node.Value.Value;
-                        if (item is UnityEngine.Object)
-                            UnityEngine.Object.Destroy(item as UnityEngine.Object);
-                        this._cache.Remove(node.Value.Key);
-                        // 淘汰時對其餘項目進行衰減, 使人氣動態調整
+                        this._removeCacheHandler?.RemoveCache(key, item);
+                        this._cache.Remove(key);
+
+                        // 確保從 minHeap 內也移除
+                        this._minHeap.Remove((node.Value.Counter, key));
+
+                        // 淘汰時對其餘項目進行衰減
                         this.DecrementCounters();
                         this._lruList.Remove(node);
                         break;
                     }
                     node = node.Next;
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// 更新 Counter
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="oldCounter"></param>
+        /// <param name="newCounter"></param>
+        protected void UpdateMinHeap(TKey key, int oldCounter, int newCounter)
+        {
+            lock (this._syncRoot)
+            {
+                this._minHeap.Remove((oldCounter, key));
+                this._minHeap.Add((newCounter, key));
             }
         }
 
@@ -171,15 +218,7 @@ namespace OxGKit.Utilities.Cacher
         {
             lock (this._syncRoot)
             {
-                int minCounter = int.MaxValue;
-                foreach (var node in this._cache.Values)
-                {
-                    if (node.Value.Counter < minCounter)
-                    {
-                        minCounter = node.Value.Counter;
-                    }
-                }
-                return minCounter;
+                return this._minHeap.Count > 0 ? this._minHeap.Min.counter : int.MaxValue;
             }
         }
 
@@ -190,13 +229,23 @@ namespace OxGKit.Utilities.Cacher
         {
             lock (this._syncRoot)
             {
+                var newMinHeap = new SortedSet<(int counter, TKey key)>();
+
                 foreach (var node in this._cache.Values)
                 {
                     if (node.Value.Counter > 0)
+                    {
                         node.Value.Counter--;
+                    }
+
+                    // 直接重新建立 minHeap
+                    newMinHeap.Add((node.Value.Counter, node.Value.Key));
                 }
+
+                this._minHeap = newMinHeap;
             }
         }
+
 
         private class CacheItem
         {

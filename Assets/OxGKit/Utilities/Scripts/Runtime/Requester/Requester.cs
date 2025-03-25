@@ -274,31 +274,32 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            if (string.IsNullOrEmpty(url))
-            {
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
+            if (CheckUrlMissing(url, errorAction))
                 return null;
-            }
+
+            AudioClip audioClip = null;
 
             if (cached)
             {
                 // ARCCache
                 if (_arcAudios != null)
                 {
-                    AudioClip audioClip = _arcAudios.Get(url);
-                    if (audioClip != null)
-                        return audioClip;
+                    audioClip = _arcAudios.Get(url);
                 }
                 // LRUCache
                 else if (_lruAudios != null)
                 {
-                    AudioClip audioClip = _lruAudios.Get(url);
-                    if (audioClip != null)
-                        return audioClip;
+                    audioClip = _lruAudios.Get(url);
                 }
             }
 
-            AudioClip audioClipResult = await SendRequest<AudioClip>
+            if (audioClip != null)
+            {
+                successAction?.Invoke(audioClip);
+                return audioClip;
+            }
+
+            audioClip = await SendRequest<AudioClip>
             (
                 url,
                 cts,
@@ -313,24 +314,26 @@ namespace OxGKit.Utilities.Requester
                 errorAction
             );
 
-            if (cached && audioClipResult != null)
+            if (cached && audioClip != null)
             {
                 // ARCCache
                 if (_arcAudios != null)
                 {
-                    _arcAudios.Add(url, audioClipResult);
-                    audioClipResult = _arcAudios.Get(url);
+                    _arcAudios.Add(url, audioClip);
+                    audioClip = _arcAudios.Get(url);
                 }
                 // LRUCache
                 else if (_lruAudios != null)
                 {
-                    _lruAudios.Add(url, audioClipResult);
-                    audioClipResult = _lruAudios.Get(url);
+                    _lruAudios.Add(url, audioClip);
+                    audioClip = _lruAudios.Get(url);
                 }
             }
 
-            successAction?.Invoke(audioClipResult);
-            return audioClipResult;
+            if (audioClip != null)
+                successAction?.Invoke(audioClip);
+
+            return audioClip;
         }
 
         /// <summary>
@@ -345,31 +348,32 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            if (string.IsNullOrEmpty(url))
-            {
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
+            if (CheckUrlMissing(url, errorAction))
                 return null;
-            }
+
+            Texture2D t2d = null;
 
             if (cached)
             {
                 // ARCCache
                 if (_arcTexture2ds != null)
                 {
-                    Texture2D t2d = _arcTexture2ds.Get(url);
-                    if (t2d != null)
-                        return t2d;
+                    t2d = _arcTexture2ds.Get(url);
                 }
                 // LRUCache
                 else if (_lruTexture2ds != null)
                 {
-                    Texture2D t2d = _lruTexture2ds.Get(url);
-                    if (t2d != null)
-                        return t2d;
+                    t2d = _lruTexture2ds.Get(url);
                 }
             }
 
-            Texture2D textureResult = await SendRequest<Texture2D>
+            if (t2d != null)
+            {
+                successAction?.Invoke(t2d);
+                return t2d;
+            }
+
+            t2d = await SendRequest<Texture2D>
             (
                 url,
                 cts,
@@ -384,24 +388,26 @@ namespace OxGKit.Utilities.Requester
                 errorAction
             );
 
-            if (cached && textureResult != null)
+            if (cached && t2d != null)
             {
                 // ARCCache
                 if (_arcTexture2ds != null)
                 {
-                    _arcTexture2ds.Add(url, textureResult);
-                    textureResult = _arcTexture2ds.Get(url);
+                    _arcTexture2ds.Add(url, t2d);
+                    t2d = _arcTexture2ds.Get(url);
                 }
                 // LRUCache
                 else if (_lruTexture2ds != null)
                 {
-                    _lruTexture2ds.Add(url, textureResult);
-                    textureResult = _lruTexture2ds.Get(url);
+                    _lruTexture2ds.Add(url, t2d);
+                    t2d = _lruTexture2ds.Get(url);
                 }
             }
 
-            successAction?.Invoke(textureResult);
-            return textureResult;
+            if (t2d != null)
+                successAction?.Invoke(t2d);
+
+            return t2d;
         }
 
         /// <summary>
@@ -421,14 +427,16 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action<ErrorInfo> errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            var texture = await RequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
-            if (texture != null)
+            var t2d = await RequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
+
+            if (t2d != null)
             {
                 pivot = pivot != Vector2.zero ? pivot : new Vector2(0.5f, 0.5f);
-                Sprite sprite = Sprite.Create(texture, new Rect(position.x, position.y, texture.width, texture.height), pivot, pixelPerUnit, extrude, meshType);
+                Sprite sprite = Sprite.Create(t2d, new Rect(position.x, position.y, t2d.width, t2d.height), pivot, pixelPerUnit, extrude, meshType);
                 successAction?.Invoke(sprite);
                 return sprite;
             }
+
             return null;
         }
 
@@ -443,13 +451,10 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
         {
-            if (string.IsNullOrEmpty(url))
-            {
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
+            if (CheckUrlMissing(url, errorAction))
                 return null;
-            }
 
-            byte[] bytesResult = await SendRequest<byte[]>
+            byte[] bytes = await SendRequest<byte[]>
             (
                 url,
                 cts,
@@ -459,8 +464,10 @@ namespace OxGKit.Utilities.Requester
                 errorAction
             );
 
-            successAction?.Invoke(bytesResult);
-            return bytesResult;
+            if (bytes != null)
+                successAction?.Invoke(bytes);
+
+            return bytes;
         }
 
         /// <summary>
@@ -475,31 +482,32 @@ namespace OxGKit.Utilities.Requester
         /// <returns></returns>
         public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action<ErrorInfo> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
-            if (string.IsNullOrEmpty(url))
-            {
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL is null or empty.</color>");
+            if (CheckUrlMissing(url, errorAction))
                 return null;
-            }
+
+            string text = null;
 
             if (cached)
             {
                 // ARCCache
                 if (_arcTexts != null)
                 {
-                    string text = _arcTexts.Get(url);
-                    if (text != null)
-                        return text;
+                    text = _arcTexts.Get(url);
                 }
                 // LRUCache
                 else if (_lruTexts != null)
                 {
-                    string text = _lruTexts.Get(url);
-                    if (text != null)
-                        return text;
+                    text = _lruTexts.Get(url);
                 }
             }
 
-            string textResult = await SendRequest<string>
+            if (text != null)
+            {
+                successAction?.Invoke(text);
+                return text;
+            }
+
+            text = await SendRequest<string>
             (
                 url,
                 cts,
@@ -509,24 +517,26 @@ namespace OxGKit.Utilities.Requester
                 errorAction
             );
 
-            if (cached && textResult != null)
+            if (cached && text != null)
             {
                 // ARCCache
                 if (_arcTexts != null)
                 {
-                    _arcTexts.Add(url, textResult);
-                    textResult = _arcTexts.Get(url);
+                    _arcTexts.Add(url, text);
+                    text = _arcTexts.Get(url);
                 }
                 // LRUCache
                 else if (_lruTexts != null)
                 {
-                    _lruTexts.Add(url, textResult);
-                    textResult = _lruTexts.Get(url);
+                    _lruTexts.Add(url, text);
+                    text = _lruTexts.Get(url);
                 }
             }
 
-            successAction?.Invoke(textResult);
-            return textResult;
+            if (text != null)
+                successAction?.Invoke(text);
+
+            return text;
         }
 
         #region Internal Methods
@@ -616,6 +626,27 @@ namespace OxGKit.Utilities.Requester
             {
                 return (bytes / (1024 * 1024 * 1024 * 1f)).ToString("f2") + "GB";
             }
+        }
+
+        /// <summary>
+        /// Check url state
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="errorAction"></param>
+        /// <returns></returns>
+        internal static bool CheckUrlMissing(string url, Action<ErrorInfo> errorAction)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                var errorInfo = new ErrorInfo();
+                errorInfo.url = null;
+                errorInfo.message = "Request failed. URL is null or empty.";
+                errorInfo.exception = null;
+                Logging.PrintWarning<Logger>($"<color=#FF0000>{errorInfo.message}</color>");
+                errorAction?.Invoke(errorInfo);
+                return true;
+            }
+            return false;
         }
         #endregion
     }

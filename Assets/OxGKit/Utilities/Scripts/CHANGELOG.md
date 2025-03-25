@@ -2,6 +2,8 @@
 
 ## [1.4.3] - 2025-03-25
 - Modified Requester's errorAction to return ErrorInfo.
+- Fixed handling of successAction and errorAction invocation logic.
+- Optmized Requester code.
 
 ## [1.4.2] - 2025-03-21
 - Fixed CancellationTokenSource disposal bug.

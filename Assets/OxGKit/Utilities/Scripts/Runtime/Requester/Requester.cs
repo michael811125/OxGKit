@@ -265,7 +265,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public static async UniTask<AudioClip> RequestAudio(string url, AudioType audioType = AudioType.MPEG, Action<AudioClip> successAction = null, Action<string> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -336,7 +336,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public static async UniTask<Texture2D> RequestTexture2D(string url, Action<Texture2D> successAction = null, Action<string> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -412,7 +412,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public static async UniTask<Sprite> RequestSprite(string url, Action<Sprite> successAction = null, Action<string> errorAction = null, Vector2 position = default, Vector2 pivot = default, float pixelPerUnit = 100, uint extrude = 0, SpriteMeshType meshType = SpriteMeshType.FullRect, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             var texture = await RequestTexture2D(url, null, errorAction, cts, cached, timeoutSeconds);
             if (texture != null)
@@ -434,7 +434,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cts"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
+        public static async UniTask<byte[]> RequestBytes(string url, Action<byte[]> successAction = null, Action<string> errorAction = null, CancellationTokenSource cts = null, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -466,7 +466,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="cached"></param>
         /// <param name="timeoutSeconds"></param>
         /// <returns></returns>
-        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
+        public static async UniTask<string> RequestText(string url, Action<string> successAction = null, Action<string> errorAction = null, CancellationTokenSource cts = null, bool cached = true, int? timeoutSeconds = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -534,7 +534,7 @@ namespace OxGKit.Utilities.Requester
         /// <param name="processResponse"></param>
         /// <param name="errorAction"></param>
         /// <returns></returns>
-        internal static async UniTask<T> SendRequest<T>(string url, CancellationTokenSource cts, int? timeoutSeconds, Func<UnityWebRequest> createRequest, Func<UnityWebRequest, T> processResponse, Action errorAction)
+        internal static async UniTask<T> SendRequest<T>(string url, CancellationTokenSource cts, int? timeoutSeconds, Func<UnityWebRequest> createRequest, Func<UnityWebRequest, T> processResponse, Action<string> errorAction)
         {
             UnityWebRequest request = null;
             try
@@ -553,11 +553,13 @@ namespace OxGKit.Utilities.Requester
                     await request.SendWebRequest().WithCancellation(cts.Token);
                 }
 
-                if (request.result == UnityWebRequest.Result.ProtocolError ||
+                if (request.result == UnityWebRequest.Result.DataProcessingError ||
+                    request.result == UnityWebRequest.Result.ProtocolError ||
                     request.result == UnityWebRequest.Result.ConnectionError)
                 {
+                    string errorMsg = request.error;
+                    errorAction?.Invoke(errorMsg);
                     request.Dispose();
-                    errorAction?.Invoke();
                     Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}</color>");
                     return default;
                 }
@@ -574,9 +576,10 @@ namespace OxGKit.Utilities.Requester
             }
             catch (Exception ex)
             {
+                string errorMsg = string.IsNullOrEmpty(request?.error) ? $"RequestAPI failed. URL: {url}, Exception: {ex}" : request.error;
+                errorAction?.Invoke(errorMsg);
                 request?.Dispose();
-                errorAction?.Invoke();
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {url}, Exception: {ex}</color>");
+                Logging.PrintWarning<Logger>($"<color=#FF0000>{errorMsg}</color>");
                 return default;
             }
         }

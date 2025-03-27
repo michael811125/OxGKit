@@ -419,7 +419,8 @@ namespace OxGKit.CursorSystem
                 lock (_locker)
                 {
                     _instance = FindObjectOfType(typeof(CursorManager)) as CursorManager;
-                    if (_instance == null) _instance = new GameObject(typeof(CursorManager).Name).AddComponent<CursorManager>();
+                    if (_instance == null)
+                        _instance = new GameObject(typeof(CursorManager).Name).AddComponent<CursorManager>();
                 }
             }
             return _instance;

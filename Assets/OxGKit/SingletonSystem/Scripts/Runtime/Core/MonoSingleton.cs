@@ -4,7 +4,10 @@ namespace OxGKit.SingletonSystem
 {
     public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
-        public bool dontDestoryOnLoad = false;
+        /// <summary>
+        /// Don't destroy on Awake
+        /// </summary>
+        public bool dontDestroyOnLoad = true;
 
         public static bool isCreated { get; private set; }
         public static bool isStarted { get; private set; }
@@ -31,11 +34,23 @@ namespace OxGKit.SingletonSystem
                         if (_instance == null)
                             _instance = _CreateNewInstance();
                         if (dontDestroyOnLoad)
+                        {
+                            // Mark as dontDestroyOnLoad
+                            _instance.dontDestroyOnLoad = dontDestroyOnLoad;
                             DontDestroyOnLoad(_instance);
+                        }
                     }
                 }
             }
             return _instance;
+        }
+
+        /// <summary>
+        /// Initialize instance
+        /// </summary>
+        public static void InitInstance(bool dontDestroyOnLoad = true)
+        {
+            GetInstance(dontDestroyOnLoad);
         }
 
         /// <summary>
@@ -52,7 +67,8 @@ namespace OxGKit.SingletonSystem
             T[] existingInstances = FindObjectsOfType<T>();
 
             // No instance found
-            if (existingInstances == null || existingInstances.Length == 0) return null;
+            if (existingInstances == null || existingInstances.Length == 0)
+                return null;
 
             return existingInstances[0];
         }
@@ -90,7 +106,7 @@ namespace OxGKit.SingletonSystem
         /// Destroy singleton instance
         /// </summary>
         /// <param name="gameObjectIncluded"></param>
-        public static void DestroyInstance(bool gameObjectIncluded = false)
+        public static void DestroyInstance(bool gameObjectIncluded = true)
         {
             GameObject go = null;
             if (gameObjectIncluded)
@@ -112,7 +128,8 @@ namespace OxGKit.SingletonSystem
             if (_instance == null)
             {
                 _instance = _FindExistingInstance();
-                if (this.dontDestoryOnLoad) DontDestroyOnLoad(_instance);
+                if (this.dontDestroyOnLoad)
+                    DontDestroyOnLoad(_instance);
             }
 
             if (!isCreated)

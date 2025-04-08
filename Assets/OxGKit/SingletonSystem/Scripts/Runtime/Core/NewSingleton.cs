@@ -18,6 +18,14 @@
         }
 
         /// <summary>
+        /// Initialize instance
+        /// </summary>
+        public static void InitInstance()
+        {
+            GetInstance();
+        }
+
+        /// <summary>
         /// Check if an instance exists
         /// </summary>
         /// <returns></returns>

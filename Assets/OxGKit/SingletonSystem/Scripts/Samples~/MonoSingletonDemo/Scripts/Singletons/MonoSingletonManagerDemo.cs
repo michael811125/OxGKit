@@ -39,6 +39,6 @@ public class MonoSingletonManagerDemo : MonoSingleton<MonoSingletonManagerDemo>
     public static void AddNumber()
     {
         GetInstance().number++;
-        Debug.Log($"<color=#d6aaff>Current Number: <color=#fff283>{GetInstance().number}</color>, instance id: {GetInstance().GetInstanceID()}</color>");
+        Debug.Log($"<color=#d6aaff>[MonoSingleton] Current Number: <color=#fff283>{GetInstance().number}</color>, instance id: {GetInstance().GetInstanceID()}</color>");
     }
 }

@@ -1,0 +1,13 @@
+{
+	"name": "com.michaelo.oxgkit.saversystem",
+	"displayName": "OxGKit.SaverSystem",
+	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
+	"version": "1.0.0",
+	"unity": "2021.3",
+	"license": "MIT",
+	"dependencies": {},
+	"author": {
+		"name": "MichaelO",
+		"url": "https://github.com/michael811125"
+	}
+}

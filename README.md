@@ -27,6 +27,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - [游標系統 (Cursor System)](https://github.com/michael811125/OxGKit#cursorsystem)
 - [物件池系統 (Pool System)](https://github.com/michael811125/OxGKit#poolsystem)
 - [單例系統 (Singleton System)](https://github.com/michael811125/OxGKit#singletonsystem)
+- [儲存系統 (Saver System)](https://github.com/michael811125/OxGKit#saversystem)
 - [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask)
 
 *[會持續擴充工具系統組]*
@@ -410,6 +411,16 @@ https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
 | Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SingletonSystem/Scripts to Package Manager |
+
+## SaverSystem
+
+簡易儲存系統，支持以文本形式儲存，預設提供 EditorPrefsSaver, PlayerPrefsSaver，可自行擴展。
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SaverSystem/Scripts to Package Manager |
 
 ## Utilities (dependence UniTask)
 

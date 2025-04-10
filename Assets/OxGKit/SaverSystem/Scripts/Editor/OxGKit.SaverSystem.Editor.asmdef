@@ -1,0 +1,18 @@
+{
+    "name": "OxGKit.SaverSystem.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9a7df4668a66d1343b85d9ed3789bd2d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

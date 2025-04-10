@@ -1,0 +1,21 @@
+{
+    "name": "OxGKit.SaverSystem.Editor.Tests",
+    "rootNamespace": "OxGKit.SaverSystem.Editor.Tests",
+    "references": [
+        "GUID:9a7df4668a66d1343b85d9ed3789bd2d",
+        "GUID:ee5764c352d7b554794013cb99153ff5"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

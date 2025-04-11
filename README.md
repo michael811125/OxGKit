@@ -28,6 +28,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - [物件池系統 (Pool System)](https://github.com/michael811125/OxGKit#poolsystem)
 - [單例系統 (Singleton System)](https://github.com/michael811125/OxGKit#singletonsystem)
 - [儲存系統 (Saver System)](https://github.com/michael811125/OxGKit#saversystem)
+- [本地化系統 (Localization System)](https://github.com/michael811125/OxGKit#localizationsystem)
 - [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask)
 
 *[會持續擴充工具系統組]*
@@ -421,6 +422,99 @@ https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
 | Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SaverSystem/Scripts to Package Manager |
+
+## LocalizationSystem
+
+本地化系統，支持自定義解表方式與自定義支持語系。
+
+必須實現以下回調進行初始配置：
+ - Localization.onAddSupportedLanguages
+ - Localization.onParsingLanguageData
+ - Localization.onChangeLanguage
+ 
+```C#
+#region Localization Config
+/// <summary>
+/// Initialize localization config
+/// </summary>
+public static void InitializeLocalization()
+{
+    // Add supproted languages
+    Localization.onAddSupportedLanguages = AddSupportedLanguages;
+
+    // Parsing language table data
+    Localization.onParsingLanguageData = ParsingLanguageData;
+}
+
+/// <summary>
+/// Handle by Localization.onAddSupportedLanguages
+/// </summary>
+/// <param name="supportedLanguages"></param>
+public static void AddSupportedLanguages(HashSet<LangType> supportedLanguages)
+{
+    supportedLanguages.Add(LangType.English);
+    supportedLanguages.Add(LangType.ChineseTraditional);
+    supportedLanguages.Add(LangType.ChineseSimplified);
+    supportedLanguages.Add(LangType.Japanese);
+    supportedLanguages.Add(LangType.Korean);
+}
+
+/// <summary>
+/// Handle by Localization.onParsingLanguageData
+/// </summary>
+/// <param name="langType"></param>
+/// <param name="langData"></param>
+/// <returns></returns>
+public static bool ParsingLanguageData(LangType langType, Dictionary<string, string> langData)
+{
+    // Your lang sheet (can load from json or server)
+    if (langSheet.ContainsKey(langType.ToString()))
+    {
+        // The ref langData will be cached by Localization 
+        foreach (var pair in langSheet[langType.ToString()])
+            langData.TryAdd(pair.Key, pair.Value);
+        return true;
+    }
+    return false;
+}
+#endregion
+
+#region UI View Logic
+/// <summary>
+/// Init events
+/// </summary>
+private void _InitEvents()
+{
+    // Refresh lang text callback
+    Localization.onChangeLanguage += (langType) => { this._RefreshLanguage(); };
+}
+
+/// <summary>
+/// Handle by Localization.onChangeLanguage
+/// </summary>
+private void _RefreshLanguage()
+{
+    if (this.texts != null)
+    {
+        this.texts[0].text = Localization.GetStringByCode("Str1");
+        this.texts[1].text = Localization.GetStringByCode("Str2");
+        this.texts[2].text = Localization.GetStringByCode("Str3");
+    }
+}
+#endregion
+```
+
+**Localization Demo**
+
+![](Docs/gif_3.gif)
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LocalizationSystem/Scripts to Package Manager |
 
 ## Utilities (dependence UniTask)
 

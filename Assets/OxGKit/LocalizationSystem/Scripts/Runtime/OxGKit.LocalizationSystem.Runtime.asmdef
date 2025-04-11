@@ -1,9 +1,7 @@
 {
     "name": "OxGKit.LocalizationSystem.Runtime",
     "rootNamespace": "",
-    "references": [
-        ""
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

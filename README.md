@@ -486,13 +486,13 @@ public static bool ParsingLanguageData(LangType langType, Dictionary<string, str
 private void _InitEvents()
 {
     // Refresh lang text callback
-    Localization.onChangeLanguage += (langType) => { this._RefreshLanguage(); };
+    Localization.onChangeLanguage += this._RefreshLanguage;
 }
 
 /// <summary>
 /// Handle by Localization.onChangeLanguage
 /// </summary>
-private void _RefreshLanguage()
+private void _RefreshLanguage(LangType langType)
 {
     if (this.texts != null)
     {

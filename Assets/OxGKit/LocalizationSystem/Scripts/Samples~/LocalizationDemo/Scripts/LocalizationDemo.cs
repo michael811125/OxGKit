@@ -132,7 +132,7 @@ public class LocalizationDemo : MonoBehaviour
     private void _InitEvents()
     {
         // Refresh lang text callback
-        Localization.onChangeLanguage += (langType) => { this._RefreshLanguage(); };
+        Localization.onChangeLanguage += this._RefreshLanguage;
 
         // Drd on value changed evnet
         this.langsDrd.onValueChanged.AddListener(idx =>
@@ -173,7 +173,7 @@ public class LocalizationDemo : MonoBehaviour
     /// <summary>
     /// Handle by Localization.onChangeLanguage
     /// </summary>
-    private void _RefreshLanguage()
+    private void _RefreshLanguage(LangType langType)
     {
         if (this.texts != null)
         {

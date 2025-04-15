@@ -91,7 +91,9 @@ namespace OxGKit.LocalizationSystem
                 case UnityEngine.SystemLanguage.Danish: return LangType.Danish;
                 case UnityEngine.SystemLanguage.Greek: return LangType.Greek;
                 case UnityEngine.SystemLanguage.Hebrew: return LangType.Hebrew;
+#if UNITY_2022_3 || UNITY_6000_0_OR_NEWER
                 case UnityEngine.SystemLanguage.Hindi: return LangType.Hindi;
+#endif
                 case UnityEngine.SystemLanguage.Hungarian: return LangType.Hungarian;
                 case UnityEngine.SystemLanguage.Indonesian: return LangType.Indonesian;
                 case UnityEngine.SystemLanguage.Japanese: return LangType.Japanese;

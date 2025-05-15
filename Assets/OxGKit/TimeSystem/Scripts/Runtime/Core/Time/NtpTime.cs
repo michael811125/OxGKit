@@ -121,7 +121,7 @@ namespace OxGKit.TimeSystem
 
                 // Get the system and server timezone offset hours
                 double localOffsetHours = localZone.BaseUtcOffset.TotalHours;
-                double serverOffsetHours = (double)_utcOffsetSeconds / 3600;
+                double serverOffsetHours = (double)_utcOffsetSeconds / 3600.0;
 
                 // Check if system timezone is close to the server timezone
                 if (Math.Abs(localOffsetHours - serverOffsetHours) < 0.1)
@@ -179,7 +179,7 @@ namespace OxGKit.TimeSystem
         {
             if (_isSynchronized)
             {
-                return (double)_utcOffsetSeconds / 3600.0f;
+                return (double)_utcOffsetSeconds / 3600.0;
             }
             return 0;
         }

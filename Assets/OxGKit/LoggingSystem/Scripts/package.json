@@ -2,7 +2,7 @@
 	"name": "com.michaelo.oxgkit.loggingsystem",
 	"displayName": "OxGKit.LoggingSystem",
 	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-	"version": "1.2.4",
+	"version": "1.2.5",
 	"unity": "2021.3",
 	"license": "MIT",
 	"samples": [

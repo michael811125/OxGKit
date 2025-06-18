@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.5] - 2025-06-18
+- Fixed the convert method to validate file name correctness.
+
 ## [1.2.4] - 2025-03-25
 - Fixed WebRequest callback bug issue.
 

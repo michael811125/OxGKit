@@ -52,6 +52,13 @@ namespace OxGKit.LoggingSystem.Editor
                     // 確保文件存在
                     if (File.Exists(fullPath))
                     {
+                        string fileName = LoggersConfig.LOGGERS_CONFIG_FILE_NAME;
+                        if (fullPath.IndexOf(fileName) == -1)
+                        {
+                            Debug.LogWarning($"Incorrect file selected. Please select the {fileName} file.");
+                            return;
+                        }
+
                         // 讀取文件內容
                         byte[] data = File.ReadAllBytes(fullPath);
                         var info = BinaryHelper.DecryptToString(data);

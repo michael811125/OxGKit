@@ -95,7 +95,7 @@ namespace OxGKit.InfiniteScrollView
                                 if (this._cellList[index] == null)
                                 {
                                     if (this._cellPool.Count > 0) cell = this._cellPool.Dequeue();
-                                    else Logging.Print<Logger>("<color=#ff4242>The cell display error occurred, not enough cells in the cell pool!!!</color>");
+                                    else Logging.PrintError<Logger>("<color=#ff4242>The cell display error occurred, not enough cells in the cell pool!!!</color>");
                                 }
                                 // Check cell direction pivot
                                 float dirCoeff = 1f;
@@ -130,7 +130,7 @@ namespace OxGKit.InfiniteScrollView
                                 if (this._cellList[index] == null)
                                 {
                                     if (this._cellPool.Count > 0) cell = this._cellPool.Dequeue();
-                                    else Logging.Print<Logger>("<color=#ff4242>The cell display error occurred, not enough cells in the cell pool!!!</color>");
+                                    else Logging.PrintError<Logger>("<color=#ff4242>The cell display error occurred, not enough cells in the cell pool!!!</color>");
                                 }
                                 // Check cell direction pivot
                                 float dirCoeff = 1f;

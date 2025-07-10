@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace OxGKit.SaverSystem
 {
-    public abstract class Saver : ISaver
+    public abstract class Saver : ISaver, IDisposable
     {
         /// <summary>
         /// DataMap dirty 標記處理
@@ -173,6 +174,12 @@ namespace OxGKit.SaverSystem
             }
 
             return dataMap;
+        }
+
+        public virtual void Dispose()
+        {
+            this._dataMapDirtyFlags = null;
+            this._dataMaps = null;
         }
     }
 }

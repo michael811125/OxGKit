@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.4.6] - 2025-07-10
+- Added Release method to Requester.
+- Organized print level.
+
 ## [1.4.5] - 2025-03-26
 - Added IRemoveCacheHandler interface for Cacher.
 - Modified Requester can new (instance).

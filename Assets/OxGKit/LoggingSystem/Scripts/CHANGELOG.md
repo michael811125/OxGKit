@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.6] - 2025-07-10
+- Organized print level.
+
 ## [1.2.5] - 2025-06-18
 - Fixed the convert method to validate file name correctness.
 

@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.3] - 2025-07-10
+- Organized print level.
+
 ## [1.0.2] - 2024-10-31
 - Modified when noticeItem is detected as destroyed, it will be removed from condition.
 

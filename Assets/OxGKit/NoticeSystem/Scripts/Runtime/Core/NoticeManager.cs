@@ -30,7 +30,7 @@ namespace OxGKit.NoticeSystem
 
             if (_dictNoticeConditions.ContainsKey(hash))
             {
-                Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Repeat Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
+                Logging.PrintWarning<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Repeat Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
                 return;
             }
 
@@ -80,12 +80,12 @@ namespace OxGKit.NoticeSystem
                             else
                             {
                                 noticeItems.RemoveAt(i);
-                                Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!</color>");
+                                Logging.PrintWarning<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!</color>");
                             }
                         }
                     }
                 }
-                else Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+                else Logging.PrintError<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
             }
         }
 
@@ -157,7 +157,7 @@ namespace OxGKit.NoticeSystem
                 NoticeCondition noticeCondition = _dictNoticeConditions[conditionId];
                 return noticeCondition.ShowCondition(data);
             }
-            else Logging.Print<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+            else Logging.PrintError<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
 
             return false;
         }

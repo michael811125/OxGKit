@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.2] - 2025-07-10
+- Organized print level.
+
 ## [1.0.1] - 2024-03-15
 - Modified set #ROOTNAMESPACE# symbol in script templates.
 

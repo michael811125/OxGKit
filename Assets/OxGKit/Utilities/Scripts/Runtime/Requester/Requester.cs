@@ -353,6 +353,11 @@ namespace OxGKit.Utilities.Requester
             GetInstance().SelfClearAllCaches();
         }
 
+        public static void Release()
+        {
+            GetInstance().SelfRelease();
+        }
+
         public void SelfClearAllCaches()
         {
             this.SelfClearARCCacheCapacityForAudio();
@@ -361,6 +366,17 @@ namespace OxGKit.Utilities.Requester
             this.SelfClearLRUCacheCapacityForAudio();
             this.SelfClearLRUCacheCapacityForText();
             this.SelfClearLRUCacheCapacityForTexture2d();
+        }
+
+        public void SelfRelease()
+        {
+            this.SelfClearAllCaches();
+            this._arcAudios = null;
+            this._arcTexture2ds = null;
+            this._arcTexts = null;
+            this._lruAudios = null;
+            this._lruTexture2ds = null;
+            this._lruTexts = null;
         }
 
         /// <summary>
@@ -752,7 +768,7 @@ namespace OxGKit.Utilities.Requester
                     errorInfo.exception = null;
                     errorAction?.Invoke(errorInfo);
                     request.Dispose();
-                    Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}</color>");
+                    Logging.PrintError<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}</color>");
                     return default;
                 }
 
@@ -774,7 +790,7 @@ namespace OxGKit.Utilities.Requester
                 errorInfo.exception = ex;
                 errorAction?.Invoke(errorInfo);
                 request?.Dispose();
-                Logging.PrintWarning<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}, Exception: {ex}</color>");
+                Logging.PrintError<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}, Exception: {ex}</color>");
                 return default;
             }
         }
@@ -814,7 +830,7 @@ namespace OxGKit.Utilities.Requester
                 errorInfo.url = null;
                 errorInfo.message = "Request failed. URL is null or empty.";
                 errorInfo.exception = null;
-                Logging.PrintWarning<Logger>($"<color=#FF0000>{errorInfo.message}</color>");
+                Logging.PrintError<Logger>($"<color=#FF0000>{errorInfo.message}</color>");
                 errorAction?.Invoke(errorInfo);
                 return true;
             }

@@ -10,11 +10,16 @@ namespace OxGKit.TimeSystem
      * Modified from: https://github.com/disas69/Unity-NTPTimeSync-Asset/blob/master/Assets/Scripts/NtpDateTime.cs
      */
 
+    [Serializable]
+    public abstract class TimeApiResponseFormat
+    {
+    }
+
     /// <summary>
     /// Fields from TimeAPI.io response (Timezone endpoint)
     /// </summary>
     [Serializable]
-    public class TimeApiTimezoneResponse
+    public class TimeApiTimezoneResponse : TimeApiResponseFormat
     {
         /// <summary>
         /// "Asia/Taipei"
@@ -101,7 +106,7 @@ namespace OxGKit.TimeSystem
 
                 return utcTime;
             }
-            Logging.Print<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
+            Logging.PrintWarning<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
             return DateTime.Now.ToUniversalTime();
         }
 
@@ -139,7 +144,7 @@ namespace OxGKit.TimeSystem
                 }
             }
 
-            Logging.Print<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
+            Logging.PrintWarning<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
             return DateTime.Now.ToLocalTime();
         }
 
@@ -154,7 +159,7 @@ namespace OxGKit.TimeSystem
                 // Return time in the original timezone it was received in
                 return _ntpDate.AddSeconds(DateTime.Now.Subtract(_responseReceivedTime).TotalSeconds);
             }
-            Logging.Print<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
+            Logging.PrintWarning<Logger>("<color=#ff8887>[NTP] No synchronized.</color>");
             return DateTime.Now;
         }
 
@@ -204,14 +209,20 @@ namespace OxGKit.TimeSystem
         public static UniTask Synchronize(string ntpServer = "time.google.com", int requestTimeout = 10)
         {
             _isSynchronized = false;
-            return _SynchronizeDate(ntpServer, requestTimeout);
+            return _SynchronizeDate<TimeApiTimezoneResponse>(ntpServer, requestTimeout);
         }
 
-        private static async UniTask _SynchronizeDate(string ntpServer, int requestTimeout)
+        public static UniTask Synchronize<TResponseFormat>(string ntpServer = "time.google.com", int requestTimeout = 10) where TResponseFormat : TimeApiResponseFormat
+        {
+            _isSynchronized = false;
+            return _SynchronizeDate<TResponseFormat>(ntpServer, requestTimeout);
+        }
+
+        private static async UniTask _SynchronizeDate<TResponseFormat>(string ntpServer, int requestTimeout) where TResponseFormat : TimeApiResponseFormat
         {
             if (!_ConnectionEnabled())
             {
-                Logging.Print<Logger>("<color=#ff8887>[NTP] Network not reachable.</color>");
+                Logging.PrintWarning<Logger>("<color=#ff8887>[NTP] Network not reachable.</color>");
                 return;
             }
 
@@ -221,7 +232,7 @@ namespace OxGKit.TimeSystem
             try
             {
                 // WebGL Compatible request method
-                await _RequestTimeAsync(ntpServer, requestTimeout, cts.Token);
+                await _RequestTimeAsync<TResponseFormat>(ntpServer, requestTimeout, cts.Token);
 
                 // Wait until is synchronized with timeout handling
                 try
@@ -232,17 +243,17 @@ namespace OxGKit.TimeSystem
                 {
                     if (ex.CancellationToken == cts.Token)
                     {
-                        Logging.Print<Logger>("<color=#ff8887>[NTP] Sync failed due to timeout.</color>");
+                        Logging.PrintError<Logger>("<color=#ff8887>[NTP] Sync failed due to timeout.</color>");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logging.Print<Logger>($"<color=#ff8887>[NTP] Error: {ex.Message}</color>");
+                Logging.PrintError<Logger>($"<color=#ff8887>[NTP] Error: {ex.Message}</color>");
             }
         }
 
-        private static async UniTask _RequestTimeAsync(string ntpServer, int requestTimeout, System.Threading.CancellationToken cancellationToken)
+        private static async UniTask _RequestTimeAsync<TResponseFormat>(string ntpServer, int requestTimeout, System.Threading.CancellationToken cancellationToken) where TResponseFormat : TimeApiResponseFormat
         {
             Logging.Print<Logger>($"<color=#f7ff87>[NTP] Request started. Attempting to synchronize: {ntpServer}</color>");
 
@@ -262,11 +273,11 @@ namespace OxGKit.TimeSystem
                     if (request.result == UnityWebRequest.Result.Success)
                     {
                         string response = request.downloadHandler.text;
-                        _ProcessTimeApiResponse(response);
+                        _ProcessTimeApiResponse<TResponseFormat>(response);
                     }
                     else
                     {
-                        Logging.Print<Logger>($"<color=#ff8887>[NTP] Request failed: {request.error}</color>");
+                        Logging.PrintError<Logger>($"<color=#ff8887>[NTP] Request failed: {request.error}</color>");
                     }
                 }
             }
@@ -288,7 +299,7 @@ namespace OxGKit.TimeSystem
                 {
                     if (ex.CancellationToken == cancellationToken)
                     {
-                        Logging.Print<Logger>("<color=#ff8887>[NTP] Sync failed due to timeout.</color>");
+                        Logging.PrintError<Logger>("<color=#ff8887>[NTP] Sync failed due to timeout.</color>");
                     }
                 }
 
@@ -297,30 +308,35 @@ namespace OxGKit.TimeSystem
             }
         }
 
-        private static void _ProcessTimeApiResponse(string jsonResponse)
+        private static void _ProcessTimeApiResponse<TResponseFormat>(string jsonResponse) where TResponseFormat : TimeApiResponseFormat
         {
             try
             {
-                // TimeAPI.io Timezone API (our primary API)
-                if (jsonResponse.Contains("currentLocalTime") && jsonResponse.Contains("currentUtcOffset"))
+                var data = JsonUtility.FromJson<TResponseFormat>(jsonResponse);
+                if (data == null)
                 {
-                    TimeApiTimezoneResponse timezoneData = JsonUtility.FromJson<TimeApiTimezoneResponse>(jsonResponse);
+                    Logging.PrintError<Logger>("<color=#ff8887>[NTP] Failed to parse time response: deserialized to null</color>");
+                    return;
+                }
 
-                    if (!string.IsNullOrEmpty(timezoneData.currentLocalTime))
+                // TimeAPI.io Timezone API (our primary API)
+                if (data is TimeApiTimezoneResponse typeData)
+                {
+                    if (!string.IsNullOrEmpty(typeData.currentLocalTime))
                     {
                         _responseReceivedTime = DateTime.Now;
 
                         // Parse the local time
-                        DateTime localTime = DateTime.Parse(timezoneData.currentLocalTime);
+                        DateTime localTime = DateTime.Parse(typeData.currentLocalTime);
 
                         // Store the UTC offset in seconds
-                        var utcOffsetSeconds = timezoneData.currentUtcOffset.seconds;
+                        var utcOffsetSeconds = typeData.currentUtcOffset.seconds;
 
                         // Store both the local time and UTC offset for accurate conversions
                         _ntpDate = localTime;
 
                         // Store the timezone info
-                        _timeZone = timezoneData.timeZone;
+                        _timeZone = typeData.timeZone;
                         _utcOffsetSeconds = utcOffsetSeconds;
 
                         _isSynchronized = true;
@@ -329,13 +345,13 @@ namespace OxGKit.TimeSystem
                     }
                 }
 
-                Logging.Print<Logger>("<color=#ff8887>[NTP] Failed to parse time response: Unknown format</color>");
-                Logging.Print<Logger>($"<color=#ff8887>Response received: {jsonResponse.Substring(0, Math.Min(100, jsonResponse.Length))}...</color>");
+                Logging.PrintError<Logger>("<color=#ff8887>[NTP] Failed to parse time response: Unknown format</color>");
+                Logging.PrintError<Logger>($"<color=#ff8887>Response received: {jsonResponse.Substring(0, Math.Min(100, jsonResponse.Length))}...</color>");
             }
             catch (Exception ex)
             {
-                Logging.Print<Logger>($"<color=#ff8887>[NTP] Failed to parse time response: {ex.Message}</color>");
-                Logging.Print<Logger>($"<color=#ff8887>Response was: {jsonResponse.Substring(0, Math.Min(100, jsonResponse.Length))}...</color>");
+                Logging.PrintError<Logger>($"<color=#ff8887>[NTP] Failed to parse time response: {ex.Message}</color>");
+                Logging.PrintError<Logger>($"<color=#ff8887>Response was: {jsonResponse.Substring(0, Math.Min(100, jsonResponse.Length))}...</color>");
             }
         }
 
@@ -366,7 +382,7 @@ namespace OxGKit.TimeSystem
             }
             catch (Exception ex)
             {
-                Logging.Print<Logger>($"<color=#ff8887>[NTP] Socket sync failed: {ex.Message}</color>");
+                Logging.PrintError<Logger>($"<color=#ff8887>[NTP] Socket sync failed: {ex.Message}</color>");
                 return;
             }
         }

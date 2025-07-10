@@ -137,7 +137,7 @@ namespace OxGKit.InfiniteScrollView
 
             if (this.cellPrefab == null)
             {
-                Logging.Print<Logger>("<color=#ff66ab>[InfiniteScrollView] Initialization failed. <color=#ffad66>Cell prefab is null!!!</color></color>");
+                Logging.PrintError<Logger>("<color=#ff66ab>[InfiniteScrollView] Initialization failed. <color=#ffad66>Cell prefab is null!!!</color></color>");
                 return;
             }
 
@@ -207,7 +207,7 @@ namespace OxGKit.InfiniteScrollView
         {
             if (!this.isInitialized)
             {
-                Logging.Print<Logger>("<color=#ff66ab>[InfiniteScrollView] Please InitializePool first!!!</color>");
+                Logging.PrintWarning<Logger>("<color=#ff66ab>[InfiniteScrollView] Please InitializePool first!!!</color>");
                 return false;
             }
             return true;

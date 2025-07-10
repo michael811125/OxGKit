@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.8] - 2025-07-10
+- Organized print level.
+
 ## [1.6.7] - 2024-10-16
 - Fixed the issue where the ProcessSnapping method occasionally encounters a 'MissingReferenceException' problem.
 

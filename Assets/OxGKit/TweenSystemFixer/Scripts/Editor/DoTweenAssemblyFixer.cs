@@ -39,7 +39,7 @@ namespace OxGKit.TweenSystemFixer.Editor
                 }
             }
 
-            if (!found) Debug.Log($"<color=#ff3387>Cannot found <color=#afff33>{_doTweenModulesFileName}</color>, repair failed</color>");
+            if (!found) Debug.LogError($"<color=#ff3387>Cannot found <color=#afff33>{_doTweenModulesFileName}</color>, repair failed</color>");
         }
 
         /// <summary>

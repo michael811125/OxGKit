@@ -12,12 +12,12 @@ namespace OxGKit.LoggingSystem
         /// <summary>
         /// 配置檔標檔頭
         /// </summary>
-        public const short CIPHER_HEADER = 0x584F;
+        internal const short CIPHER_HEADER = 0x584F;
 
         /// <summary>
         /// 配置檔金鑰
         /// </summary>
-        public const byte CIPHER = 0x42;
+        internal const byte CIPHER = 0x42;
 
         /// <summary>
         /// 日誌器全域開關

@@ -10,11 +10,11 @@ namespace OxGKit.Utilities.Adapter
         public bool refreshAlways = false;
         public RectTransform panel;
 
-        private Resolution _lateResolution;
+        private Resolution _lastResolution;
 
         private void Awake()
         {
-            this._lateResolution = Screen.currentResolution;
+            this._lastResolution = Screen.currentResolution;
             this._InitPanel();
         }
 
@@ -26,11 +26,11 @@ namespace OxGKit.Utilities.Adapter
         private void LateUpdate()
         {
             if (this.refreshAlways ||
-                this._lateResolution.width != Screen.currentResolution.width ||
-                this._lateResolution.height != Screen.currentResolution.height)
+                this._lastResolution.width != Screen.currentResolution.width ||
+                this._lastResolution.height != Screen.currentResolution.height)
             {
                 this.RefreshViewSize();
-                this._lateResolution = Screen.currentResolution;
+                this._lastResolution = Screen.currentResolution;
             }
         }
 

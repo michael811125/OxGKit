@@ -6,10 +6,10 @@ using OxGKit.InputSystem.Example;
 public class PlayerAction : IInputAction
 {
     /*
-	 * NOTE: You can implements input signals from Unity New Input System, also can implements from other plugins.
-	 *
+     * NOTE: You can implements input signals from Unity New Input System, also can implements from other plugins.
+     *
      * [Handle Input Action Example]
-     *  
+     *
      * Inputs.IA.GetInputAction<TInputAction>().onAction += Somethings.Handler;
      */
 
@@ -30,7 +30,7 @@ public class PlayerAction : IInputAction
     public void OnUpdate(float dt)
     {
         /*
-		 * Do Somethings OnUpdate
+         * Do Somethings OnUpdate
          */
     }
 

@@ -29,6 +29,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - [單例系統 (Singleton System)](https://github.com/michael811125/OxGKit#singletonsystem)
 - [儲存系統 (Saver System)](https://github.com/michael811125/OxGKit#saversystem)
 - [本地化系統 (Localization System)](https://github.com/michael811125/OxGKit#localizationsystem)
+- [虛擬搖桿系統 (VirtualJoystick System)](https://github.com/michael811125/OxGKit#virtualjoysticksystem)
 - [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask)
 
 *[會持續擴充工具系統組]*
@@ -515,6 +516,22 @@ private void _RefreshLanguage(LangType langType)
 | Install via git URL |
 |:-|
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LocalizationSystem/Scripts to Package Manager |
+
+## VirtualJoystickSystem
+
+UGUI 虛擬搖桿系統 (調整版)，支持 Fixed、Floating 顯示。
+
+Reference: [annulusgames - EnhancedOnScreenStick](https://github.com/AnnulusGames/EnhancedOnScreenStick)
+
+![](Docs/gif_4.gif)
+
+*[參考 Example]*
+
+### Installation
+
+| Install via git URL |
+|:-|
+| Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/VirtualJoystickSystem/Scripts to Package Manager |
 
 ## Utilities (dependence UniTask)
 

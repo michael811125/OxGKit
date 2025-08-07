@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace OxGKit.VirtualJoystickSystem
+namespace OxGKit.VirtualJoystick
 {
     public enum StickVectorMode
     {
@@ -24,7 +24,7 @@ namespace OxGKit.VirtualJoystickSystem
         Vertical = 2
     }
 
-    [AddComponentMenu("OxGKit/VirtualJoystickSystem/VirtualJoystick")]
+    [AddComponentMenu("OxGKit/VirtualJoystick/VirtualJoystick")]
     [RequireComponent(typeof(RectTransform), typeof(Image))]
     public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {

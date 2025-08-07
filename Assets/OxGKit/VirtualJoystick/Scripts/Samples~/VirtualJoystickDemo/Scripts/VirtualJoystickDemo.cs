@@ -1,4 +1,4 @@
-using OxGKit.VirtualJoystickSystem;
+using OxGKit.VirtualJoystick;
 using UnityEngine;
 using UnityEngine.UI;
 

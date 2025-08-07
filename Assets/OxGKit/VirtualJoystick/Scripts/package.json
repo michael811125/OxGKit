@@ -1,6 +1,6 @@
 {
-	"name": "com.michaelo.oxgkit.virtualjoysticksystem",
-	"displayName": "OxGKit.VirtualJoystickSystem",
+	"name": "com.michaelo.oxgkit.virtualjoystick",
+	"displayName": "OxGKit.VirtualJoystick",
 	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
 	"version": "1.0.0",
 	"unity": "2021.3",

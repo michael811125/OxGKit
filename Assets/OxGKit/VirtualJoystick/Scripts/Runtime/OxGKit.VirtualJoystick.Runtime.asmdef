@@ -1,5 +1,5 @@
 {
-    "name": "OxGKit.VirtualJoystickSystem.Runtime",
+    "name": "OxGKit.VirtualJoystick.Runtime",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

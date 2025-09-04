@@ -364,7 +364,7 @@ namespace OxGKit.LoggingSystem
                 }
             }, false, isCustom);
 #else
-            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+            Debug.LogWarning($"Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].");
             yield break;
 #endif
         }

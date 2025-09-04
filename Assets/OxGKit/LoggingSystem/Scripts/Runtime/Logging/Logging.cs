@@ -123,7 +123,7 @@ namespace OxGKit.LoggingSystem
                 }
             }
 #else
-            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+            Debug.LogWarning($"Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].");
 #endif
         }
 
@@ -172,13 +172,13 @@ namespace OxGKit.LoggingSystem
                 }
             }
 #else
-            Debug.Log($"<color=#ff2763>Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].</color>");
+            Debug.LogWarning($"Not enabled {nameof(LoggingSystem)} by symbol [OXGKIT_LOGGER_ON].");
 #endif
         }
         #endregion
 
         #region Global Methods
-        public static void Print<TLogging>(object message) where TLogging : Logging
+        public static void Print<TLogging>(object message, UnityEngine.Object context = null) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers())
                 return;
@@ -187,11 +187,14 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].Print(message);
+                if (context == null)
+                    _cacheLoggers[key].Print(message);
+                else
+                    _cacheLoggers[key].Print(message, context);
             }
         }
 
-        public static void PrintWarning<TLogging>(object message) where TLogging : Logging
+        public static void PrintWarning<TLogging>(object message, UnityEngine.Object context = null) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers())
                 return;
@@ -200,11 +203,14 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].PrintWarning(message);
+                if (context == null)
+                    _cacheLoggers[key].PrintWarning(message);
+                else
+                    _cacheLoggers[key].PrintWarning(message, context);
             }
         }
 
-        public static void PrintError<TLogging>(object message) where TLogging : Logging
+        public static void PrintError<TLogging>(object message, UnityEngine.Object context = null) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers())
                 return;
@@ -213,11 +219,14 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].PrintError(message);
+                if (context == null)
+                    _cacheLoggers[key].PrintError(message);
+                else
+                    _cacheLoggers[key].PrintError(message, context);
             }
         }
 
-        public static void PrintException<TLogging>(Exception exception) where TLogging : Logging
+        public static void PrintException<TLogging>(Exception exception, UnityEngine.Object context = null) where TLogging : Logging
         {
             if (!CheckHasAnyLoggers())
                 return;
@@ -226,7 +235,10 @@ namespace OxGKit.LoggingSystem
 
             if (_cacheLoggers.ContainsKey(key))
             {
-                _cacheLoggers[key].PrintException(exception);
+                if (context == null)
+                    _cacheLoggers[key].PrintException(exception);
+                else
+                    _cacheLoggers[key].PrintException(exception, context);
             }
         }
         #endregion
@@ -278,6 +290,7 @@ namespace OxGKit.LoggingSystem
             return false;
         }
 
+        #region Internal Print Methods
         internal void Print(object message)
         {
             if (!this.CheckLogActive(LogLevel.Log))
@@ -310,6 +323,39 @@ namespace OxGKit.LoggingSystem
             this.LogException(exception);
         }
 
+        internal void Print(object message, UnityEngine.Object context)
+        {
+            if (!this.CheckLogActive(LogLevel.Log))
+                return;
+
+            this.Log(message, context);
+        }
+
+        internal void PrintWarning(object message, UnityEngine.Object context)
+        {
+            if (!this.CheckLogActive(LogLevel.LogWarning))
+                return;
+
+            this.LogWarning(message, context);
+        }
+
+        internal void PrintError(object message, UnityEngine.Object context)
+        {
+            if (!this.CheckLogActive(LogLevel.LogError))
+                return;
+
+            this.LogError(message, context);
+        }
+
+        internal void PrintException(Exception exception, UnityEngine.Object context)
+        {
+            if (!this.CheckLogActive(LogLevel.LogException))
+                return;
+
+            this.LogException(exception, context);
+        }
+        #endregion
+
         #region Interface
         public virtual void Log(object message)
         {
@@ -329,6 +375,26 @@ namespace OxGKit.LoggingSystem
         public virtual void LogException(Exception exception)
         {
             UnityEngine.Debug.LogException(exception);
+        }
+
+        public virtual void Log(object message, UnityEngine.Object context)
+        {
+            UnityEngine.Debug.Log(message, context);
+        }
+
+        public virtual void LogWarning(object message, UnityEngine.Object context)
+        {
+            UnityEngine.Debug.LogWarning(message, context);
+        }
+
+        public virtual void LogError(object message, UnityEngine.Object context)
+        {
+            UnityEngine.Debug.LogError(message, context);
+        }
+
+        public virtual void LogException(Exception exception, UnityEngine.Object context)
+        {
+            UnityEngine.Debug.LogException(exception, context);
         }
         #endregion
     }

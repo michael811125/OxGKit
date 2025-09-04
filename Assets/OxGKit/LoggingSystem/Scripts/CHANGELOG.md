@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.2.7] - 2025-09-04
+- Added support for a logging parameter to include an indexed UnityEngine.Object context.
+
 ## [1.2.6] - 2025-07-10
 - Organized print level.
 

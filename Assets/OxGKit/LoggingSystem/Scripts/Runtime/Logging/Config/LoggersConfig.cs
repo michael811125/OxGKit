@@ -58,6 +58,7 @@ namespace OxGKit.LoggingSystem
         {
             this.logMainActive = true;
             this.logMainLevel = LogLevel.All;
+            this.logMainColor = LogColor.EditorOnly;
             this.loggerSettings = new List<LoggerSetting>();
         }
 

@@ -24,7 +24,7 @@ namespace OxGKit.Utilities.EasyAnim
             this._animEnd?.Invoke();
             this._animEnd = null;
 
-            Debug.Log($"<color=#b6ff75>[EasyAnim] Root: {this.transform.root.name} trigger AnimEnd event function</color>");
+            Debug.Log($"[EasyAnim] Root: {this.transform.root.name} trigger AnimEnd event function");
         }
     }
 }

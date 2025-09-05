@@ -164,7 +164,21 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)。
 - 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.conf 進行日誌開關控制。 
 
+Log Level 可切換為以下：
+  - Log (即 Debug)
+  - LogInfo
+  - LogWarning
+  - LogError
+  - LogException
+
 ![](Docs/img_4.png)
+
+Log Color 可切換為以下：
+  - Disabled
+  - Enabled
+  - EditorOnly (發布時，剔除 RichText 上色處理)
+
+![](Docs/img_8.png)
 
 新增 Logger 或移除 Logger，皆需呼叫 LoggingLauncher.TryLoadLoggers() 進行重載 (建議定義一個 default constructor，避免搭配 HybridCLR + Activator.CreateInstance(type) 出現錯誤)。
 ```C#
@@ -176,29 +190,37 @@ public class MyLogger1 : Logging
     // If use HybridCLR must create a default constructor
     public MyLogger1() { }
 }
+```
 
+進行原有 Logger 的 Override
+```C#
 // Use same name to override MyLogger1
 [LoggerName("MyLogger", true)]
-public class MyLogger2 : Logging 
+public class OverrideMyLogger1 : Logging 
 {
     // If use HybridCLR must create a default constructor
-    public MyLogger2() { }
-	
+    public OverrideMyLogger1() { }
+
     public override void Log(object message)
     {
         UnityEngine.Debug.Log("[Override]" + message);
     }
-    
+
+    public override void LogInfo(object message)
+    {
+        UnityEngine.Debug.Log("[Override]" + message);
+    }
+
     public override void LogWarning(object message)
     {
         UnityEngine.Debug.LogWarning("[Override]" + message);
     }
-    
+
     public override void LogError(object message)
     {
         UnityEngine.Debug.LogError("[Override]" + message);
     }
-    
+
     public override void LogException(Exception exception)
     {
         UnityEngine.Debug.LogException(exception);

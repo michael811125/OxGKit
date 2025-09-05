@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.4.7] - 2025-09-05
+- Removed color from print output.
+
 ## [1.4.6] - 2025-07-10
 - Added Release method to Requester.
 - Organized print level.

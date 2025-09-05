@@ -30,13 +30,13 @@ namespace OxGKit.NoticeSystem
 
             if (_dictNoticeConditions.ContainsKey(hash))
             {
-                Logging.PrintWarning<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Repeat Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
+                Logging.PrintWarning<Logger>($"[{nameof(NoticeSystem)}] Repeat Register Notice Condition {type.Name}");
                 return;
             }
 
             noticeCondition.SetId(hash);
             _dictNoticeConditions.Add(hash, noticeCondition);
-            Logging.Print<Logger>($"<color=#79ffe7>[{nameof(NoticeSystem)}] Register Notice Condition <color=#2cff49>{type.Name}</color></color>");
+            Logging.Print<Logger>($"[{nameof(NoticeSystem)}] Register Notice Condition {type.Name}");
         }
 
         /// <summary>
@@ -80,12 +80,12 @@ namespace OxGKit.NoticeSystem
                             else
                             {
                                 noticeItems.RemoveAt(i);
-                                Logging.PrintWarning<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!</color>");
+                                Logging.PrintWarning<Logger>($"[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!");
                             }
                         }
                     }
                 }
-                else Logging.PrintError<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+                else Logging.PrintError<Logger>($"[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}");
             }
         }
 
@@ -157,7 +157,7 @@ namespace OxGKit.NoticeSystem
                 NoticeCondition noticeCondition = _dictNoticeConditions[conditionId];
                 return noticeCondition.ShowCondition(data);
             }
-            else Logging.PrintError<Logger>($"<color=#ff2355>[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}</color>");
+            else Logging.PrintError<Logger>($"[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}");
 
             return false;
         }
@@ -175,13 +175,13 @@ namespace OxGKit.NoticeSystem
                 if (_dictNoticeItems[conditionId].Contains(noticeItem))
                 {
                     _dictNoticeItems[conditionId].Assign(noticeItem);
-                    Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Renew Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"[{nameof(NoticeSystem)}] Renew Notice Item {noticeItem.name}");
                 }
                 else
                 {
                     // Add a noticeItem
                     _dictNoticeItems[conditionId].Add(noticeItem);
-                    Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"[{nameof(NoticeSystem)}] Register Notice Item {noticeItem.name}");
                 }
             }
             else
@@ -189,7 +189,7 @@ namespace OxGKit.NoticeSystem
                 ListSet<NoticeItem> noticeItems = new ListSet<NoticeItem>();
                 noticeItems.Add(noticeItem);
                 _dictNoticeItems.Add(conditionId, noticeItems);
-                Logging.Print<Logger>($"<color=#b4ff6d>[{nameof(NoticeSystem)}] Register Notice Item <color=#ffe92c>{noticeItem.name}</color></color>");
+                Logging.Print<Logger>($"[{nameof(NoticeSystem)}] Register Notice Item {noticeItem.name}");
             }
         }
 
@@ -204,7 +204,7 @@ namespace OxGKit.NoticeSystem
                 if (_dictNoticeItems[conditionId].Contains(noticeItem))
                 {
                     _dictNoticeItems[conditionId].Remove(noticeItem);
-                    Logging.Print<Logger>($"<color=#ff9b6f>[{nameof(NoticeSystem)}] Deregister Notice Item <color=#ff2cb4>{noticeItem.name}</color></color>");
+                    Logging.Print<Logger>($"[{nameof(NoticeSystem)}] Deregister Notice Item {noticeItem.name}");
                 }
             }
         }

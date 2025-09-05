@@ -1,5 +1,6 @@
 ﻿using OxGKit.LoggingSystem;
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,28 +23,33 @@ public class LoggingDemoLogger3 : Logging
 }
 
 [LoggerName("LoggingDemo.Logger3", true)]
-public class LoggingDemoLogger4 : Logging
+public class OverrideLoggingDemoLogger3 : Logging
 {
-    public LoggingDemoLogger4() { }
+    public OverrideLoggingDemoLogger3() { }
 
     public override void Log(object message)
     {
-        Debug.Log($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
+        Debug.Log($"[Override] logger <color=#1dabf7>3</color>: {message}");
+    }
+
+    public override void LogInfo(object message)
+    {
+        Debug.Log($"[Override] logger <color=#1dabf7>3</color>: {message}");
     }
 
     public override void LogWarning(object message)
     {
-        Debug.LogWarning($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
+        Debug.LogWarning($"[Override] logger <color=#1dabf7>3</color>: {message}");
     }
 
     public override void LogError(object message)
     {
-        Debug.LogError($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {message}");
+        Debug.LogError($"[Override] logger <color=#1dabf7>3</color>: {message}");
     }
 
     public override void LogException(Exception exception)
     {
-        Debug.LogException(new Exception($"[Override] logger <color=#1dabf7>3</color> is overridden by logger <color=#eec905>4</color>: {exception.Message}"));
+        Debug.LogException(new Exception($"[Override] logger <color=#1dabf7>3</color>: {exception.Message}"));
     }
 }
 
@@ -58,9 +64,8 @@ public class LoggingDemo : MonoBehaviour
          * LoggingLauncher.CreateLogger<LoggingDemoLogger1>();
          * LoggingLauncher.CreateLogger<LoggingDemoLogger2>(); 
          * LoggingLauncher.CreateLogger<LoggingDemoLogger3>(); 
-         * LoggingLauncher.CreateLogger<LoggingDemoLogger4>(); 
+         * LoggingLauncher.CreateLogger<LoggingDemoOverrideLogger3>(); 
          * LoggingLauncher.TryLoadLoggers();
-         * 
          */
     }
 
@@ -69,20 +74,23 @@ public class LoggingDemo : MonoBehaviour
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             // Use logger1 to print
-            Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
-            Logging.PrintWarning<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
-            Logging.PrintError<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!");
-            Logging.PrintException<LoggingDemoLogger1>(new Exception("Implement Logger by LoggingDemoLogger<color=#ff2a66>1</color>!!!"));
+            Logging.Print<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger <color=#ff2a66>1</color>.");
+            Logging.PrintInfo<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger <color=#ff2a66>1</color>.");
+            Logging.PrintWarning<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger <color=#ff2a66>1</color>.");
+            Logging.PrintError<LoggingDemoLogger1>("Implement Logger by LoggingDemoLogger <color=#ff2a66>1</color>.");
+            Logging.PrintException<LoggingDemoLogger1>(new Exception("Implement Logger by LoggingDemoLogger <color=#ff2a66>1</color>"));
             // Use Logger2 to print
-            Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
-            Logging.PrintWarning<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
-            Logging.PrintError<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!");
-            Logging.PrintException<LoggingDemoLogger2>(new Exception("Implement Logger by LoggingDemoLogger<color=#1df735>2</color>!!!"));
+            Logging.Print<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger <color=#1df735>2</color>.");
+            Logging.PrintInfo<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger <color=#1df735>2</color>.");
+            Logging.PrintWarning<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger <color=#1df735>2</color>.");
+            Logging.PrintError<LoggingDemoLogger2>("Implement Logger by LoggingDemoLogger <color=#1df735>2</color>.");
+            Logging.PrintException<LoggingDemoLogger2>(new InvalidCastException("Implement Logger by LoggingDemoLogger <color=#1df735>2</color>."));
             // Use Logger3 to print
-            Logging.Print<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
-            Logging.PrintWarning<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
-            Logging.PrintError<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!");
-            Logging.PrintException<LoggingDemoLogger3>(new Exception("Implement Logger by LoggingDemoLogger<color=#1dabf7>3</color>!!!"));
+            Logging.Print<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger <color=#1dabf7>3</color>.");
+            Logging.PrintInfo<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger <color=#1dabf7>3</color>.");
+            Logging.PrintWarning<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger <color=#1dabf7>3</color>.");
+            Logging.PrintError<LoggingDemoLogger3>("Implement Logger by LoggingDemoLogger <color=#1dabf7>3</color>.");
+            Logging.PrintException<LoggingDemoLogger3>(new IOException("Implement Logger by LoggingDemoLogger <color=#1dabf7>3</color>."));
         }
         // Switch the logger's active state at runtime (1 and 3)
         else if (Mouse.current.rightButton.wasReleasedThisFrame)

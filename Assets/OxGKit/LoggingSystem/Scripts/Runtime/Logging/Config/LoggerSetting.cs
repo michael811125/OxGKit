@@ -3,6 +3,9 @@ using System;
 
 namespace OxGKit.LoggingSystem
 {
+    /// <summary>
+    /// 單一日誌器配置
+    /// </summary>
     [Serializable]
     public class LoggerSetting
     {
@@ -22,6 +25,11 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         public LogLevel logLevel = (LogLevel)~0;
 
+        /// <summary>
+        /// 日誌器顏色模式
+        /// </summary>
+        public LogColor logColor = LogColor.EditorOnly;
+
         public LoggerSetting(string loggerName, bool logActive)
         {
             this.loggerName = loggerName;
@@ -31,6 +39,11 @@ namespace OxGKit.LoggingSystem
         public LoggerSetting(string loggerName, bool logActive, LogLevel logLevel) : this(loggerName, logActive)
         {
             this.logLevel = logLevel;
+        }
+
+        public LoggerSetting(string loggerName, bool logActive, LogLevel logLevel, LogColor logColor) : this(loggerName, logActive, logLevel)
+        {
+            this.logColor = logColor;
         }
     }
 }

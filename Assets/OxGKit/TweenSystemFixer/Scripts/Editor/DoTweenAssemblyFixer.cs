@@ -39,7 +39,7 @@ namespace OxGKit.TweenSystemFixer.Editor
                 }
             }
 
-            if (!found) Debug.LogError($"<color=#ff3387>Cannot found <color=#afff33>{_doTweenModulesFileName}</color>, repair failed</color>");
+            if (!found) Debug.LogError($"Cannot found {_doTweenModulesFileName}, repair failed");
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace OxGKit.TweenSystemFixer.Editor
                 if (EditorUtility.DisplayDialog($"Fixed {_doTweenModulesFileName} GUID",
                     $"Reassigned {_doTweenModulesFileName} GUID. \nSee console logs for detailed report.", "Done"))
                 {
-                    var message = $"<color=#4effde>Reassigned <color=#afff33>{_doTweenModulesFileName}</color> GUID to fixed GUID: <color=#ffce33>{_doTweenModulesFixedGUID}</color></color>\n";
+                    var message = $"Reassigned {_doTweenModulesFileName} GUID to fixed GUID: {_doTweenModulesFixedGUID}\n";
                     message = updatedAssets.Aggregate(message, (current, kvp) => current + $"{kvp.Value} references => {kvp.Key}\n");
                     Debug.Log($"{message}");
                 }

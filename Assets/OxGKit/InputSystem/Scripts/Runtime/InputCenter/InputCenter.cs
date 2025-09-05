@@ -1,4 +1,5 @@
 ﻿using OxGKit.LoggingSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,7 @@ namespace OxGKit.InputSystem
     public static class Inputs
     {
         /// <summary>
-        /// Control Map (Input Action Asset)
+        /// CM = Control Map (Input Action Asset)
         /// </summary>
         public static class CM
         {
@@ -53,7 +54,7 @@ namespace OxGKit.InputSystem
         }
 
         /// <summary>
-        /// Input Action
+        /// IA = Input Action
         /// </summary>
         public static class IA
         {
@@ -61,9 +62,19 @@ namespace OxGKit.InputSystem
             /// Call by MonoBehaviour (Update)
             /// </summary>
             /// <param name="dt"></param>
+            public static void DriveUpdate(float dt)
+            {
+                InputCenter.GetInstance().DriveUpdate(dt);
+            }
+
+            /// <summary>
+            /// Call by MonoBehaviour (Update)
+            /// </summary>
+            /// <param name="dt"></param>
+            [Obsolete("UpdateInputActions is deprecated. Use DriveUpdate instead.")]
             public static void UpdateInputActions(float dt)
             {
-                InputCenter.GetInstance().OnUpdateInputActions(dt);
+                InputCenter.GetInstance().DriveUpdate(dt);
             }
 
             /// <summary>
@@ -143,7 +154,7 @@ namespace OxGKit.InputSystem
         {
             if (this.HasControlMap(id))
             {
-                Logging.PrintWarning<Logger>($"<color=#ff4cc6>[ControlMap] <{inputActionCollection.GetType().Name}> already exist.</color>");
+                Logging.PrintWarning<Logger>($"[ControlMap] <{inputActionCollection.GetType().Name}> already exist.");
                 return;
             }
             var @new = new ControlMap(inputActionCollection);
@@ -179,7 +190,7 @@ namespace OxGKit.InputSystem
             var id = type.GetHashCode();
             if (!this.HasControlMap(id))
             {
-                Logging.PrintError<Logger>($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
+                Logging.PrintError<Logger>($"[ControlMap] <{type.Name}> cannot found.");
                 return;
             }
 
@@ -207,7 +218,7 @@ namespace OxGKit.InputSystem
             var id = type.GetHashCode();
             if (!this.HasControlMap(id))
             {
-                Logging.PrintError<Logger>($"<color=#ff4cc6>[ControlMap] <{type.Name}> cannot found.</color>");
+                Logging.PrintError<Logger>($"[ControlMap] <{type.Name}> cannot found.");
                 return false;
             }
 
@@ -238,7 +249,7 @@ namespace OxGKit.InputSystem
         {
             if (this.HasInputAction(id))
             {
-                Logging.PrintWarning<Logger>($"<color=#ff604c>[InputAction] <{inputAction.GetType().Name} already exist.></color>");
+                Logging.PrintWarning<Logger>($"[InputAction] <{inputAction.GetType().Name}> already exist.");
                 return;
             }
             inputAction.OnCreate();
@@ -269,7 +280,7 @@ namespace OxGKit.InputSystem
         /// Call by Main MonoBehaviour
         /// </summary>
         /// <param name="dt"></param>
-        public void OnUpdateInputActions(float dt)
+        public void DriveUpdate(float dt)
         {
             foreach (var inputAction in this._dictInputActions.Values)
             {

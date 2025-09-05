@@ -35,7 +35,7 @@ public class InputDemo : MonoBehaviour
     private void Update()
     {
         // Call by Main MonoBehaviour (Main Program)
-        Inputs.IA.UpdateInputActions(Time.unscaledDeltaTime);
+        Inputs.IA.DriveUpdate(Time.unscaledDeltaTime);
     }
 
     private void FixedUpdate()

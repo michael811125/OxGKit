@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.3] - 2025-09-05
+- Defined Inputs.IA.DriveUpdate method name (obsolete Inputs.IA.UpdateInputActions).
+- Removed color from print output.
+
 ## [1.0.2] - 2025-07-10
 - Organized print level.
 

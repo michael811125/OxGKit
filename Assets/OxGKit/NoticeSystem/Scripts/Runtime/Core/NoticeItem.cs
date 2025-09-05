@@ -140,7 +140,7 @@ namespace OxGKit.NoticeSystem
                     if (!this.gameObject.activeSelf)
                     {
                         this.gameObject.SetActive(true);
-                        Logging.Print<Logger>($"<color=#6dedff>[{nameof(NoticeSystem)}] <color=#94ff2c>(Match Condition)</color> Notify Notice Item <color=#94ff2c>{this.name}</color></color>");
+                        Logging.PrintInfo<Logger>($"[{nameof(NoticeSystem)}] (Match Condition) Notify Notice Item {this.name}");
                     }
                     return;
                 }

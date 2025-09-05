@@ -25,7 +25,7 @@ namespace OxGKit.TimeSystem
         {
             if (!_firstInitStartupTime)
             {
-                Logging.Print<Logger>("<color=#FF0000>Please call <color=#FFB800>RealTime.InitStartupTime()</color> in main program first</color>");
+                Logging.Print<Logger>("Please call RealTime.InitStartupTime() in main program first");
                 return false;
             }
 

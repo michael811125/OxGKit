@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.6.9] - 2025-09-05
+- Removed color from print output.
+
 ## [1.6.8] - 2025-07-10
 - Organized print level.
 

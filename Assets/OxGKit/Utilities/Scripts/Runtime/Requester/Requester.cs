@@ -768,7 +768,7 @@ namespace OxGKit.Utilities.Requester
                     errorInfo.exception = null;
                     errorAction?.Invoke(errorInfo);
                     request.Dispose();
-                    Logging.PrintError<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}</color>");
+                    Logging.PrintError<Logger>($"Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}");
                     return default;
                 }
 
@@ -776,7 +776,7 @@ namespace OxGKit.Utilities.Requester
 
 #if UNITY_EDITOR
                 ulong sizeBytes = (ulong)request.downloadHandler.data.Length;
-                Logging.Print<Logger>($"<color=#90ff67>Request result => Size: {GetBytesToString(sizeBytes)}</color>");
+                Logging.Print<Logger>($"Request result => Size: {GetBytesToString(sizeBytes)}");
 #endif
 
                 request.Dispose();
@@ -790,7 +790,7 @@ namespace OxGKit.Utilities.Requester
                 errorInfo.exception = ex;
                 errorAction?.Invoke(errorInfo);
                 request?.Dispose();
-                Logging.PrintError<Logger>($"<color=#FF0000>Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}, Exception: {ex}</color>");
+                Logging.PrintError<Logger>($"Request failed. URL: {errorInfo.url}, ErrorMsg: {errorInfo.message}, Exception: {ex}");
                 return default;
             }
         }
@@ -830,7 +830,7 @@ namespace OxGKit.Utilities.Requester
                 errorInfo.url = null;
                 errorInfo.message = "Request failed. URL is null or empty.";
                 errorInfo.exception = null;
-                Logging.PrintError<Logger>($"<color=#FF0000>{errorInfo.message}</color>");
+                Logging.PrintError<Logger>($"{errorInfo.message}");
                 errorAction?.Invoke(errorInfo);
                 return true;
             }

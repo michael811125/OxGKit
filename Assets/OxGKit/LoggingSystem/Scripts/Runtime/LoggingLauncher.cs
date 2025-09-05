@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace OxGKit.LoggingSystem
 {
+    /// <summary>
+    /// 日誌部署啟動器與 APIs
+    /// </summary>
     [DisallowMultipleComponent]
     public class LoggingLauncher : MonoBehaviour
     {
@@ -156,24 +159,20 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// [StartCoroutine] Configures the specified logger's active state and log level
+        /// [StartCoroutine] Sets the master logging color for all loggers
         /// </summary>
-        /// <param name="loggerName"></param>
-        /// <param name="logActive"></param>
-        /// <param name="logLevel"></param>
-        public static void ConfigureLogger(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All)
+        /// <param name="logMainColor"></param>
+        public static void ColorMasterLogging(LogColor logMainColor)
         {
-            GetInstance().StartCoroutine(ConfigureLoggerAsync(loggerName, logActive, logLevel));
+            GetInstance().StartCoroutine(ColorMasterLoggingAsync(logMainColor));
         }
 
         /// <summary>
-        /// [Async] Configures the specified logger's active state and log level
+        /// [Async] Sets the master logging color for all loggers
         /// </summary>
-        /// <param name="loggerName"></param>
-        /// <param name="logActive"></param>
-        /// <param name="logLevel"></param>
+        /// <param name="logMainColor"></param>
         /// <returns></returns>
-        public static IEnumerator ConfigureLoggerAsync(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All)
+        public static IEnumerator ColorMasterLoggingAsync(LogColor logMainColor)
         {
             LoggersConfig loggersConfig = null;
             bool isCompleted = false;
@@ -181,7 +180,7 @@ namespace OxGKit.LoggingSystem
             yield return GetInstance()._LoadLoggersConfig((result) =>
             {
                 loggersConfig = result;
-                loggersConfig.ConfigureLogger(loggerName, logActive, logLevel);
+                loggersConfig.ColorMasterLogging(logMainColor);
                 isCompleted = true;
             }, false, true);
 
@@ -192,21 +191,26 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
-        /// [StartCoroutine] Configures all loggers' active state and log level
+        /// [StartCoroutine] Configures the specified logger's active state and log level, log color
         /// </summary>
+        /// <param name="loggerName"></param>
         /// <param name="logActive"></param>
         /// <param name="logLevel"></param>
-        public static void ConfigureAllLoggers(bool logActive, LogLevel logLevel = LogLevel.All)
+        /// <param name="logColor"></param>
+        public static void ConfigureLogger(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All, LogColor logColor = LogColor.EditorOnly)
         {
-            GetInstance().StartCoroutine(ConfigureAllLoggersAsync(logActive, logLevel));
+            GetInstance().StartCoroutine(ConfigureLoggerAsync(loggerName, logActive, logLevel, logColor));
         }
 
         /// <summary>
-        /// [Async] Configures all loggers' active state and log level
+        /// [Async] Configures the specified logger's active state and log level, log color
         /// </summary>
+        /// <param name="loggerName"></param>
         /// <param name="logActive"></param>
         /// <param name="logLevel"></param>
-        public static IEnumerator ConfigureAllLoggersAsync(bool logActive, LogLevel logLevel = LogLevel.All)
+        /// <param name="logColor"></param>
+        /// <returns></returns>
+        public static IEnumerator ConfigureLoggerAsync(string loggerName, bool logActive, LogLevel logLevel = LogLevel.All, LogColor logColor = LogColor.EditorOnly)
         {
             LoggersConfig loggersConfig = null;
             bool isCompleted = false;
@@ -214,7 +218,43 @@ namespace OxGKit.LoggingSystem
             yield return GetInstance()._LoadLoggersConfig((result) =>
             {
                 loggersConfig = result;
-                loggersConfig.ConfigureAllLoggers(logActive, logLevel);
+                loggersConfig.ConfigureLogger(loggerName, logActive, logLevel, logColor);
+                isCompleted = true;
+            }, false, true);
+
+            while (!isCompleted)
+                yield return null;
+
+            yield return GetInstance()._TryLoadLoggers(true);
+        }
+
+        /// <summary>
+        /// [StartCoroutine] Configures all loggers' active state and log level, log color
+        /// </summary>
+        /// <param name="logActive"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="logColor"></param>
+        public static void ConfigureAllLoggers(bool logActive, LogLevel logLevel = LogLevel.All, LogColor logColor = LogColor.EditorOnly)
+        {
+            GetInstance().StartCoroutine(ConfigureAllLoggersAsync(logActive, logLevel, logColor));
+        }
+
+        /// <summary>
+        /// [Async] Configures all loggers' active state and log level, log color
+        /// </summary>
+        /// <param name="logActive"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="logColor"></param>
+        /// <returns></returns>
+        public static IEnumerator ConfigureAllLoggersAsync(bool logActive, LogLevel logLevel = LogLevel.All, LogColor logColor = LogColor.EditorOnly)
+        {
+            LoggersConfig loggersConfig = null;
+            bool isCompleted = false;
+
+            yield return GetInstance()._LoadLoggersConfig((result) =>
+            {
+                loggersConfig = result;
+                loggersConfig.ConfigureAllLoggers(logActive, logLevel, logColor);
                 isCompleted = true;
             }, false, true);
 
@@ -311,7 +351,7 @@ namespace OxGKit.LoggingSystem
             Logging.InitLoggers();
             // Load logger settings from config after init
             yield return this._LoadLoggers(false);
-            Debug.Log($"<color=#00ffa2>[{nameof(LoggingSystem)}] is Initialized.</color>");
+            Debug.Log($"[{nameof(LoggingSystem)}] is Initialized.");
         }
 
         /// <summary>
@@ -334,7 +374,7 @@ namespace OxGKit.LoggingSystem
         private IEnumerator _TryLoadLoggers(bool isCustom)
         {
             yield return this._LoadLoggers(isCustom);
-            Debug.Log($"<color=#00ffe5>[{nameof(LoggingSystem)}] is reloaded setting in runtime.</color>");
+            Debug.Log($"[{nameof(LoggingSystem)}] is reloaded setting in runtime.");
         }
 
         private IEnumerator _LoadLoggers(bool isCustom)
@@ -355,12 +395,14 @@ namespace OxGKit.LoggingSystem
                         {
                             logger.logActive = loggerSetting.logActive;
                             logger.logLevel = loggerSetting.logLevel;
+                            logger.logColor = loggerSetting.logColor;
                         }
                     }
 
                     // Set main info from config
                     Logging.logMainActive = loggersConfig.logMainActive;
                     Logging.logMainLevel = loggersConfig.logMainLevel;
+                    Logging.logMainColor = loggersConfig.logMainColor;
                 }
             }, false, isCustom);
 #else
@@ -452,7 +494,7 @@ namespace OxGKit.LoggingSystem
                 var loggers = Logging.GetLoggers();
                 foreach (var logger in loggers)
                 {
-                    loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel));
+                    loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
                 }
                 result?.Invoke(loggersConfig);
             }
@@ -483,7 +525,7 @@ namespace OxGKit.LoggingSystem
 
                     // If not found represents the new logger
                     if (!found)
-                        loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel));
+                        loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
                 }
                 result?.Invoke(loggersConfig);
             }

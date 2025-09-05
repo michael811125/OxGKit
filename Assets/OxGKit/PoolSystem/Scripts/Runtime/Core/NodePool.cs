@@ -185,7 +185,7 @@ namespace OxGKit.PoolSystem
                 {
                     // Destroy if exceeding maxSize
                     Destroy(go);
-                    Logging.Print<Logger>("<color=#ff9d1d>Exceeded maxSize, destroying excess object for recycling.</color>");
+                    Logging.Print<Logger>("Exceeded maxSize, destroying excess object for recycling.");
                     return;
                 }
 

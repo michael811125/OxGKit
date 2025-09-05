@@ -125,7 +125,7 @@ namespace OxGKit.LoggingSystem.Editor
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
-                Debug.Log($"<color=#00d6ff>Created directory: {directoryPath}</color>");
+                Debug.Log($"Created directory: {directoryPath}");
             }
 
             switch (configFileType)
@@ -139,7 +139,7 @@ namespace OxGKit.LoggingSystem.Editor
                         // 寫入文件
                         File.WriteAllText(savePath, json);
                         AssetDatabase.Refresh();
-                        Debug.Log($"<color=#00d6ff>Saved Loggers Config JSON to: {savePath}</color>");
+                        Debug.Log($"Saved Loggers Config JSON to: {savePath}");
                     }
                     break;
 
@@ -155,7 +155,7 @@ namespace OxGKit.LoggingSystem.Editor
                         // 寫入配置文件
                         File.WriteAllBytes(savePath, writeBuffer);
                         AssetDatabase.Refresh();
-                        Debug.Log($"<color=#00d6ff>Saved Loggers Config BYTES to: {savePath}</color>");
+                        Debug.Log($"Saved Loggers Config BYTES to: {savePath}");
                     }
                     break;
             }

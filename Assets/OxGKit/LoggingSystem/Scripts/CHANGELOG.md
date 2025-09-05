@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## [1.3.0] - 2025-09-05
+- Added LogInfo level (PrintInfo).
+  - Log/Debug, LogInfo, LogWarning, LogError, LogException.
+- Added logger color can set Disabled, Enabled, and EditorOnly.
+- Removed color from print output.
+
 ## [1.2.7] - 2025-09-04
 - Added support for a logging parameter to include an indexed UnityEngine.Object context.
 

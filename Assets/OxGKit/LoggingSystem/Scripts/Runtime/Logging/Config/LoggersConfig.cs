@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace OxGKit.LoggingSystem
 {
+    /// <summary>
+    /// 全部日誌器配置
+    /// </summary>
     [Serializable]
     public class LoggersConfig
     {
@@ -32,6 +35,13 @@ namespace OxGKit.LoggingSystem
         [OverrideLabel("Master Logging Level")]
         [SerializeField]
         public LogLevel logMainLevel = LogLevel.All;
+
+        /// <summary>
+        /// 日誌器全域顏色模式
+        /// </summary>
+        [OverrideLabel("Master Logging Color")]
+        [SerializeField]
+        public LogColor logMainColor = LogColor.EditorOnly;
 
         /// <summary>
         /// 各日誌器配置
@@ -107,6 +117,15 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
+        /// 日誌器全域顏色模式
+        /// </summary>
+        /// <param name="logColor"></param>
+        internal void ColorMasterLogging(LogColor logColor)
+        {
+            this.logMainColor = logColor;
+        }
+
+        /// <summary>
         /// 配置單一日誌器
         /// </summary>
         /// <param name="loggerName"></param>
@@ -126,6 +145,27 @@ namespace OxGKit.LoggingSystem
         }
 
         /// <summary>
+        /// 配置單一日誌器
+        /// </summary>
+        /// <param name="loggerName"></param>
+        /// <param name="isEnabled"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="logColor"></param>
+        internal void ConfigureLogger(string loggerName, bool isEnabled, LogLevel logLevel, LogColor logColor)
+        {
+            foreach (var loggerSetting in this.loggerSettings)
+            {
+                if (loggerSetting.loggerName == loggerName)
+                {
+                    loggerSetting.logActive = isEnabled;
+                    loggerSetting.logLevel = logLevel;
+                    loggerSetting.logColor = logColor;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
         /// 配置全部日誌器
         /// </summary>
         /// <param name="isEnabled"></param>
@@ -136,6 +176,21 @@ namespace OxGKit.LoggingSystem
             {
                 loggerSetting.logActive = isEnabled;
                 loggerSetting.logLevel = logLevel;
+            }
+        }
+
+        /// <summary>
+        /// 配置全部日誌器
+        /// </summary>
+        /// <param name="isEnabled"></param>
+        /// <param name="logLevel"></param>
+        internal void ConfigureAllLoggers(bool isEnabled, LogLevel logLevel, LogColor logColor)
+        {
+            foreach (var loggerSetting in this.loggerSettings)
+            {
+                loggerSetting.logActive = isEnabled;
+                loggerSetting.logLevel = logLevel;
+                loggerSetting.logColor = logColor;
             }
         }
 

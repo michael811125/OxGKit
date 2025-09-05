@@ -654,19 +654,35 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.logMainLevel
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggersConfig.logMainActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggersConfig.loggerSettings.Array.size
-      value: 10
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[0].logColor
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggersConfig.loggerSettings.Array.data[0].logLevel
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[1].logColor
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
       propertyPath: loggersConfig.loggerSettings.Array.data[1].logLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}
+      propertyPath: loggersConfig.loggerSettings.Array.data[2].logColor
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3415422755630365937, guid: 39c1e8f8b6463b041be46441ad8ef6b1, type: 3}

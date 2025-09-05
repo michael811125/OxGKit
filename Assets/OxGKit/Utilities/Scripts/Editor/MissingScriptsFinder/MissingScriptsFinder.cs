@@ -203,18 +203,18 @@ namespace OxGKit.Utilities.MissingFinder.Editor
                 var assetPath = AssetDatabase.GetAssetPath(go);
                 //prefab
                 if (!string.IsNullOrEmpty(assetPath))
-                    Debug.Log("<color=#65ffd5>Missing script:</color> <color=#ff65d1>" + transform.GetTransformPath() + "</color> --> <color=#ffe265>" + assetPath + "</color>", transform.root.gameObject);
+                    Debug.Log($"Missing script: {transform.GetTransformPath()} --> {assetPath}", transform.root.gameObject);
                 else if (go.scene.IsValid())
                 {
                     //scene
                     if (needSceneRemove)
-                        Debug.Log("<color=#65ffd5>Missing script:</color> <color=#ff65d1>" + transform.GetTransformPath() + "</color> --> <color=#ffe265>" + go.scene.path + "</color>",
+                        Debug.Log($"Missing script: {transform.GetTransformPath()} --> {go.scene.path}",
                             AssetDatabase.LoadAssetAtPath<SceneAsset>(go.scene.path));
                     else
-                        Debug.Log("<color=#65ffd5>Missing script:</color> <color=#ff65d1>" + transform.GetTransformPath() + "</color>", go);
+                        Debug.Log($"Missing script: {transform.GetTransformPath()}", go);
                 }
                 else
-                    Debug.Log("<color=#65ffd5>Missing script:</color> <color=#ff65d1>" + transform.GetTransformPath() + "</color>", go);
+                    Debug.Log($"Missing script: {transform.GetTransformPath()}", go);
             }
 
             //Find children

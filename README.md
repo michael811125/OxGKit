@@ -165,11 +165,11 @@ LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級�
 - 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.conf 進行日誌開關控制。 
 
 Log Level 可切換為以下：
-  - Log (即 Debug)
-  - LogInfo
-  - LogWarning
-  - LogError
-  - LogException
+  - LogDebug **(Print)**
+  - LogInfo **(PrintInfo)**
+  - LogWarning **(PrintWarning)**
+  - LogError **(PrintError)**
+  - LogException **(PrintException)**
 
 ![](Docs/img_4.png)
 

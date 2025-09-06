@@ -240,7 +240,7 @@ namespace OxGKit.LoggingSystem.Editor
                 GUI.backgroundColor = bc;
                 // Log level enum dropdown
                 EditorGUI.BeginChangeCheck();
-                this._selectedLogLevel = (LogLevel)EditorGUILayout.EnumPopup(this._selectedLogLevel);
+                this._selectedLogLevel = (LogLevel)EditorGUILayout.EnumFlagsField(this._selectedLogLevel);
                 if (EditorGUI.EndChangeCheck())
                 {
                     this._isLogLevelSaved = false;

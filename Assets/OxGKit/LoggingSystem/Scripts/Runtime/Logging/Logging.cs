@@ -196,7 +196,7 @@ namespace OxGKit.LoggingSystem
             {
                 switch (logLevel)
                 {
-                    case LogLevel.Log:
+                    case LogLevel.LogDebug:
                         {
                             if (context == null)
                                 _cacheLoggers[key].Print(message);
@@ -243,7 +243,7 @@ namespace OxGKit.LoggingSystem
         #region Global Methods
         public static void Print<TLogging>(object message, UnityEngine.Object context = null) where TLogging : Logging
         {
-            DispatchLog<TLogging>(LogLevel.Log, message, context);
+            DispatchLog<TLogging>(LogLevel.LogDebug, message, context);
         }
 
         public static void PrintInfo<TLogging>(object message, UnityEngine.Object context = null) where TLogging : Logging
@@ -301,8 +301,8 @@ namespace OxGKit.LoggingSystem
                 switch (logMainLevel)
                 {
                     // 全域優先
-                    case LogLevel.Log:
-                        return this.logActive && this.logLevel.HasFlag(LogLevel.Log);
+                    case LogLevel.LogDebug:
+                        return this.logActive && this.logLevel.HasFlag(LogLevel.LogDebug);
                     case LogLevel.LogInfo:
                         return this.logActive && this.logLevel.HasFlag(LogLevel.LogInfo);
                     case LogLevel.LogWarning:
@@ -362,7 +362,7 @@ namespace OxGKit.LoggingSystem
 
                 switch (logLevel)
                 {
-                    case LogLevel.Log:
+                    case LogLevel.LogDebug:
                         return $"<color=#00ffd8><b>[DEBUG] ► </b></color><color=#72ffe9>{msg}</color>";
                     case LogLevel.LogInfo:
                         return $"<color=#00ff73><b>[INFO] ► </b></color><color=#72ffb2>{msg}</color>";
@@ -390,10 +390,10 @@ namespace OxGKit.LoggingSystem
         #region Internal Print Methods
         internal void Print(object message)
         {
-            if (!this.CheckLogActive(LogLevel.Log))
+            if (!this.CheckLogActive(LogLevel.LogDebug))
                 return;
 
-            message = this.ColorizeLogMessage(LogLevel.Log, message);
+            message = this.ColorizeLogMessage(LogLevel.LogDebug, message);
 
             this.Log(message);
         }
@@ -440,10 +440,10 @@ namespace OxGKit.LoggingSystem
 
         internal void Print(object message, UnityEngine.Object context)
         {
-            if (!this.CheckLogActive(LogLevel.Log))
+            if (!this.CheckLogActive(LogLevel.LogDebug))
                 return;
 
-            message = this.ColorizeLogMessage(LogLevel.Log, message);
+            message = this.ColorizeLogMessage(LogLevel.LogDebug, message);
 
             this.Log(message, context);
         }

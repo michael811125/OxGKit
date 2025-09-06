@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.3.1] - 2025-09-06
+- Modified LogLevel `Log` name to `LogDebug`.
+- Fixed a bug with LogLevel flag selection in the Inspector.
+
 ## [1.3.0] - 2025-09-05
 - Added LogInfo level (PrintInfo).
   - Log/Debug, LogInfo, LogWarning, LogError, LogException.

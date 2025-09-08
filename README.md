@@ -24,7 +24,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - [DoTween Pro 的補間動畫系統 (TweenSystem)](https://github.com/michael811125/OxGKit#tweensystem-dependence-dotween-pro-lwmybox-oxgkitutilities)
 - [按鈕系統 (Button System)](https://github.com/michael811125/OxGKit#buttonsystem)
 - [時間系統 (Time System)](https://github.com/michael811125/OxGKit#timesystem)
-- [游標系統 (Cursor System)](https://github.com/michael811125/OxGKit#cursorsystem)
+- [鼠標系統 (Cursor System)](https://github.com/michael811125/OxGKit#cursorsystem)
 - [物件池系統 (Pool System)](https://github.com/michael811125/OxGKit#poolsystem)
 - [單例系統 (Singleton System)](https://github.com/michael811125/OxGKit#singletonsystem)
 - [儲存系統 (Saver System)](https://github.com/michael811125/OxGKit#saversystem)
@@ -149,20 +149,21 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ## LoggingSystem (dependence LWMyBox)
 
-日誌系統，支持 Cipher & Plaintext (可以任一轉換)，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關、全域級別、個別開關配置、個別級別配置。
-- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.conf (In StreamingAssets) 建立配置檔。
+日誌系統，支持 Cipher & Plaintext (可以任意轉換)，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關配置、全域級別配置、全域顏色配置、個別開關配置、個別級別配置、個別顏色配置。
+- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.conf (自動存於 StreamingAssets) 建立配置文件，方便真機修改 loggersconfig.conf 配置進行調適。
   - ![](Docs/img_7.png)
-- 透過 LoggingLauncher 進行配置或只直接修改 loggersconfig.conf 文件。
+- 透過 LoggingLauncher 進行配置或只直接修改 StreamingAssets/loggersconfig.conf 文件。
 
 **Build 激活宏**
 - OXGKIT_LOGGER_ON
 
-配置文件轉換。
+配置文件編碼格式轉換。
+- 提醒：發布建議使用 Cipher。
 
 ![](Docs/img_6.png)
 
-LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)。
-- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 loggersconfig.conf 進行日誌開關控制。 
+LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)、logColor (顏色)。
+- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 StreamingAssets/loggersconfig.conf 進行日誌開關控制。 
 
 Log Level 可切換為以下：
   - LogDebug **(Print)**

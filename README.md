@@ -43,38 +43,75 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 ## LoggingSystem (dependence LWMyBox)
 
 日誌系統，支持 Cipher & Plaintext (可以任意轉換)，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關配置、全域級別配置、全域顏色配置、個別開關配置、個別級別配置、個別顏色配置。
+
 - 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.conf (自動存於 StreamingAssets) 建立配置文件，方便真機修改 loggersconfig.conf 配置進行調適。
   - ![](Docs/img_7.png)
 - 透過 LoggingLauncher 進行配置或只直接修改 StreamingAssets/loggersconfig.conf 文件。
 
 **Build 激活宏**
+
 - OXGKIT_LOGGER_ON
 
 配置文件編碼格式轉換。
+
 - 提醒：發布建議使用 Cipher。
 
 ![](Docs/img_6.png)
 
 LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)、logColor (顏色)。
+
 - 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 StreamingAssets/loggersconfig.conf 進行日誌開關控制。 
 
 Log Level 可切換為以下：
-  - LogDebug **(Print)**
-  - LogInfo **(PrintInfo)**
-  - LogWarning **(PrintWarning)**
-  - LogError **(PrintError)**
-  - LogException **(PrintException)**
+
+- LogDebug **(Print)**
+- LogInfo **(PrintInfo)**
+- LogWarning **(PrintWarning)**
+- LogError **(PrintError)**
+- LogException **(PrintException)**
+
+表格符號說明：
+
+- G = Global (全域設定 / Master Logging Level)。
+- P = Per-Logger (個別 Logger 的設定)。
+- Gx = 單一全域級別：LogDebug / LogInfo / LogWarning / LogError / LogException。
+- Px = 單一個別級別：LogDebug / LogInfo / LogWarning / LogError / LogException。
+- G ∩ P = 旗標交集 (bitwise AND)，代表同時被全域與個別允許的級別集合。
+
+總結規則：只有當 G 與 P 都包含該級別時，該級別 (Log Level) 才會進行輸出。
+
+| 全域 (G) | 個別 (P) | 生效級別 (輸出)                                       |
+| ----------- | ---------- | ---------------------------------------------- |
+| Off         | Any        | ✗                                              |
+| Any         | Off        | ✗                                              |
+| All         | All        | DEBUG / INFO / WARNING / ERROR / EXCEPTION → ✓ |
+| All         | 單一 `Px`    | `Px` → ✓                                      |
+| 單一 `Gx`     | All        | `Gx` → ✓                                      |
+| 單一 `Gx`     | 單一 `Px`    | 若 `Gx = Px` → `Gx` → ✓；否則 ✗             |
+| 任意集合 `G`    | 任意集合 `P`   | `G ∩ P` → ✓；若無交集 → ✗                 |
 
 ![](Docs/img_4.png)
 
 Log Color 可切換為以下：
-  - Disabled
-  - Enabled
-  - EditorOnly (發布時，剔除 RichText 上色處理)
+
+- Disabled
+- Enabled
+- EditorOnly (發布時，不進行 RichText 上色處理)
+
+| 全域 (G) | 個別 (P) | 生效模式  | Editor | Player / 發布 |
+| ----------- | ---------- | ---------- | ------ | --------- |
+| Disabled    | Any        | Disabled   | ✗      | ✗         |
+| Enabled     | Disabled   | Disabled   | ✗      | ✗         |
+| EditorOnly  | Disabled   | Disabled   | ✗      | ✗         |
+| Enabled     | Enabled    | Enabled    | ✓      | ✓         |
+| Enabled     | EditorOnly | EditorOnly | ✓      | ✗         |
+| EditorOnly  | Enabled    | EditorOnly | ✓      | ✗         |
+| EditorOnly  | EditorOnly | EditorOnly | ✓      | ✗         |
 
 ![](Docs/img_8.png)
 
 新增 Logger 或移除 Logger，皆需呼叫 LoggingLauncher.TryLoadLoggers() 進行重載 (建議定義一個 default constructor，避免搭配 HybridCLR + Activator.CreateInstance(type) 出現錯誤)。
+
 ```C#
 using OxGKit.LoggingSystem;
 
@@ -87,6 +124,7 @@ public class MyLogger1 : Logging
 ```
 
 進行原有 Logger 的 Override
+
 ```C#
 // Use same name to override MyLogger1
 [LoggerName("MyLogger", true)]
@@ -123,6 +161,7 @@ public class OverrideMyLogger1 : Logging
 ```
 
 如果搭配 HybridCLR 有主工程跟熱更工程的區分，必須手動拆分創建 AOT 跟 Hotfix 的 Loggers 初始流程，可以參考以下：
+
 ```C#
 // HybridCLR (必須取消 LoggingLauncher 上的 "Initialize On Awake" 選項):
 LoggingLauncher.CreateLogger<LoggingDemoLogger1>();
@@ -133,6 +172,7 @@ LoggingLauncher.TryLoadLoggers();
 ```
 
 動態配置日誌器，參考如下：
+
 ```C#
 // Reload LoggersConfig at Runtime (方式一)
 var loggersConfig = new LoggersConfig
@@ -157,11 +197,12 @@ LoggingLauncher.ConfigureLogger("LoggingDemo.Logger3", false);
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                         |
+|:----------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
+
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 
 **LoggingSystem Demo**
@@ -184,11 +225,12 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                              |
+|:---------------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InfiniteScrollView/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
+
 - 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
@@ -199,17 +241,19 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 ## ActionSystem (dependence UniTask, OxGKit.LoggingSystem)
 
 動作序列系統，能夠自行定義 Action 並且自行組合運行組，預設 Actions 有 SequenceAction, ParallelAction, ParallelDelayAction, DelayAction, DelegateAction，另外如果針對動畫需要進行拼湊處理，也可以使用 ActionSystem 作為運行。
+
 - 透過 Right-Click Create/OxGKit/Action System/Template Action.cs 實作自定義 Action。
 
 *[參考 Example]*
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                        |
+|:---------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ActionSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
+
 - 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
@@ -224,6 +268,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 ## NoticeSystem or RedDotSystem (dependence OxGKit.LoggingSystem)
 
 通知系統 (也稱紅點系統)，支援動態新增刪除通知條件，可以自行定義通知條件，再針對 NoticeItem 進行條件持有註冊，當 NoticeItem 身上其中持有任一符合條件則通知顯示圖示 (紅點)。
+
 - 透過 Right-Click Create/OxGKit/Notice System/Template Notice Condition.cs 實作通知條件。
 - 將 NoticeItem prefab 拖曳至 UI 上，自行指定 ICON，再取得 NoticeItem 身上的組件進行條件註冊 (當 OnDestroy 時，會自動 Deregister)。
 - 當有數據狀態變更時，必須通知特定條件 ID 進行 Notify，將會透過條件 ID 進行查找持有的 NoticeItems，並且進行刷新顯示。
@@ -232,11 +277,12 @@ https://github.com/michael811125/OxGKit/assets/30960759/169d91ea-3709-420c-8751-
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                        |
+|:---------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/NoticeSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
+
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **NoticeSystem Demo**
@@ -250,6 +296,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 ## InputSystem (dependence Unity New InputSystem, OxGKit.LoggingSystem)
 
 輸入控制系統，支援 Unity New InputSystem，如果使用 Unity New InputSystem 需自行建立 Unity New InpuptSystem 的控制表 (Control Maps)，並且還有提供使用於 Unity New InputSystem 的 Binding Composite 腳本模板，最後再由 Input Action 派送輸入訊號控制由訂閱者訂閱，進而做到遊戲中的控制邏輯不需要知道平台裝置區分，皆由 Input Action 進行整合，當然 Input Action 也支援其他輸入控制插件，作為單純的輸入控制派送者。
+
 - 透過 Right-Click Create/OxGKit/Input System/Template Input Action.cs 實作 InputAction 介面。
 - 調用 Inputs API (using.OxGkit.InputSystem)
 
@@ -265,11 +312,12 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                       |
+|:--------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/InputSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行安裝)**
+
 - 使用 [Unity New InputSystem v1.5.1 or higher](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
@@ -284,6 +332,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 ## TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
+
 - Add Component/OxGKit/TweenSystem/DoTweenAnim
 - Add Component/OxGKit/TweenSystem/DoTweenAnimEvent
 
@@ -305,18 +354,21 @@ Preview Mode (Only DoTweenAnim component is supported)
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                       |
+|:--------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TweenSystem/Scripts to Package Manager |
 
 **第三方庫 (需自行購買安裝)**
+
 - 使用 [DoTween Pro v1.0.335 or higher](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
 
 **第三方庫 (需自行安裝)**
+
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
 
 <!--- ### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID) --->
+
 ### Create DoTween Assemblies
 
 ![](Docs/gif_1.gif)
@@ -359,6 +411,7 @@ fdf3e181e62e9d243a7fee5ce890ab71
 
 ![](Docs/gif_2.gif)
 --->
+
 ---
 
 ## ButtonSystem
@@ -369,8 +422,8 @@ ButtonPlus 是基於繼承 Unity UGUI 的 Button 進行擴展的，功能擴展�
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                        |
+|:---------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/ButtonSystem/Scripts to Package Manager |
 
 **ButtonSystem Demo**
@@ -385,8 +438,8 @@ https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                      |
+|:-------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts to Package Manager |
 
 **TimeSystem Demo**
@@ -401,8 +454,8 @@ Cursor 游標管理器，支持靜態與動態游標與各種狀態行為切換 
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                        |
+|:---------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/CursorSystem/Scripts to Package Manager |
 
 **CursorSystem Demo**
@@ -417,8 +470,8 @@ https://github.com/user-attachments/assets/49e2a081-6d31-4ba6-8bb8-be60a148742c
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                      |
+|:-------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/PoolSystem/Scripts to Package Manager |
 
 **PoolSystem Demo**
@@ -433,8 +486,8 @@ https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                           |
+|:------------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SingletonSystem/Scripts to Package Manager |
 
 ## SaverSystem
@@ -443,8 +496,8 @@ https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                       |
+|:--------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/SaverSystem/Scripts to Package Manager |
 
 ## LocalizationSystem
@@ -452,10 +505,11 @@ https://github.com/user-attachments/assets/822d2431-0ee4-487c-9331-b62257ba95fd
 本地化系統，支持自定義解表方式與自定義支持語系。
 
 必須實現以下回調進行初始配置：
- - Localization.onAddSupportedLanguages
- - Localization.onParsingLanguageData
- - Localization.onChangeLanguage
- 
+
+- Localization.onAddSupportedLanguages
+- Localization.onParsingLanguageData
+- Localization.onChangeLanguage
+
 ```C#
 #region Localization Config
 /// <summary>
@@ -536,8 +590,8 @@ private void _RefreshLanguage(LangType langType)
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                              |
+|:---------------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LocalizationSystem/Scripts to Package Manager |
 
 ## VirtualJoystick
@@ -552,8 +606,8 @@ Reference: [annulusgames - EnhancedOnScreenStick](https://github.com/AnnulusGame
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                           |
+|:------------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/VirtualJoystick/Scripts to Package Manager |
 
 ## Utilities (dependence UniTask)
@@ -577,11 +631,12 @@ Reference: [annulusgames - EnhancedOnScreenStick](https://github.com/AnnulusGame
 
 ### Installation
 
-| Install via git URL |
-|:-|
+| Install via git URL                                                                                     |
+|:------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager |
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
+
 - 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager

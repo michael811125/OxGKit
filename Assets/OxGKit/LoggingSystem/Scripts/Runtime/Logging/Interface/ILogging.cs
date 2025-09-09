@@ -6,6 +6,8 @@ namespace OxGKit.LoggingSystem
     {
         void Log(object message);
 
+        void LogInfo(object message);
+
         void LogWarning(object message);
 
         void LogError(object message);
@@ -13,6 +15,8 @@ namespace OxGKit.LoggingSystem
         void LogException(Exception exception);
 
         void Log(object message, UnityEngine.Object context);
+
+        void LogInfo(object message, UnityEngine.Object context);
 
         void LogWarning(object message, UnityEngine.Object context);
 

@@ -249,7 +249,7 @@ namespace OxGKit.InfiniteScrollView
                 this.scrollRect.content.sizeDelta = new Vector2(this.scrollRect.content.sizeDelta.x, height);
 
                 // Recycle all cells first
-                for (int i = 0; i < _cellList.Count; i++)
+                for (int i = 0; i < this._cellList.Count; i++)
                 {
                     this.RecycleCell(i);
                 }

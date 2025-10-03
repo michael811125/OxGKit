@@ -54,7 +54,7 @@ public class TestGUI_05 : MonoBehaviour
         var chatMessageHeight = this.heightInstrument.preferredHeight + this.baseCellHeight;
         var infiniteData = new InfiniteCellData(new Vector2(0, chatMessageHeight), chatCellData);
         this.chatScrollView.Add(infiniteData);
-        // DisabledRefreshCells, if filled
+        // If filled to triiger refreshOnNextScroll will refresh on next value changed (at next scrolling)
         this.chatScrollView.Refresh(this.chatScrollView.isVisibleRangeFilled);
     }
 }

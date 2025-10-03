@@ -1,5 +1,33 @@
 ## CHANGELOG
 
+## [1.7.0] - 2025-10-03
+- Added refresh param to Insert method.
+```scharp
+/// <summary>
+/// Insert cell data
+/// </summary>
+/// <param name="index"></param>
+/// <param name="data"></param>
+/// <param name="refresh"></param>
+/// <returns></returns>
+public virtual bool Insert(int index, InfiniteCellData data, bool refresh = true)
+```
+- Modified Refresh method.
+```csharp
+/// <summary>
+/// Refresh the scroll view
+/// </summary>
+/// <param name="refreshOnNextScroll">
+/// If true, schedule a full refresh on the next scroll (OnValueChanged) event instead of immediately
+/// </param>
+/// <param name="recycleActiveCells">
+/// If true, recycle all active cells back to the pool before refreshing (does not clear the data list)
+/// </param>
+public abstract void Refresh(bool refreshOnNextScroll = false, bool recycleActiveCells = false);
+```
+- Fixed Insert did not fully refresh the view.
+- Improved refresh performance by avoiding recycling of active cells.
+
 ## [1.6.9] - 2025-09-05
 - Removed color from print output.
 

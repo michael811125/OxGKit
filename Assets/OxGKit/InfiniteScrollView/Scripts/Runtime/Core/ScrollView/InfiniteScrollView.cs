@@ -65,7 +65,7 @@ namespace OxGKit.InfiniteScrollView
         protected Queue<InfiniteCell> _cellPool = new Queue<InfiniteCell>();
 
         // Visible info
-        protected bool _disabledRefreshCells = false;
+        protected bool _refreshOnNextScroll = false;
         public int visibleCount { get; protected set; } = 0;
         public int lastMaxVisibleCount { get; protected set; } = 0;
         public float lastVisibleRangeSize { get; protected set; } = 0f;
@@ -92,6 +92,7 @@ namespace OxGKit.InfiniteScrollView
         // Snapping
         private DateTime _lastSnappingDurationTime;
 
+        // Flags
         public bool isInitialized
         {
             get;
@@ -141,9 +142,11 @@ namespace OxGKit.InfiniteScrollView
                 return;
             }
 
-            if (this.scrollRect == null) this.scrollRect = this.GetComponent<ScrollRect>();
+            if (this.scrollRect == null)
+                this.scrollRect = this.GetComponent<ScrollRect>();
+
+            // Clear events
             this.scrollRect.onValueChanged.RemoveAllListeners();
-            this.scrollRect.onValueChanged.AddListener(OnValueChanged);
 
             // Clear children
             foreach (Transform trans in this.scrollRect.content)
@@ -162,6 +165,11 @@ namespace OxGKit.InfiniteScrollView
                 newCell.gameObject.SetActive(false);
                 this._cellPool.Enqueue(newCell);
             }
+
+            // Add OnVlaueChanged event
+            this.scrollRect.onValueChanged.AddListener(OnValueChanged);
+
+            // Mark flag as initialized
             this.isInitialized = true;
         }
         #endregion
@@ -170,12 +178,15 @@ namespace OxGKit.InfiniteScrollView
         protected void OnValueChanged(Vector2 normalizedPosition)
         {
             // If ever set to false, must refresh all once
-            if (this._disabledRefreshCells)
+            if (this._refreshOnNextScroll)
             {
-                this._disabledRefreshCells = false;
+                this._refreshOnNextScroll = false;
                 this.Refresh();
             }
-            else this.RefreshVisibleCells();
+            else
+            {
+                this.RefreshVisibleCells();
+            }
 
             // Invoke callback
             this.onValueChanged?.Invoke(normalizedPosition);
@@ -186,22 +197,27 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         public void RefreshVisibleCells()
         {
-            if (!this.IsInitialized()) return;
+            if (!this.IsInitialized())
+                return;
             this.DoRefreshVisibleCells();
         }
 
         protected abstract void DoRefreshVisibleCells();
 
         /// <summary>
-        /// Refresh scrollView
+        /// Refresh the scroll view
         /// </summary>
-        /// <param name="disabledRefreshCells">Disable refresh cells, when disabled will mark flag to refresh all at next scrolling.</param>
-        /// <returns></returns>
-        public abstract void Refresh(bool disabledRefreshCells = false);
+        /// <param name="refreshOnNextScroll">
+        /// If true, schedule a full refresh on the next scroll (OnValueChanged) event instead of immediately
+        /// </param>
+        /// <param name="recycleActiveCells">
+        /// If true, recycle all active cells back to the pool before refreshing (does not clear the data list)
+        /// </param>
+        public abstract void Refresh(bool refreshOnNextScroll = false, bool recycleActiveCells = false);
 
-        protected abstract void DoRefresh(bool disabledRefreshCells);
+        protected abstract void DoRefresh(bool refreshOnNextScroll, bool recycleActiveCells);
 
-        protected abstract UniTask DoDelayRefresh(bool disabledRefreshCells);
+        protected abstract UniTask DoDelayRefresh(bool refreshOnNextScroll, bool recycleActiveCells);
 
         protected bool IsInitialized()
         {
@@ -219,16 +235,19 @@ namespace OxGKit.InfiniteScrollView
         /// Add cell data
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="autoRefresh"></param>
+        /// <param name="refresh"></param>
         /// <returns></returns>
-        public virtual void Add(InfiniteCellData data, bool autoRefresh = false)
+        public virtual void Add(InfiniteCellData data, bool refresh = false)
         {
-            if (!this.IsInitialized()) return;
+            if (!this.IsInitialized())
+                return;
 
             this._dataList.Add(data);
             this._cellList.Add(null);
             this._RefreshCellDataIndex(this._dataList.Count - 1);
-            if (autoRefresh) this.Refresh();
+
+            if (refresh)
+                this.Refresh();
         }
 
         /// <summary>
@@ -236,10 +255,12 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         /// <param name="index"></param>
         /// <param name="data"></param>
+        /// <param name="refresh"></param>
         /// <returns></returns>
-        public virtual bool Insert(int index, InfiniteCellData data)
+        public virtual bool Insert(int index, InfiniteCellData data, bool refresh = true)
         {
-            if (!this.IsInitialized()) return false;
+            if (!this.IsInitialized())
+                return false;
 
             // Insert including max count
             if (index > this._dataList.Count ||
@@ -249,6 +270,10 @@ namespace OxGKit.InfiniteScrollView
             this._dataList.Insert(index, data);
             this._cellList.Insert(index, null);
             this._RefreshCellDataIndex(index);
+
+            if (refresh)
+                this.Refresh(false, true);
+
             return true;
         }
 
@@ -256,11 +281,12 @@ namespace OxGKit.InfiniteScrollView
         /// Remove cell data
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="autoRefresh"></param>
+        /// <param name="refresh"></param>
         /// <returns></returns>
-        public virtual bool Remove(int index, bool autoRefresh = true)
+        public virtual bool Remove(int index, bool refresh = true)
         {
-            if (!this.IsInitialized()) return false;
+            if (!this.IsInitialized())
+                return false;
 
             if (index >= this._dataList.Count ||
                 index < 0)
@@ -271,7 +297,10 @@ namespace OxGKit.InfiniteScrollView
             this._dataList[index].Dispose();
             this._dataList.RemoveAt(index);
             this._RefreshCellDataIndex(index);
-            if (autoRefresh) this.Refresh();
+
+            if (refresh)
+                this.Refresh(false, true);
+
             return true;
         }
 
@@ -281,20 +310,21 @@ namespace OxGKit.InfiniteScrollView
         /// <returns></returns>
         public virtual void Clear()
         {
-            if (!this.IsInitialized()) return;
+            if (!this.IsInitialized())
+                return;
 
             this.scrollRect.velocity = Vector2.zero;
             this.scrollRect.content.anchoredPosition = Vector2.zero;
-            for (int i = 0; i < this._cellList.Count; i++)
-            {
-                this.RecycleCell(i);
-            }
+
+            // Clear cells
+            this.RecycleActiveCells();
             this._cellList.Clear();
-            for (int i = 0; i < this._dataList.Count; i++)
-            {
-                this._dataList[i].Dispose();
-            }
+
+            // Clear data
+            this.ClearAllData();
             this._dataList.Clear();
+
+            // Refresh view
             this.Refresh();
         }
         #endregion
@@ -305,7 +335,8 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         public void ScrollToTop()
         {
-            if (this.scrollRect == null) return;
+            if (this.scrollRect == null)
+                return;
             this.scrollRect.verticalNormalizedPosition = 1;
         }
 
@@ -314,7 +345,8 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         public void ScrollToBottom()
         {
-            if (this.scrollRect == null) return;
+            if (this.scrollRect == null)
+                return;
             this.scrollRect.verticalNormalizedPosition = 0;
         }
 
@@ -323,7 +355,8 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         public void ScrollToLeft()
         {
-            if (this.scrollRect == null) return;
+            if (this.scrollRect == null)
+                return;
             this.scrollRect.horizontalNormalizedPosition = 0;
         }
 
@@ -332,19 +365,22 @@ namespace OxGKit.InfiniteScrollView
         /// </summary>
         public void ScrollToRight()
         {
-            if (this.scrollRect == null) return;
+            if (this.scrollRect == null)
+                return;
             this.scrollRect.horizontalNormalizedPosition = 1;
         }
 
         public float VerticalNormalizedPosition()
         {
-            if (this.scrollRect == null) return -1;
+            if (this.scrollRect == null)
+                return -1;
             return this.scrollRect.verticalNormalizedPosition;
         }
 
         public float HorizontalNormalizedPosition()
         {
-            if (this.scrollRect == null) return -1;
+            if (this.scrollRect == null)
+                return -1;
             return this.scrollRect.horizontalNormalizedPosition;
         }
 
@@ -355,7 +391,8 @@ namespace OxGKit.InfiniteScrollView
         /// <returns></returns>
         public bool IsAtTop()
         {
-            if (this.scrollRect == null) return false;
+            if (this.scrollRect == null)
+                return false;
             // Adjust direction (Vertical = 1, Vertical Reverse = -1)
             bool result = this._contentDirCoeff > 0 ? this._isAtTop : this._isAtBottom;
             return result;
@@ -368,7 +405,8 @@ namespace OxGKit.InfiniteScrollView
         /// <returns></returns>
         public bool IsAtBottom()
         {
-            if (this.scrollRect == null) return false;
+            if (this.scrollRect == null)
+                return false;
             // Adjust direction (Vertical = 1, Vertical Reverse = -1)
             bool result = this._contentDirCoeff > 0 ? this._isAtBottom : this._isAtTop;
             return result;
@@ -380,7 +418,8 @@ namespace OxGKit.InfiniteScrollView
         /// <returns></returns>
         public bool IsAtLeft()
         {
-            if (this.scrollRect == null) return false;
+            if (this.scrollRect == null)
+                return false;
             // Adjust direction (Horizontal = -1, Horizontal Reverse = 1)
             bool result = this._contentDirCoeff > 0 ? this._isAtRight : this._isAtLeft;
             return result;
@@ -392,7 +431,8 @@ namespace OxGKit.InfiniteScrollView
         /// <returns></returns>
         public bool IsAtRight()
         {
-            if (this.scrollRect == null) return false;
+            if (this.scrollRect == null)
+                return false;
             // Adjust direction (Horizontal = -1, Horizontal Reverse = 1)
             bool result = this._contentDirCoeff > 0 ? this._isAtLeft : this._isAtRight;
             return result;
@@ -468,12 +508,15 @@ namespace OxGKit.InfiniteScrollView
             if (duration <= 0)
             {
                 this.scrollRect.content.anchoredPosition = target;
-                if (this._disabledRefreshCells)
+                if (this._refreshOnNextScroll)
                 {
-                    this._disabledRefreshCells = false;
+                    this._refreshOnNextScroll = false;
                     this.Refresh();
                 }
-                else this.RefreshVisibleCells();
+                else
+                {
+                    this.RefreshVisibleCells();
+                }
             }
             else
             {
@@ -489,7 +532,9 @@ namespace OxGKit.InfiniteScrollView
                     t = (float)currentElapsedTime / duration;
                     this.scrollRect.content.anchoredPosition = Vector2.Lerp(startPos, target, t);
                     var normalizedPos = this.scrollRect.normalizedPosition;
-                    if (normalizedPos.y < 0 || normalizedPos.x > 1) break;
+                    if (normalizedPos.y < 0 ||
+                        normalizedPos.x > 1)
+                        break;
                     await UniTask.Yield(PlayerLoopTiming.Update, this._cts.Token);
                 }
 
@@ -500,12 +545,15 @@ namespace OxGKit.InfiniteScrollView
 
             if (this._dataList.Count > 0)
             {
-                if (index >= this._dataList.Count) index = this._dataList.Count - 1;
-                if (index < 0) index = 0;
+                if (index >= this._dataList.Count)
+                    index = this._dataList.Count - 1;
+                if (index < 0)
+                    index = 0;
                 if (this._dataList.Count == this._cellList.Count)
                 {
                     var cell = this._cellList[index];
-                    if (cell != null) cell.OnSnap();
+                    if (cell != null)
+                        cell.OnSnap();
                 }
             }
 
@@ -538,7 +586,8 @@ namespace OxGKit.InfiniteScrollView
             }
 
             // Cannot scroll, if Content size < Viewport size return 0 directly
-            if (contentRectSizeValue < viewPortRectSizeValue) return 0;
+            if (contentRectSizeValue < viewPortRectSizeValue)
+                return 0;
 
             switch (snapPosType)
             {
@@ -558,6 +607,12 @@ namespace OxGKit.InfiniteScrollView
         #endregion
 
         #region Pool Operation
+        /// <summary>
+        /// Setup cell to display
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="index"></param>
+        /// <param name="pos"></param>
         protected void SetupCell(InfiniteCell cell, int index, Vector2 pos)
         {
             if (cell != null)
@@ -570,6 +625,10 @@ namespace OxGKit.InfiniteScrollView
             }
         }
 
+        /// <summary>
+        /// Put cell back into the pool and reset
+        /// </summary>
+        /// <param name="index"></param>
         protected void RecycleCell(int index)
         {
             if (this._cellList[index] != null)
@@ -581,6 +640,25 @@ namespace OxGKit.InfiniteScrollView
                 cell.OnRecycle();
                 this._cellPool.Enqueue(cell);
             }
+        }
+
+        /// <summary>
+        /// Recycles all active/visible cells back into the pool and resets their state
+        /// <para> Does not clear the data list </para>
+        /// </summary>
+        protected void RecycleActiveCells()
+        {
+            for (int i = 0; i < this._cellList.Count; i++)
+                this.RecycleCell(i);
+        }
+
+        /// <summary>
+        /// Clear all data (dispose)
+        /// </summary>
+        protected void ClearAllData()
+        {
+            for (int i = 0; i < this._dataList.Count; i++)
+                this._dataList[i].Dispose();
         }
 
         private void _OnCellSelected(InfiniteCell selectedCell)

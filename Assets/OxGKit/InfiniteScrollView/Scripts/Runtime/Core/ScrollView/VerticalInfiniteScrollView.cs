@@ -32,7 +32,8 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = 0; i < this._dataList.Count; i++)
                     {
                         var visibleRange = new Vector2(contentHeight, contentHeight + this._dataList[i].cellSize.y);
-                        if (visibleRange.y < viewportRange.x || visibleRange.x > viewportRange.y)
+                        if (visibleRange.y < viewportRange.x ||
+                            visibleRange.x > viewportRange.y)
                         {
                             this.RecycleCell(i);
                         }
@@ -43,7 +44,8 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = this._dataList.Count - 1; i >= 0; i--)
                     {
                         var visibleRange = new Vector2(contentHeight, contentHeight + this._dataList[i].cellSize.y);
-                        if (visibleRange.y < viewportRange.x || visibleRange.x > viewportRange.y)
+                        if (visibleRange.y < viewportRange.x ||
+                            visibleRange.x > viewportRange.y)
                         {
                             this.RecycleCell(i);
                         }
@@ -61,7 +63,8 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = 0; i < this._dataList.Count; i++)
                     {
                         var visibleRange = new Vector2(contentHeight, contentHeight + this._dataList[i].cellSize.y);
-                        if (visibleRange.y >= viewportRange.x && visibleRange.x <= viewportRange.y)
+                        if (visibleRange.y >= viewportRange.x &&
+                            visibleRange.x <= viewportRange.y)
                         {
                             // Calculate visible count
                             this.visibleCount++;
@@ -70,13 +73,21 @@ namespace OxGKit.InfiniteScrollView
                             InfiniteCell cell = null;
                             if (this._cellList[i] == null)
                             {
-                                if (this._cellPool.Count > 0) cell = this._cellPool.Dequeue();
-                                else Logging.PrintError<Logger>("The cell display error occurred, not enough cells in the cell pool!!!");
+                                // Get cell from pool
+                                if (this._cellPool.Count > 0)
+                                    cell = this._cellPool.Dequeue();
+                                else
+                                    Logging.PrintError<Logger>("The cell display error occurred, not enough cells in the cell pool!!!");
                             }
+
                             // Check cell direction pivot
                             float dirCoeff = 1f;
-                            if (cell != null) dirCoeff = cell.rectTransform.pivot.y > 0 ? -1f : 1f;
+                            if (cell != null)
+                                dirCoeff = cell.rectTransform.pivot.y > 0 ? -1f : 1f;
+
+                            // Begin setup cell to display
                             this.SetupCell(cell, i, new Vector2(this.padding.left - this.padding.right, contentHeight * dirCoeff));
+
                             if (visibleRange.y >= viewportRange.x)
                                 this._cellList[i]?.transform.SetAsLastSibling();
                             else
@@ -89,7 +100,8 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = this._dataList.Count - 1; i >= 0; i--)
                     {
                         var visibleRange = new Vector2(contentHeight, contentHeight + this._dataList[i].cellSize.y);
-                        if (visibleRange.y >= viewportRange.x && visibleRange.x <= viewportRange.y)
+                        if (visibleRange.y >= viewportRange.x &&
+                            visibleRange.x <= viewportRange.y)
                         {
                             // Calculate visible count
                             this.visibleCount++;
@@ -98,13 +110,21 @@ namespace OxGKit.InfiniteScrollView
                             InfiniteCell cell = null;
                             if (this._cellList[i] == null)
                             {
-                                if (this._cellPool.Count > 0) cell = this._cellPool.Dequeue();
-                                else Logging.PrintError<Logger>("The cell display error occurred, not enough cells in the cell pool!!!");
+                                // Get cell from pool
+                                if (this._cellPool.Count > 0)
+                                    cell = this._cellPool.Dequeue();
+                                else
+                                    Logging.PrintError<Logger>("The cell display error occurred, not enough cells in the cell pool!!!");
                             }
+
                             // Check cell direction pivot
                             float dirCoeff = 1f;
-                            if (cell != null) dirCoeff = cell.rectTransform.pivot.y > 0 ? -1f : 1f;
+                            if (cell != null)
+                                dirCoeff = cell.rectTransform.pivot.y > 0 ? -1f : 1f;
+
+                            // Begin setup cell to display
                             this.SetupCell(cell, i, new Vector2(this.padding.left - this.padding.right, contentHeight * dirCoeff));
+
                             if (visibleRange.y >= viewportRange.x)
                                 this._cellList[i]?.transform.SetAsLastSibling();
                             else
@@ -145,9 +165,11 @@ namespace OxGKit.InfiniteScrollView
         {
             if (!this.IsInitialized())
                 return;
+
             if (index >= this._dataList.Count ||
                 index < 0)
                 return;
+
             if (this.scrollRect.content.rect.height < this.scrollRect.viewport.rect.height)
                 return;
 
@@ -186,41 +208,44 @@ namespace OxGKit.InfiniteScrollView
             this.DoSnapping(index, new Vector2(0, height * this._contentDirCoeff), duration);
         }
 
-        public override bool Remove(int index, bool withRefresh = true)
+        public override bool Remove(int index, bool refresh = true)
         {
             if (!this.IsInitialized())
                 return false;
+
             if (index >= this._dataList.Count ||
                 index < 0)
                 return false;
 
             var removeCell = this._dataList[index];
-            bool result = base.Remove(index, withRefresh);
+            bool result = base.Remove(index, refresh);
             this.scrollRect.content.anchoredPosition -= new Vector2(0, removeCell.cellSize.y + this.spacing);
             return result;
         }
         #endregion
 
         #region Sealed Override
-        public sealed override void Refresh(bool disabledRefreshCells = false)
+        public sealed override void Refresh(bool refreshOnNextScroll = false, bool recycleActiveCells = false)
         {
-            if (!this.IsInitialized()) return;
+            if (!this.IsInitialized())
+                return;
 
             if (this.scrollRect.viewport.rect.height == 0)
             {
-                this.DoDelayRefresh(disabledRefreshCells).Forget();
+                this.DoDelayRefresh(refreshOnNextScroll, recycleActiveCells).Forget();
             }
             else
             {
-                this.DoRefresh(disabledRefreshCells);
+                this.DoRefresh(refreshOnNextScroll, recycleActiveCells);
             }
         }
 
-        protected sealed override void DoRefresh(bool disabledRefreshCells)
+        protected sealed override void DoRefresh(bool refreshOnNextScroll, bool recycleActiveCells)
         {
-            if (this.scrollRect == null) return;
+            if (this.scrollRect == null)
+                return;
 
-            if (!disabledRefreshCells)
+            if (!refreshOnNextScroll)
             {
                 // Refresh content size
                 float height = this.padding.top;
@@ -231,11 +256,8 @@ namespace OxGKit.InfiniteScrollView
                 height += this.padding.bottom;
                 this.scrollRect.content.sizeDelta = new Vector2(this.scrollRect.content.sizeDelta.x, height);
 
-                // Recycle all cells first
-                for (int i = 0; i < this._cellList.Count; i++)
-                {
-                    this.RecycleCell(i);
-                }
+                if (recycleActiveCells)
+                    this.RecycleActiveCells();
 
                 // Refresh cells view
                 this.DoRefreshVisibleCells();
@@ -244,13 +266,14 @@ namespace OxGKit.InfiniteScrollView
                 this.onRefreshed?.Invoke();
             }
             // Mark flag for refresh at next scrolling
-            else this._disabledRefreshCells = true;
+            else
+                this._refreshOnNextScroll = true;
         }
 
-        protected sealed override async UniTask DoDelayRefresh(bool disabledRefreshCells)
+        protected sealed override async UniTask DoDelayRefresh(bool refreshOnNextScroll, bool recycleActiveCells)
         {
             await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
-            this.DoRefresh(disabledRefreshCells);
+            this.DoRefresh(refreshOnNextScroll, recycleActiveCells);
         }
         #endregion
     }

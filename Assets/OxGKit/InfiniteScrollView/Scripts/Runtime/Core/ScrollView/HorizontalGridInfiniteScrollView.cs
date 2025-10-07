@@ -24,7 +24,8 @@ namespace OxGKit.InfiniteScrollView
             float viewportInterval = this.scrollRect.viewport.rect.width;
 
             // Check content direction pivot
-            if (this._contentDirCoeff == 0) this._contentDirCoeff = this.scrollRect.content.pivot.x > 0 ? 1f : -1f;
+            if (this._contentDirCoeff == 0)
+                this._contentDirCoeff = this.scrollRect.content.pivot.x > 0 ? 1f : -1f;
 
             // Set content direction
             float minViewport = this.scrollRect.content.anchoredPosition.x * this._contentDirCoeff;

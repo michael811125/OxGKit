@@ -24,7 +24,7 @@
       "hash": "7dbce4b94bd7f92c33de382439f662a0731a1db9"
     },
     "com.unity.ai.navigation": {
-      "version": "1.1.5",
+      "version": "1.1.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -47,7 +47,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.34",
+      "version": "3.0.36",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -72,7 +72,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.11.2",
+      "version": "1.14.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -124,7 +124,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.6",
+      "version": "1.7.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {

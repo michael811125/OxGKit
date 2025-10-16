@@ -7,7 +7,7 @@ namespace OxGKit.LoggingSystem
     /// 單一日誌器配置
     /// </summary>
     [Serializable]
-    public class LoggerSetting
+    public class LoggerSettings
     {
         /// <summary>
         /// 日誌器名稱
@@ -30,18 +30,18 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         public LogColor logColor = LogColor.EditorOnly;
 
-        public LoggerSetting(string loggerName, bool logActive)
+        public LoggerSettings(string loggerName, bool logActive)
         {
             this.loggerName = loggerName;
             this.logActive = logActive;
         }
 
-        public LoggerSetting(string loggerName, bool logActive, LogLevel logLevel) : this(loggerName, logActive)
+        public LoggerSettings(string loggerName, bool logActive, LogLevel logLevel) : this(loggerName, logActive)
         {
             this.logLevel = logLevel;
         }
 
-        public LoggerSetting(string loggerName, bool logActive, LogLevel logLevel, LogColor logColor) : this(loggerName, logActive, logLevel)
+        public LoggerSettings(string loggerName, bool logActive, LogLevel logLevel, LogColor logColor) : this(loggerName, logActive, logLevel)
         {
             this.logColor = logColor;
         }

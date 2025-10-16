@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.4.0] - 2025-10-16
+- Added LoggingSettings can custom the loggersconfig file name, also can custom the cipher code to improve security.
+- Renamed to the correct name.
+
 ## [1.3.1] - 2025-09-06
 - Modified LogLevel `Log` name to `LogDebug`.
 - Fixed a bug with LogLevel flag selection in the Inspector.

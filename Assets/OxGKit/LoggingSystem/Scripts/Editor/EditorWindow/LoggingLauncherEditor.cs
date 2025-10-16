@@ -15,8 +15,6 @@ namespace OxGKit.LoggingSystem.Editor
         private LogLevel _selectedLogLevel;
         private LogColor _selectedLogColor;
         private bool _isDirty = false;
-        private bool _isLogLevelSaved = true;
-        private bool _isLogColorSaved = true;
 
         internal static string projectPath;
         internal static string keySaver;
@@ -42,9 +40,6 @@ namespace OxGKit.LoggingSystem.Editor
 
             this._selectedLogLevel = (LogLevel)Convert.ToInt32(EditorStorage.GetData(keySaver, "_selectedLogLevel", "-1"));
             this._selectedLogColor = (LogColor)Convert.ToInt32(EditorStorage.GetData(keySaver, "_selectedLogColor", "2"));
-
-            this._isLogLevelSaved = Convert.ToBoolean(EditorStorage.GetData(keySaver, "_isLogLevelSaved", "true"));
-            this._isLogColorSaved = Convert.ToBoolean(EditorStorage.GetData(keySaver, "_isLogColorSaved", "true"));
         }
 
         internal static void SaveEditorLoggersConfigData(LoggersConfig loggersConfig)
@@ -137,10 +132,24 @@ namespace OxGKit.LoggingSystem.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
+                // file name label
+                var style = new GUIStyle(EditorStyles.label) { richText = true };
+                string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}";
+                GUILayout.Label($"Config Name: <b><color=#ffed29>{fileName}</color></b>", style);
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.EndHorizontal();
+            }
+
+            GUILayout.Space(5f);
+
+            if (loggersConfig != null)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
                 // Reload from config button
                 Color bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(24, 233, 255, 255);
-                if (GUILayout.Button(new GUIContent("Reload From Config", $"Load configuration only from {LoggersConfig.LOGGERS_CONFIG_FILE_NAME}."), GUILayout.MaxWidth(250f)))
+                if (GUILayout.Button(new GUIContent("Reload From Config", $"Load configuration only from {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}."), GUILayout.MaxWidth(250f)))
                 {
                     if (Application.isPlaying)
                     {
@@ -165,7 +174,7 @@ namespace OxGKit.LoggingSystem.Editor
                 // Reload button
                 Color bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(0, 255, 209, 255);
-                if (GUILayout.Button(new GUIContent("Reload", $"When the {LoggersConfig.LOGGERS_CONFIG_FILE_NAME} file is modified or a new logger is added, you can use Reload."), GUILayout.MaxWidth(250f)))
+                if (GUILayout.Button(new GUIContent("Reload", $"When the {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION} file is modified or a new logger is added, you can use Reload."), GUILayout.MaxWidth(250f)))
                 {
                     if (Application.isPlaying)
                     {
@@ -231,8 +240,8 @@ namespace OxGKit.LoggingSystem.Editor
                         EditorStorage.SaveData(keySaver, "_isDirty", this._isDirty.ToString());
                     }
 
-                    foreach (var loggerSetting in loggersConfig.loggerSettings)
-                        loggerSetting.logActive = true;
+                    foreach (var loggerSettings in loggersConfig.loggerSettings)
+                        loggerSettings.logActive = true;
 
                     LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
@@ -243,8 +252,6 @@ namespace OxGKit.LoggingSystem.Editor
                 this._selectedLogLevel = (LogLevel)EditorGUILayout.EnumFlagsField(this._selectedLogLevel);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    this._isLogLevelSaved = false;
-                    EditorStorage.SaveData(keySaver, "_isLogLevelSaved", this._isLogLevelSaved.ToString());
                     EditorStorage.SaveData(keySaver, "_selectedLogLevel", ((int)this._selectedLogLevel).ToString());
                 }
                 // Log color enum dropdown
@@ -252,8 +259,6 @@ namespace OxGKit.LoggingSystem.Editor
                 this._selectedLogColor = (LogColor)EditorGUILayout.EnumPopup(this._selectedLogColor);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    this._isLogColorSaved = false;
-                    EditorStorage.SaveData(keySaver, "_isLogColorSaved", this._isLogColorSaved.ToString());
                     EditorStorage.SaveData(keySaver, "_selectedLogColor", ((int)this._selectedLogColor).ToString());
                 }
                 EditorGUILayout.EndVertical();
@@ -270,59 +275,50 @@ namespace OxGKit.LoggingSystem.Editor
                         EditorStorage.SaveData(keySaver, "_isDirty", this._isDirty.ToString());
                     }
 
-                    foreach (var loggerSetting in loggersConfig.loggerSettings)
-                        loggerSetting.logActive = false;
+                    foreach (var loggerSettings in loggersConfig.loggerSettings)
+                        loggerSettings.logActive = false;
 
                     LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;
                 // Set to All button for log level
-                EditorGUI.BeginDisabledGroup(this._isLogLevelSaved);
                 bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(164, 227, 255, 255);
                 if (GUILayout.Button(new GUIContent("Set to All", "Set log level through dropdown options."), GUILayout.MaxWidth(150f)))
                 {
-                    this._isLogLevelSaved = true;
-                    EditorStorage.SaveData(keySaver, "_isLogLevelSaved", this._isLogLevelSaved.ToString());
-
                     if (Application.isPlaying)
                     {
                         this._isDirty = true;
                         EditorStorage.SaveData(keySaver, "_isDirty", this._isDirty.ToString());
                     }
 
-                    foreach (var loggerSetting in loggersConfig.loggerSettings)
-                        loggerSetting.logLevel = this._selectedLogLevel;
+                    foreach (var loggerSettings in loggersConfig.loggerSettings)
+                        loggerSettings.logLevel = this._selectedLogLevel;
 
                     LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;
-                EditorGUI.EndDisabledGroup();
+
                 // Set to All button for log color
-                EditorGUI.BeginDisabledGroup(this._isLogColorSaved);
                 bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(164, 227, 255, 255);
                 if (GUILayout.Button(new GUIContent("Set to All", "Set log color through dropdown options."), GUILayout.MaxWidth(150f)))
                 {
-                    this._isLogColorSaved = true;
-                    EditorStorage.SaveData(keySaver, "_isLogColorSaved", this._isLogColorSaved.ToString());
-
                     if (Application.isPlaying)
                     {
                         this._isDirty = true;
                         EditorStorage.SaveData(keySaver, "_isDirty", this._isDirty.ToString());
                     }
 
-                    foreach (var loggerSetting in loggersConfig.loggerSettings)
-                        loggerSetting.logColor = this._selectedLogColor;
+                    foreach (var loggerSettings in loggersConfig.loggerSettings)
+                        loggerSettings.logColor = this._selectedLogColor;
 
                     LoggingHelper.WriteConfig(loggersConfig, LoggingLauncher.currentConfigFileType);
                     this._currentLoggersConfig = loggersConfig;
                 }
                 GUI.backgroundColor = bc;
-                EditorGUI.EndDisabledGroup();
                 EditorGUILayout.EndVertical();
 
                 GUILayout.FlexibleSpace();

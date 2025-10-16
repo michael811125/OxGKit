@@ -13,16 +13,6 @@ namespace OxGKit.LoggingSystem
     public class LoggersConfig
     {
         /// <summary>
-        /// 配置檔標檔頭
-        /// </summary>
-        internal const short CIPHER_HEADER = 0x584F;
-
-        /// <summary>
-        /// 配置檔金鑰
-        /// </summary>
-        internal const byte CIPHER = 0x42;
-
-        /// <summary>
         /// 日誌器全域開關
         /// </summary>
         [OverrideLabel("Master Logging Toggle")]
@@ -47,22 +37,17 @@ namespace OxGKit.LoggingSystem
         /// 各日誌器配置
         /// </summary>
         [SerializeField]
-        public List<LoggerSetting> loggerSettings;
-
-        /// <summary>
-        /// 配置文件輸出名稱
-        /// </summary>
-        public const string LOGGERS_CONFIG_FILE_NAME = "loggersconfig.conf";
+        public List<LoggerSettings> loggerSettings;
 
         public LoggersConfig()
         {
             this.logMainActive = true;
             this.logMainLevel = LogLevel.All;
             this.logMainColor = LogColor.EditorOnly;
-            this.loggerSettings = new List<LoggerSetting>();
+            this.loggerSettings = new List<LoggerSettings>();
         }
 
-        public LoggersConfig(params LoggerSetting[] loggerSettings) : this()
+        public LoggersConfig(params LoggerSettings[] loggerSettings) : this()
         {
             this.loggerSettings.AddRange(loggerSettings);
         }
@@ -84,19 +69,19 @@ namespace OxGKit.LoggingSystem
         /// <summary>
         /// 添加日誌器配置
         /// </summary>
-        /// <param name="loggerSetting"></param>
-        public void AddLoggerSetting(LoggerSetting loggerSetting)
+        /// <param name="loggerSettings"></param>
+        public void AddLoggerSettings(LoggerSettings loggerSettings)
         {
-            this.loggerSettings.Add(loggerSetting);
+            this.loggerSettings.Add(loggerSettings);
         }
 
         /// <summary>
         /// 移除日誌器配置
         /// </summary>
-        /// <param name="loggerSetting"></param>
-        public void RemoveLoggerSetting(LoggerSetting loggerSetting)
+        /// <param name="loggerSettings"></param>
+        public void RemoveLoggerSettings(LoggerSettings loggerSettings)
         {
-            this.loggerSettings.Remove(loggerSetting);
+            this.loggerSettings.Remove(loggerSettings);
         }
 
         /// <summary>
@@ -134,12 +119,12 @@ namespace OxGKit.LoggingSystem
         /// <param name="logLevel"></param>
         internal void ConfigureLogger(string loggerName, bool isEnabled, LogLevel logLevel)
         {
-            foreach (var loggerSetting in this.loggerSettings)
+            foreach (var loggerSettings in this.loggerSettings)
             {
-                if (loggerSetting.loggerName == loggerName)
+                if (loggerSettings.loggerName == loggerName)
                 {
-                    loggerSetting.logActive = isEnabled;
-                    loggerSetting.logLevel = logLevel;
+                    loggerSettings.logActive = isEnabled;
+                    loggerSettings.logLevel = logLevel;
                     break;
                 }
             }
@@ -154,13 +139,13 @@ namespace OxGKit.LoggingSystem
         /// <param name="logColor"></param>
         internal void ConfigureLogger(string loggerName, bool isEnabled, LogLevel logLevel, LogColor logColor)
         {
-            foreach (var loggerSetting in this.loggerSettings)
+            foreach (var loggerSettings in this.loggerSettings)
             {
-                if (loggerSetting.loggerName == loggerName)
+                if (loggerSettings.loggerName == loggerName)
                 {
-                    loggerSetting.logActive = isEnabled;
-                    loggerSetting.logLevel = logLevel;
-                    loggerSetting.logColor = logColor;
+                    loggerSettings.logActive = isEnabled;
+                    loggerSettings.logLevel = logLevel;
+                    loggerSettings.logColor = logColor;
                     break;
                 }
             }
@@ -173,10 +158,10 @@ namespace OxGKit.LoggingSystem
         /// <param name="logLevel"></param>
         internal void ConfigureAllLoggers(bool isEnabled, LogLevel logLevel)
         {
-            foreach (var loggerSetting in this.loggerSettings)
+            foreach (var loggerSettings in this.loggerSettings)
             {
-                loggerSetting.logActive = isEnabled;
-                loggerSetting.logLevel = logLevel;
+                loggerSettings.logActive = isEnabled;
+                loggerSettings.logLevel = logLevel;
             }
         }
 
@@ -187,11 +172,11 @@ namespace OxGKit.LoggingSystem
         /// <param name="logLevel"></param>
         internal void ConfigureAllLoggers(bool isEnabled, LogLevel logLevel, LogColor logColor)
         {
-            foreach (var loggerSetting in this.loggerSettings)
+            foreach (var loggerSettings in this.loggerSettings)
             {
-                loggerSetting.logActive = isEnabled;
-                loggerSetting.logLevel = logLevel;
-                loggerSetting.logColor = logColor;
+                loggerSettings.logActive = isEnabled;
+                loggerSettings.logLevel = logLevel;
+                loggerSettings.logColor = logColor;
             }
         }
 
@@ -201,7 +186,7 @@ namespace OxGKit.LoggingSystem
         /// <returns></returns>
         internal static string GetStreamingAssetsConfigRequestPath()
         {
-            return Path.Combine(WebRequester.GetRequestStreamingAssetsPath(), LOGGERS_CONFIG_FILE_NAME);
+            return Path.Combine(WebRequester.GetRequestStreamingAssetsPath(), $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}");
         }
     }
 }

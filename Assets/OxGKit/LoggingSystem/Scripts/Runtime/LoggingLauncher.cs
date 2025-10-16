@@ -374,7 +374,7 @@ namespace OxGKit.LoggingSystem
         private IEnumerator _TryLoadLoggers(bool isCustom)
         {
             yield return this._LoadLoggers(isCustom);
-            Debug.Log($"[{nameof(LoggingSystem)}] is reloaded setting in runtime.");
+            Debug.Log($"[{nameof(LoggingSystem)}] is reloaded settings in runtime.");
         }
 
         private IEnumerator _LoadLoggers(bool isCustom)
@@ -388,14 +388,14 @@ namespace OxGKit.LoggingSystem
                     Logging.ResetLoggers();
 
                     // Set loggers active from config
-                    foreach (var loggerSetting in loggersConfig.loggerSettings)
+                    foreach (var loggerSettings in loggersConfig.loggerSettings)
                     {
-                        var logger = Logging.GetLogger(loggerSetting.loggerName);
+                        var logger = Logging.GetLogger(loggerSettings.loggerName);
                         if (logger != null)
                         {
-                            logger.logActive = loggerSetting.logActive;
-                            logger.logLevel = loggerSetting.logLevel;
-                            logger.logColor = loggerSetting.logColor;
+                            logger.logActive = loggerSettings.logActive;
+                            logger.logLevel = loggerSettings.logLevel;
+                            logger.logColor = loggerSettings.logColor;
                         }
                     }
 
@@ -494,7 +494,7 @@ namespace OxGKit.LoggingSystem
                 var loggers = Logging.GetLoggers();
                 foreach (var logger in loggers)
                 {
-                    loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
+                    loggersConfig.loggerSettings.Add(new LoggerSettings(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
                 }
                 result?.Invoke(loggersConfig);
             }
@@ -525,7 +525,7 @@ namespace OxGKit.LoggingSystem
 
                     // If not found represents the new logger
                     if (!found)
-                        loggersConfig.loggerSettings.Add(new LoggerSetting(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
+                        loggersConfig.loggerSettings.Add(new LoggerSettings(logger.Key, logger.Value.logActive, logger.Value.logLevel, logger.Value.logColor));
                 }
                 result?.Invoke(loggersConfig);
             }

@@ -52,7 +52,7 @@ namespace OxGKit.LoggingSystem.Editor
                     // 確保文件存在
                     if (File.Exists(fullPath))
                     {
-                        string fileName = LoggersConfig.LOGGERS_CONFIG_FILE_NAME;
+                        string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}";
                         if (fullPath.IndexOf(fileName) == -1)
                         {
                             Debug.LogWarning($"Incorrect file selected. Please select the {fileName} file.");
@@ -115,7 +115,7 @@ namespace OxGKit.LoggingSystem.Editor
         /// <param name="configFileType"></param>
         public static void WriteConfig(LoggersConfig loggersConfig, ConfigFileType configFileType = ConfigFileType.Bytes)
         {
-            string fileName = LoggersConfig.LOGGERS_CONFIG_FILE_NAME;
+            string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}";
             string savePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
             // 獲取文件夾路徑

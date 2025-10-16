@@ -20,14 +20,14 @@ namespace OxGKit.LoggingSystem
             // Encrypt
             for (int i = 0; i < data.Length; i++)
             {
-                data[i] ^= LoggersConfig.CIPHER << 1;
+                data[i] ^= (byte)(LoggingSettings.settings.cipher << 1);
             }
 
             // Write data with header
             int pos = 0;
             byte[] dataWithHeader = new byte[data.Length + 2];
             // Write header (non-encrypted)
-            WriteInt16(LoggersConfig.CIPHER_HEADER, dataWithHeader, ref pos);
+            WriteInt16(LoggingSettings.CIPHER_HEADER, dataWithHeader, ref pos);
             Buffer.BlockCopy(data, 0, dataWithHeader, pos, data.Length);
             writeBuffer = dataWithHeader;
             return writeBuffer;
@@ -40,7 +40,7 @@ namespace OxGKit.LoggingSystem
 
             // Read header (non-encrypted)
             var header = ReadInt16(data, ref pos);
-            if (header == LoggersConfig.CIPHER_HEADER)
+            if (header == LoggingSettings.CIPHER_HEADER)
             {
                 info.type = ConfigFileType.Bytes;
 
@@ -50,12 +50,12 @@ namespace OxGKit.LoggingSystem
                 // Decrypt
                 for (int i = 0; i < dataWithoutHeader.Length; i++)
                 {
-                    dataWithoutHeader[i] ^= LoggersConfig.CIPHER << 1;
+                    dataWithoutHeader[i] ^= (byte)(LoggingSettings.settings.cipher << 1);
                 }
 
                 // To string
                 info.content = Encoding.UTF8.GetString(dataWithoutHeader);
-                Debug.Log($"[Source is Cipher] Check -> {LoggersConfig.LOGGERS_CONFIG_FILE_NAME}");
+                Debug.Log($"[Source is Cipher] Check -> {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}");
             }
             else
             {
@@ -63,7 +63,7 @@ namespace OxGKit.LoggingSystem
 
                 // To string
                 info.content = Encoding.UTF8.GetString(data);
-                Debug.Log($"[Source is Plaintext] Check -> {LoggersConfig.LOGGERS_CONFIG_FILE_NAME}");
+                Debug.Log($"[Source is Plaintext] Check -> {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}");
             }
 
             return info;

@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.0.3] - 2025-11-20
+- Fixed an issue where DoTweenAnimeEvent triggered the endCallback even when the animation had not finished playing.
+
 ## [1.0.2] - 2025-03-19
 - Modified to use OxGKit.TimeSystem plugin.
 

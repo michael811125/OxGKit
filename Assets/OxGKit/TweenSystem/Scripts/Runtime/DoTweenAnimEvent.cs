@@ -20,6 +20,7 @@ namespace OxGKit.TweenSystem
         public List<DoTweenAnim> doTweenAnims = new List<DoTweenAnim>();
 
         private bool _lastTrigger = false;
+        private Sequence _sequence = null;
 
         /// <summary>
         /// Reset the trigger flag
@@ -172,6 +173,8 @@ namespace OxGKit.TweenSystem
         {
             if (this.doTweenAnims.Count == 0) return;
 
+            this.Kill();
+
             switch (this.playMode)
             {
                 case PlayMode.Parallel:
@@ -180,13 +183,13 @@ namespace OxGKit.TweenSystem
                         List<float> durations = new List<float>();
 
                         // Seq tweens
-                        var seq = DOTween.Sequence();
+                        this._sequence = DOTween.Sequence();
 
                         for (int i = 0; i < this.doTweenAnims.Count; i++)
                         {
                             int idx = i;
                             var tween = this.doTweenAnims[idx];
-                            seq.AppendCallback(() => tween?.PlayTween(trigger));
+                            this._sequence.AppendCallback(() => tween?.PlayTween(trigger));
 
                             // Create a list of the maximum durations for all tweens
                             if (tween != null) durations.Add(tween.GetMaxDurationTween().duration);
@@ -194,17 +197,17 @@ namespace OxGKit.TweenSystem
 
                         // Find the maximum value from the list to use as the interval time for the endCallback
                         float maxDuration = durations.Aggregate((a, b) => a > b ? a : b);
-                        seq.AppendInterval(maxDuration);
+                        this._sequence.AppendInterval(maxDuration);
 
                         // Add endCallback to the end
-                        if (endCallback != null) seq.AppendCallback(endCallback);
-                        seq.AppendCallback(() => seq.Kill());
+                        if (endCallback != null) this._sequence.AppendCallback(endCallback);
+                        this._sequence.AppendCallback(() => this._sequence.Kill());
                     }
                     break;
                 case PlayMode.Sequence:
                     {
                         // Seq tweens
-                        var seq = DOTween.Sequence();
+                        this._sequence = DOTween.Sequence();
 
                         for (int i = 0; i < this.doTweenAnims.Count; i++)
                         {
@@ -213,17 +216,26 @@ namespace OxGKit.TweenSystem
 
                             // Get the maximum duration of the tween
                             float duration = (tween != null) ? tween.GetMaxDurationTween().duration : 0f;
-                            seq.AppendCallback(() => tween?.PlayTween(trigger));
+                            this._sequence.AppendCallback(() => tween?.PlayTween(trigger));
 
                             // The time interval of the tween
-                            seq.AppendInterval(duration);
+                            this._sequence.AppendInterval(duration);
                         }
 
                         // Add endCallback to the end
-                        if (endCallback != null) seq.AppendCallback(endCallback);
-                        seq.AppendCallback(() => seq.Kill());
+                        if (endCallback != null) this._sequence.AppendCallback(endCallback);
+                        this._sequence.AppendCallback(() => this._sequence.Kill());
                     }
                     break;
+            }
+        }
+
+        public void Kill()
+        {
+            if (this._sequence != null)
+            {
+                this._sequence.Kill();
+                this._sequence = null;
             }
         }
     }

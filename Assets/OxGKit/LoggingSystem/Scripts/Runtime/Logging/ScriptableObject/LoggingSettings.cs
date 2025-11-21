@@ -16,14 +16,15 @@ namespace OxGKit.LoggingSystem
         public byte cipher = 0x42;
 
         /// <summary>
-        /// 配置文件擴展名
-        /// </summary>
-        public const string LOGGERS_CFG_EXTENSION = ".conf";
-
-        /// <summary>
         /// 配置文件名稱
         /// </summary>
         public string loggersCfgName = "loggersconfig";
+
+        /// <summary>
+        /// 配置文件擴展名
+        /// </summary>
+        [Tooltip("The file extension must include the dot (e.g., .conf, .json). Please ensure you enter it with the dot.")]
+        public string loggersCfgExtension = ".conf";
 
         private static LoggingSettings _settings = null;
         public static LoggingSettings settings

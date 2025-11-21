@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.4.1] - 2025-11-21
+- Added LoggingSettings, allowing custom file extensions to avoid issues where some WebGL environments restrict certain extension names.
+
 ## [1.4.0] - 2025-10-16
 - Added LoggingSettings can custom the loggersconfig file name, also can custom the cipher code to improve security.
 - Renamed to the correct name.

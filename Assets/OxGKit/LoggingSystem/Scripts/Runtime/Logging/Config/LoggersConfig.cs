@@ -186,7 +186,7 @@ namespace OxGKit.LoggingSystem
         /// <returns></returns>
         internal static string GetStreamingAssetsConfigRequestPath()
         {
-            return Path.Combine(WebRequester.GetRequestStreamingAssetsPath(), $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}");
+            return Path.Combine(WebRequester.GetRequestStreamingAssetsPath(), $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}");
         }
     }
 }

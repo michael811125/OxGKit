@@ -134,7 +134,7 @@ namespace OxGKit.LoggingSystem.Editor
                 GUILayout.FlexibleSpace();
                 // file name label
                 var style = new GUIStyle(EditorStyles.label) { richText = true };
-                string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}";
+                string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}";
                 GUILayout.Label($"Config Name: <b><color=#ffed29>{fileName}</color></b>", style);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();
@@ -149,7 +149,7 @@ namespace OxGKit.LoggingSystem.Editor
                 // Reload from config button
                 Color bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(24, 233, 255, 255);
-                if (GUILayout.Button(new GUIContent("Reload From Config", $"Load configuration only from {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION}."), GUILayout.MaxWidth(250f)))
+                if (GUILayout.Button(new GUIContent("Reload From Config", $"Load configuration only from {LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}."), GUILayout.MaxWidth(250f)))
                 {
                     if (Application.isPlaying)
                     {
@@ -174,7 +174,7 @@ namespace OxGKit.LoggingSystem.Editor
                 // Reload button
                 Color bc = GUI.backgroundColor;
                 GUI.backgroundColor = new Color32(0, 255, 209, 255);
-                if (GUILayout.Button(new GUIContent("Reload", $"When the {LoggingSettings.settings.loggersCfgName}{LoggingSettings.LOGGERS_CFG_EXTENSION} file is modified or a new logger is added, you can use Reload."), GUILayout.MaxWidth(250f)))
+                if (GUILayout.Button(new GUIContent("Reload", $"When the {LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension} file is modified or a new logger is added, you can use Reload."), GUILayout.MaxWidth(250f)))
                 {
                     if (Application.isPlaying)
                     {

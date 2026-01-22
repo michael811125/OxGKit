@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace OxGKit.LoggingSystem
 {
@@ -18,13 +19,15 @@ namespace OxGKit.LoggingSystem
         /// <summary>
         /// 配置文件名稱
         /// </summary>
-        public string loggersCfgName = "loggersconfig";
+        [FormerlySerializedAs("loggersCfgName")]
+        public string loggerCfgName = "LoggerConfig";
 
         /// <summary>
         /// 配置文件擴展名
         /// </summary>
-        [Tooltip("The file extension must include the dot (e.g., .conf, .json). Please ensure you enter it with the dot.")]
-        public string loggersCfgExtension = ".conf";
+        [FormerlySerializedAs("loggersCfgExtension")]
+        [Tooltip("The file extension must include the dot (e.g., .dat, .cfg, .json). Please ensure you enter it with the dot.")]
+        public string loggerCfgExtension = ".dat";
 
         private static LoggingSettings _settings = null;
         public static LoggingSettings settings

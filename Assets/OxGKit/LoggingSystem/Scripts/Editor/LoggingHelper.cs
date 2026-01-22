@@ -7,7 +7,7 @@ namespace OxGKit.LoggingSystem.Editor
 {
     public static class LoggingHelper
     {
-        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[JSON - Plaintext] Create loggersconfig.conf (In StreamingAssets)", isValidateFunction: false, priority: 0)]
+        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[JSON - Plaintext] Create LoggerConfig.dat (In StreamingAssets)", isValidateFunction: false, priority: 0)]
         private static void _ExportAndCreateJsonLoggersConfig()
         {
             // Initialized loggers
@@ -20,7 +20,7 @@ namespace OxGKit.LoggingSystem.Editor
             });
         }
 
-        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[BYTES - Cipher] Create loggersconfig.conf (In StreamingAssets)", isValidateFunction: false, priority: 1)]
+        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[BYTES - Cipher] Create lLoggerConfig.dat (In StreamingAssets)", isValidateFunction: false, priority: 1)]
         private static void _ExportAndCreateBytesLoggersConfig()
         {
             // Initialized loggers
@@ -33,7 +33,7 @@ namespace OxGKit.LoggingSystem.Editor
             });
         }
 
-        [MenuItem("Assets/OxGKit/Logging System/Convert loggersconfig.conf (BYTES [Cipher] <-> JSON [Plaintext])", false, -99)]
+        [MenuItem("Assets/OxGKit/Logging System/Convert LoggerConfig.dat (BYTES [Cipher] <-> JSON [Plaintext])", false, -99)]
         private static void _ConvertConfigFile()
         {
             UnityEngine.Object selectedObject = Selection.activeObject;
@@ -52,7 +52,7 @@ namespace OxGKit.LoggingSystem.Editor
                     // 確保文件存在
                     if (File.Exists(fullPath))
                     {
-                        string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}";
+                        string fileName = $"{LoggingSettings.settings.loggerCfgName}{LoggingSettings.settings.loggerCfgExtension}";
                         if (fullPath.IndexOf(fileName) == -1)
                         {
                             Debug.LogWarning($"Incorrect file selected. Please select the {fileName} file.");
@@ -115,7 +115,7 @@ namespace OxGKit.LoggingSystem.Editor
         /// <param name="configFileType"></param>
         public static void WriteConfig(LoggersConfig loggersConfig, ConfigFileType configFileType = ConfigFileType.Bytes)
         {
-            string fileName = $"{LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}";
+            string fileName = $"{LoggingSettings.settings.loggerCfgName}{LoggingSettings.settings.loggerCfgExtension}";
             string savePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
             // 獲取文件夾路徑

@@ -55,7 +55,7 @@ namespace OxGKit.LoggingSystem
 
                 // To string
                 info.content = Encoding.UTF8.GetString(dataWithoutHeader);
-                Debug.Log($"[Source is Cipher] Check -> {LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}");
+                Debug.Log($"[Source is Cipher] Check -> {LoggingSettings.settings.loggerCfgName}{LoggingSettings.settings.loggerCfgExtension}");
             }
             else
             {
@@ -63,7 +63,7 @@ namespace OxGKit.LoggingSystem
 
                 // To string
                 info.content = Encoding.UTF8.GetString(data);
-                Debug.Log($"[Source is Plaintext] Check -> {LoggingSettings.settings.loggersCfgName}{LoggingSettings.settings.loggersCfgExtension}");
+                Debug.Log($"[Source is Plaintext] Check -> {LoggingSettings.settings.loggerCfgName}{LoggingSettings.settings.loggerCfgExtension}");
             }
 
             return info;

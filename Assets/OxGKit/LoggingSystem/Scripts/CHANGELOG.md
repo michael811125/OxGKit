@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+## [1.4.2] - 2026-01-22
+- Adjusted settings default name (loggersconfig.conf -> LoggerConfig.dat).
+
 ## [1.4.1] - 2025-11-21
 - Added LoggingSettings, allowing custom file extensions to avoid issues where some WebGL environments restrict certain extension names.
 

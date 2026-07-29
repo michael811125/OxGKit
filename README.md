@@ -649,7 +649,9 @@ https://github.com/michael811125/OxGKit/assets/30960759/cd43fc8b-c6f7-4878-990b-
 
 ### Unity 版本
 
-建議使用 Unity 2022.3.59f1(LTS) or higher 版本 - [Unity Download](https://unity3d.com/get-unity/download/archive)
+建議使用 Unity 6000.3.20f1(LTS) or higher 版本 - [Unity Download](https://unity3d.com/get-unity/download/archive)
+
+- 各套件支援 Unity 2021.3 以上（Unity 2021 LTS、2022 LTS、Unity 6 皆相容）。
 
 ---
 

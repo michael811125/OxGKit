@@ -13,7 +13,7 @@ namespace OxGKit.Utilities.Adapter
         private Resolution _lastResolution;
 
         /// <summary>
-        /// Records the last applied safe area (skips redundant refreshes and per-frame log string allocations)
+        /// Records the last applied safe area (gates the logs to avoid per-frame string allocations)
         /// </summary>
         private Rect _lastSafeArea;
 
@@ -35,12 +35,8 @@ namespace OxGKit.Utilities.Adapter
                                      this._lastResolution.height != currentResolution.height;
             if (this.refreshAlways || resolutionChanged)
             {
-                // Only reapply when the resolution or safe area actually changed
-                if (resolutionChanged || this._lastSafeArea != Screen.safeArea)
-                {
-                    this.RefreshViewSize();
-                    this._lastResolution = currentResolution;
-                }
+                this.RefreshViewSize();
+                this._lastResolution = currentResolution;
             }
         }
 
@@ -57,8 +53,12 @@ namespace OxGKit.Utilities.Adapter
 
             Rect safeArea = Screen.safeArea;
 
-            Logging.PrintInfo<Logger>($"Current Safe Area w: {safeArea.width}, h: {safeArea.height}, x: {safeArea.position.x}, y: {safeArea.position.y}");
-            Logging.PrintInfo<Logger>($"Current Resolution w: {Screen.currentResolution.width}, h: {Screen.currentResolution.height}, dpi: {Screen.dpi}");
+            // Log only when the safe area actually changed (avoids per-frame log string allocations)
+            if (this._lastSafeArea != safeArea)
+            {
+                Logging.PrintInfo<Logger>($"Current Safe Area w: {safeArea.width}, h: {safeArea.height}, x: {safeArea.position.x}, y: {safeArea.position.y}");
+                Logging.PrintInfo<Logger>($"Current Resolution w: {Screen.currentResolution.width}, h: {Screen.currentResolution.height}, dpi: {Screen.dpi}");
+            }
 
             Vector2 anchorMin = safeArea.position;
             Vector2 anchorMax = safeArea.position + safeArea.size;

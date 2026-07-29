@@ -92,8 +92,8 @@ bool has = ea.HasAnim("Open");
 
 ```csharp
 // UISafeAreaAdapter — put on a panel; fits `panel` RectTransform to Screen.safeArea.
-// refreshAlways = true keeps it synced (v1.4.8+: reapplies only when the safe area or
-// resolution actually changed — no per-frame cost); RefreshViewSize() forces a manual apply.
+// refreshAlways = true re-applies every frame (orientation changes); v1.4.8+ logs only when
+// the safe area actually changed (no per-frame string allocations); RefreshViewSize() manual.
 
 // TextureAnimation — flipbook on a Renderer/RawImage from Texture2D frames:
 texAnim.SetFrameRate(12);

@@ -50,9 +50,10 @@ namespace OxGKit.Utilities.EasyAnim
 
         public override bool HasAnim(string paramName)
         {
-            // Refresh the cache only when the controller reference changed
+            // Refresh the cache only when the controller reference or parameter count changed
             if (this._cachedParameters == null ||
-                this._cachedController != this._animator.runtimeAnimatorController)
+                this._cachedController != this._animator.runtimeAnimatorController ||
+                this._cachedParameters.Length != this._animator.parameterCount)
             {
                 this._cachedController = this._animator.runtimeAnimatorController;
                 this._cachedParameters = this._animator.parameters;

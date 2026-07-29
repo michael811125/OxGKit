@@ -150,7 +150,7 @@
         /// <returns></returns>
         public float GetTimeElapsed()
         {
-            return this._duration;
+            return this._timeElapsed;
         }
 
         /// <summary>

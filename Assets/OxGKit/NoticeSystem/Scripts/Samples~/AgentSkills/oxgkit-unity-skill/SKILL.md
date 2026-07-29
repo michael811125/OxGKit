@@ -43,7 +43,8 @@ public class NewMailCond : NoticeCondition
 // Manager
 NoticeManager.RegisterCondition<TNoticeCondition>(); // assigns the condition id
 NoticeManager.GetConditionId<TNoticeCondition>();
-NoticeManager.Notify(params int[] conditionIds);     // re-evaluate every NoticeItem holding these conditions
+NoticeManager.Notify(int conditionId);               // re-evaluate every NoticeItem holding this condition (non-alloc)
+NoticeManager.Notify(params int[] conditionIds);     // multiple-conditions variant
 NoticeManager.Notify(params NoticeItem[] items);     // re-evaluate specific items
 
 // NoticeItem (MonoBehaviour on the badge icon GameObject)

@@ -3,7 +3,7 @@ using System;
 
 public class CoinInWalletCond : NoticeCondition
 {
-    #region Defualt
+    #region Default
     public static int id { get { return NoticeManager.GetConditionId<CoinInWalletCond>(); } }
     #endregion
 

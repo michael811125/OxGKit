@@ -569,7 +569,7 @@ PrefabInstance:
     - target: {fileID: 1855459386556294893, guid: a17a812836c754f11a7ba8e246512cd8,
         type: 3}
       propertyPath: m_Name
-      value: Verical Scroll View
+      value: Vertical Scroll View
       objectReference: {fileID: 0}
     - target: {fileID: 1855459386986698912, guid: a17a812836c754f11a7ba8e246512cd8,
         type: 3}

@@ -3,6 +3,8 @@
 ## [1.4.8] - 2026-07-30
 - Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
 - Added samples section to package.json.
+- Optimized EasyAnimator.HasAnim with cached animator parameters (Animator.parameters allocates on every access; re-caches when the controller changes).
+- Optimized UISafeAreaAdapter to reapply and log only when the resolution or safe area actually changed (removes per-frame log string allocations with refreshAlways).
 
 ## [1.4.7] - 2025-09-05
 - Removed color from print output.

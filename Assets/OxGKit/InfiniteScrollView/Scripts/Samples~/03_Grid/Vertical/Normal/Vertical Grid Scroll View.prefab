@@ -403,7 +403,7 @@ MonoBehaviour:
   cellList: []
   isAtTop: 1
   isAtBottom: 1
-  columeCount: 1
+  columnCount: 1
 --- !u!1 &4465912300486386430
 GameObject:
   m_ObjectHideFlags: 0

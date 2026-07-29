@@ -8,6 +8,11 @@ namespace OxGKit.ActionSystem
         private HashSet<T> _set;
         private Queue<T> _queue;
 
+        /// <summary>
+        /// Cached snapshot for ToArray (rebuilt only when the collection changed)
+        /// </summary>
+        private T[] _snapshot;
+
         public QueueSet()
         {
             this._set = new HashSet<T>();
@@ -20,6 +25,7 @@ namespace OxGKit.ActionSystem
             {
                 this._set.Add(item);
                 this._queue.Enqueue(item);
+                this._snapshot = null;
             }
         }
 
@@ -27,6 +33,7 @@ namespace OxGKit.ActionSystem
         {
             T item = this._queue.Dequeue();
             this._set.Remove(item);
+            this._snapshot = null;
             return item;
         }
 
@@ -36,6 +43,7 @@ namespace OxGKit.ActionSystem
             {
                 this._set.Remove(item);
                 this._queue = new Queue<T>(this._queue.Where(x => !EqualityComparer<T>.Default.Equals(x, item)));
+                this._snapshot = null;
                 return true;
             }
             return false;
@@ -45,6 +53,7 @@ namespace OxGKit.ActionSystem
         {
             this._set.Clear();
             this._queue.Clear();
+            this._snapshot = null;
         }
 
         public bool Contains(T item)
@@ -59,7 +68,10 @@ namespace OxGKit.ActionSystem
 
         public T[] ToArray()
         {
-            return this._queue.ToArray();
+            // Reuse the cached snapshot while the collection is unchanged (avoids per-frame allocations)
+            if (this._snapshot == null)
+                this._snapshot = this._queue.ToArray();
+            return this._snapshot;
         }
     }
 }

@@ -412,7 +412,7 @@ MonoBehaviour:
     left: 0
     right: 0
   spacing: {x: 0, y: 0}
-  columeCount: 1
+  columnCount: 1
   isAtTop: 1
   isAtBottom: 1
 --- !u!1 &4465912300486386430

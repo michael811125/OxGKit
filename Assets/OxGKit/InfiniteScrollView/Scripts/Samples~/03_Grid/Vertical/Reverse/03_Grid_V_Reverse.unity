@@ -405,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8142308267430827509, guid: c289b39ffe932df4aaada93055e1bcea,
         type: 3}
-      propertyPath: columeCount
+      propertyPath: columnCount
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8142308267430827509, guid: c289b39ffe932df4aaada93055e1bcea,

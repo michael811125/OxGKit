@@ -29,6 +29,14 @@ namespace OxGKit.LoggingSystem
         /// </summary>
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
+        /// <summary>
+        /// 泛型日誌器名稱緩存 (每個型別僅反射一次, 避免每次輸出日誌都進行反射查找)
+        /// </summary>
+        private static class LoggerNameCache<TLogging> where TLogging : Logging
+        {
+            public static readonly string loggerName = GetLoggerName<TLogging>();
+        }
+
         #region Internal Methods
         internal static string GetLoggerName<TLogging>() where TLogging : Logging
         {
@@ -190,50 +198,50 @@ namespace OxGKit.LoggingSystem
             if (!CheckHasAnyLoggers())
                 return;
 
-            string key = GetLoggerName<TLogging>();
+            string key = LoggerNameCache<TLogging>.loggerName;
 
-            if (_cacheLoggers.ContainsKey(key))
+            if (_cacheLoggers.TryGetValue(key, out var logger))
             {
                 switch (logLevel)
                 {
                     case LogLevel.LogDebug:
                         {
                             if (context == null)
-                                _cacheLoggers[key].Print(message);
+                                logger.Print(message);
                             else
-                                _cacheLoggers[key].Print(message, context);
+                                logger.Print(message, context);
                         }
                         break;
                     case LogLevel.LogInfo:
                         {
                             if (context == null)
-                                _cacheLoggers[key].PrintInfo(message);
+                                logger.PrintInfo(message);
                             else
-                                _cacheLoggers[key].PrintInfo(message, context);
+                                logger.PrintInfo(message, context);
                         }
                         break;
                     case LogLevel.LogWarning:
                         {
                             if (context == null)
-                                _cacheLoggers[key].PrintWarning(message);
+                                logger.PrintWarning(message);
                             else
-                                _cacheLoggers[key].PrintWarning(message, context);
+                                logger.PrintWarning(message, context);
                         }
                         break;
                     case LogLevel.LogError:
                         {
                             if (context == null)
-                                _cacheLoggers[key].PrintError(message);
+                                logger.PrintError(message);
                             else
-                                _cacheLoggers[key].PrintError(message, context);
+                                logger.PrintError(message, context);
                         }
                         break;
                     case LogLevel.LogException:
                         {
                             if (context == null)
-                                _cacheLoggers[key].PrintException((Exception)message);
+                                logger.PrintException((Exception)message);
                             else
-                                _cacheLoggers[key].PrintException((Exception)message, context);
+                                logger.PrintException((Exception)message, context);
                         }
                         break;
                 }

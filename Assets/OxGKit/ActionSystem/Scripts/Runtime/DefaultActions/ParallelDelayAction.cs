@@ -11,7 +11,7 @@ namespace OxGKit.ActionSystem
         #region Default Constructor
         public ParallelDelayAction()
         {
-            this.name = nameof(DelayAction);
+            this.name = nameof(ParallelDelayAction);
         }
 
         public ParallelDelayAction(int uid) : this()
@@ -21,7 +21,7 @@ namespace OxGKit.ActionSystem
 
         public ParallelDelayAction(string name)
         {
-            this.name = string.IsNullOrEmpty(name) ? nameof(ParallelAction) : name;
+            this.name = string.IsNullOrEmpty(name) ? nameof(ParallelDelayAction) : name;
         }
 
         public ParallelDelayAction(string name, int uid) : this(name)

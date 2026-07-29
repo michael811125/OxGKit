@@ -1848,7 +1848,7 @@ namespace OxGKit.TweenSystem
             }
             #endregion
 
-            #region tRoatation TickPlay
+            #region tRotation TickPlay
             if (this.tRotationOn && this._tRotation.isInterval)
             {
                 this._tRotation.intervalTimer.UpdateTimer(dt);

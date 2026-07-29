@@ -3,6 +3,8 @@
 ## [1.4.3] - 2026-07-30
 - Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
 - Optimized samples descriptions in package.json.
+- Optimized DispatchLog with a per-type logger-name cache (no reflection per log call) and a single dictionary lookup.
+- Fixed create menu typo (lLoggerConfig.dat -> LoggerConfig.dat).
 
 ## [1.4.2] - 2026-01-22
 - Adjusted settings default name (loggersconfig.conf -> LoggerConfig.dat).

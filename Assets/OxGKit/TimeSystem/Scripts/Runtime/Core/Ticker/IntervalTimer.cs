@@ -6,7 +6,7 @@ namespace OxGKit.TimeSystem
 {
     public class IntervalTimer
     {
-        private bool _isRuning = false;
+        private bool _isRunning = false;
         private CancellationTokenSource _cts = null;
 
         public IntervalTimer()
@@ -29,7 +29,7 @@ namespace OxGKit.TimeSystem
                 {
                     await UniTask.Delay(milliseconds, ignoreTimeScale, PlayerLoopTiming.Update, (cts == null) ? default : cts.Token);
                     action?.Invoke();
-                } while (this._isRuning);
+                } while (this._isRunning);
             }
             catch (Exception ex)
             {
@@ -40,23 +40,23 @@ namespace OxGKit.TimeSystem
 
         public void SetInterval(Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (this._isRuning) return;
-            this._isRuning = true;
+            if (this._isRunning) return;
+            this._isRunning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
             this._SetInterval(false, action, milliseconds, ignoreTimeScale, this._cts).Forget();
         }
 
         public void SetIntervalOnThread(Action action, int milliseconds, bool ignoreTimeScale = false)
         {
-            if (this._isRuning) return;
-            this._isRuning = true;
+            if (this._isRunning) return;
+            this._isRunning = true;
             if (this._cts == null) this._cts = new CancellationTokenSource();
             this._SetInterval(true, action, milliseconds, ignoreTimeScale, this._cts).Forget();
         }
 
         public void StopInterval()
         {
-            this._isRuning = false;
+            this._isRunning = false;
             if (this._cts == null) return;
             this._cts.Cancel();
             this._cts.Dispose();
@@ -65,7 +65,7 @@ namespace OxGKit.TimeSystem
 
         public bool IsRunning()
         {
-            return this._isRuning;
+            return this._isRunning;
         }
     }
 }

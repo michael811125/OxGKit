@@ -7,7 +7,7 @@
         #region Default Constructor
         public ParallelAction()
         {
-            this.name = nameof(DelayAction);
+            this.name = nameof(ParallelAction);
         }
 
         public ParallelAction(int uid) : this()

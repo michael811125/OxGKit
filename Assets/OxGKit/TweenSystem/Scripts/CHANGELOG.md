@@ -3,6 +3,7 @@
 ## [1.0.4] - 2026-07-30
 - Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
 - Optimized samples descriptions in package.json.
+- Fixed region comment typo (tRoatation -> tRotation).
 
 ## [1.0.3] - 2025-11-20
 - Fixed an issue where DoTweenAnimeEvent triggered the endCallback even when the animation had not finished playing.

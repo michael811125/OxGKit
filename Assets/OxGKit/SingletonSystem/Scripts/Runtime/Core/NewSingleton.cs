@@ -11,7 +11,9 @@
             {
                 lock (_locker)
                 {
-                    _instance = new T();
+                    // Double-check inside the lock to avoid creating twice under race conditions
+                    if (_instance == null)
+                        _instance = new T();
                 }
             }
             return _instance;

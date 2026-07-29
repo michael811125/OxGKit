@@ -27,7 +27,7 @@ Make the agent behave like an experienced OxGKit.InfiniteScrollView user. The mo
 
 1. Create a UGUI Scroll View; put one of the scroll-view components on the `ScrollRect` object (`VerticalInfiniteScrollView`, etc.).
 2. Author a cell prefab whose root is a `RectTransform` with your `InfiniteCell` subclass; assign it to `cellPrefab`.
-3. Configure: `cellPoolSize`, `initializePoolOnAwake` (or call `InitializePool()` yourself), `dataOrder` (`Normal`/`Reverse`), `snapAlign` (`Start`/`Center`/`End`), `extendVisibleRange`, `padding`; grid variants add `spacing` (Vector2) and `columeCount` (rows for horizontal grid).
+3. Configure: `cellPoolSize`, `initializePoolOnAwake` (or call `InitializePool()` yourself), `dataOrder` (`Normal`/`Reverse`), `snapAlign` (`Start`/`Center`/`End`), `extendVisibleRange`, `padding`; grid variants add `spacing` (Vector2) plus `columnCount` (vertical grid; renamed from `columeCount` in v1.7.1, old serialized data auto-migrates) / `rowCount` (horizontal grid).
 4. Fill data with `InfiniteCellData` and `Refresh()`.
 
 ## Core API (verified)
@@ -89,7 +89,7 @@ var data = new InfiniteCellData(cellSize: new Vector2(0, 80), data: payload);
 ## Patterns from the official samples
 
 - **Vertical/Horizontal (01/02)**: uniform cells, `Normal` vs `Reverse` order, add/remove with GUI buttons.
-- **Grid (03)**: `VerticalGridInfiniteScrollView` fills `columeCount` columns per row; `HorizontalGridInfiniteScrollView` fills rows per column; set `spacing`.
+- **Grid (03)**: `VerticalGridInfiniteScrollView` fills `columnCount` columns per row; `HorizontalGridInfiniteScrollView` fills `rowCount` rows per column; set `spacing`.
 - **TabPage (04)**: horizontal page cells + `Snap(index, duration)` for tab switching; `snapAlign` centers pages.
 - **ChatRoom (05)**: dynamic cell heights — measure text (`Text.preferredHeight`) into `InfiniteCellData.cellSize`, then `Add` + `Refresh()` + `SnapLast(0.1f)` for auto-scroll-to-newest.
 

@@ -8,7 +8,7 @@ namespace OxGKit.NoticeSystem
     {
         private static Dictionary<int, NoticeCondition> _dictNoticeConditions; // 針對 Cond Id 建立條件池緩存
         private static Dictionary<int, ListSet<NoticeItem>> _dictNoticeItems;  // 針對 Cond Id 註冊 NoticeItem 列表
-        private static HashSet<int> _limiterConditionIds;                      // 緩存 Notify 限制唯一 Conod Id
+        private static HashSet<int> _limiterConditionIds;                      // 緩存 Notify 限制唯一 Cond Id
 
         static NoticeManager()
         {
@@ -54,6 +54,37 @@ namespace OxGKit.NoticeSystem
         }
 
         /// <summary>
+        /// Notify by single condition id, when data changes (non-alloc)
+        /// </summary>
+        /// <param name="conditionId"></param>
+        public static void Notify(int conditionId)
+        {
+            // 檢查是否有符合 condition id 的條件池
+            if (_dictNoticeConditions.ContainsKey(conditionId))
+            {
+                // 檢查是否有符合 condition id 的通知物件
+                if (_dictNoticeItems.ContainsKey(conditionId))
+                {
+                    ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
+                    for (int i = noticeItems.Count - 1; i >= 0; i--)
+                    {
+                        var noticeItem = noticeItems.GetList()[i];
+                        if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
+                        {
+                            noticeItem.CheckConditionAndVisible();
+                        }
+                        else
+                        {
+                            noticeItems.RemoveAt(i);
+                            Logging.PrintWarning<Logger>($"[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!");
+                        }
+                    }
+                }
+            }
+            else Logging.PrintError<Logger>($"[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}");
+        }
+
+        /// <summary>
         /// Notify by condition ids, when data changes
         /// </summary>
         /// <param name="conditionIds"></param>
@@ -63,34 +94,12 @@ namespace OxGKit.NoticeSystem
 
             foreach (int conditionId in conditionIds)
             {
-                // 檢查是否有符合 condition id 的條件池
-                if (_dictNoticeConditions.ContainsKey(conditionId))
-                {
-                    // 檢查是否有符合 condition id 的通知物件
-                    if (_dictNoticeItems.ContainsKey(conditionId))
-                    {
-                        ListSet<NoticeItem> noticeItems = _dictNoticeItems[conditionId];
-                        for (int i = noticeItems.Count - 1; i >= 0; i--)
-                        {
-                            var noticeItem = noticeItems.GetList()[i];
-                            if (noticeItem != null && !noticeItem.gameObject.IsDestroyed())
-                            {
-                                noticeItem.CheckConditionAndVisible();
-                            }
-                            else
-                            {
-                                noticeItems.RemoveAt(i);
-                                Logging.PrintWarning<Logger>($"[{nameof(NoticeSystem)}] Removed NoticeItem since it was either missing or already destroyed!");
-                            }
-                        }
-                    }
-                }
-                else Logging.PrintError<Logger>($"[{nameof(NoticeSystem)}] Error Notice Condition Cannot find => Cond Id: {conditionId}");
+                Notify(conditionId);
             }
         }
 
         /// <summary>
-        /// Notify by notie items, when data changes
+        /// Notify by notice items, when data changes
         /// </summary>
         /// <param name="noticeItems"></param>
         public static void Notify(params NoticeItem[] noticeItems)
@@ -99,11 +108,10 @@ namespace OxGKit.NoticeSystem
 
             foreach (var noticeItem in noticeItems)
             {
-                NoticeInfo[] noticeInfos = noticeItem.GetNoticeInfos();
                 // Collect notify condition id and remove duplicates
-                for (int i = 0; i < noticeInfos.Length; i++)
+                foreach (var noticeInfo in noticeItem.GetNoticeInfos())
                 {
-                    NotifyCollector(noticeInfos[i].conditionId);
+                    NotifyCollector(noticeInfo.conditionId);
                 }
             }
 

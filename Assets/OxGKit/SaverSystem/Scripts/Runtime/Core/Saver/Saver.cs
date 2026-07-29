@@ -159,8 +159,7 @@ namespace OxGKit.SaverSystem
             if (string.IsNullOrEmpty(content))
                 return dataMap;
 
-            var allWords = content.Split('\n');
-            var lines = new List<string>(allWords);
+            var lines = content.Split('\n');
             foreach (var readLine in lines)
             {
                 if (readLine.IndexOf('#') != -1 && readLine[0] == '#')

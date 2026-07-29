@@ -18,7 +18,7 @@
 		},
 		{
 			"displayName": "Infinite Grid Demo",
-			"description": "Grid layouts in vertical and horizontal directions (Normal and Reverse): columeCount/spacing setup and grid cell prefabs, driven by a GUI test panel.",
+			"description": "Grid layouts in vertical and horizontal directions (Normal and Reverse): columnCount/rowCount/spacing setup and grid cell prefabs, driven by a GUI test panel.",
 			"path": "Samples~/03_Grid"
 		},
 		{

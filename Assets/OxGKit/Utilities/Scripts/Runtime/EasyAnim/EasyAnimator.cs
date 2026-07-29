@@ -9,6 +9,16 @@ namespace OxGKit.Utilities.EasyAnim
         [SerializeField]
         protected Animator _animator = null;
 
+        /// <summary>
+        /// Cached animator parameters (Animator.parameters allocates a new array on every access)
+        /// </summary>
+        private AnimatorControllerParameter[] _cachedParameters = null;
+
+        /// <summary>
+        /// Records the controller of the cached parameters (re-cache when the controller changed)
+        /// </summary>
+        private RuntimeAnimatorController _cachedController = null;
+
         private void Awake()
         {
             if (this._animator == null)
@@ -40,7 +50,15 @@ namespace OxGKit.Utilities.EasyAnim
 
         public override bool HasAnim(string paramName)
         {
-            foreach (AnimatorControllerParameter param in this._animator.parameters)
+            // Refresh the cache only when the controller reference changed
+            if (this._cachedParameters == null ||
+                this._cachedController != this._animator.runtimeAnimatorController)
+            {
+                this._cachedController = this._animator.runtimeAnimatorController;
+                this._cachedParameters = this._animator.parameters;
+            }
+
+            foreach (AnimatorControllerParameter param in this._cachedParameters)
             {
                 if (param.name == paramName)
                     return true;

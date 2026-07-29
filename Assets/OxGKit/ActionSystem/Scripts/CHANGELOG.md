@@ -4,6 +4,9 @@
 - Modified ActionRunner public update entry point to DriveUpdate(dt) for consistent Drive* naming across OxGKit systems (OnUpdate(dt) is now protected and driven by DriveUpdate).
 - Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
 - Optimized samples descriptions in package.json.
+- Optimized QueueSet.ToArray with a cached snapshot (eliminates per-frame array allocations in ActionRunner/actions update).
+- Fixed ParallelAction/ParallelDelayAction default name assignment (was DelayAction/ParallelAction).
+- Fixed ActionBase.GetTimeElapsed returned duration instead of elapsed time.
 
 ## [1.0.2] - 2025-09-05
 - Removed color from print output.

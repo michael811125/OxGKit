@@ -20,7 +20,7 @@ namespace OxGKit.LoggingSystem.Editor
             });
         }
 
-        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[BYTES - Cipher] Create lLoggerConfig.dat (In StreamingAssets)", isValidateFunction: false, priority: 1)]
+        [MenuItem(itemName: "Assets/Create/OxGKit/Logging System/[BYTES - Cipher] Create LoggerConfig.dat (In StreamingAssets)", isValidateFunction: false, priority: 1)]
         private static void _ExportAndCreateBytesLoggersConfig()
         {
             // Initialized loggers

@@ -3,6 +3,9 @@
 ## [1.0.5] - 2026-07-30
 - Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
 - Optimized samples descriptions in package.json.
+- Added non-alloc NoticeManager.Notify(int conditionId) overload (params overload and internal notify paths route through it).
+- Optimized NoticeItem.GetNoticeInfos to avoid LINQ ToArray allocation.
+- Fixed comment and script template typos (Default region, Cond Id, notice items).
 
 ## [1.0.4] - 2025-09-05
 - Removed color from print output.

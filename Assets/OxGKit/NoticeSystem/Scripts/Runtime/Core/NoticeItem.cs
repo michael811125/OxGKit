@@ -1,6 +1,5 @@
 ﻿using OxGKit.LoggingSystem;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace OxGKit.NoticeSystem
@@ -15,9 +14,9 @@ namespace OxGKit.NoticeSystem
         /// Get notice infos
         /// </summary>
         /// <returns></returns>
-        internal NoticeInfo[] GetNoticeInfos()
+        internal Dictionary<int, NoticeInfo>.ValueCollection GetNoticeInfos()
         {
-            return this._dictNoticeInfos.Values.ToArray();
+            return this._dictNoticeInfos.Values;
         }
 
         /// <summary>

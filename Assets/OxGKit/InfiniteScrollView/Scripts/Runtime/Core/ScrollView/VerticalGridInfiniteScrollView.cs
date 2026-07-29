@@ -1,20 +1,22 @@
 ﻿using Cysharp.Threading.Tasks;
 using OxGKit.LoggingSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace OxGKit.InfiniteScrollView
 {
     public class VerticalGridInfiniteScrollView : InfiniteScrollView
     {
         public Vector2 spacing;
-        public int columeCount = 1;
+        [FormerlySerializedAs("columeCount")]
+        public int columnCount = 1;
 
         #region Override
         protected override void DoRefreshVisibleCells()
         {
-            if (this.columeCount <= 0)
+            if (this.columnCount <= 0)
             {
-                this.columeCount = 1;
+                this.columnCount = 1;
             }
 
             // Reset visible count
@@ -36,9 +38,9 @@ namespace OxGKit.InfiniteScrollView
             switch (this.dataOrder)
             {
                 case DataOrder.Normal:
-                    for (int i = 0; i < this._dataList.Count; i += this.columeCount)
+                    for (int i = 0; i < this._dataList.Count; i += this.columnCount)
                     {
-                        for (int j = 0; j < this.columeCount; j++)
+                        for (int j = 0; j < this.columnCount; j++)
                         {
                             int index = i + j;
                             if (index >= this._dataList.Count)
@@ -54,9 +56,9 @@ namespace OxGKit.InfiniteScrollView
                     }
                     break;
                 case DataOrder.Reverse:
-                    for (int i = this._dataList.Count - 1; i >= 0; i -= this.columeCount)
+                    for (int i = this._dataList.Count - 1; i >= 0; i -= this.columnCount)
                     {
-                        for (int j = 0; j < this.columeCount; j++)
+                        for (int j = 0; j < this.columnCount; j++)
                         {
                             int index = i - j;
                             if (index < 0 ||
@@ -80,9 +82,9 @@ namespace OxGKit.InfiniteScrollView
             switch (this.dataOrder)
             {
                 case DataOrder.Normal:
-                    for (int i = 0; i < this._dataList.Count; i += this.columeCount)
+                    for (int i = 0; i < this._dataList.Count; i += this.columnCount)
                     {
-                        for (int j = 0; j < this.columeCount; j++)
+                        for (int j = 0; j < this.columnCount; j++)
                         {
                             int index = i + j;
                             if (index >= this._dataList.Count)
@@ -93,7 +95,7 @@ namespace OxGKit.InfiniteScrollView
                             {
                                 // Calculate visible count
                                 this.visibleCount++;
-                                if (this.visibleCount % this.columeCount == 0)
+                                if (this.visibleCount % this.columnCount == 0)
                                     lastVisibleHeight = visibleRange.y;
 
                                 InfiniteCell cell = null;
@@ -124,9 +126,9 @@ namespace OxGKit.InfiniteScrollView
                     }
                     break;
                 case DataOrder.Reverse:
-                    for (int i = this._dataList.Count - 1; i >= 0; i -= this.columeCount)
+                    for (int i = this._dataList.Count - 1; i >= 0; i -= this.columnCount)
                     {
-                        for (int j = 0; j < this.columeCount; j++)
+                        for (int j = 0; j < this.columnCount; j++)
                         {
                             int index = i - j;
                             if (index < 0 ||
@@ -138,7 +140,7 @@ namespace OxGKit.InfiniteScrollView
                             {
                                 // Calculate visible count
                                 this.visibleCount++;
-                                if (this.visibleCount % this.columeCount == 0)
+                                if (this.visibleCount % this.columnCount == 0)
                                     lastVisibleHeight = visibleRange.y;
 
                                 InfiniteCell cell = null;
@@ -213,7 +215,7 @@ namespace OxGKit.InfiniteScrollView
                     break;
             }
 
-            var rowNumber = index / this.columeCount;
+            var rowNumber = index / this.columnCount;
             float height = this.padding.top;
             switch (this.dataOrder)
             {
@@ -221,7 +223,7 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = 0; i < rowNumber; i++)
                     {
                         // Normal index
-                        int tempIndex = i * this.columeCount;
+                        int tempIndex = i * this.columnCount;
                         height += this._dataList[tempIndex].cellSize.y + this.spacing.y;
                     }
                     break;
@@ -229,7 +231,7 @@ namespace OxGKit.InfiniteScrollView
                     for (int i = 0; i < rowNumber; i++)
                     {
                         // Reverse index
-                        int tempIndex = this._dataList.Count - 1 - (i * this.columeCount);
+                        int tempIndex = this._dataList.Count - 1 - (i * this.columnCount);
                         height += this._dataList[tempIndex].cellSize.y + this.spacing.y;
                     }
                     break;
@@ -267,7 +269,7 @@ namespace OxGKit.InfiniteScrollView
             {
                 // Refresh content size
                 float height = this.padding.top;
-                for (int i = 0; i < this._dataList.Count; i += this.columeCount)
+                for (int i = 0; i < this._dataList.Count; i += this.columnCount)
                 {
                     height += this._dataList[i].cellSize.y + this.spacing.y;
                 }

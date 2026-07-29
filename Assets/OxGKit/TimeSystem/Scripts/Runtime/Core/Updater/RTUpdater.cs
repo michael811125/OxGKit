@@ -53,7 +53,7 @@ namespace OxGKit.TimeSystem
         public float deltaTime { get; private set; }
         public float fixedDeltaTime { get; private set; }
         private CancellationTokenSource _cts = null;
-        private bool _isRuning = false;
+        private bool _isRunning = false;
 
         /// <summary>
         /// 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
@@ -80,9 +80,9 @@ namespace OxGKit.TimeSystem
 
         public void Start()
         {
-            if (this._isRuning)
+            if (this._isRunning)
                 return;
-            this._isRuning = true;
+            this._isRunning = true;
             if (this._cts == null)
                 this._cts = new CancellationTokenSource();
             this._SetInterval(false, this._cts).Forget();
@@ -90,9 +90,9 @@ namespace OxGKit.TimeSystem
 
         public void StartOnThread()
         {
-            if (this._isRuning)
+            if (this._isRunning)
                 return;
-            this._isRuning = true;
+            this._isRunning = true;
             if (this._cts == null)
                 this._cts = new CancellationTokenSource();
             this._SetInterval(true, this._cts).Forget();
@@ -100,7 +100,7 @@ namespace OxGKit.TimeSystem
 
         public void Stop()
         {
-            this._isRuning = false;
+            this._isRunning = false;
             if (this._cts == null) return;
             this._cts.Cancel();
             this._cts.Dispose();
@@ -109,7 +109,7 @@ namespace OxGKit.TimeSystem
 
         public bool IsRunning()
         {
-            return this._isRuning;
+            return this._isRunning;
         }
 
         private async UniTaskVoid _SetInterval(bool switchToThread, CancellationTokenSource cts)
@@ -145,7 +145,7 @@ namespace OxGKit.TimeSystem
                         this.onLateUpdate?.Invoke(this.deltaTime);
                     }
                     else await UniTask.Yield(cts.Token);
-                } while (this._isRuning);
+                } while (this._isRunning);
             }
             catch (Exception ex)
             {

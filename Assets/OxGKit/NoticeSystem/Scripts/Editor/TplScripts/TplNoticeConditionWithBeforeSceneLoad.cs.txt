@@ -4,7 +4,7 @@ using UnityEngine;
     #ROOTNAMESPACEBEGIN#
 public class #SCRIPTNAME# : NoticeCondition
 {
-    #region Defualt
+    #region Default
     public static int id { get { return NoticeManager.GetConditionId<#SCRIPTNAME#>(); } }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

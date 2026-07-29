@@ -2,7 +2,7 @@
 
 public class CoinIsEvenCond : NoticeCondition
 {
-    #region Defualt
+    #region Default
     public static int id { get { return NoticeManager.GetConditionId<CoinIsEvenCond>(); } }
     #endregion
 

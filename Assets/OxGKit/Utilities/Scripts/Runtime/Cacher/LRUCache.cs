@@ -66,7 +66,7 @@ namespace OxGKit.Utilities.Cacher
             {
                 if (this._cache.TryGetValue(key, out var node))
                 {
-                    // 如果節點不在最前面, 則移動
+                    // 如果節點不在最前面，則移動
                     if (this._lruList.First != node)
                     {
                         this._lruList.Remove(node);
@@ -82,7 +82,7 @@ namespace OxGKit.Utilities.Cacher
         {
             lock (this._syncRoot)
             {
-                // 如果已經存在, 則更新值並移動
+                // 如果已經存在，則更新值並移動
                 if (this._cache.TryGetValue(key, out var existingNode))
                 {
                     existingNode.Value.Value = value;

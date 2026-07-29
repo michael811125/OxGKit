@@ -6,7 +6,7 @@ namespace OxGKit.TimeSystem
     public static class RealTime
     {
         private static bool _firstInitStartupTime = false;            // 是否首次初始啟動時間                            
-        public static DateTime timeSinceStartup { get; private set; } // 啟動時間, 建議由主程序調用初始 (將會是遊戲啟動時間)
+        public static DateTime timeSinceStartup { get; private set; } // 啟動時間，建議由主程序調用初始（將會是遊戲啟動時間）
 
         /// <summary>
         /// Call by Main MonoBehaviour Awake

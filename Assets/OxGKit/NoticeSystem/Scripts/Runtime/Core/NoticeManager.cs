@@ -161,7 +161,7 @@ namespace OxGKit.NoticeSystem
             // 檢查是否有符合的 condition id 的條件池
             if (_dictNoticeConditions.ContainsKey(conditionId))
             {
-                // 進行條件過濾 (針對不同的數據進行判斷)
+                // 進行條件過濾（針對不同的數據進行判斷）
                 NoticeCondition noticeCondition = _dictNoticeConditions[conditionId];
                 return noticeCondition.ShowCondition(data);
             }

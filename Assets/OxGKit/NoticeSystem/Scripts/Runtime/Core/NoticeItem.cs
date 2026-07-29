@@ -130,10 +130,10 @@ namespace OxGKit.NoticeSystem
         {
             foreach (var noticeInfo in this._dictNoticeInfos.Values)
             {
-                // 將 NoticeItem 的獨立數據交給 NoticeManager 進行條件判斷 (條件方法池)
+                // 將 NoticeItem 的獨立數據交給 NoticeManager 進行條件判斷（條件方法池）
                 bool active = NoticeManager.CheckCondition(noticeInfo.conditionId, noticeInfo.data);
 
-                // 任一條件為激活狀態, 則開啟顯示
+                // 任一條件為激活狀態，則開啟顯示
                 if (active)
                 {
                     if (!this.gameObject.activeSelf)
@@ -145,7 +145,7 @@ namespace OxGKit.NoticeSystem
                 }
             }
 
-            // 無任何激活條件, 則關閉顯示
+            // 無任何激活條件，則關閉顯示
             this.gameObject.SetActive(false);
         }
 

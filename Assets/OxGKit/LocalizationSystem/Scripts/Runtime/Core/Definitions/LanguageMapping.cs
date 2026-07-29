@@ -41,7 +41,7 @@ namespace OxGKit.LocalizationSystem
             { LangType.Turkish, "Türkçe" },                                // 土耳其語 tr_TR
             { LangType.Urdu, "اردو" },                                     // 烏爾都語 ur_PK
             { LangType.Vietnamese, "tiếng việt" },                         // 越南語 vi_VN
-            { LangType.Catalan, "catalá" },                                // 加泰隆語 (西班牙) ca_ES
+            { LangType.Catalan, "catalá" },                                // 加泰隆語（西班牙） ca_ES
             { LangType.Latvian, "Latviski" },                              // 拉脫維亞語 lv_LV
             { LangType.Lithuanian, "Lietuvių" },                           // 立陶宛語 lt_LT
             { LangType.Norwegian, "Norsk bokmal" },                        // 挪威語 nb_NO
@@ -52,18 +52,18 @@ namespace OxGKit.LocalizationSystem
             { LangType.Filipino, "Tagalog" },                              // 菲律賓語 tl_PH
             { LangType.Finnish, "Suomi" },                                 // 芬蘭語 fi_FI
             { LangType.Afrikaans, "Afrikaans" },                           // 南非荷蘭語 af_ZA
-            { LangType.Romansh, "Rumantsch" },                             // 羅曼什語 (瑞士) rm_CH
-            { LangType.Burmese, "ဗမာ" },                                   // 緬甸語 (官方) my_MM
+            { LangType.Romansh, "Rumantsch" },                             // 羅曼什語（瑞士） rm_CH
+            { LangType.Burmese, "ဗမာ" },                                   // 緬甸語（官方） my_MM
             { LangType.Khmer, "ខ្មែរ" },                                     // 柬埔寨語 km_KH
-            { LangType.Amharic, "አማርኛ" },                                 // 阿姆哈拉語 (衣索比亞) am_ET
+            { LangType.Amharic, "አማርኛ" },                                 // 阿姆哈拉語（衣索比亞） am_ET
             { LangType.Belarusian, "беларуская" },                         // 白俄羅斯語 be_BY
             { LangType.Estonian, "eesti" },                                // 愛沙尼亞語 et_EE
-            { LangType.Swahili, "Kiswahili" },                             // 斯瓦希里語 (坦尚尼亞) sw_TZ
-            { LangType.Zulu, "isiZulu" },                                  // 祖魯語 (南非) zu_ZA
+            { LangType.Swahili, "Kiswahili" },                             // 斯瓦希里語（坦尚尼亞） sw_TZ
+            { LangType.Zulu, "isiZulu" },                                  // 祖魯語（南非） zu_ZA
             { LangType.Azerbaijani, "azərbaycanca" },                      // 亞塞拜然語 az_AZ
-            { LangType.Armenian, "Հայերէն" },                              // 亞美尼亞語 (亞美尼亞) hy_AM
-            { LangType.Georgian, "ქართული" },                             // 格魯吉亞語 (格魯吉亞) ka_GE
-            { LangType.Laotian, "ລາວ" },                                   // 寮語 (寮國) lo_LA
+            { LangType.Armenian, "Հայերէն" },                              // 亞美尼亞語（亞美尼亞） hy_AM
+            { LangType.Georgian, "ქართული" },                             // 格魯吉亞語（格魯吉亞） ka_GE
+            { LangType.Laotian, "ລາວ" },                                   // 寮語（寮國） lo_LA
             { LangType.Mongolian, "Монгол" },                              // 蒙古語 mn_MN
             { LangType.Nepali, "नेपाली" },                                   // 尼泊爾語 ne_NP
             { LangType.Kazakh, "қазақ тілі" },                             // 哈薩克語 kk_KZ
@@ -78,7 +78,7 @@ namespace OxGKit.LocalizationSystem
             { LangType.Telugu, "తెలుగు" },                                 // 泰盧固語 te-rIN
             { LangType.Uzbek, "Ўзбек тили" },                              // 烏茲別克語 uz-rUZ
             { LangType.Basque, "Euskara" },                                // 巴斯克語 eu-rES
-            { LangType.Sinhala, "සිංහල" },                                // 僧加羅語 (斯里蘭卡) si_LK
+            { LangType.Sinhala, "සිංහල" },                                // 僧加羅語（斯里蘭卡） si_LK
             { LangType.Faroese, "Føroyskt" }                               // 法羅語 fo-FO
         };
 

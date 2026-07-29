@@ -5,6 +5,7 @@
 - Added samples section to package.json.
 - Optimized EasyAnimator.HasAnim with cached animator parameters (Animator.parameters allocates on every access; re-caches when the controller changes).
 - Optimized UISafeAreaAdapter to reapply and log only when the resolution or safe area actually changed (removes per-frame log string allocations with refreshAlways).
+- Normalized Chinese comment punctuation to full-width (comments only, no code changes).
 
 ## [1.4.7] - 2025-09-05
 - Removed color from print output.

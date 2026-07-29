@@ -33,13 +33,13 @@ namespace OxGKit.Utilities.Tests
         {
             bool jobExecuted = false;
 
-            // 添加一個任務, 任務會將 jobExecuted 設置為 true
+            // 添加一個任務，任務會將 jobExecuted 設置為 true
             UMT.worker.AddJob(() =>
             {
                 jobExecuted = true;
             });
 
-            // 等待下一幀, 確保隊列中的任務被執行
+            // 等待下一幀，確保隊列中的任務被執行
             yield return null;
 
             // 驗證任務是否已經執行
@@ -51,7 +51,7 @@ namespace OxGKit.Utilities.Tests
         {
             bool routineExecuted = false;
 
-            // 運行一個簡單的協程, 任務完成後將 routineExecuted 設置為 true
+            // 運行一個簡單的協程，任務完成後將 routineExecuted 設置為 true
             UMT.worker.RunCoroutine(RunTestRoutine());
 
             // 等待協程完成
@@ -80,7 +80,7 @@ namespace OxGKit.Utilities.Tests
             // 取消協程
             UMT.worker.CancelCoroutine(routine);
 
-            // 等待一段時間, 確保協程被停止
+            // 等待一段時間，確保協程被停止
             yield return new WaitForSeconds(0.1f);
 
             // 驗證協程未被執行
@@ -107,7 +107,7 @@ namespace OxGKit.Utilities.Tests
             // 取消所有協程
             UMT.worker.CancelAllCoroutines();
 
-            // 等待一段時間, 確保協程被停止
+            // 等待一段時間，確保協程被停止
             yield return new WaitForSeconds(0.1f);
 
             // 驗證所有協程都沒有執行

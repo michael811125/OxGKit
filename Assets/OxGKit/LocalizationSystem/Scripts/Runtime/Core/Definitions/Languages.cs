@@ -171,7 +171,7 @@
         Vietnamese,
 
         /// <summary>
-        /// 加泰隆語 (西班牙)
+        /// 加泰隆語（西班牙）
         /// </summary>
         Catalan,
 
@@ -226,12 +226,12 @@
         Afrikaans,
 
         /// <summary>
-        /// 羅曼什語 (瑞士)
+        /// 羅曼什語（瑞士）
         /// </summary>
         Romansh,
 
         /// <summary>
-        /// 緬甸語 (官方)
+        /// 緬甸語（官方）
         /// </summary>
         Burmese,
 
@@ -241,7 +241,7 @@
         Khmer,
 
         /// <summary>
-        /// 阿姆哈拉語 (衣索比亞)
+        /// 阿姆哈拉語（衣索比亞）
         /// </summary>
         Amharic,
 
@@ -256,12 +256,12 @@
         Estonian,
 
         /// <summary>
-        /// 斯瓦希里語 (坦尚尼亞)
+        /// 斯瓦希里語（坦尚尼亞）
         /// </summary>
         Swahili,
 
         /// <summary>
-        /// 祖魯語 (南非)
+        /// 祖魯語（南非）
         /// </summary>
         Zulu,
 
@@ -271,17 +271,17 @@
         Azerbaijani,
 
         /// <summary>
-        /// 亞美尼亞語 (亞美尼亞)
+        /// 亞美尼亞語（亞美尼亞）
         /// </summary>
         Armenian,
 
         /// <summary>
-        /// 格魯吉亞語 (格魯吉亞)
+        /// 格魯吉亞語（格魯吉亞）
         /// </summary>
         Georgian,
 
         /// <summary>
-        /// 寮語 (寮國)
+        /// 寮語（寮國）
         /// </summary>
         Laotian,
 
@@ -356,7 +356,7 @@
         Basque,
 
         /// <summary>
-        /// 僧加羅語 (斯里蘭卡)
+        /// 僧加羅語（斯里蘭卡）
         /// </summary>
         Sinhala,
 

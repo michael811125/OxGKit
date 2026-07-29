@@ -42,13 +42,13 @@ namespace OxGKit.VirtualJoystick
         private StickVectorMode _stickVectorMode = StickVectorMode.Normalized;
 
         /// <summary>
-        /// 搖桿顯示類型 (固定位置、浮動位置、動態顯示)
+        /// 搖桿顯示類型（固定位置、浮動位置、動態顯示）
         /// </summary>
         [SerializeField]
         private StickType _stickType;
 
         /// <summary>
-        /// 限制搖桿輸出方向 (水平、垂直、雙軸)
+        /// 限制搖桿輸出方向（水平、垂直、雙軸）
         /// </summary>
         [SerializeField]
         private AxisConstraint _axisConstraint = AxisConstraint.Both;
@@ -60,36 +60,36 @@ namespace OxGKit.VirtualJoystick
         private float _handleMovementRange = 100f;
 
         /// <summary>
-        /// 死區範圍, 低於此值的搖桿輸入將視為無效 (避免誤觸)
+        /// 死區範圍，低於此值的搖桿輸入將視為無效（避免誤觸）
         /// </summary>
         [SerializeField, Range(0f, 1f)]
         private float _deadZone = 0f;
 
         /// <summary>
-        /// 是否僅在按下時顯示搖桿背景 (例如浮動搖桿)
+        /// 是否僅在按下時顯示搖桿背景（例如浮動搖桿）
         /// </summary>
         [SerializeField]
         private bool _showOnlyWhenPressed;
 
         /// <summary>
-        /// 搖桿背景 UI 元件 (搖桿底圖)
+        /// 搖桿背景 UI 元件（搖桿底圖）
         /// </summary>
         [SerializeField]
         private RectTransform _background;
 
         /// <summary>
-        /// 搖桿把手 UI 元件 (可拖曳的控制點)
+        /// 搖桿把手 UI 元件（可拖曳的控制點）
         /// </summary>
         [SerializeField]
         private RectTransform _handle;
 
         /// <summary>
-        /// 搖桿所在畫布 (用於解析比例與位置換算)
+        /// 搖桿所在畫布（用於解析比例與位置換算）
         /// </summary>
         private Canvas _canvas;
 
         /// <summary>
-        /// 按下時記錄的起始位置, 用於計算拖曳向量
+        /// 按下時記錄的起始位置，用於計算拖曳向量
         /// </summary>
         private Vector2 _pressedPosition;
 
@@ -187,7 +187,7 @@ namespace OxGKit.VirtualJoystick
                 }
             }
 
-            // Update UI Handle (仍使用 clamped 範圍避免超出視覺)
+            // Update UI Handle（仍使用 clamped 範圍避免超出視覺）
             this._handle.anchoredPosition = Vector2.ClampMagnitude(input, 1f) * this._handleMovementRange;
 
             this.onStickInput?.Invoke(input);

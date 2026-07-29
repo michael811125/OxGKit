@@ -10,7 +10,7 @@ namespace OxGKit.LocalizationSystem
     public class Localization
     {
         /// <summary>
-        /// 解析文字表數據回調 (ChangeLanguage 時調用解析)
+        /// 解析文字表數據回調（ChangeLanguage 時調用解析）
         /// </summary>
         public static Func<LangType, Dictionary<string, string>, bool> onParsingLanguageData = null;
 
@@ -198,7 +198,7 @@ namespace OxGKit.LocalizationSystem
             // 檢查是否當前系統語言是否屬於支持語系
             if (IsSupportedLanguage(langType))
                 return langType;
-            // 不支持的語系, 一律返回 English
+            // 不支持的語系，一律返回 English
             else
                 return LangType.English;
         }
@@ -215,7 +215,7 @@ namespace OxGKit.LocalizationSystem
         }
 
         /// <summary>
-        /// Key = LangType, 獲取語系文字對照表 (ex: LangType.Spanish -> "Español")
+        /// Key = LangType，獲取語系文字對照表 (ex: LangType.Spanish -> "Español")
         /// </summary>
         /// <returns></returns>
         public static Dictionary<LangType, string> GetSupportedLanguagesMappingByLangType()
@@ -233,7 +233,7 @@ namespace OxGKit.LocalizationSystem
         }
 
         /// <summary>
-        /// Key = LangDesc, 獲取語系文字對照表 (ex: "Español" -> LangType.Spanish)
+        /// Key = LangDesc，獲取語系文字對照表 (ex: "Español" -> LangType.Spanish)
         /// </summary>
         /// <returns></returns>
         public static Dictionary<string, LangType> GetSupportedLanguagesMappingByLangDesc()

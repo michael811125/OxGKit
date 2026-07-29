@@ -109,7 +109,7 @@ namespace OxGKit.TimeSystem
         }
 
         /// <summary>
-        /// 計算觸發時間倒數計時, 如果超過設置的觸發時間將直接返回 0
+        /// 計算觸發時間倒數計時，如果超過設置的觸發時間將直接返回 0
         /// </summary>
         /// <returns></returns>
         public float TimerCountdown()
@@ -144,7 +144,7 @@ namespace OxGKit.TimeSystem
 
         #region Tick, 持續依照 Set 的時間 Tick
         /// <summary>
-        /// 設置 Tick 時間, 當 TickTimeout 時還會持續循環 Tick
+        /// 設置 Tick 時間，當 TickTimeout 時還會持續循環 Tick
         /// </summary>
         /// <param name="tickSeconds"></param>
         public void SetTick(float tickSeconds)
@@ -163,7 +163,7 @@ namespace OxGKit.TimeSystem
         }
 
         /// <summary>
-        /// Tick 觸發時間倒數, 如果超過設置的觸發時間將直接返回 0
+        /// Tick 觸發時間倒數，如果超過設置的觸發時間將直接返回 0
         /// </summary>
         /// <returns></returns>
         public float TickCountdown()

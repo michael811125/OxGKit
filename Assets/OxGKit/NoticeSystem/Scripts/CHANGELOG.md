@@ -6,6 +6,7 @@
 - Added non-alloc NoticeManager.Notify(int conditionId) overload (params overload and internal notify paths route through it).
 - Optimized NoticeItem.GetNoticeInfos to avoid LINQ ToArray allocation.
 - Fixed comment and script template typos (Default region, Cond Id, notice items).
+- Normalized Chinese comment punctuation to full-width (comments only, no code changes).
 
 ## [1.0.4] - 2025-09-05
 - Removed color from print output.

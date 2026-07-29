@@ -219,7 +219,7 @@ namespace OxGKit.CursorSystem
                     this._scaledTexture.width != targetWidth ||
                     this._scaledTexture.height != targetHeight)
                 {
-                    // 銷毀之前的 Texture2D (如果存在)
+                    // 銷毀之前的 Texture2D（如果存在）
                     if (this._scaledTexture != null)
                     {
                         Destroy(this._scaledTexture);
@@ -516,7 +516,7 @@ namespace OxGKit.CursorSystem
         }
 
         /// <summary>
-        /// 設定 scale 到所有的 cursor state, 並且重置渲染
+        /// 設定 scale 到所有的 cursor state，並且重置渲染
         /// </summary>
         /// <param name="scale"></param>
         public void SetScaleToAllCursors(Vector2 scale)

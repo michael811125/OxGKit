@@ -155,7 +155,7 @@ namespace OxGKit.Utilities.Cacher
         }
 
         /// <summary>
-        /// 將節點移動到 LRU 列表的尾部 (最新使用)
+        /// 將節點移動到 LRU 列表的尾部（最新使用）
         /// </summary>
         private void _MoveToEndOfLRU(LinkedListNode<CacheItem> node)
         {

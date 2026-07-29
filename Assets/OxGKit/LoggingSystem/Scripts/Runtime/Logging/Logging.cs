@@ -30,7 +30,7 @@ namespace OxGKit.LoggingSystem
         private static readonly Dictionary<string, Logging> _cacheLoggers = new Dictionary<string, Logging>();
 
         /// <summary>
-        /// 泛型日誌器名稱緩存 (每個型別僅反射一次, 避免每次輸出日誌都進行反射查找)
+        /// 泛型日誌器名稱緩存（每個型別僅反射一次，避免每次輸出日誌都進行反射查找）
         /// </summary>
         private static class LoggerNameCache<TLogging> where TLogging : Logging
         {
@@ -297,13 +297,13 @@ namespace OxGKit.LoggingSystem
         /// <returns></returns>
         public bool CheckLogActive(LogLevel logLevel)
         {
-            // 如果全域級別關閉, 則禁止所有日誌輸出
+            // 如果全域級別關閉，則禁止所有日誌輸出
             if (!logMainActive ||
                 logMainLevel == LogLevel.Off)
                 return false;
 
-            // 如果全域級別允許該級別, 則允許記錄
-            // 但是需要考慮全域級別的限制, 不能打印高於全域級別的日誌
+            // 如果全域級別允許該級別，則允許記錄
+            // 但是需要考慮全域級別的限制，不能打印高於全域級別的日誌
             if (logMainLevel.HasFlag(logLevel))
             {
                 switch (logMainLevel)
@@ -349,7 +349,7 @@ namespace OxGKit.LoggingSystem
             // Editor: Enabled/EditorOnly 皆會包含 RichText 上色
             return logColor != LogColor.Disabled;
 #else
-            // Player (發布): 只有 Enabled 會包含 RichText 上色
+            // Player（發布）：只有 Enabled 會包含 RichText 上色
             return logColor == LogColor.Enabled;
 #endif
         }

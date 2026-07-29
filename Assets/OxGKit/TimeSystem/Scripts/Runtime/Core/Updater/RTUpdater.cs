@@ -27,7 +27,7 @@ namespace OxGKit.TimeSystem
         public float timeAtLastFrame { get; private set; }
 
         /// <summary>
-        /// 時間尺度, 預設 = 1
+        /// 時間尺度，預設 = 1
         /// </summary>
         private float _timeScale = 1f;
         public float timeScale
@@ -56,7 +56,7 @@ namespace OxGKit.TimeSystem
         private bool _isRunning = false;
 
         /// <summary>
-        /// 固定幀數 (固定 1 秒刷新 60 次, 毫秒單位 => 1000 ms / 60 = 16 ms, 秒數單位 => 1 s / 60 = 0.016 s)
+        /// 固定幀數（固定 1 秒刷新 60 次，毫秒單位 => 1000 ms / 60 = 16 ms，秒數單位 => 1 s / 60 = 0.016 s）
         /// </summary>
         private const float _FIXED_FRAME = 60;
 
@@ -137,7 +137,7 @@ namespace OxGKit.TimeSystem
                         this.deltaTime = this.timeSinceStartup - this.timeAtLastFrame;
                         this.timeAtLastFrame = this.timeSinceStartup;
 
-                        // 計算經過的時間, 當前時間 - 最一開始的時間 = 啟動到現在的經過時間 (秒)
+                        // 計算經過的時間，當前時間 - 最一開始的時間 = 啟動到現在的經過時間（秒）
                         var timeSpan = DateTime.Now.Subtract(this._createTime);
                         this.timeSinceStartup = (float)timeSpan.TotalSeconds;
 

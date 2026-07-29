@@ -7,14 +7,14 @@
 	"license": "MIT",
 	"samples": [
 		{
-			"displayName": "Localization Demo",
-			"description": "Demonstrates the required callbacks (onAddSupportedLanguages/onParsingLanguageData/onChangeLanguage), a GameSettings-style language save/restore wrapper, runtime language switching, and GetStringByCode text refresh.",
-			"path": "Samples~/LocalizationDemo"
-		},
-		{
 			"displayName": "AI Agent Skills",
 			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the LocalizationSystem: the required localization callbacks, ChangeLanguage flow, and GetStringByCode lookups. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
 			"path": "Samples~/AgentSkills"
+		},
+		{
+			"displayName": "Localization Demo",
+			"description": "Demonstrates the required callbacks (onAddSupportedLanguages/onParsingLanguageData/onChangeLanguage), a GameSettings-style language save/restore wrapper, runtime language switching, and GetStringByCode text refresh.",
+			"path": "Samples~/LocalizationDemo"
 		}
 	],
 	"dependencies": {},

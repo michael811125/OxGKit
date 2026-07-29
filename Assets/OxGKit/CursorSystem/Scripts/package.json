@@ -7,6 +7,11 @@
 	"license": "MIT",
 	"samples": [
 		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the CursorSystem: the Cursors facade, CursorManager states, static/dynamic cursor textures, and visibility/lock control. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
+		},
+		{
 			"displayName": "CursorManager Prefab",
 			"description": "The pre-wired CursorManager prefab. Drop it into the boot scene and author CursorState entries (static/dynamic textures, hotspot, scale, frame rate) in the inspector; the first state is the default.",
 			"path": "Samples~/CursorManagerPrefab"
@@ -15,11 +20,6 @@
 			"displayName": "CursorManager Demo",
 			"description": "Demonstrates the Cursors facade: toggling cursor visibility, switching CursorLockMode, changing named cursor states at runtime, and resetting/removing the cursor render.",
 			"path": "Samples~/CursorManagerDemo"
-		},
-		{
-			"displayName": "AI Agent Skills",
-			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the CursorSystem: the Cursors facade, CursorManager states, static/dynamic cursor textures, and visibility/lock control. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
-			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {},

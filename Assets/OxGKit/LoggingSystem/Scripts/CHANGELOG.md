@@ -6,6 +6,7 @@
 - Optimized DispatchLog with a per-type logger-name cache (no reflection per log call) and a single dictionary lookup.
 - Fixed create menu typo (lLoggerConfig.dat -> LoggerConfig.dat).
 - Normalized Chinese comment punctuation to full-width (comments only, no code changes).
+- Moved the AI Agent Skills sample entry to the first position in package.json samples.
 
 ## [1.4.2] - 2026-01-22
 - Adjusted settings default name (loggersconfig.conf -> LoggerConfig.dat).

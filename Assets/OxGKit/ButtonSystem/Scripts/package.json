@@ -7,14 +7,14 @@
 	"license": "MIT",
 	"samples": [
 		{
-			"displayName": "ButtonPlus Demo",
-			"description": "Demonstrates ButtonPlus in a UGUI scene: long-click modes (Once/Continuous/PressedAndReleased) with triggerTime/intervalTime, the Scale press-transition, and onClick/onLongClickPressed/onLongClickReleased wiring.",
-			"path": "Samples~/ButtonPlusDemo"
-		},
-		{
 			"displayName": "AI Agent Skills",
 			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the ButtonSystem: ButtonPlus long-click modes, scale transition, event wiring, and the InputField placeholder remover. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
 			"path": "Samples~/AgentSkills"
+		},
+		{
+			"displayName": "ButtonPlus Demo",
+			"description": "Demonstrates ButtonPlus in a UGUI scene: long-click modes (Once/Continuous/PressedAndReleased) with triggerTime/intervalTime, the Scale press-transition, and onClick/onLongClickPressed/onLongClickReleased wiring.",
+			"path": "Samples~/ButtonPlusDemo"
 		}
 	],
 	"dependencies": {},

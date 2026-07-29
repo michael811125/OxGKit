@@ -7,6 +7,7 @@
 - Optimized NoticeItem.GetNoticeInfos to avoid LINQ ToArray allocation.
 - Fixed comment and script template typos (Default region, Cond Id, notice items).
 - Normalized Chinese comment punctuation to full-width (comments only, no code changes).
+- Moved the AI Agent Skills sample entry to the first position in package.json samples.
 
 ## [1.0.4] - 2025-09-05
 - Removed color from print output.

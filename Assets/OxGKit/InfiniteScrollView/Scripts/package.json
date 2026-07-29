@@ -7,6 +7,11 @@
 	"license": "MIT",
 	"samples": [
 		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the InfiniteScrollView: scroll-view variants, InfiniteCell lifecycle, InfiniteCellData sizing, data operations, and snapping. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
+		},
+		{
 			"displayName": "Infinite Vertical Demo",
 			"description": "Vertical list in Normal and Reverse data order: pool initialization, Add/Remove/Refresh, snapping, and scroll-state queries driven by a GUI test panel.",
 			"path": "Samples~/01_Vertical"
@@ -30,11 +35,6 @@
 			"displayName": "Infinite ChatRoom Demo",
 			"description": "Chat-room list with dynamic cell heights: measuring text into InfiniteCellData.cellSize, appending messages, Refresh, and SnapLast auto-scroll to the newest entry.",
 			"path": "Samples~/05_ChatRoom"
-		},
-		{
-			"displayName": "AI Agent Skills",
-			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the InfiniteScrollView: scroll-view variants, InfiniteCell lifecycle, InfiniteCellData sizing, data operations, and snapping. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
-			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

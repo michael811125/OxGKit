@@ -5,6 +5,7 @@
 - Optimized samples descriptions in package.json.
 - Renamed VerticalGridInfiniteScrollView.columeCount to columnCount with [FormerlySerializedAs] (existing serialized data auto-migrates; code references must be updated). Updated grid samples accordingly.
 - Fixed sample prefab file name typo (Verical -> Vertical Scroll View).
+- Moved the AI Agent Skills sample entry to the first position in package.json samples.
 
 ## [1.7.0] - 2025-10-03
 - Added refresh param to Insert method.

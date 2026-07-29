@@ -7,6 +7,11 @@
 	"license": "MIT",
 	"samples": [
 		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the VirtualJoystick: VirtualJoystick component setup, onStickInput usage, stick types/vector modes, and the UI prefab. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
+		},
+		{
 			"displayName": "VirtualJoystickUI Prefab",
 			"description": "The UGUI joystick prefab (background + handle images) with the VirtualJoystick component pre-wired. Drop it under a Canvas and tune stick type, vector mode, axis constraint, movement range, and dead zone.",
 			"path": "Samples~/VirtualJoystickUI"
@@ -15,11 +20,6 @@
 			"displayName": "VirtualJoystick Demo",
 			"description": "Demonstrates onStickInput subscription moving a target: Fixed vs Floating stick types, Normalized vs Delta vector modes, axis constraints, and dead-zone filtering.",
 			"path": "Samples~/VirtualJoystickDemo"
-		},
-		{
-			"displayName": "AI Agent Skills",
-			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the VirtualJoystick: VirtualJoystick component setup, onStickInput usage, stick types/vector modes, and the UI prefab. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
-			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {},

@@ -7,6 +7,11 @@
 	"license": "MIT",
 	"samples": [
 		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the NoticeSystem: NoticeCondition authoring, NoticeItem registration, and Notify-driven red-dot refresh. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
+		},
+		{
 			"displayName": "NoticeItem Prefab",
 			"description": "The red-dot badge prefab with the NoticeItem component. Drop it under a button/tab as the icon node, assign your graphic, then register conditions on it at runtime.",
 			"path": "Samples~/NoticeItem"
@@ -15,11 +20,6 @@
 			"displayName": "NoticeSystem Demo",
 			"description": "Demonstrates custom NoticeCondition classes, a static condition-register class, RegisterNotice/RenewNotice with value- and reference-type data, and NoticeManager.Notify-driven badge refresh.",
 			"path": "Samples~/NoticeDemo"
-		},
-		{
-			"displayName": "AI Agent Skills",
-			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the NoticeSystem: NoticeCondition authoring, NoticeItem registration, and Notify-driven red-dot refresh. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
-			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

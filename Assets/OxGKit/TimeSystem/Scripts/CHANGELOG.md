@@ -5,6 +5,7 @@
 - Optimized samples descriptions in package.json.
 - Renamed private field _isRuning to _isRunning (IntervalTimer, RTUpdater, DTUpdater).
 - Normalized Chinese comment punctuation to full-width (comments only, no code changes).
+- Moved the AI Agent Skills sample entry to the first position in package.json samples.
 
 ## [1.1.2] - 2025-09-05
 - Removed color from print output.

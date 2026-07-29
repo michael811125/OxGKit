@@ -7,14 +7,14 @@
 	"license": "MIT",
 	"samples": [
 		{
-			"displayName": "ActionSystem Demo",
-			"description": "Demonstrates ActionRunner driven by DriveUpdate from MonoBehaviour Update: composing SequenceAction and ParallelAction from DelegateAction/DelayAction with delays and callbacks, then starting runs with RunAction.",
-			"path": "Samples~/ActionDemo"
-		},
-		{
 			"displayName": "AI Agent Skills",
 			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the ActionSystem: ActionRunner update loops, default sequence/parallel/delay/delegate actions, and custom ActionBase authoring. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
 			"path": "Samples~/AgentSkills"
+		},
+		{
+			"displayName": "ActionSystem Demo",
+			"description": "Demonstrates ActionRunner driven by DriveUpdate from MonoBehaviour Update: composing SequenceAction and ParallelAction from DelegateAction/DelayAction with delays and callbacks, then starting runs with RunAction.",
+			"path": "Samples~/ActionDemo"
 		}
 	],
 	"dependencies": {

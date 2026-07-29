@@ -7,14 +7,14 @@
 	"license": "MIT",
 	"samples": [
 		{
-			"displayName": "NodePool Demo",
-			"description": "Demonstrates NodePool: across-frames (load-balanced) initialization, Get/Put recycling, autoPut growth when the pool runs dry, and maxSize limiting.",
-			"path": "Samples~/NodePoolDemo"
-		},
-		{
 			"displayName": "AI Agent Skills",
 			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the PoolSystem: NodePool setup, across-frames initialization, Get/Put recycling, autoPut and maxSize behavior. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
 			"path": "Samples~/AgentSkills"
+		},
+		{
+			"displayName": "NodePool Demo",
+			"description": "Demonstrates NodePool: across-frames (load-balanced) initialization, Get/Put recycling, autoPut growth when the pool runs dry, and maxSize limiting.",
+			"path": "Samples~/NodePoolDemo"
 		}
 	],
 	"dependencies": {

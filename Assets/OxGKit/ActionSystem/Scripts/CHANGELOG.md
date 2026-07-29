@@ -7,6 +7,7 @@
 - Optimized QueueSet.ToArray with a cached snapshot (eliminates per-frame array allocations in ActionRunner/actions update).
 - Fixed ParallelAction/ParallelDelayAction default name assignment (was DelayAction/ParallelAction).
 - Fixed ActionBase.GetTimeElapsed returned duration instead of elapsed time.
+- Moved the AI Agent Skills sample entry to the first position in package.json samples.
 
 ## [1.0.2] - 2025-09-05
 - Removed color from print output.

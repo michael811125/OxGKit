@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit LocalizationSystem Unity Skill"
+  short_description: "OxGKit LocalizationSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.LocalizationSystem flows: the onAddSupportedLanguages/onParsingLanguageData/onChangeLanguage callbacks, ChangeLanguage, and GetStringByCode lookups."

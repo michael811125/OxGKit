@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit TweenSystemFixer Unity Skill"
+  short_description: "OxGKit TweenSystemFixer usage"
+  default_prompt: "Use $oxgkit-unity-skill to fix OxGKit.TweenSystem DOTween.Modules GUID breakage: run the fixer menu tool or repair DOTween.Modules.asmdef.meta manually with the fixed GUID."

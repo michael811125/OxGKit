@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit VirtualJoystick Unity Skill"
+  short_description: "OxGKit VirtualJoystick usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.VirtualJoystick controls: VirtualJoystick component setup, onStickInput subscription, stick types and vector modes, axis constraints, and dead-zone tuning."

@@ -5,6 +5,13 @@
 	"version": "1.0.1",
 	"unity": "2021.3",
 	"license": "MIT",
+	"samples": [
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the TweenSystemFixer: diagnosing the DOTween.Modules GUID breakage and repairing it with the fixer tool or manually. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
+		}
+	],
 	"dependencies": {},
 	"author": {
 		"name": "MichaelO",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit SingletonSystem Unity Skill"
+  short_description: "OxGKit SingletonSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.SingletonSystem singletons: MonoSingleton OnCreate/OnStart/OnRelease lifecycle, GetInstance/InitInstance access, dontDestroyOnLoad, and NewSingleton."

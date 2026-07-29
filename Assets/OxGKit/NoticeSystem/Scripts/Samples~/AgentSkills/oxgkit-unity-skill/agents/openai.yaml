@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit NoticeSystem Unity Skill"
+  short_description: "OxGKit NoticeSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.NoticeSystem red dots: NoticeCondition authoring, condition registration, NoticeItem RegisterNotice/RenewNotice, and NoticeManager.Notify refresh."

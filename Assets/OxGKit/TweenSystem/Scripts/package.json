@@ -8,8 +8,13 @@
 	"samples": [
 		{
 			"displayName": "TweenSystem Demo",
-			"description": "Sample to use TweenSystem",
+			"description": "Demonstrates DoTweenAnim tween tracks (position/rotation/scale/size/alpha/color) with Normal/Reverse/PingPong/Sequence play modes, driven by DoTweenAnimEvent PlayNormal/PlayReverse/PlayTrigger with end callbacks.",
 			"path": "Samples~/TweenDemo"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the TweenSystem: DoTweenAnim track authoring, DoTweenAnimEvent playback with callbacks, DOTween assembly setup, and the GUID fix. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

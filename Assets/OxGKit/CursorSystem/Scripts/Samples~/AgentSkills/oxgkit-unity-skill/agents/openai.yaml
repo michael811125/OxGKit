@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit CursorSystem Unity Skill"
+  short_description: "OxGKit CursorSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.CursorSystem behavior: the Cursors facade, CursorManager cursor states, static/dynamic cursor textures, visibility, and CursorLockMode control."

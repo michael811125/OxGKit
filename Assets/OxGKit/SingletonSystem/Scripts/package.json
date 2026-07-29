@@ -8,8 +8,13 @@
 	"samples": [
 		{
 			"displayName": "MonoSingleton Demo",
-			"description": "Sample to use MonoSingleton",
+			"description": "Two scenes demonstrating MonoSingleton: the OnCreate/OnStart/OnRelease lifecycle, GetInstance/InitInstance access, dontDestroyOnLoad persistence across scene loads, and DestroyInstance.",
 			"path": "Samples~/MonoSingletonDemo"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the SingletonSystem: MonoSingleton lifecycle and access patterns, NewSingleton, and DontDestroyOnLoad control. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {},

@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit TweenSystem Unity Skill"
+  short_description: "OxGKit TweenSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.TweenSystem animation: DoTweenAnim track authoring, DoTweenAnimEvent PlayNormal/PlayReverse/PlayTrigger with callbacks, DOTween assembly setup, and the DOTween.Modules GUID fix."

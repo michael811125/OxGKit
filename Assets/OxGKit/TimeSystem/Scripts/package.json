@@ -8,8 +8,13 @@
 	"samples": [
 		{
 			"displayName": "Timer Demo",
-			"description": "Sample to use Timer",
+			"description": "Demonstrates RealTimer vs DeltaTimer (timer/tick/mark), RTUpdater/DTUpdater loops with timeScale and targetFrameRate, and NtpTime server clock synchronization.",
 			"path": "Samples~/TimerDemo"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the TimeSystem: RealTimer/DeltaTimer, RTUpdater/DTUpdater, IntervalSetter, and NtpTime synchronization. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

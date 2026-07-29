@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit TimeSystem Unity Skill"
+  short_description: "OxGKit TimeSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.TimeSystem timing: RealTimer/DeltaTimer timer-tick-mark usage, RTUpdater/DTUpdater loops, IntervalSetter periodic calls, and NtpTime synchronization."

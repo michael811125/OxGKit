@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit Utilities Unity Skill"
+  short_description: "OxGKit Utilities usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.Utilities helpers: Requester cached downloads, LRU/LRUK/ARC caches, UISafeAreaAdapter, EasyAnim, TextureAnimation, DontDestroy, UMT main-thread jobs, and the editor tools."

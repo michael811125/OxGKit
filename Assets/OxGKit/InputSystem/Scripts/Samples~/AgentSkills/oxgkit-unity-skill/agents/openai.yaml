@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit InputSystem Unity Skill"
+  short_description: "OxGKit InputSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.InputSystem input flows: Inputs.CM control-map registration, IInputAction dispatchers, Inputs.IA.DriveUpdate loops, and binding composites."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit PoolSystem Unity Skill"
+  short_description: "OxGKit PoolSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.PoolSystem pooling: NodePool setup, across-frames initialization, Get/Put recycling, autoPut growth, and maxSize behavior."

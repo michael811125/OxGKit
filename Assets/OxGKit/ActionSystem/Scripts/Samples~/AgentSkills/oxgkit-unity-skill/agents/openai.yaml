@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit ActionSystem Unity Skill"
+  short_description: "OxGKit ActionSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.ActionSystem flows: ActionRunner update loops, SequenceAction/ParallelAction/DelayAction/DelegateAction composition, and custom ActionBase actions with SetDuration/MarkAsDone."

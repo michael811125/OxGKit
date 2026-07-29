@@ -8,23 +8,33 @@
 	"samples": [
 		{
 			"displayName": "Infinite Vertical Demo",
+			"description": "Vertical list in Normal and Reverse data order: pool initialization, Add/Remove/Refresh, snapping, and scroll-state queries driven by a GUI test panel.",
 			"path": "Samples~/01_Vertical"
 		},
 		{
 			"displayName": "Infinite Horizontal Demo",
+			"description": "Horizontal list in Normal and Reverse data order with the same data operations as the vertical demo, driven by a GUI test panel.",
 			"path": "Samples~/02_Horizontal"
 		},
 		{
 			"displayName": "Infinite Grid Demo",
+			"description": "Grid layouts in vertical and horizontal directions (Normal and Reverse): columeCount/spacing setup and grid cell prefabs, driven by a GUI test panel.",
 			"path": "Samples~/03_Grid"
 		},
 		{
 			"displayName": "Infinite TabPage Demo",
+			"description": "Tab-page pattern: a horizontal paged scroll view with tab switching via Snap, page cells, and per-page data.",
 			"path": "Samples~/04_TabPage"
 		},
 		{
 			"displayName": "Infinite ChatRoom Demo",
+			"description": "Chat-room list with dynamic cell heights: measuring text into InfiniteCellData.cellSize, appending messages, Refresh, and SnapLast auto-scroll to the newest entry.",
 			"path": "Samples~/05_ChatRoom"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the InfiniteScrollView: scroll-view variants, InfiniteCell lifecycle, InfiniteCellData sizing, data operations, and snapping. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

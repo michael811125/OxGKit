@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit ButtonSystem Unity Skill"
+  short_description: "OxGKit ButtonSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.ButtonSystem UI: ButtonPlus long-click modes (Once/Continuous/PressedAndReleased), scale transitions, event wiring, and InputFieldPlaceholderRemover."

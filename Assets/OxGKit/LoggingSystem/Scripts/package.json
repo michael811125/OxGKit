@@ -8,13 +8,18 @@
 	"samples": [
 		{
 			"displayName": "LoggingLauncher Prefab",
-			"description": "",
+			"description": "The bootstrap prefab that initializes loggers on Awake and loads StreamingAssets/loggersconfig.conf. Drop it into the boot scene once and tune per-logger logActive/logLevel/logColor in the inspector.",
 			"path": "Samples~/LoggingLauncher"
 		},
 		{
 			"displayName": "LoggingSystem Demo",
-			"description": "Sample to use LoggingSystem",
+			"description": "Demonstrates [LoggerName] logger declaration, Print/PrintInfo/PrintWarning/PrintError/PrintException output, logger override (isOverride), and runtime reconfiguration via ConfigureLogger/SetLoggersConfig.",
 			"path": "Samples~/LoggingDemo"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the LoggingSystem: [LoggerName] loggers, LoggingLauncher and loggersconfig.conf, LogLevel/LogColor rules, OXGKIT_LOGGER_ON, and HybridCLR logger initialization. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

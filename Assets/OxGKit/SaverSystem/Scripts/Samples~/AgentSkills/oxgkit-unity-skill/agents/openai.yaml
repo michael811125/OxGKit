@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit SaverSystem Unity Skill"
+  short_description: "OxGKit SaverSystem usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.SaverSystem persistence: ISaver/Saver APIs, PlayerPrefsSaver/EditorPrefsSaver, text-content data maps (SaveData/GetData/ParsingDataMap), and custom savers."

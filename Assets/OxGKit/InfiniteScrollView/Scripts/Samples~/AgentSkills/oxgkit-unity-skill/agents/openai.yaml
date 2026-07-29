@@ -1,0 +1,4 @@
+interface:
+  display_name: "OxGKit InfiniteScrollView Unity Skill"
+  short_description: "OxGKit InfiniteScrollView usage"
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.InfiniteScrollView lists: scroll-view variants, InfiniteCell subclasses, InfiniteCellData sizing, Add/Insert/Remove/Refresh operations, and snapping."

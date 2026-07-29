@@ -8,8 +8,13 @@
 	"samples": [
 		{
 			"displayName": "InputSystem Demo",
-			"description": "Sample to use InputSystem",
+			"description": "Demonstrates the full dispatch chain: a PlayerControls control map (Unity Input System asset + generated class), a custom MoveInput binding composite, a PlayerAction IInputAction re-dispatching events, Inputs.IA.DriveUpdate, and gameplay subscription.",
 			"path": "Samples~/InputDemo"
+		},
+		{
+			"displayName": "AI Agent Skills",
+			"description": "Agent Skill (SKILL.md) that teaches AI coding agents (Claude Code, Codex CLI, Cursor, etc.) how to use the InputSystem: Inputs.CM control maps, IInputAction dispatchers, DriveUpdate loops, and binding composites. Copy the skill folder into your agent's skills directory after import (see the sample's README).",
+			"path": "Samples~/AgentSkills"
 		}
 	],
 	"dependencies": {

@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.5] - 2026-07-30
+- Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
+- Optimized samples descriptions in package.json.
+
 ## [1.0.4] - 2025-09-05
 - Removed color from print output.
 

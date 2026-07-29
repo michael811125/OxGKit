@@ -2,13 +2,13 @@
 	"name": "com.michaelo.oxgkit.actionsystem",
 	"displayName": "OxGKit.ActionSystem",
 	"description": "The OxGKit is a system tool kit commonly used in game development based on Unity design (all are independent tools).",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"unity": "2021.3",
 	"license": "MIT",
 	"samples": [
 		{
 			"displayName": "ActionSystem Demo",
-			"description": "Demonstrates ActionRunner pumped from MonoBehaviour Update: composing SequenceAction and ParallelAction from DelegateAction/DelayAction with delays and callbacks, then starting runs with RunAction.",
+			"description": "Demonstrates ActionRunner driven by DriveUpdate from MonoBehaviour Update: composing SequenceAction and ParallelAction from DelegateAction/DelayAction with delays and callbacks, then starting runs with RunAction.",
 			"path": "Samples~/ActionDemo"
 		},
 		{

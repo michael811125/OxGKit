@@ -1,6 +1,6 @@
 # OxGKit.LoggingSystem AI Agent Skill
 
-An Agent Skill for AI coding agents (Claude Code, OpenAI Codex CLI, Cursor, Copilot, etc.) that teaches the agent how to use **OxGKit.LoggingSystem** — a standalone logging module with named loggers, per-logger and global on/off + level + color control, and a runtime loggersconfig.conf for tuning logs on device.
+An Agent Skill for AI coding agents (Claude Code, OpenAI Codex CLI, Cursor, Copilot, etc.) that teaches the agent how to use **OxGKit.LoggingSystem** — a standalone logging module with named loggers, per-logger and global on/off + level + color control, and a runtime LoggerConfig.dat for tuning logs on device.
 
 The skill follows the Agent Skills convention (a folder with a `SKILL.md` entry file: YAML frontmatter + instructions). API usage is verified against the OxGKit.LoggingSystem source of this package version.
 
@@ -8,7 +8,7 @@ The skill follows the Agent Skills convention (a folder with a `SKILL.md` entry 
 
 | Skill | Purpose |
 |---|---|
-| `oxgkit-unity-skill` | OxGKit.LoggingSystem usage: [LoggerName] loggers, LoggingLauncher and loggersconfig.conf, LogLevel/LogColor rules, OXGKIT_LOGGER_ON, and HybridCLR logger initialization. |
+| `oxgkit-unity-skill` | OxGKit.LoggingSystem usage: [LoggerName] loggers, LoggingLauncher and LoggerConfig.dat, LogLevel/LogColor rules, OXGKIT_LOGGER_ON, and HybridCLR logger initialization. |
 
 Every OxGKit system ships its own `oxgkit-unity-skill` folder from its Package Manager Samples — the folder/skill name is the same for all systems, while the content is system-specific (see "Using multiple OxGKit systems" below).
 
@@ -36,5 +36,5 @@ All OxGKit system skills share the folder/skill name `oxgkit-unity-skill` so tha
 ## Notes
 
 - The skill is written in English so it works well as agent context in any locale; the agent should reply in the user's language.
-- API signatures were verified against OxGKit.LoggingSystem v1.4.2. Newer versions may differ — the skill instructs the agent to re-verify against the installed package source.
+- API signatures were verified against OxGKit.LoggingSystem v1.4.3. Newer versions may differ — the skill instructs the agent to re-verify against the installed package source.
 - The OxGFrame framework provides its own `oxgframe-unity-skill` separately (https://github.com/michael811125/OxGFrame).

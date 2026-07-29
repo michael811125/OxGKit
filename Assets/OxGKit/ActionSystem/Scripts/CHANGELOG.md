@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## [1.0.3] - 2026-07-30
+- Modified ActionRunner public update entry point to DriveUpdate(dt) for consistent Drive* naming across OxGKit systems (OnUpdate(dt) is now protected and driven by DriveUpdate).
+- Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
+- Optimized samples descriptions in package.json.
+
 ## [1.0.2] - 2025-09-05
 - Removed color from print output.
 

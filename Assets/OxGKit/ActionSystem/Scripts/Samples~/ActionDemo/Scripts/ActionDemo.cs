@@ -16,8 +16,8 @@ public class ActionDemo : MonoBehaviour
     private void Update()
     {
         // Call by Main MonoBehaviour (Main Program)
-        this._seqActionRunner?.OnUpdate(Time.deltaTime);
-        this._parActionRunner?.OnUpdate(Time.deltaTime);
+        this._seqActionRunner?.DriveUpdate(Time.deltaTime);
+        this._parActionRunner?.DriveUpdate(Time.deltaTime);
 
         // For demo
         if (Keyboard.current.zKey.wasPressedThisFrame)

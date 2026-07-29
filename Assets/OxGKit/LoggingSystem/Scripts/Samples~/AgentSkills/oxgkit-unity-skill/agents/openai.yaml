@@ -1,4 +1,4 @@
 interface:
   display_name: "OxGKit LoggingSystem Unity Skill"
   short_description: "OxGKit LoggingSystem usage"
-  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.LoggingSystem logging: [LoggerName] logger classes, LoggingLauncher setup, loggersconfig.conf tuning, LogLevel/LogColor rules, OXGKIT_LOGGER_ON builds, and HybridCLR AOT/Hotfix logger initialization."
+  default_prompt: "Use $oxgkit-unity-skill to implement OxGKit.LoggingSystem logging: [LoggerName] logger classes, LoggingLauncher setup, LoggerConfig.dat tuning, LogLevel/LogColor rules, OXGKIT_LOGGER_ON builds, and HybridCLR AOT/Hotfix logger initialization."

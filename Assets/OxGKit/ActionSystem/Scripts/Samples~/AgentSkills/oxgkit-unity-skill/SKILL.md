@@ -31,9 +31,9 @@ using OxGKit.ActionSystem;
 // Runner — owns and updates running actions
 var runner = new ActionRunner("FeatureActions");
 runner.RunAction(action);      // resets the runner, then starts this action
-runner.QueueAction(action);    // chainable; queued actions start on the next OnUpdate
+runner.QueueAction(action);    // chainable; queued actions start on the next DriveUpdate
 runner.RemoveAction(uid);      // remove by ActionBase.uid (marks it all-done)
-runner.OnUpdate(dt);           // pump from Update()/RTUpdater/etc.
+runner.DriveUpdate(dt);        // pump from Update()/RTUpdater/etc. (drives the internal OnUpdate)
 runner.Release();              // clear everything (call on feature exit)
 
 // ActionBase — public surface
@@ -78,13 +78,13 @@ public class FeatureController : MonoBehaviour
 {
     private readonly ActionRunner _runner = new ActionRunner("Feature");
 
-    private void Update() => this._runner.OnUpdate(Time.deltaTime);
+    private void Update() => this._runner.DriveUpdate(Time.deltaTime);
 
     private void OnDestroy() => this._runner.Release();
 }
 ```
 
-Any loop works (MonoBehaviour `Update`, OxGKit `RTUpdater`, a stage system tick) — actions only advance while `OnUpdate(dt)` is called.
+Any loop works (MonoBehaviour `Update`, OxGKit `RTUpdater`, a stage system tick) — actions only advance while `DriveUpdate(dt)` is called. (`Drive*` is the OxGKit naming convention for developer-facing pump methods — same as `Inputs.IA.DriveUpdate`; the runner's internal `OnUpdate` is `protected` since v1.0.3.)
 
 ## Custom actions
 

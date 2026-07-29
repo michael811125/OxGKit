@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.7.1] - 2026-07-30
+- Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
+- Optimized samples descriptions in package.json.
+
 ## [1.7.0] - 2025-10-03
 - Added refresh param to Insert method.
 ```scharp

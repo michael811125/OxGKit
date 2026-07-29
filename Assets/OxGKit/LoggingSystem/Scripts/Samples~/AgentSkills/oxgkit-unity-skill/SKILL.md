@@ -1,6 +1,6 @@
 ---
 name: oxgkit-unity-skill
-description: Use when developing, reviewing, or debugging Unity projects that use OxGKit.LoggingSystem, including declaring loggers with [LoggerName] and the Logging base class, Logging.Print/PrintInfo/PrintWarning/PrintError/PrintException calls, the LoggingLauncher prefab and loggersconfig.conf (StreamingAssets) configuration, LogLevel/LogColor rules, the OXGKIT_LOGGER_ON build symbol, runtime reconfiguration (ConfigureLogger/SetLoggersConfig), and HybridCLR AOT/Hotfix logger initialization.
+description: Use when developing, reviewing, or debugging Unity projects that use OxGKit.LoggingSystem, including declaring loggers with [LoggerName] and the Logging base class, Logging.Print/PrintInfo/PrintWarning/PrintError/PrintException calls, the LoggingLauncher prefab and LoggerConfig.dat (StreamingAssets) configuration, LogLevel/LogColor rules, the OXGKIT_LOGGER_ON build symbol, runtime reconfiguration (ConfigureLogger/SetLoggersConfig), and HybridCLR AOT/Hotfix logger initialization.
 ---
 
 # OxGKit.LoggingSystem Unity Skill
@@ -26,7 +26,7 @@ Make the agent behave like an experienced OxGKit.LoggingSystem user. LoggingSyst
 
 - A **logger** is a class inheriting `Logging`, named by `[LoggerName("Name")]` (falls back to the class name when the attribute is missing).
 - **`LoggingLauncher`** is a MonoBehaviour that discovers/initializes loggers and loads their settings. Import the `LoggingLauncher Prefab` sample and drop it into the boot scene once (`initLoggersOnAwake` is on by default).
-- **`loggersconfig.conf`** in `StreamingAssets` overrides the inspector settings at runtime, so QA can toggle logs on device. Created via right-click `Create/OxGKit/Logging System/Create loggersconfig.conf`; stored as `Bytes` (cipher) or `Json` (plaintext) and convertible both ways via `Assets/OxGKit/Logging System/Convert LoggerConfig.dat (BYTES [Cipher] <-> JSON [Plaintext])`. Ship releases with the cipher format.
+- **`LoggerConfig.dat`** in `StreamingAssets` overrides the inspector settings at runtime, so QA can toggle logs on device. Created via right-click `Create/OxGKit/Logging System/[JSON - Plaintext] or [BYTES - Cipher] Create LoggerConfig.dat (In StreamingAssets)`; convertible both ways via `Assets/OxGKit/Logging System/Convert LoggerConfig.dat (BYTES [Cipher] <-> JSON [Plaintext])`. Ship releases with the cipher format. The file name, extension, and cipher key are customizable through the `LoggingSettings` asset (v1.4.0+; older versions used `loggersconfig.conf`).
 - A log call is emitted only when the **global (master)** settings AND the **per-logger** settings both allow it (bitwise intersection for levels; see tables below).
 
 ## Core API (verified)
@@ -65,7 +65,7 @@ LoggingLauncher.InitLoggers();                    // Discover and instantiate al
 LoggingLauncher.CreateLogger<TLogging>();         // Manually create one logger (HybridCLR flow)
 LoggingLauncher.ClearLoggers();
 LoggingLauncher.TryInitLoggers();                 // InitLoggers + load settings from config (coroutine wrapper)
-LoggingLauncher.TryLoadLoggers();                 // (Re)load logger settings from loggersconfig.conf
+LoggingLauncher.TryLoadLoggers();                 // (Re)load logger settings from LoggerConfig.dat
 // Async (IEnumerator) variants: TryInitLoggersAsync / TryLoadLoggersAsync
 
 // Master (global) switches
@@ -116,9 +116,9 @@ Colors — effective mode is the more restrictive of the two; `EditorOnly` color
 
 1. Import the `LoggingLauncher Prefab` sample; put the prefab in the boot scene (once).
 2. Declare `[LoggerName]` logger classes near each subsystem.
-3. Press Play — loggers are auto-discovered on Awake (`initLoggersOnAwake`), settings load from `StreamingAssets/loggersconfig.conf` when present.
+3. Press Play — loggers are auto-discovered on Awake (`initLoggersOnAwake`), settings load from `StreamingAssets/LoggerConfig.dat` when present.
 4. Add `OXGKIT_LOGGER_ON` to Scripting Define Symbols for any build that must log.
-5. To tune logs on device, edit/replace `loggersconfig.conf` (convert to Json for hand editing, back to Bytes for release).
+5. To tune logs on device, edit/replace `LoggerConfig.dat` (convert to JSON for hand editing, back to BYTES for release).
 
 ## HybridCLR (AOT + Hotfix) flow
 
@@ -141,4 +141,4 @@ Auto discovery scans assemblies and may miss hotfix-loaded loggers, so:
 ## Verify
 
 - Editor: enter Play mode and confirm `[LoggingSystem] is Initialized.` appears and logger output respects the launcher settings.
-- Player: build with `OXGKIT_LOGGER_ON`, then toggle levels via `loggersconfig.conf` and re-run to confirm filtering.
+- Player: build with `OXGKIT_LOGGER_ON`, then toggle levels via `LoggerConfig.dat` and re-run to confirm filtering.

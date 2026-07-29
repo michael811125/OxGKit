@@ -22,10 +22,19 @@ namespace OxGKit.ActionSystem
         }
 
         /// <summary>
-        /// Call by Monobehaviour (Update)
+        /// Call by MonoBehaviour (Update) to drive the runner
         /// </summary>
         /// <param name="dt"></param>
-        public void OnUpdate(float dt)
+        public void DriveUpdate(float dt)
+        {
+            this.OnUpdate(dt);
+        }
+
+        /// <summary>
+        /// Driven by DriveUpdate
+        /// </summary>
+        /// <param name="dt"></param>
+        protected void OnUpdate(float dt)
         {
             // Clear done list per frame
             this._listDoneActions.Clear();

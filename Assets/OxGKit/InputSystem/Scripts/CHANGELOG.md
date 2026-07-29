@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## [1.0.4] - 2026-07-30
+- Added AI Agent Skills sample (Samples~/AgentSkills/oxgkit-unity-skill).
+- Optimized samples descriptions in package.json.
+
 ## [1.0.3] - 2025-09-05
 - Defined Inputs.IA.DriveUpdate method name (obsolete Inputs.IA.UpdateInputActions).
 - Removed color from print output.

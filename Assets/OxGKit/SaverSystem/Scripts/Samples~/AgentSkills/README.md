@@ -36,5 +36,5 @@ All OxGKit system skills share the folder/skill name `oxgkit-unity-skill` so tha
 ## Notes
 
 - The skill is written in English so it works well as agent context in any locale; the agent should reply in the user's language.
-- API signatures were verified against OxGKit.SaverSystem v1.0.1. Newer versions may differ — the skill instructs the agent to re-verify against the installed package source.
+- API signatures were verified against OxGKit.SaverSystem v1.0.2. Newer versions may differ — the skill instructs the agent to re-verify against the installed package source.
 - The OxGFrame framework provides its own `oxgframe-unity-skill` separately (https://github.com/michael811125/OxGFrame).

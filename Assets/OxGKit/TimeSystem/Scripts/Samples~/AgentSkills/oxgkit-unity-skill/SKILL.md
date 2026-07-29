@@ -129,7 +129,7 @@ Non-MonoBehaviour system loop (e.g., driving OxGKit.ActionSystem or a network no
 
 ```csharp
 var rt = new RTUpdater();
-rt.onUpdate += dt => runner.OnUpdate(dt);
+rt.onUpdate += dt => runner.DriveUpdate(dt);
 rt.Start();
 // ... on release:
 rt.Stop();

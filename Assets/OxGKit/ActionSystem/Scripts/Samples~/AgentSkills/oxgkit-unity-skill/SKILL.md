@@ -42,6 +42,7 @@ action.IsStarted(); action.IsDone(); action.IsAllDone();
 action.MarkAsDone();           // finish this action (fires OnDone)
 action.MarkAllDone();          // finish including sub actions
 action.SetDuration(seconds);   // -1 = runs until MarkAsDone() is called manually
+action.GetTimeElapsed();       // elapsed seconds since start (fixed in v1.0.3; previously returned the duration)
 action.GetTimeElapsedRatio();  // 0..1 based on duration
 ```
 

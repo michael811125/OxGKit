@@ -6,11 +6,18 @@
 
 ---
 
+## 官方主頁 (OxGKit)
+
+- [官方文檔](https://oxgkit.ouhiyo.com/)
+- [快速上手 (安裝教程)](https://oxgkit.ouhiyo.com/docs/getting-started)
+
+※細節說明與完整教學皆以官方文檔為準，此頁僅作總覽。
+
+---
+
 ## 基本介紹
 
 OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨立工具)。
-
-**TODO 未來會補充 OxGKit 的文檔**
 
 [Coding Style wiki](https://github.com/michael811125/OxGFrame/wiki/Coding-Style)
 
@@ -21,16 +28,16 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 - [動作序列系統 (Action System)](https://github.com/michael811125/OxGKit#actionsystem-dependence-unitask-oxgkitloggingsystem)
 - [通知系統 (Notice System)](https://github.com/michael811125/OxGKit#noticesystem-or-reddotsystem-dependence-oxgkitloggingsystem)
 - [輸入控制系統 (Input System)](https://github.com/michael811125/OxGKit#inputsystem-dependence-unity-new-inputsystem-oxgkitloggingsystem)
-- [DoTween Pro 的補間動畫系統 (TweenSystem)](https://github.com/michael811125/OxGKit#tweensystem-dependence-dotween-pro-lwmybox-oxgkitutilities)
+- [DoTween Pro 的補間動畫系統 (TweenSystem)](https://github.com/michael811125/OxGKit#tweensystem-dependence-dotween-pro-lwmybox-oxgkittimesystem)
 - [按鈕系統 (Button System)](https://github.com/michael811125/OxGKit#buttonsystem)
-- [時間系統 (Time System)](https://github.com/michael811125/OxGKit#timesystem)
+- [時間系統 (Time System)](https://github.com/michael811125/OxGKit#timesystem-dependence-unitask-oxgkitloggingsystem)
 - [鼠標系統 (Cursor System)](https://github.com/michael811125/OxGKit#cursorsystem)
-- [物件池系統 (Pool System)](https://github.com/michael811125/OxGKit#poolsystem)
+- [物件池系統 (Pool System)](https://github.com/michael811125/OxGKit#poolsystem-dependence-unitask-lwmybox-oxgkitloggingsystem)
 - [單例系統 (Singleton System)](https://github.com/michael811125/OxGKit#singletonsystem)
 - [儲存系統 (Saver System)](https://github.com/michael811125/OxGKit#saversystem)
 - [本地化系統 (Localization System)](https://github.com/michael811125/OxGKit#localizationsystem)
 - [虛擬搖桿系統 (Virtual Joystick)](https://github.com/michael811125/OxGKit#virtualjoystick)
-- [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask)
+- [各通用必備組件工具 (Utilities)](https://github.com/michael811125/OxGKit#utilities-dependence-unitask-lwmybox-oxgkitloggingsystem)
 
 *[會持續擴充工具系統組]*
 
@@ -44,9 +51,9 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 日誌系統，支持 Cipher & Plaintext (可以任意轉換)，支持動態配置與覆寫原有的日誌器功能，其他還有全域開關配置、全域級別配置、全域顏色配置、個別開關配置、個別級別配置、個別顏色配置。
 
-- 透過 Right-Click Create/OxGKit/Logging System/Create loggersconfig.conf (自動存於 StreamingAssets) 建立配置文件，方便真機修改 loggersconfig.conf 配置進行調適。
+- 透過 Right-Click Create/OxGKit/Logging System/[JSON - Plaintext] or [BYTES - Cipher] Create LoggerConfig.dat (In StreamingAssets) 建立配置文件，方便真機修改 LoggerConfig.dat 配置進行調適 (文件名稱與副檔名可透過 LoggingSettings 自定義)。
   - ![](Docs/img_7.png)
-- 透過 LoggingLauncher 進行配置或只直接修改 StreamingAssets/loggersconfig.conf 文件。
+- 透過 LoggingLauncher 進行配置或只直接修改 StreamingAssets/LoggerConfig.dat 文件。
 
 **Build 激活宏**
 
@@ -60,7 +67,7 @@ OxGKit 是基於 Unity 設計於遊戲開發常用的系統工具組 (皆為獨�
 
 LoggingLauncher 配置介面，可以配置 logActive (開關)、logLevel (級別)、logColor (顏色)。
 
-- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 StreamingAssets/loggersconfig.conf 進行日誌開關控制。 
+- 透過 Package Manager -> Samples 匯入 LoggingLauncher Prefab，再拖曳至場景上激活環境配置 (僅需激活一次)，會自動嘗試加載 StreamingAssets/LoggerConfig.dat 進行日誌開關控制。 
 
 Log Level 可切換為以下：
 
@@ -177,9 +184,9 @@ LoggingLauncher.TryLoadLoggers();
 // Reload LoggersConfig at Runtime (方式一)
 var loggersConfig = new LoggersConfig
 (
-    new LoggerSetting("LoggingDemo.Logger1", true, LogLevel.Log),
-    new LoggerSetting("LoggingDemo.Logger2", true, LogLevel.LogWarning),
-    new LoggerSetting("LoggingDemo.Logger3", true, LogLevel.Off)
+    new LoggerSettings("LoggingDemo.Logger1", true, LogLevel.LogDebug),
+    new LoggerSettings("LoggingDemo.Logger2", true, LogLevel.LogWarning),
+    new LoggerSettings("LoggingDemo.Logger3", true, LogLevel.Off)
 );
 LoggingLauncher.SetLoggersConfig(loggersConfig);
 
@@ -231,7 +238,7 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 
 **第三方庫 (需自行安裝)**
 
-- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [UniTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 ※備註 : Right-Click Create/OxGKit/Infinite ScrollView... (Template cs)
@@ -254,7 +261,7 @@ Reference: [howtungtung - InfiniteScrollView](https://github.com/howtungtung/Inf
 
 **第三方庫 (需自行安裝)**
 
-- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [UniTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **ActionSystem Demo**
@@ -318,7 +325,7 @@ https://github.com/michael811125/OxGKit/assets/30960759/c6966327-3ede-432e-b8fe-
 
 **第三方庫 (需自行安裝)**
 
-- 使用 [Unity New InputSystem v1.5.1 or higher](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/Installation.html)
+- 使用 [Unity New InputSystem v1.11.2 or higher](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.11/manual/Installation.html) (com.unity.inputsystem 為套件依賴, 安裝時會自動安裝)
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **InputSystem Demo**
@@ -329,14 +336,12 @@ https://github.com/michael811125/OxGKit/assets/30960759/20548ee4-b77b-4cda-8d49-
 
 ---
 
-## TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.Utilities)
+## TweenSystem (dependence DoTween Pro, LWMyBox, OxGKit.TimeSystem)
 
 補間動畫 (僅支持 [DoTween Pro](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416))。
 
 - Add Component/OxGKit/TweenSystem/DoTweenAnim
 - Add Component/OxGKit/TweenSystem/DoTweenAnimEvent
-
-**Highly Recommended [brunomikoski - Animation Sequencer](https://github.com/brunomikoski/Animation-Sequencer)**
 
 <!---
 **注意：建議先安裝 OxGKit.TweenSystemFixer，避免編譯失敗導致 MenuItem 無法顯示與啟用**
@@ -365,7 +370,7 @@ Preview Mode (Only DoTweenAnim component is supported)
 **第三方庫 (需自行安裝)**
 
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
-- 使用 OxGKit.Utilities, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/Utilities/Scripts to Package Manager
+- 使用 OxGKit.TimeSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts to Package Manager
 
 <!--- ### Create DoTween Assemblies (Must use TweenSystemFixer to fix GUID) --->
 
@@ -430,7 +435,7 @@ ButtonPlus 是基於繼承 Unity UGUI 的 Button 進行擴展的，功能擴展�
 
 https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-a9877f4ca254
 
-## TimeSystem
+## TimeSystem (dependence UniTask, OxGKit.LoggingSystem)
 
 各種 DeltaTimer, RealTimer, DTUpdater, RTUpdater, IntervalTimer, IntervalSetter, NtpTime (clock sync with NTP server) 關於時間的控制器。
 
@@ -441,6 +446,11 @@ https://github.com/michael811125/OxGKit/assets/30960759/891291af-1bb4-4515-bec6-
 | Install via git URL                                                                                      |
 |:-------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/TimeSystem/Scripts to Package Manager |
+
+**第三方庫 (需自行安裝)**
+
+- 使用 [UniTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **TimeSystem Demo**
 
@@ -462,7 +472,7 @@ Cursor 游標管理器，支持靜態與動態游標與各種狀態行為切換 
 
 https://github.com/user-attachments/assets/49e2a081-6d31-4ba6-8bb8-be60a148742c
 
-## PoolSystem
+## PoolSystem (dependence UniTask, LWMyBox, OxGKit.LoggingSystem)
 
 簡易 GameObject 物件池，支持異步分散幀加載 (負載平衡)。
 
@@ -473,6 +483,12 @@ https://github.com/user-attachments/assets/49e2a081-6d31-4ba6-8bb8-be60a148742c
 | Install via git URL                                                                                      |
 |:-------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/PoolSystem/Scripts to Package Manager |
+
+**第三方庫 (需自行安裝)**
+
+- 使用 [UniTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
+- 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 
 **PoolSystem Demo**
 
@@ -610,7 +626,7 @@ Reference: [annulusgames - EnhancedOnScreenStick](https://github.com/AnnulusGame
 |:------------------------------------------------------------------------------------------------------------- |
 | Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/VirtualJoystick/Scripts to Package Manager |
 
-## Utilities (dependence UniTask)
+## Utilities (dependence UniTask, LWMyBox, OxGKit.LoggingSystem)
 
 各通用組件 (Essential)。
 
@@ -637,7 +653,7 @@ Reference: [annulusgames - EnhancedOnScreenStick](https://github.com/AnnulusGame
 
 **第三方庫 (獨立安裝時，需自行安裝; 如果搭配 [OxGFrame](https://github.com/michael811125/OxGFrame) 則不需要額外安裝 UniTask)**
 
-- 使用 [UnitTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
+- 使用 [UniTask v2.5.0 or higher](https://github.com/Cysharp/UniTask)
 - 使用 [LWMyBox v1.1.4 or higher](https://github.com/michael811125/LWMyBox), Add https://github.com/michael811125/LWMyBox.git to Package Manager
 - 使用 OxGKit.LoggingSystem, Add https://github.com/michael811125/OxGKit.git?path=Assets/OxGKit/LoggingSystem/Scripts to Package Manager
 

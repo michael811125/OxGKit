@@ -86,7 +86,6 @@ this._panelAnim.PlayReverse(() => this.gameObject.SetActive(false));
 - `ignoreTimeScale` defaults to true per track — tweens run in pause menus unless you disable it.
 - For `Sequence` play mode, author the waypoint list in the track's sequence; `from`/`to` are ignored for that mode.
 - Editor preview only works on `DoTweenAnim`; runtime behavior can differ slightly (canvas layout, timeScale) — always verify in Play mode.
-- Consider `brunomikoski/Animation-Sequencer` (recommended by the author) for complex authored sequences; OxGKit.TweenSystem targets lightweight per-prefab tweens.
 
 ## Verify
 
